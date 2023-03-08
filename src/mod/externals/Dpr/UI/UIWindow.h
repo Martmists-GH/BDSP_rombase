@@ -1,0 +1,24 @@
+#pragma once
+
+#include "externals/il2cpp.h"
+#include "externals/UnityEngine/MonoBehaviour.h"
+
+namespace Dpr::UI {
+    struct UIWindow : IlClass<UIWindow> {
+        struct Fields : UnityEngine::MonoBehaviour::Fields {
+            void* _input;
+            void* _canvas;
+            void* _animator;
+            void* _animEvent;
+            int32_t _transitionFadeType;
+            int32_t _prevWindowId;
+            void* _messageWindow;
+            void* instance;
+            void* onClosed;
+            void* onPreClose;
+            bool _IsClosing_k__BackingField;
+            int32_t _animStateIn;
+            int32_t _animStateOut;
+        };
+    };
+}

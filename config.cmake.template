@@ -1,0 +1,42 @@
+# IP for logging
+set(LOGGER_IP 192.168.1.1)
+set(LOGGER_PORT 3080)
+
+# Switch IP for FTP
+set(FTP_IP 192.168.1.1)
+set(FTP_PORT 5000)
+set(FTP_USER abcd)
+set(FTP_PASS xyz123)
+
+# Modules
+add_module(
+        9                               # Module ID
+        RomBase                         # Module name
+        INCLUDE include/nn              # Include directories
+                include/game
+                include
+        SOURCE src/common/              # Source paths
+               src/common/exlaunch/
+               src/mod/
+        SOURCE_SHALLOW imgui/
+)
+add_module_variant(
+        RomBase                         # Module name
+        Diamond                         # Variant name
+        0100000011D90000                # Variant Title ID
+        "Pokemon Brilliant Diamond"     # Variant Game Name
+)
+# add_module_variant(
+#         TestMod
+#         Pearl
+#         010018E011D92000
+#         "Pokemon Shining Pearl"
+# )
+
+# Extra cmake code
+add_compile_definitions(
+    DIAMOND=0x0100000011D90000
+    PEARL=0x010018E011D92000
+    # Disable saving to test save migration and changelog
+    #DEBUG_DISABLE_SAVE
+)
