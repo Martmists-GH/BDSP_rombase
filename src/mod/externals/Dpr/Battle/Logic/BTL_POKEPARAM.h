@@ -1,6 +1,8 @@
 #pragma once
 
 #include "externals/il2cpp-api.h"
+#include "externals/System/Primitives.h"
+#include "externals/Pml/PokePara/PokemonParam.h"
 
 namespace Dpr::Battle::Logic {
     struct BTL_POKEPARAM : IlClass<BTL_POKEPARAM> {
