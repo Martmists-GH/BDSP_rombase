@@ -25,5 +25,9 @@ namespace UnityEngine {
         inline UnityEngine::Transform::Object* GetChild(int32_t index) {
             return external<UnityEngine::Transform::Object*>(0x0299f7d0, this, index);
         }
+
+        inline UnityEngine::Transform::Object* Find(System::String* name) {
+            return external<UnityEngine::Transform::Object*>(0x0299f500, this, name);
+        }
     };
 }
