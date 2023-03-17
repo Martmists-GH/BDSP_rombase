@@ -18,13 +18,6 @@ void migrate(CustomSaveData* save, PlayerWork::Object* playerWork) {
             zukan.male_flag->copyInto(save->dex.male_flag);
             zukan.female_flag->copyInto(save->dex.female_flag);
 
-            // Copy over trainer data
-            auto trainer = playerWork->fields._saveData.fields.tr_battleData;
-
-            Logger::log("tr_battleData max_length: %d\n", trainer->max_length);
-
-            trainer->copyInto((DPData::TR_BATTLE_DATA*)save->trainers);
-
             newVersion = ModVersion::Release_001;
             break;
         }

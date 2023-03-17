@@ -2,7 +2,6 @@
 
 #include "externals/PlayerWork.h"
 #include "dex_savedata.h"
-#include "trainer_savedata.h"
 
 enum ModVersion : int32_t {
     // Base game
@@ -16,14 +15,12 @@ enum ModVersion : int32_t {
 };
 
 constexpr int32_t DexSize = 905;
-constexpr int32_t TrainerSize = 5656;
 
 struct CustomSaveData {
     bool initialized;
     ModVersion version;
     // ONLY MAKE MODIFICATIONS TO SAVE FORMAT BELOW HERE, OTHERWISE YOU WILL BREAK SAVE COMPATIBILITY
     DexSaveData<DexSize> dex;  // start at 0
-    TrainerSaveData trainers[TrainerSize];
 };
 
 void migrate(CustomSaveData* data, PlayerWork::Object* playerWork);
