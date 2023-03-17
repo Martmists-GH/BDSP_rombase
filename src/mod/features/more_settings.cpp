@@ -13,11 +13,7 @@ HOOK_DEFINE_TRAMPOLINE(GetSetting) {
     static int32_t Callback(DPData::CONFIG::Object* __this, int32_t id) {
         switch (id) {
             case 14:
-                return !FlagWork::GetFlag(FLAG_DISABLE_EXP_SHARE) ? 0 : 1;
-            case 15:
-                return !FlagWork::GetFlag(FLAG_DISABLE_AFFECTION) ? 0 : 1;
-            case 16:
-                return !FlagWork::GetFlag(FLAG_DISABLE_LEVEL_CAP) ? 0 : 1;
+                return FlagWork::GetFlag(FLAG_AFFECTION_ENABLED);
             default:
                 return Orig(__this, id);
                 break;
@@ -29,13 +25,7 @@ HOOK_DEFINE_TRAMPOLINE(SetSetting) {
     static void Callback(DPData::CONFIG::Object* __this, int32_t id, int32_t value) {
         switch (id) {
             case 14:
-                FlagWork::SetFlag(FLAG_DISABLE_EXP_SHARE, value == 0 ? 1 : 0);
-                break;
-            case 15:
-                FlagWork::SetFlag(FLAG_DISABLE_AFFECTION, value == 0 ? 1 : 0);
-                break;
-            case 16:
-                FlagWork::SetFlag(FLAG_DISABLE_LEVEL_CAP, value == 0 ? 1 : 0);
+                FlagWork::SetFlag(FLAG_AFFECTION_ENABLED, value);
                 break;
             default:
                 Orig(__this, id, value);
@@ -48,8 +38,6 @@ HOOK_DEFINE_TRAMPOLINE(SettingIsEqual) {
     static bool Callback(DPData::CONFIG::Object* __this, int32_t id, DPData::CONFIG::Object* other) {
         switch (id) {
             case 14:
-            case 15:
-            case 16:
                 // TODO: Rewrite to support comparisons, otherwise reverting settings does not work
                 return true;
             default:
@@ -107,10 +95,10 @@ HOOK_DEFINE_TRAMPOLINE(AddSettingsEntries) {
             return res;
         }
 
+        // NOTE: This requires the strings SS_option_109 and SS_option_110, otherwise this will crash!!
+
         std::vector<const char*> onOffNames = { "SS_option_007", "SS_option_008" };
-        AddSetting(__this, 14, FlagWork::GetFlag(FLAG_DISABLE_EXP_SHARE) ? 0 : 1, "SS_option_110", "SS_option_113", onOffNames, 1);
-        AddSetting(__this, 15, FlagWork::GetFlag(FLAG_DISABLE_AFFECTION) ? 0 : 1, "SS_option_109", "SS_option_112", onOffNames, 2);
-        AddSetting(__this, 16, FlagWork::GetFlag(FLAG_DISABLE_LEVEL_CAP) ? 0 : 1, "SS_option_111", "SS_option_114", onOffNames, 3);
+        AddSetting(__this, 14, FlagWork::GetFlag(FLAG_AFFECTION_ENABLED) ? 0 : 1, "SS_option_109", "SS_option_110", onOffNames, 1);
 
         return res;
     }

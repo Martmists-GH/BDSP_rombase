@@ -1,8 +1,6 @@
-# ExLaunch - Luminescent
+# BDSP Mod Base
 
-This repository contains a fork of Martmists-GH's [BDSP_rombase](https://github.com/Martmists-GH/BDSP_rombase), a base for BDSP mods based on Sigma Platinum. This mod base is free to use by anyone under the terms of the [BSD-3-Clause license](./LICENSE).
-
-It has been modified to be used for Pokémon Luminescent.
+This repository is a base for BDSP mods based on Sigma Platinum, but free to use by anyone under the terms of the [BSD-3-Clause license](./LICENSE).
 
 ### Features
 
@@ -38,9 +36,3 @@ You must repeat this for the projects mentioned in [NOTICE](./NOTICE) as well.
 
 
 The authors of this project also wish to discourage others from sub-licensing derivative works under copyleft licenses, such as the GPL, as to encourage the open sharing of code.
-
-### Credits
-
-- Martmists-GH - The initial [BDSP_rombase](https://github.com/Martmists-GH/BDSP_rombase) repository
-- shadowninja108 - The initial [exlaunch](https://github.com/shadowninja108/exlaunch) repository
-- craftyboss - The [scarlet-exlaunch-base](https://github.com/craftyboss/scarlet-exlaunch-base) repository, with minor modifications that have been made to make IMGui work on BDSP
