@@ -98,7 +98,7 @@ HOOK_DEFINE_TRAMPOLINE(AddSettingsEntries) {
         // NOTE: This requires the strings SS_option_109 and SS_option_110, otherwise this will crash!!
 
         std::vector<const char*> onOffNames = { "SS_option_007", "SS_option_008" };
-        AddSetting(__this, 14, FlagWork::GetFlag(FLAG_AFFECTION_ENABLED) ? 0 : 1, "SS_option_109", "SS_option_110", onOffNames, 1);
+        AddSetting(__this, 14, FlagWork::GetFlag(FLAG_AFFECTION_ENABLED), "SS_option_109", "SS_option_110", onOffNames, 1);
 
         return res;
     }
