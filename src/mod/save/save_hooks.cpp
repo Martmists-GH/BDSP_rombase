@@ -61,13 +61,22 @@ void load_default_custom_data(PlayerWork::Object* playerWork) {
 HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
     static bool Callback(PlayerWork::Object* playerWork) {
         bool success = Orig(playerWork);
-
+        Logger::log("Loading...\n");
         if (success) {
-            if (FsHelper::isFileExist("SaveData:/Custom.bin")) {
-                long size = std::max(FsHelper::getFileSize("SaveData:/Custom.bin"),
+            const char* fileToLoad;
+            if (!playerWork->fields._isBackupSave) {
+                Logger::log("Loading from Main...\n");
+                fileToLoad = "SaveData:/Custom.bin";
+            } else {
+                Logger::log("Loading from Backup...\n");
+                fileToLoad = "SaveData:/Custom_Backup.bin";
+            }
+
+            if (FsHelper::isFileExist(fileToLoad)) {
+                long size = std::max(FsHelper::getFileSize(fileToLoad),
                                      (long)sizeof(CustomSaveData));
                 FsHelper::LoadData data {
-                    .path = "SaveData:/Custom.bin",
+                    .path = fileToLoad,
                     .alignment = 0x1000,
                     .bufSize = size,
                 };
@@ -85,13 +94,31 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
     }
 };
 
-HOOK_DEFINE_REPLACE(PatchExistingSaveData__Save) {
-    static void Callback(PlayerWork::Object* playerWork, System_Byte_array** save_ptr) {
-        char buffer[sizeof(CustomSaveData)];
-        save_custom_data(buffer);
-        FsHelper::writeFileToPath(buffer, sizeof(buffer), "SaveData:/Custom.bin");
+HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
+    static void Callback(PlayerWork::Object* playerWork) {
+        Orig(playerWork);
+        
+        Logger::log("Saving...\n");
+        Logger::log("playerWork: %08X\n", playerWork);
+        Logger::log("isMain: %d, isBackup: %d\n", playerWork->fields._isMainSave, playerWork->fields._isBackupSave);
+
+        if (playerWork->fields._isMainSave) {
+            Logger::log("Saving in Main...\n");
+            char buffer[sizeof(CustomSaveData)];
+            save_custom_data(buffer);
+            FsHelper::writeFileToPath(buffer, sizeof(buffer), "SaveData:/Custom.bin");
+        }
+        
+        if (playerWork->fields._isBackupSave) {
+            Logger::log("Saving in Backup...\n");
+            char buffer[sizeof(CustomSaveData)];
+            save_custom_data(buffer);
+            FsHelper::writeFileToPath(buffer, sizeof(buffer), "SaveData:/Custom_Backup.bin");
+        }
+        Logger::log("Done Saving...\n");
 
         // TODO: Restore Playerwork to use default sizes
+        
     }
 };
 
@@ -104,7 +131,7 @@ HOOK_DEFINE_REPLACE(PatchExistingSaveData__Verify) {
 void exl_save_main() {
     PatchExistingSaveData__Load::InstallAtOffset(0x02ceb850);
 #ifndef DEBUG_DISABLE_SAVE  // Allow disabling the saving to test the save migration code
-    PatchExistingSaveData__Save::InstallAtOffset(0x02cebff0);
+    PatchExistingSaveData__Save::InstallAtOffset(0x02cec400);
 #endif
     PatchExistingSaveData__Verify::InstallAtOffset(0x02ceba00);
 }
