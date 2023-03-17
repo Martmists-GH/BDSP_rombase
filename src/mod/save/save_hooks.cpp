@@ -61,18 +61,11 @@ void load_default_custom_data(PlayerWork::Object* playerWork) {
 HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
     static bool Callback(PlayerWork::Object* playerWork) {
         bool success = Orig(playerWork);
-        Logger::log("Loading...\n");
         if (success) {
-            Logger::log("playerWork: %08X\n", playerWork);
-            Logger::log("Is Main:%d, Is Backup:%d\n", playerWork->fields._isMainSave, playerWork->fields._isBackupSave);
-            Logger::log("Is Main:%d, Is Backup:%d\n", ((char*)playerWork)[0x828], ((char*)playerWork)[0x829]);
-
             const char* fileToLoad;
             if (!((char*)playerWork)[0x829]) {
-                Logger::log("Loading from Main...\n");
                 fileToLoad = "SaveData:/Custom.bin";
             } else {
-                Logger::log("Loading from Backup...\n");
                 fileToLoad = "SaveData:/Custom_Backup.bin";
             }
 
@@ -101,26 +94,18 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
 HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
     static void Callback(PlayerWork::Object* playerWork) {
         Orig(playerWork);
-        Logger::log("Saving...\n");
-
-        Logger::log("playerWork: %08X\n", playerWork);
-        Logger::log("Is Main:%d, Is Backup:%d\n", playerWork->fields._isMainSave, playerWork->fields._isBackupSave);
-        Logger::log("Is Main:%d, Is Backup:%d\n", ((char*)playerWork)[0x828], ((char*)playerWork)[0x829]);
         
         if (((char*)playerWork)[0x828]) {  // _isMainSave
-            Logger::log("Saving in Main...\n");
             char buffer[sizeof(CustomSaveData)];
             save_custom_data(buffer);
             FsHelper::writeFileToPath(buffer, sizeof(buffer), "SaveData:/Custom.bin");
         }
         
         if (((char*)playerWork)[0x829]) {  // _isBackupSave
-            Logger::log("Saving in Backup...\n");
             char buffer[sizeof(CustomSaveData)];
             save_custom_data(buffer);
             FsHelper::writeFileToPath(buffer, sizeof(buffer), "SaveData:/Custom_Backup.bin");
         }
-        Logger::log("Done Saving...\n");
 
         // TODO: Restore Playerwork to use default sizes
         
@@ -141,6 +126,8 @@ void exl_save_main() {
 #endif
     PatchExistingSaveData__Verify::InstallAtOffset(0x02ceba00);
 
-    exl::patch::CodePatcher p(0x02cebfcc);
-    p.WriteInst(exl::armv8::inst::MovRegister(exl::armv8::reg::W8, exl::armv8::reg::W8));
+    exl::patch::CodePatcher p1(0x02cebfcc);
+    p1.WriteInst(exl::armv8::inst::Nop());
+    exl::patch::CodePatcher p2(0x02ceb9dc);
+    p2.WriteInst(exl::armv8::inst::Nop());
 }
