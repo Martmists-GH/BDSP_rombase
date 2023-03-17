@@ -8,6 +8,7 @@
 #include "externals/Dpr/Box/SaveBoxData.h"
 #include "externals/DPData/PLAYER_DATA.h"
 #include "externals/DPData/ZUKAN_WORK.h"
+#include "externals/DPData/TR_BATTLE_DATA.h"
 #include "externals/DPData/TOPMENU_WORK.h"
 #include "externals/DPData/_FIELDOBJ_SAVE.h"
 #include "externals/DPData/RECORD.h"
@@ -42,7 +43,7 @@
 #include "externals/DPData/TV_DATA.h"
 #include "externals/Dpr/BallDeco/SaveBallDecoExtraData.h"
 
-struct PlayerWork : IlClass<PlayerWork> {
+struct PlayerWork : IlClass<PlayerWork, 0x04c59b58> {
     struct SaveData : IlStruct<SaveData> {
         struct Fields {
             int32_t version;
@@ -60,7 +61,7 @@ struct PlayerWork : IlClass<PlayerWork> {
             void* boxTray;
             DPData::PLAYER_DATA::Object playerData;
             DPData::ZUKAN_WORK::Object zukanData;
-            void* tr_battleData;
+            DPData::TR_BATTLE_DATA_array* tr_battleData;
             DPData::TOPMENU_WORK::Object topMenuData;
             DPData::_FIELDOBJ_SAVE::Object fieldObj_Save;
             DPData::RECORD_ARRAY::Object record;
@@ -140,6 +141,10 @@ struct PlayerWork : IlClass<PlayerWork> {
 
     static inline DPData::ZUKAN_WORK::Object* get_zukan() {
         return external<DPData::ZUKAN_WORK::Object*>(0x02cf1040);
+    }
+
+    static inline DPData::TR_BATTLE_DATA::Object** get_tr_battleData() {
+        return external<DPData::TR_BATTLE_DATA::Object**>(0x02cf1bd0);
     }
 
     static inline void SetWarpSorawotobu(int32_t mapID, int32_t warpID) {
