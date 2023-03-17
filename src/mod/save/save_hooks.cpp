@@ -63,8 +63,12 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
         bool success = Orig(playerWork);
         Logger::log("Loading...\n");
         if (success) {
+            Logger::log("playerWork: %08X\n", playerWork);
+            Logger::log("Is Main:%d, Is Backup:%d\n", playerWork->fields._isMainSave, playerWork->fields._isBackupSave);
+            Logger::log("Is Main:%d, Is Backup:%d\n", ((char*)playerWork)[0x828], ((char*)playerWork)[0x829]);
+
             const char* fileToLoad;
-            if (!playerWork->fields._isBackupSave) {
+            if (!((char*)playerWork)[0x829]) {
                 Logger::log("Loading from Main...\n");
                 fileToLoad = "SaveData:/Custom.bin";
             } else {
@@ -97,19 +101,20 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
 HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
     static void Callback(PlayerWork::Object* playerWork) {
         Orig(playerWork);
-        
         Logger::log("Saving...\n");
-        Logger::log("playerWork: %08X\n", playerWork);
-        Logger::log("isMain: %d, isBackup: %d\n", playerWork->fields._isMainSave, playerWork->fields._isBackupSave);
 
-        if (playerWork->fields._isMainSave) {
+        Logger::log("playerWork: %08X\n", playerWork);
+        Logger::log("Is Main:%d, Is Backup:%d\n", playerWork->fields._isMainSave, playerWork->fields._isBackupSave);
+        Logger::log("Is Main:%d, Is Backup:%d\n", ((char*)playerWork)[0x828], ((char*)playerWork)[0x829]);
+        
+        if (((char*)playerWork)[0x828]) {  // _isMainSave
             Logger::log("Saving in Main...\n");
             char buffer[sizeof(CustomSaveData)];
             save_custom_data(buffer);
             FsHelper::writeFileToPath(buffer, sizeof(buffer), "SaveData:/Custom.bin");
         }
         
-        if (playerWork->fields._isBackupSave) {
+        if (((char*)playerWork)[0x829]) {  // _isBackupSave
             Logger::log("Saving in Backup...\n");
             char buffer[sizeof(CustomSaveData)];
             save_custom_data(buffer);
@@ -132,6 +137,10 @@ void exl_save_main() {
     PatchExistingSaveData__Load::InstallAtOffset(0x02ceb850);
 #ifndef DEBUG_DISABLE_SAVE  // Allow disabling the saving to test the save migration code
     PatchExistingSaveData__Save::InstallAtOffset(0x02cec400);
+    PatchExistingSaveData__Save::InstallAtOffset(0x02cebf00);
 #endif
     PatchExistingSaveData__Verify::InstallAtOffset(0x02ceba00);
+
+    exl::patch::CodePatcher p(0x02cebfcc);
+    p.WriteInst(exl::armv8::inst::MovRegister(exl::armv8::reg::W8, exl::armv8::reg::W8));
 }
