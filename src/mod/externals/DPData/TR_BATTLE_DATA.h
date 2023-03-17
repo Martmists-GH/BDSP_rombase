@@ -7,6 +7,4 @@ namespace DPData {
             bool IsBattleSearcher;
         };
     };
-
-    PRIMITIVE_ARRAY(TR_BATTLE_DATA);
 }
