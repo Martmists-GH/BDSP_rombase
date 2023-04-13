@@ -12,16 +12,16 @@ namespace UnityEngine::UI {
 
         };
 
-        static ILMethod<0x04c71978, System::Collections::Generic::List$$Component> Method$$Component$$Get;
-        static ILMethod<0x04c8efd8, System::Collections::Generic::List$$Component> Method$$Component$$Release;
+        static inline StaticILMethod<0x04c71978, System::Collections::Generic::List$$Component> Method$$Component$$Get {};
+        static inline StaticILMethod<0x04c8efd8, System::Collections::Generic::List$$Component> Method$$Component$$Release {};
 
-        template <intptr_t A, typename L>
-        static L::Object* Get(ILMethod<A, L>& method) {
+        template <typename L>
+        static L::Object* Get(ILMethod<L>& method) {
             return external<typename L::Object*>(0x0254ae10, *method);
         }
 
-        template <intptr_t A, typename L>
-        static void Release(L* obj, ILMethod<A, L>& method) {
+        template <typename L>
+        static void Release(L* obj, ILMethod<L>& method) {
             return external<void>(0x0254afa0, obj, *method);
         }
     };

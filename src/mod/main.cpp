@@ -39,7 +39,6 @@ HOOK_DEFINE_REPLACE(NoAction) {
 };
 
 extern "C" void exl_main(void* x0, void* x1) {
-    envSetOwnProcessHandle(exl::util::proc_handle::Get());
     exl::hook::Initialize();
 
     if (!is_game_version(DIAMOND, "1.3.0")) {

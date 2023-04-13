@@ -34,8 +34,9 @@ static VirtmemReservation *g_Reservations;
 static bool g_IsLegacyKernel;
 
 uintptr_t __virtmem_rng(void) {
-    /* lol. */
-    return svcGetSystemTick();
+    /* Lazy. */
+    extern u64 exl_random();
+    return exl_random();
 }
 
 static Result _memregionInitWithInfo(MemRegion* r, InfoType id0_addr, InfoType id0_sz) {
@@ -113,10 +114,8 @@ static void* _memregionFindRandom(MemRegion* r, size_t size, size_t guard_size) 
 
     // Ensure the requested size isn't greater than the memory region itself...
     uintptr_t region_size = r->end - r->start;
-    if (size > region_size) {
-        exl_abort(-1);
+    if (size > region_size)
         return NULL;
-    }
 
     // Main allocation loop.
     uintptr_t aslr_max_page_offset = (region_size - size) >> 12;
@@ -151,7 +150,6 @@ static void* _memregionFindRandom(MemRegion* r, size_t size, size_t guard_size) 
         return (void*)cur_addr;
     }
 
-    exl_abort(-2);
     return NULL;
 }
 

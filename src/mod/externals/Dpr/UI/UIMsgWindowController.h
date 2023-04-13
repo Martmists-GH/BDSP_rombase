@@ -17,7 +17,7 @@ namespace Dpr::UI {
             void* continueMessageOnSets;
         };
 
-        void ctor() {
+        inline void ctor() {
             external<void>(0x01a140a0, this);
         }
     };

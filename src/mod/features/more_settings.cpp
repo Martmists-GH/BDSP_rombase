@@ -65,24 +65,24 @@ HOOK_DEFINE_TRAMPOLINE(AddSettingsEntries) {
         auto child = contentRoot->cast<UnityEngine::Transform>()->GetChild(4);
 
         // TODO: Clean up this logic to be easier to use, maybe an external setting structure?
-        auto origItem = child->cast<UnityEngine::Component>()->GetComponent(UnityEngine::Component::Method$$SettingMenuItem$$GetComponent);
+        auto origItem = child->GetComponent(UnityEngine::Component::Method$$SettingMenuItem$$GetComponent);
 
         auto newTransform = UnityEngine::_Object::Instantiate<UnityEngine::Transform>(child);
         newTransform->SetParent(contentRoot->cast<UnityEngine::Transform>(), false);
 
-        Dpr::UI::SettingMenuItem::Object* newItem = newTransform->cast<UnityEngine::Component>()->GetComponent(UnityEngine::Component::Method$$SettingMenuItem$$GetComponent);
+        Dpr::UI::SettingMenuItem::Object* newItem = newTransform->GetComponent(UnityEngine::Component::Method$$SettingMenuItem$$GetComponent);
         newItem->Setup(14, FlagWork::GetFlag(FLAG_AFFECTION_ENABLED), System::String::Create("SS_option_113"), origItem->fields._onValueChanged);
         auto textRoot = newTransform->GetChild(1);
         auto title = textRoot->GetChild(0);
         system_load_typeinfo(0x870a);
-        auto titleComponent = title->cast<UnityEngine::Component>()->GetComponent(UnityEngine::Component::Method$$UIText$$GetComponent);
+        auto titleComponent = title->GetComponent(UnityEngine::Component::Method$$UIText$$GetComponent);
         titleComponent->SetupMessage(
             System::String::Create("ss_option"),
             System::String::Create("SS_option_109")
         );
-        auto options = textRoot->GetChild(1)->GetChild(0);
+        auto options = textRoot->GetChild({ 1, 0 });
         for (int i = 0; i < 2; i++) {
-            auto option = options->GetChild(i)->GetChild(0)->cast<UnityEngine::Component>()->GetComponent(UnityEngine::Component::Method$$UIText$$GetComponent);
+            auto option = options->GetChild({ i, 0 })->GetComponent(UnityEngine::Component::Method$$UIText$$GetComponent);
             option->SetupMessage(
                 System::String::Create("ss_option"),
                 System::String::Create("SS_option_" + std::to_string(110 + i))

@@ -22,9 +22,8 @@ __module_start:
     .align 4
     .ascii "~~exlaunch uwu~~"
     .align 4
-    .ascii "Based on Sigma Platinum"
+    .ascii "Based on Sigma Platinum "
 
-.align 4
 entrypoint:
    // Arguments on NSO entry:
     //   x0=zero                  | x1=main thread handle

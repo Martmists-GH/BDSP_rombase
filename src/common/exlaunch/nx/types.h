@@ -5,7 +5,7 @@
  */
 #pragma once
 
-#include "../../../include/types.h"
+#include "nn/../types.h"
 
 #include <stddef.h>
 #include <stdalign.h>

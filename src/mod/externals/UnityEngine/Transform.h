@@ -2,6 +2,7 @@
 
 #include "externals/il2cpp-api.h"
 #include "externals/UnityEngine/Component.h"
+#include "Vector3.h"
 
 
 namespace UnityEngine {
@@ -24,6 +25,33 @@ namespace UnityEngine {
 
         inline UnityEngine::Transform::Object* GetChild(int32_t index) {
             return external<UnityEngine::Transform::Object*>(0x0299f7d0, this, index);
+        }
+
+        UnityEngine::Transform::Object* GetChild(std::initializer_list<std::int32_t> index) {
+            UnityEngine::Transform* transform = this;
+            for (int32_t i : index) {
+                transform = transform->GetChild(i);
+            }
+            return transform->instance();
+        }
+
+        inline void Translate(UnityEngine::Vector3* translation) {
+            external<void>(0x0299e630, this, translation);
+        }
+
+        template <typename T>
+        inline T::Object* GetComponent() {
+            return this->cast<UnityEngine::Component>()->GetComponent<T>();
+        }
+
+        template <typename T>
+        inline T::Object* GetComponent(ILMethod<T>& method) {
+            return this->cast<UnityEngine::Component>()->GetComponent<T>(method);
+        }
+
+        template <typename T>
+        inline T::Object* GetComponent(T::Class* klass) {
+            return this->cast<UnityEngine::Component>()->GetComponent<T>(klass);
         }
     };
 }

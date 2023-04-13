@@ -17,7 +17,7 @@ namespace Dpr::UI {
                 int32_t stateNew;
             };
 
-            void ctor() {
+            inline void ctor() {
                 external<void>(0x01874ee0, this);
             }
         };

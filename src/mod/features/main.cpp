@@ -12,4 +12,5 @@ void exl_features_main() {
     exl_settings_main();
     exl_il2cpp_log_main();
     exl_sounds_main();
+    exl_poketch_main();
 }

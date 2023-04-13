@@ -7,9 +7,21 @@
 #include "il2cpp.h"
 
 extern void (*system_load_typeinfo)(long obj);
-extern void* (*system_array_new)(long type, long length);
-extern void* (*il2cpp_object_new)(void* klass);
-extern void (*il2cpp_runtime_class_init)(void* klass);
+extern void* (*system_array_new_raw)(Il2CppClass* type, long length);
+extern void* (*il2cpp_object_new_raw)(Il2CppClass* klass);
+extern void (*il2cpp_runtime_class_init_raw)(Il2CppClass* klass);
+
+template <typename T>
+inline T::Array* system_array_new(typename T::Class* type, long length) { return reinterpret_cast<T::Array*(*)(Il2CppClass*, long)>(system_array_new_raw)(type, length); }
+inline void* system_array_new(Il2CppClass* type, long length) { return reinterpret_cast<void*(*)(Il2CppClass*, long)>(system_array_new_raw)(type, length); }
+
+template <typename T>
+inline T::Object* il2cpp_object_new(typename T::Class* klass) { return reinterpret_cast<T::Object*(*)(Il2CppClass*)>(il2cpp_object_new_raw)(klass); }
+inline void* il2cpp_object_new(Il2CppClass* klass) { return reinterpret_cast<void*(*)(Il2CppClass*)>(il2cpp_object_new_raw)(klass); }
+
+template <typename T>
+inline void il2cpp_runtime_class_init(typename T::Class* klass) { reinterpret_cast<void(*)(Il2CppClass*)>(il2cpp_runtime_class_init_raw)(klass); }
+inline void il2cpp_runtime_class_init(Il2CppClass* klass) { reinterpret_cast<void(*)(Il2CppClass*)>(il2cpp_runtime_class_init_raw)(klass); }
 
 
 struct _IlExternal {
@@ -46,15 +58,6 @@ public:
 
 template <typename T, long TypeInfo = 0>
 struct IlClass : _IlExternal {
-private:
-    static inline void* il2cpp_object_new(void* klass) {
-        return external<void*>(0x00266700);
-    }
-
-    static inline void il2cpp_runtime_class_init(void* klass) {
-        external<void>(0x002afbe0, klass);
-    }
-
 protected:
     IlClass() = default;
 
@@ -73,8 +76,15 @@ public:
 
         inline void initIfNeeded() {
             if ((_2.bitflags2 >> 1 & 1) && (_2.cctor_finished == 0)) {
-                il2cpp_runtime_class_init(this);
+                il2cpp_runtime_class_init((Il2CppClass*)this);
             }
+        }
+
+        template <typename... Args>
+        T::Object* newInstance(Args... args) {
+            auto obj = reinterpret_cast<T::Object*>(il2cpp_object_new((Il2CppClass*)this));
+            obj->ctor(args...);
+            return obj;
         }
     };
 
@@ -84,15 +94,13 @@ public:
         T::Fields fields;
     };
 
-//    static_assert(offsetof(_Object, klass) == 0, "_Object::klass offset is incorrect");
-
     struct Array {
         Il2CppObject obj;
         Il2CppArrayBounds* bounds;
         uint64_t max_length;
         T::Object* m_Items[1];
 
-        inline void copyInto(T::Object* dst) {
+        inline void copyInto(T::Object** dst) {
             for (long i = 0; i < max_length; i++) {
                 dst[i] = m_Items[i];
             }
@@ -113,9 +121,7 @@ public:
     static Object* newInstance(Args... args) {
         auto klass = getClass();
         klass->initIfNeeded();
-        auto obj = reinterpret_cast<T::Object*>(il2cpp_object_new(klass));
-        obj->ctor(args...);
-        return obj;
+        return klass->newInstance(args...);
     }
 
     static Class* getClass() {
@@ -137,16 +143,28 @@ struct name##_array {                                       \
     }                                                       \
 };
 
-template <long MI, typename... Args>
+template <typename... Args>
 struct ILMethod {
-    inline MethodInfo& operator*() {
-        return **reinterpret_cast<MethodInfo**>(exl::util::modules::GetTargetOffset(MI));
+    explicit ILMethod(MethodInfo* method) : method(method) { }
+
+    virtual MethodInfo* operator*() {
+        return method;
     }
 
-    MethodInfo* getCopy(Il2CppMethodPointer function) {
-        auto m = new MethodInfo;
-        memcpy(m, *this, sizeof(MethodInfo));
-        m->methodPointer = function;
-        return m;
+    MethodInfo* copyWith(Il2CppMethodPointer function) {
+        return method->copyWith(function);
+    }
+
+private:
+    MethodInfo* method;
+};
+
+template <long MI, typename... Args>
+struct StaticILMethod : ILMethod<Args...> {
+    StaticILMethod() : ILMethod<Args...>(nullptr) { }
+
+    MethodInfo* operator*() override {
+        auto ptr = (MethodInfo**)exl::util::modules::GetTargetOffset(MI);
+        return *ptr;
     }
 };

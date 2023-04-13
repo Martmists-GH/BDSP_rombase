@@ -38,7 +38,7 @@ namespace Dpr::UI {
 
 namespace System::Collections::Generic {
     struct List$$SettingMenuItem : List<List$$SettingMenuItem, Dpr::UI::SettingMenuItem> {
-        static ILMethod<0x04c89908> Method$$Add;
+        static inline StaticILMethod<0x04c89908> Method$$Add {};
 
         void insert(Dpr::UI::SettingMenuItem* elem, int32_t pos) {
             this->Add(elem);
