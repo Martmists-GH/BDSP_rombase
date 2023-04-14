@@ -24,7 +24,7 @@ inline void il2cpp_runtime_class_init(typename T::Class* klass) { reinterpret_ca
 inline void il2cpp_runtime_class_init(Il2CppClass* klass) { reinterpret_cast<void(*)(Il2CppClass*)>(il2cpp_runtime_class_init_raw)(klass); }
 
 
-struct _IlExternal {
+struct _ILExternal {
     char _zeroSizedFilled[0];
 
     template <typename Ret, typename... Args>
@@ -34,7 +34,7 @@ struct _IlExternal {
 };
 
 template <typename T>
-struct IlStruct : _IlExternal  {
+struct ILStruct : _ILExternal  {
 public:
     struct Fields { };
 
@@ -53,13 +53,46 @@ public:
                 dst[i] = m_Items[i];
             }
         }
+
+        struct iterator {
+            using iterator_category = std::forward_iterator_tag;
+            using difference_type = ptrdiff_t;
+            using value_type = T::Object;
+            using pointer = value_type*;
+            using reference = value_type&;
+
+            explicit iterator(T::Object* ptr) : m_ptr(ptr) {}
+
+            reference operator*() const { return *m_ptr; }
+            pointer operator->() { return m_ptr; }
+            iterator& operator++() { m_ptr++; return *this; }
+            iterator operator++(int) { iterator tmp = *this; m_ptr++; return tmp; }
+
+            friend bool operator==(const iterator& a, const iterator& b) {
+                return a.m_ptr == b.m_ptr;
+            }
+            friend bool operator!=(const iterator& a, const iterator& b) {
+                return a.m_ptr != b.m_ptr;
+            }
+
+        private:
+            T::Object* m_ptr;
+        };
+
+        iterator begin() {
+            return iterator(&this->m_Items[0]);
+        }
+
+        iterator end() {
+            return iterator(&this->m_Items[this->max_length]);
+        }
     };
 };
 
 template <typename T, long TypeInfo = 0>
-struct IlClass : _IlExternal {
+struct ILClass : _ILExternal {
 protected:
-    IlClass() = default;
+    ILClass() = default;
 
 public:
     struct StaticFields { };
@@ -104,6 +137,39 @@ public:
             for (long i = 0; i < max_length; i++) {
                 dst[i] = m_Items[i];
             }
+        }
+
+        struct iterator {
+            using iterator_category = std::forward_iterator_tag;
+            using difference_type = ptrdiff_t;
+            using value_type = T::Object;
+            using pointer = value_type*;
+            using reference = value_type&;
+
+            explicit iterator(T::Object** ptr) : m_ptr(ptr) {}
+
+            reference operator*() const { return **m_ptr; }
+            pointer operator->() { return *m_ptr; }
+            iterator& operator++() { m_ptr++; return *this; }
+            iterator operator++(int) { iterator tmp = *this; m_ptr++; return tmp; }
+
+            friend bool operator==(const iterator& a, const iterator& b) {
+                return a.m_ptr == b.m_ptr;
+            }
+            friend bool operator!=(const iterator& a, const iterator& b) {
+                return a.m_ptr != b.m_ptr;
+            }
+
+        private:
+            T::Object** m_ptr;
+        };
+
+        iterator begin() {
+            return iterator(&this->m_Items[0]);
+        }
+
+        iterator end() {
+            return iterator(&this->m_Items[this->max_length]);
         }
     };
 

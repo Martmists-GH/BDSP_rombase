@@ -11,8 +11,8 @@
 #include "externals/UnityEngine/Color32.h"
 
 namespace Dpr::UI {
-    struct PoketchWindow : IlClass<PoketchWindow> {
-        struct _OpOpen_d__94 : IlClass<_OpOpen_d__94> {
+    struct PoketchWindow : ILClass<PoketchWindow> {
+        struct _OpOpen_d__94 : ILClass<_OpOpen_d__94> {
             struct Fields {
                 int32_t __1__state;
                 Il2CppObject* __2__current;

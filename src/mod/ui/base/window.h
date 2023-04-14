@@ -16,6 +16,7 @@
 #include "ui/components/string_view.h"
 #include "ui/components/file_selector.h"
 #include "ui/components/element_inspector.h"
+#include "helpers.h"
 
 static ImVec2 gInvalidVec { -1, -1 };
 
@@ -24,6 +25,7 @@ namespace ui {
         std::string title;
         bool open = false;
         bool toggleable = true;
+        bool allow_static = false;
         ImGuiWindowFlags flags = ImGuiWindowFlags_NoCollapse;
         ImVec2 initialSize = gInvalidVec;
         ImVec2 initialPos = gInvalidVec;
@@ -34,6 +36,10 @@ namespace ui {
 
         bool beginDraw() override {
             if (toggleable && !open) {
+                return false;
+            }
+
+            if (!allow_static && !InputHelper::isInputToggled()) {
                 return false;
             }
 

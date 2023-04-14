@@ -4,7 +4,7 @@
 
 
 namespace Pml {
-    struct PmlUse : IlClass<PmlUse> {
+    struct PmlUse : ILClass<PmlUse> {
 
         static inline PmlUse::Object* get_Instance() {
             return external<PmlUse::Object*>(0x024a0110);

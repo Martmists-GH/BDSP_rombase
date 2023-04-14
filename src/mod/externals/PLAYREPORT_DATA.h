@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-struct PLAYREPORT_DATA : IlStruct<PLAYREPORT_DATA> {
+struct PLAYREPORT_DATA : ILStruct<PLAYREPORT_DATA> {
     struct Fields {
         int64_t capture_symbol;
         int64_t capture_wild;

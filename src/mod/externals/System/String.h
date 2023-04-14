@@ -6,7 +6,7 @@
 #include "externals/System/Text/Encoding.h"
 
 namespace System {
-    struct String : IlClass<String> {
+    struct String : ILClass<String> {
         struct Fields {
             int32_t m_stringLength;
             int16_t m_firstChar;

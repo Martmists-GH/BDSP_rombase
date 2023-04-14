@@ -1,7 +1,7 @@
 #pragma once
 
 namespace DPData {
-    struct INTERVIEWER_DATA : IlStruct<INTERVIEWER_DATA> {
+    struct INTERVIEWER_DATA : ILStruct<INTERVIEWER_DATA> {
         struct Fields {
             void* program_data;
             void* int_data;

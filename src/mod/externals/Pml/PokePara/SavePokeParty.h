@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace Pml::PokePara {
-    struct SavePokeParty : IlStruct<SavePokeParty> {
+    struct SavePokeParty : ILStruct<SavePokeParty> {
         struct Fields {
             void* members;
             uint8_t memberCount;

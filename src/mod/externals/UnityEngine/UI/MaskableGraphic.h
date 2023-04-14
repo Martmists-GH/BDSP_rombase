@@ -5,7 +5,7 @@
 #include "externals/UnityEngine/Vector3.h"
 
 namespace UnityEngine::UI {
-    struct MaskableGraphic : IlClass<MaskableGraphic> {
+    struct MaskableGraphic : ILClass<MaskableGraphic> {
         struct Fields : UnityEngine::UI::Graphic::Fields {
             bool m_ShouldRecalculateStencil;
             void* m_MaskMaterial;

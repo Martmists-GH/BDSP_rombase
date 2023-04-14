@@ -4,9 +4,9 @@
 #include "externals/UnityEngine/Behaviour.h"
 
 namespace UnityEngine {
-    struct MonoBehaviour : IlClass<MonoBehaviour> {
+    struct MonoBehaviour : ILClass<MonoBehaviour> {
         struct Fields : public UnityEngine::Behaviour::Fields {
-            // TODO
+
         };
     };
 }

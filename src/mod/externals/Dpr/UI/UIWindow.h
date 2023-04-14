@@ -4,7 +4,7 @@
 #include "externals/UnityEngine/MonoBehaviour.h"
 
 namespace Dpr::UI {
-    struct UIWindow : IlClass<UIWindow> {
+    struct UIWindow : ILClass<UIWindow> {
         struct Fields : UnityEngine::MonoBehaviour::Fields {
             void* _input;
             void* _canvas;

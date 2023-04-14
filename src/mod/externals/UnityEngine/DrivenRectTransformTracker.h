@@ -5,7 +5,7 @@
 
 
 namespace UnityEngine {
-    struct DrivenRectTransformTracker : IlClass<DrivenRectTransformTracker> {
+    struct DrivenRectTransformTracker : ILClass<DrivenRectTransformTracker> {
         struct Fields {
 
         };

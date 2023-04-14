@@ -9,7 +9,7 @@
 #include "externals/UnityEngine/DrivenRectTransformTracker.h"
 
 namespace UnityEngine::UI {
-    struct ScrollRect : IlClass<ScrollRect> {
+    struct ScrollRect : ILClass<ScrollRect> {
         struct Fields : UnityEngine::EventSystems::UIBehaviour::Fields {
             UnityEngine::RectTransform::Object* m_Content;
             bool m_Horizontal;

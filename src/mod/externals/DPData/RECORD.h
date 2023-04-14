@@ -1,13 +1,13 @@
 #pragma once
 
 namespace DPData {
-    struct RECORD : IlStruct<RECORD> {
+    struct RECORD : ILStruct<RECORD> {
         struct Fields {
             System_UInt32_array* VanishNew;
         };
     };
 
-    struct RECORD_ARRAY : IlStruct<RECORD_ARRAY> {
+    struct RECORD_ARRAY : ILStruct<RECORD_ARRAY> {
         struct Fields {
             RECORD::Array* VanishNew;
         };

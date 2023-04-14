@@ -1,6 +1,6 @@
 #pragma once
 
-struct ReBuffnameData : IlStruct<ReBuffnameData> {
+struct ReBuffnameData : ILStruct<ReBuffnameData> {
     struct Fields {
         void* DENDOU_RECORD_record;
     };

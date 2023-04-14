@@ -5,8 +5,8 @@
 #include "Component.h"
 
 namespace UnityEngine {
-    struct Behaviour : IlClass<Behaviour> {
-        struct Fields : UnityEngine::Component::Fields {
+    struct Behaviour : ILClass<Behaviour> {
+        struct Fields : public UnityEngine::Component::Fields {
 
         };
 

@@ -21,8 +21,8 @@
 //extern bool (*Dpr_EvScript_EvDataManager$$EvCmdShopOpenWait)(Dpr_EvScript_EvDataManager_o* __this);
 
 namespace Dpr::EvScript {
-    struct EvDataManager : IlClass<EvDataManager> {
-        struct WorpEventData : IlStruct<WorpEventData> {
+    struct EvDataManager : ILClass<EvDataManager> {
+        struct WorpEventData : ILStruct<WorpEventData> {
             struct Fields {
                 void* Entity;
                 int32_t State;
@@ -30,7 +30,7 @@ namespace Dpr::EvScript {
             };
         };
 
-        struct EvCallData : IlStruct<EvCallData> {
+        struct EvCallData : ILStruct<EvCallData> {
             struct Fields {
                 int32_t EventListIndex;
                 int32_t LabelIndex;
@@ -38,7 +38,7 @@ namespace Dpr::EvScript {
             };
         };
 
-        struct MsgOpenParam : IlStruct<MsgOpenParam> {
+        struct MsgOpenParam : ILStruct<MsgOpenParam> {
             struct Fields {
                 void* MsbtFile;
                 void* Label;

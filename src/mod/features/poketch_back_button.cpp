@@ -9,19 +9,6 @@ void goBackAction(Dpr::UI::PoketchWindow* __this) {
     __this->SelectApp(false);
 }
 
-// Technically not needed, but leaving it in for inspection
-HOOK_DEFINE_TRAMPOLINE(PoketchAddBackButton) {
-    static bool Callback(Dpr::UI::PoketchWindow::_OpOpen_d__94::Object* __this) {
-        auto res = Orig(__this);
-
-        auto window = __this->fields.__4__this;
-        auto windowTransform = window->cast<UnityEngine::Component>()->get_transform();
-        ui_inspect(windowTransform);
-
-        return res;
-    }
-};
-
 HOOK_DEFINE_INLINE(PoketchInBoundsCheck) {
     static void Callback(exl::hook::nx64::InlineCtx* ctx) {
         auto res = ctx->X[0];
@@ -94,7 +81,6 @@ HOOK_DEFINE_TRAMPOLINE(PoketchAppButtonExtend) {
 };
 
 void exl_poketch_main() {
-    PoketchAddBackButton::InstallAtOffset(0x01e6a0f0);
     PoketchInBoundsCheck::InstallAtOffset(0x01e67660);
     PoketchAppButtonExtend::InstallAtOffset(0x01e66870);
 }

@@ -7,7 +7,7 @@
 #include "externals/UnityEngine/Vector2.h"
 
 namespace UnityEngine::UI {
-    struct ListPool : IlClass<ListPool> {
+    struct ListPool : ILClass<ListPool> {
         struct Fields {
 
         };

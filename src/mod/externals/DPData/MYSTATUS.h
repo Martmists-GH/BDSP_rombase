@@ -4,7 +4,7 @@
 #include "externals/UnityEngine/Vector2Int.h"
 
 namespace DPData {
-    struct MYSTATUS : IlStruct<MYSTATUS> {
+    struct MYSTATUS : ILStruct<MYSTATUS> {
         struct Fields {
             System::String::Object* name;
             uint32_t id;

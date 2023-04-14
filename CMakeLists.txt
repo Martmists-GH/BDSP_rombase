@@ -19,6 +19,7 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/config.cmake)
 
 # Logger
 add_custom_target(
-        logger
-        COMMAND python3 ${CMAKE_SOURCE_DIR}/scripts/logger_server.py ${LOGGER_PORT}
+    logger
+    COMMAND python3 ${CMAKE_SOURCE_DIR}/scripts/logger_server.py ${LOGGER_PORT}
+    USES_TERMINAL
 )

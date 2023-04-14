@@ -5,7 +5,7 @@
 #include "UGRecord.h"
 
 namespace DPData {
-    struct UgSaveData : IlStruct<UgSaveData> {
+    struct UgSaveData : ILStruct<UgSaveData> {
         struct Fields {
             int32_t ReturnZoneID;
             int32_t ReturnGridPosX;

@@ -6,7 +6,7 @@
 
 
 namespace UnityEngine {
-    struct Transform : IlClass<Transform> {
+    struct Transform : ILClass<Transform> {
         struct Fields : UnityEngine::Component::Fields {
 
         };
@@ -23,20 +23,26 @@ namespace UnityEngine {
             return external<int32_t>(0x0299f2c0, this);
         }
 
+        inline UnityEngine::Transform::Object* GetParent() {
+            return external<UnityEngine::Transform::Object*>(0x0299e290, this);
+        }
+
         inline UnityEngine::Transform::Object* GetChild(int32_t index) {
             return external<UnityEngine::Transform::Object*>(0x0299f7d0, this, index);
         }
 
+        inline void Translate(UnityEngine::Vector3* translation) {
+            external<void>(0x0299e630, this, translation);
+        }
+
+
+        // utility functions
         UnityEngine::Transform::Object* GetChild(std::initializer_list<std::int32_t> index) {
             UnityEngine::Transform* transform = this;
             for (int32_t i : index) {
                 transform = transform->GetChild(i);
             }
             return transform->instance();
-        }
-
-        inline void Translate(UnityEngine::Vector3* translation) {
-            external<void>(0x0299e630, this, translation);
         }
 
         template <typename T>

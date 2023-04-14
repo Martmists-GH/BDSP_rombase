@@ -4,7 +4,7 @@
 #include "Vector3.h"
 
 namespace UnityEngine {
-    struct Bounds : IlStruct<Bounds> {
+    struct Bounds : ILStruct<Bounds> {
         struct Fields {
             UnityEngine::Vector3::Object m_Center;
             UnityEngine::Vector3::Object m_Extents;

@@ -3,7 +3,7 @@
 #include "WorpPoint.h"
 
 namespace DPData {
-    struct PLAYER_SAVE_DATA : IlStruct<PLAYER_SAVE_DATA> {
+    struct PLAYER_SAVE_DATA : ILStruct<PLAYER_SAVE_DATA> {
         struct Fields {
             bool gear_type;
             bool shoes_flag;

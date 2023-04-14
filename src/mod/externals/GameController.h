@@ -36,7 +36,7 @@ enum GameController_Button {
     RSTICK_DOWN = 0x800000,
 };
 
-struct GameController : IlClass<GameController, 0x04c5a618> {
+struct GameController : ILClass<GameController, 0x04c5a618> {
     struct StaticFields {
         UnityEngine::Vector2::Object analogStickL;
         UnityEngine::Vector2::Object analogStickR;

@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace Dpr::BallDeco {
-    struct SaveBallDecoData : IlStruct<SaveBallDecoData> {
+    struct SaveBallDecoData : ILStruct<SaveBallDecoData> {
         struct Fields {
             uint8_t CapsuleCount;
             void* CapsuleDatas;

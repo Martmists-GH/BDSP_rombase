@@ -8,7 +8,7 @@
 #include "externals/Dpr/UI/UIText.h"
 
 namespace Dpr::UI {
-    struct SettingMenuItem : IlClass<SettingMenuItem> {
+    struct SettingMenuItem : ILClass<SettingMenuItem> {
         struct Fields : UnityEngine::MonoBehaviour::Fields {
             int32_t _itemType;
             UnityEngine::RectTransform::Object* _contentRoot;

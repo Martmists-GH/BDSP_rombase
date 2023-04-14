@@ -4,7 +4,7 @@
 #include "externals/UnityEngine/UI/LayoutGroup.h"
 
 namespace UnityEngine::UI {
-    struct HorizontalOrVerticalLayoutGroup : IlClass<HorizontalOrVerticalLayoutGroup> {
+    struct HorizontalOrVerticalLayoutGroup : ILClass<HorizontalOrVerticalLayoutGroup> {
         struct Fields : UnityEngine::UI::LayoutGroup::Fields {
             float m_Spacing;
             bool m_ChildForceExpandWidth;

@@ -6,7 +6,7 @@
 
 namespace UnityEngine::Events {
     // TODO: template this class maybe?
-    struct UnityAction : IlClass<UnityAction> {
+    struct UnityAction : ILClass<UnityAction> {
         struct Fields : System::MulticastDelegate::Fields {
 
         };

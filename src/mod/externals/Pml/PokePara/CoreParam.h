@@ -3,7 +3,7 @@
 #include "externals/Pml/PokePara/Accessor.h"
 
 namespace Pml::PokePara {
-    struct CoreParam : IlClass<CoreParam> {
+    struct CoreParam : ILClass<CoreParam> {
         struct Fields {
             void* m_coreData;
             void* m_calcData;

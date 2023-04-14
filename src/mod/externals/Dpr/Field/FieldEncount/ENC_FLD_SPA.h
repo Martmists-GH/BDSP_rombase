@@ -4,7 +4,7 @@
 #include "externals/System/Primitives.h"
 
 namespace Dpr::Field::FieldEncount {
-    struct ENC_FLD_SPA : IlStruct<ENC_FLD_SPA> {
+    struct ENC_FLD_SPA : ILStruct<ENC_FLD_SPA> {
         struct Fields {
             int32_t TrainerID;
             bool SprayCheck;

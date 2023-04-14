@@ -4,7 +4,7 @@
 #include "externals/il2cpp-api.h"
 
 namespace Dpr::Item {
-    struct ItemInfo : IlClass<ItemInfo> {
+    struct ItemInfo : ILClass<ItemInfo> {
         struct Fields {
             // TODO
         };

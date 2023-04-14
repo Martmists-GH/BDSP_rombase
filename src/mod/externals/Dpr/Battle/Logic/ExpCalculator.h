@@ -3,8 +3,8 @@
 #include "externals/il2cpp-api.h"
 
 namespace Dpr::Battle::Logic {
-    struct ExpCalculator : IlClass<ExpCalculator, 0x04c5b098> {
-        struct CalcExpWork : IlClass<CalcExpWork> {
+    struct ExpCalculator : ILClass<ExpCalculator, 0x04c5b098> {
+        struct CalcExpWork : ILClass<CalcExpWork> {
             struct Fields {
                 uint32_t exp;
                 uint8_t hp;

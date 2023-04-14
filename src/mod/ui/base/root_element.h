@@ -8,9 +8,15 @@
 
 namespace ui {
     ELEMENT(Root) {
+        bool displayed = false;
+
         bool beginDraw() override {
             InputHelper::updatePadState();
-            if (InputHelper::isInputToggled()) {
+            auto& io = ImGui::GetIO();
+            io.MouseDrawCursor = InputHelper::isInputToggled();
+
+            if (displayed || InputHelper::isInputToggled()) {
+                displayed = true;
                 ImguiNvnBackend::newFrame();
                 ImGui::NewFrame();
                 return true;

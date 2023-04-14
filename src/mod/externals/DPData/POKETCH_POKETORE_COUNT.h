@@ -2,7 +2,7 @@
 
 
 namespace DPData {
-    struct POKETCH_POKETORE_COUNT : IlStruct<POKETCH_POKETORE_COUNT> {
+    struct POKETCH_POKETORE_COUNT : ILStruct<POKETCH_POKETORE_COUNT> {
         struct Fields {
             int16_t monsno;
             int16_t reserve;
@@ -12,7 +12,7 @@ namespace DPData {
         };
     };
 
-    struct POKETCH_POKETORE_COUNT_ARRAY : IlStruct<POKETCH_POKETORE_COUNT_ARRAY> {
+    struct POKETCH_POKETORE_COUNT_ARRAY : ILStruct<POKETCH_POKETORE_COUNT_ARRAY> {
         struct Fields {
             POKETCH_POKETORE_COUNT::Array* data;
         };

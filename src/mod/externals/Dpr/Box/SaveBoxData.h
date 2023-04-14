@@ -4,7 +4,7 @@
 #include "externals/il2cpp-api.h"
 
 namespace Dpr::Box {
-    struct SaveBoxData : IlStruct<SaveBoxData> {
+    struct SaveBoxData : ILStruct<SaveBoxData> {
         struct Fields {
             void* trayName;
             void* teamName;

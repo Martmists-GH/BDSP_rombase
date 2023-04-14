@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace DPData {
-    struct LOCATION_WORK : IlStruct<LOCATION_WORK> {
+    struct LOCATION_WORK : ILStruct<LOCATION_WORK> {
         struct Fields {
             int32_t zoneID;
             float posX;

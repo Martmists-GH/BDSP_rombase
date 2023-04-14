@@ -3,7 +3,7 @@
 #include "il2cpp-api.h"
 #include "FlagWork_Enums.h"
 
-struct FlagWork : IlClass<FlagWork> {
+struct FlagWork : ILClass<FlagWork> {
     static inline int32_t GetWork(int32_t workno) {
         return external<int32_t>(0x02ccaca0, workno);
     }

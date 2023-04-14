@@ -1,6 +1,6 @@
 #pragma once
 
-struct MT_DATA : IlStruct<MT_DATA> {
+struct MT_DATA : ILStruct<MT_DATA> {
     struct Fields {
         void* buffer;
     };

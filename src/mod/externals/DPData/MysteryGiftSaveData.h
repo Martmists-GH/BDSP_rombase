@@ -4,7 +4,7 @@
 
 
 namespace DPData {
-    struct MysteryGiftSaveData : IlStruct<MysteryGiftSaveData> {
+    struct MysteryGiftSaveData : ILStruct<MysteryGiftSaveData> {
         struct Fields {
             void* recvDatas;
             void* receiveFlag;

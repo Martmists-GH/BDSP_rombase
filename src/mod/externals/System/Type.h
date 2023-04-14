@@ -4,7 +4,7 @@
 #include "externals/System/RuntimeTypeHandle.h"
 
 namespace System {
-    struct Type : IlClass<Type> {
+    struct Type : ILClass<Type> {
         struct Fields {
 //            System::Reflection::MemberInfo::Fields super;  // Empty struct
             System::RuntimeTypeHandle::Object _impl;

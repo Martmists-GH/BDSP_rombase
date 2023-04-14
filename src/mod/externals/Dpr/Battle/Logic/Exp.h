@@ -3,8 +3,8 @@
 #include "externals/il2cpp-api.h"
 
 namespace Dpr::Battle::Logic {
-    struct Exp : IlClass<Exp> {
-        struct CalcParam : IlClass<CalcParam, 0x04c5b0a0> {
+    struct Exp : ILClass<Exp> {
+        struct CalcParam : ILClass<CalcParam, 0x04c5b0a0> {
             struct Fields {
                 int32_t competitor;
                 uint32_t playerLanguageId;
@@ -26,7 +26,7 @@ namespace Dpr::Battle::Logic {
             }
         };
 
-        struct CalcResult : IlClass<CalcResult, 0x04c5b0a8> {
+        struct CalcResult : ILClass<CalcResult, 0x04c5b0a8> {
             struct Fields {
                 uint32_t exp;
                 bool byGakusyuSouti;

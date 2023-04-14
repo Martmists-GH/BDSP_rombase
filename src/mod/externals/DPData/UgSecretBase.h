@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace DPData {
-    struct UgSecretBase : IlStruct<UgSecretBase> {
+    struct UgSecretBase : ILStruct<UgSecretBase> {
         struct Fields {
             int16_t zoneID;
             int16_t posX;

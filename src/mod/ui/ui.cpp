@@ -36,6 +36,7 @@ static Window inspectorWindow = Window::single([](Window &_) {
     _.flags |= ImGuiWindowFlags_MenuBar;
     _.initialPos = ImVec2(50, 50);
     _.initialSize = ImVec2(600, 650);
+    _.allow_static = true;
 
     _.MenuBar([](MenuBar &_) {
         _.Menu([](Menu &_) {

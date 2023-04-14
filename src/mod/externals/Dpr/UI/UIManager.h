@@ -1,7 +1,8 @@
 #pragma once
 
 #include "externals/il2cpp-api.h"
-#include "externals/SmartPoint/AssetAssistant/SingletonMonoBehavior.h"
+#include "externals/SmartPoint/AssetAssistant/SingletonMonoBehaviour.h"
+#include "externals/UnityEngine/Transform.h"
 
 namespace Dpr {
     namespace UI {
@@ -11,9 +12,10 @@ namespace Dpr {
 
 
 namespace Dpr::UI {
-    struct UIManager : IlClass<UIManager> {
-        struct Fields : SmartPoint::AssetAssistant::SingletonMonoBehaviour::Fields {
-            // TODO
+    struct UIManager : ILClass<UIManager> {
+        struct Fields : public SmartPoint::AssetAssistant::SingletonMonoBehaviour::Fields {
+            UnityEngine::Transform::Object* _activeRoot;
+            char todo[264];
         };
 
         static inline Dpr::UI::UIManager::Object* instance() {
@@ -28,3 +30,5 @@ namespace Dpr::UI {
         }
     };
 }
+
+static_assert(sizeof(Dpr::UI::UIManager::Fields) == 280);

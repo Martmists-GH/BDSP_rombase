@@ -8,7 +8,7 @@
 namespace Dpr::UI {
     struct PoketchWindow;
 
-    struct PoketchAppBase : IlClass<PoketchAppBase> {
+    struct PoketchAppBase : ILClass<PoketchAppBase> {
         struct Fields : UnityEngine::MonoBehaviour::Fields {
             Dpr::UI::PoketchButton::Array* Buttons;
             int32_t _AppID_k__BackingField;

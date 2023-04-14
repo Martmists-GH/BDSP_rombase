@@ -3,7 +3,7 @@
 #include "externals/il2cpp-api.h"
 
 namespace Dpr::Battle::Logic {
-    struct BTL_POKEPARAM : IlClass<BTL_POKEPARAM> {
+    struct BTL_POKEPARAM : ILClass<BTL_POKEPARAM> {
         struct Fields {
             void* m_coreParam;
             void* m_baseParam;

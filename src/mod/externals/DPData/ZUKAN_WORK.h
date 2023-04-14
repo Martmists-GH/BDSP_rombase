@@ -8,7 +8,7 @@
 #include "externals/System/Primitives.h"
 
 namespace DPData {
-    struct ZUKAN_WORK : IlStruct<ZUKAN_WORK> {
+    struct ZUKAN_WORK : ILStruct<ZUKAN_WORK> {
         struct Fields {
             DPData::GET_STATUS_array* get_status;
             System_Boolean_array* male_color_flag;

@@ -8,7 +8,7 @@
 #include "BTL_POKEPARAM.h"
 
 namespace Dpr::Battle::Logic {
-    struct MainModule : IlClass<MainModule> {
+    struct MainModule : ILClass<MainModule> {
         struct Fields {
             void* m_setupParam;
             void* m_viewCore;

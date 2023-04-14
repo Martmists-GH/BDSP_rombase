@@ -4,7 +4,7 @@
 #include "externals/System/Delegate.h"
 
 namespace System {
-    struct MulticastDelegate : IlClass<MulticastDelegate> {
+    struct MulticastDelegate : ILClass<MulticastDelegate> {
         struct Fields : System::Delegate::Fields {
             System::Delegate::Array* delegates;
         };

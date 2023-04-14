@@ -1,7 +1,7 @@
 #pragma once
 
 namespace UnityEngine {
-    struct Vector3 : IlStruct<Vector3> {
+    struct Vector3 : ILStruct<Vector3> {
         struct Fields {
             float x;
             float y;

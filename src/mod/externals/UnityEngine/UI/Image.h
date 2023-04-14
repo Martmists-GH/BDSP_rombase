@@ -4,7 +4,7 @@
 #include "externals/UnityEngine/UI/MaskableGraphic.h"
 
 namespace UnityEngine::UI {
-    struct Image : IlClass<Image> {
+    struct Image : ILClass<Image> {
         struct Fields : UnityEngine::UI::MaskableGraphic::Fields {
             void* m_Sprite;
             void* m_OverrideSprite;

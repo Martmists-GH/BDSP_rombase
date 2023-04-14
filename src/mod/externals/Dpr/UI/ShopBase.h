@@ -5,7 +5,7 @@
 #include "UIWindow.h"
 
 namespace Dpr::UI {
-    struct ShopBase : IlClass<ShopBase> {
+    struct ShopBase : ILClass<ShopBase> {
         struct Fields : Dpr::UI::UIWindow::Fields {
             void* _itemListScrollView;
             void* _cursor;

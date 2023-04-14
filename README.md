@@ -16,6 +16,7 @@ This repository is a base for BDSP mods based on Sigma Platinum, but free to use
 - Friendship toggle as flag (1753)
 - Custom menu settings
 - Element inspector for Unity transforms
+- 2-button poketch
 
 ### Installation
 

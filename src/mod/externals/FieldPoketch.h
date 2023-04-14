@@ -3,7 +3,7 @@
 #include "externals/il2cpp.h"
 
 
-struct FieldPoketch : IlClass<FieldPoketch, 0x04c5e648> {
+struct FieldPoketch : ILClass<FieldPoketch, 0x04c5e648> {
     static inline void OnPushedAppearButton() {
         external<void>(0x01db9a50);
     }

@@ -3,7 +3,7 @@
 #include "externals/il2cpp-api.h"
 
 namespace UnityEngine {
-    struct Color32 : IlStruct<Color32> {
+    struct Color32 : ILStruct<Color32> {
         struct Fields {
             int32_t rgba;
             uint8_t r;

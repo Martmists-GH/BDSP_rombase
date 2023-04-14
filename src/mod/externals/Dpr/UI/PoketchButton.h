@@ -7,7 +7,7 @@
 #include "externals/UnityEngine/Events/UnityAction.h"
 
 namespace Dpr::UI {
-    struct PoketchButton : IlClass<PoketchButton> {
+    struct PoketchButton : ILClass<PoketchButton> {
         struct Fields : public UnityEngine::MonoBehaviour::Fields {
             UnityEngine::UI::Image::Object* _image;
             void* _pressedSprite;

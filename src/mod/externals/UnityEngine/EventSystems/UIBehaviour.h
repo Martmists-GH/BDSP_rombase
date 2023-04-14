@@ -4,7 +4,7 @@
 #include "externals/UnityEngine/MonoBehaviour.h"
 
 namespace UnityEngine::EventSystems {
-    struct UIBehaviour : IlClass<UIBehaviour> {
+    struct UIBehaviour : ILClass<UIBehaviour> {
         struct Fields : UnityEngine::MonoBehaviour::Fields {
 
         };

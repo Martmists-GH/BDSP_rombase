@@ -4,7 +4,7 @@
 
 namespace System::Collections::Generic {
     template <typename T, typename E>
-    struct List : IlClass<T> {
+    struct List : ILClass<T> {
         struct Fields {
             E::Array* _items;
             int32_t _size;
@@ -20,7 +20,7 @@ namespace System::Collections::Generic {
         }
 
         inline void Add(E* item) {
-            IlClass<T>::template external<void>(0x02a3c680, this, item, *T::Method$$Add);
+            ILClass<T>::template external<void>(0x02a3c680, this, item, *T::Method$$Add);
         }
     };
 }

@@ -23,9 +23,9 @@ namespace UnityEngine {
     struct Transform;
     struct RectTransform;
 
-    struct Component : IlClass<Component, 0x04c57e88> {
+    struct Component : ILClass<Component, 0x04c57e88> {
         struct Fields : public UnityEngine::_Object::Fields {
-            // TODO
+
         };
 
         static inline StaticILMethod<0x04c667d0, Dpr::UI::SettingMenuItem> Method$$SettingMenuItem$$GetComponent {};

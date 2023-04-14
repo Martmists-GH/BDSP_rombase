@@ -5,7 +5,7 @@
 #include "externals/System/Nullable.h"
 
 namespace Dpr::UI {
-    struct UIMsgWindowController : IlClass<UIMsgWindowController, 0x04c5e6a8> {
+    struct UIMsgWindowController : ILClass<UIMsgWindowController, 0x04c5e6a8> {
         struct Fields {
             void* msgWindow;
             void* onCloseMsgWindow;

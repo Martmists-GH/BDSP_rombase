@@ -5,7 +5,7 @@
 
 
 namespace UnityEngine {
-    struct RectTransform : IlClass<RectTransform> {
+    struct RectTransform : ILClass<RectTransform> {
         struct Fields : UnityEngine::Transform::Fields {
 
         };

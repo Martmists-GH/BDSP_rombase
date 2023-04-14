@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace DPData {
-    struct TV_TOPIC : IlStruct<TV_TOPIC> {
+    struct TV_TOPIC : ILStruct<TV_TOPIC> {
         struct Fields {
             void* int_data;
             int32_t reserved_int1;

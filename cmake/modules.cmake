@@ -151,6 +151,7 @@ function(create_releases_main module)
                 ${module}_ftp_${target}
                 DEPENDS ${module}_release_${target}
                 COMMAND python3 "${CMAKE_CURRENT_SOURCE_DIR}/scripts/send_patch.py" ${FTP_IP} ${FTP_PORT} ${FTP_USER} ${FTP_PASS} "${CMAKE_CURRENT_BINARY_DIR}/${module}_releases/${target}/"
+                USES_TERMINAL
             )
         else()
             add_custom_target(

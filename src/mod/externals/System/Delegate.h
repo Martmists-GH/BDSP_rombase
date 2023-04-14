@@ -3,7 +3,7 @@
 #include "externals/il2cpp-api.h"
 
 namespace System {
-    struct Delegate : IlClass<Delegate> {
+    struct Delegate : ILClass<Delegate> {
         struct Fields {
             intptr_t method_ptr;
             intptr_t invoke_impl;
