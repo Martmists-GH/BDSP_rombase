@@ -122,10 +122,10 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
         auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
 
         memcpy(gCustomSaveData.dex.get_status, zukan.get_status->m_Items, sizeof(gCustomSaveData.dex.get_status));
-        memcpy(gCustomSaveData.dex.male_color_flag, zukan.male_color_flag, sizeof(gCustomSaveData.dex.male_color_flag));
-        memcpy(gCustomSaveData.dex.female_color_flag, zukan.female_color_flag, sizeof(gCustomSaveData.dex.female_color_flag));
-        memcpy(gCustomSaveData.dex.male_flag, zukan.male_flag, sizeof(gCustomSaveData.dex.male_flag));
-        memcpy(gCustomSaveData.dex.female_flag, zukan.female_flag, sizeof(gCustomSaveData.dex.female_flag));
+        memcpy(gCustomSaveData.dex.male_color_flag, zukan.male_color_flag->m_Items, sizeof(gCustomSaveData.dex.male_color_flag));
+        memcpy(gCustomSaveData.dex.female_color_flag, zukan.female_color_flag->m_Items, sizeof(gCustomSaveData.dex.female_color_flag));
+        memcpy(gCustomSaveData.dex.male_flag, zukan.male_flag->m_Items, sizeof(gCustomSaveData.dex.male_flag));
+        memcpy(gCustomSaveData.dex.female_flag, zukan.female_flag->m_Items, sizeof(gCustomSaveData.dex.female_flag));
 
         auto tmp_get_status = zukan.get_status;
         auto tmp_male_color_flag = zukan.male_color_flag;
