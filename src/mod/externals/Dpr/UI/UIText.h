@@ -6,7 +6,7 @@
 #include "externals/System/Collections/Generic/List.h"
 
 namespace Dpr::UI {
-    struct UIText : IlClass<UIText> {
+    struct UIText : ILClass<UIText> {
         struct Fields {
             char super[0x798];
             int32_t _sizeId;
@@ -28,7 +28,7 @@ namespace Dpr::UI {
 }
 
 namespace System::Collections::Generic {
-    struct List$$UIText : System::Collections::Generic::List<List$$UIText, Dpr::UI::UIText> {
+    struct List$$UIText : List<List$$UIText, Dpr::UI::UIText> {
 
     };
 }

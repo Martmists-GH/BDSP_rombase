@@ -58,6 +58,14 @@ void load_default_custom_data(PlayerWork::Object* playerWork) {
     gCustomSaveData.initialized = true;
 }
 
+#define zukan_cache(field) static typeof(DPData::ZUKAN_WORK::Fields::field) cache_##field
+zukan_cache(get_status);
+zukan_cache(male_color_flag);
+zukan_cache(female_color_flag);
+zukan_cache(male_flag);
+zukan_cache(female_flag);
+#undef zukan_cache
+
 HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
     static bool Callback(PlayerWork::Object* playerWork) {
         bool success = Orig(playerWork);
@@ -78,33 +86,83 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
                 load_default_custom_data(playerWork);
             }
 
-            // FIXME: Set up Playerwork to use gCustomSaveData
+            auto newStatus = (DPData::GET_STATUS_array*)system_array_new(DPData::GET_STATUS_array_TypeInfo(), DexSize);
+            auto boolCls = System::Boolean_array_TypeInfo();
+            auto newMaleColorFlag = (System::Boolean_array*)system_array_new(boolCls, DexSize);
+            auto newFemaleColorFlag = (System::Boolean_array*)system_array_new(boolCls, DexSize);
+            auto newMaleFlag = (System::Boolean_array*)system_array_new(boolCls, DexSize);
+            auto newFemaleFlag = (System::Boolean_array*)system_array_new(boolCls, DexSize);
+
+            memcpy(newStatus->m_Items, gCustomSaveData.dex.get_status, sizeof(gCustomSaveData.dex.get_status));
+            memcpy(newMaleColorFlag->m_Items, gCustomSaveData.dex.male_color_flag, sizeof(gCustomSaveData.dex.male_color_flag));
+            memcpy(newFemaleColorFlag->m_Items, gCustomSaveData.dex.female_color_flag, sizeof(gCustomSaveData.dex.female_color_flag));
+            memcpy(newMaleFlag->m_Items, gCustomSaveData.dex.male_flag, sizeof(gCustomSaveData.dex.male_flag));
+            memcpy(newFemaleFlag->m_Items, gCustomSaveData.dex.female_flag, sizeof(gCustomSaveData.dex.female_flag));
+
+            auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
+            cache_get_status = zukan.get_status;
+            cache_male_color_flag = zukan.male_color_flag;
+            cache_female_color_flag = zukan.female_color_flag;
+            cache_male_flag = zukan.male_flag;
+            cache_female_flag = zukan.female_flag;
+
+            zukan.get_status = newStatus;
+            zukan.male_color_flag = newMaleColorFlag;
+            zukan.female_color_flag = newFemaleColorFlag;
+            zukan.male_flag = newMaleFlag;
+            zukan.female_flag = newFemaleFlag;
         }
 
         return success;
     }
 };
 
-HOOK_DEFINE_REPLACE(PatchExistingSaveData__Save) {
-    static void Callback(PlayerWork::Object* playerWork, System_Byte_array** save_ptr) {
+HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
+    static void Callback(PlayerWork::Object* playerWork, void* param_2, void* param_3, void* param_4) {
+        auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
+
+        memcpy(gCustomSaveData.dex.get_status, zukan.get_status->m_Items, sizeof(gCustomSaveData.dex.get_status));
+        memcpy(gCustomSaveData.dex.male_color_flag, zukan.male_color_flag->m_Items, sizeof(gCustomSaveData.dex.male_color_flag));
+        memcpy(gCustomSaveData.dex.female_color_flag, zukan.female_color_flag->m_Items, sizeof(gCustomSaveData.dex.female_color_flag));
+        memcpy(gCustomSaveData.dex.male_flag, zukan.male_flag->m_Items, sizeof(gCustomSaveData.dex.male_flag));
+        memcpy(gCustomSaveData.dex.female_flag, zukan.female_flag->m_Items, sizeof(gCustomSaveData.dex.female_flag));
+
+        auto tmp_get_status = zukan.get_status;
+        auto tmp_male_color_flag = zukan.male_color_flag;
+        auto tmp_female_color_flag = zukan.female_color_flag;
+        auto tmp_male_flag = zukan.male_flag;
+        auto tmp_female_flag = zukan.female_flag;
+
+        zukan.get_status = cache_get_status;
+        zukan.male_color_flag = cache_male_color_flag;
+        zukan.female_color_flag = cache_female_color_flag;
+        zukan.male_flag = cache_male_flag;
+        zukan.female_flag = cache_female_flag;
+
         char buffer[sizeof(CustomSaveData)];
+#ifndef DEBUG_DISABLE_SAVE  // Allow disabling the saving to test the save migration code
         save_custom_data(buffer);
+#endif
         FsHelper::writeFileToPath(buffer, sizeof(buffer), "SaveData:/Custom.bin");
 
-        // TODO: Restore Playerwork to use default sizes
+        Orig(playerWork, param_2, param_3, param_4);
+
+        zukan.get_status = tmp_get_status;
+        zukan.male_color_flag = tmp_male_color_flag;
+        zukan.female_color_flag = tmp_female_color_flag;
+        zukan.male_flag = tmp_male_flag;
+        zukan.female_flag = tmp_female_flag;
     }
 };
 
 HOOK_DEFINE_REPLACE(PatchExistingSaveData__Verify) {
-    static bool Callback(System_Byte_array* playerWork) {
+    static bool Callback(System::Byte_array* playerWork) {
         return true;
     }
 };
 
 void exl_save_main() {
     PatchExistingSaveData__Load::InstallAtOffset(0x02ceb850);
-#ifndef DEBUG_DISABLE_SAVE  // Allow disabling the saving to test the save migration code
-    PatchExistingSaveData__Save::InstallAtOffset(0x02cebff0);
-#endif
+    PatchExistingSaveData__Save::InstallAtOffset(0x01a8c2f0);
     PatchExistingSaveData__Verify::InstallAtOffset(0x02ceba00);
 }

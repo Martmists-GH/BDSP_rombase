@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace Dpr::BallDeco {
-    struct CapsuleData : IlStruct<CapsuleData> {
+    struct CapsuleData : ILStruct<CapsuleData> {
         struct Fields {
             uint32_t AttachPokemonId;
             uint32_t AttachPersonalRnd;

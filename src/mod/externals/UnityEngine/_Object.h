@@ -5,7 +5,7 @@
 
 
 namespace UnityEngine {
-    struct _Object : IlClass<_Object> {
+    struct _Object : ILClass<_Object> {
         struct Fields {
             intptr_t m_CachedPtr;
         };

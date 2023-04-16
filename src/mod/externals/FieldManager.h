@@ -2,6 +2,6 @@
 
 #include "externals/il2cpp-api.h"
 
-struct FieldManager : IlClass<FieldManager> {
+struct FieldManager : ILClass<FieldManager> {
 
 };

@@ -3,18 +3,21 @@
 #include "externals/il2cpp-api.h"
 #include <cstdint>
 
-typedef bool System_Boolean;
-typedef uint8_t System_Byte;
-typedef uint16_t System_Char;
-typedef int32_t System_Int32;
-typedef uint32_t System_UInt32;
-typedef int64_t System_Int64;
+namespace System {
+    typedef bool Boolean;
+    typedef uint8_t Byte;
+    typedef uint16_t Char;
+    typedef int32_t Int32;
+    typedef uint32_t UInt32;
+    typedef int64_t Int64;
 
-PRIMITIVE_ARRAY(System_Boolean);
-PRIMITIVE_ARRAY(System_Byte);
-PRIMITIVE_ARRAY(System_Char);
-PRIMITIVE_ARRAY(System_Int32);
-PRIMITIVE_ARRAY(System_UInt32);
-PRIMITIVE_ARRAY(System_Int64);
-
-static_assert(sizeof(System_Byte_array) == 0x10020);
+    PRIMITIVE_ARRAY(Boolean);
+    static Il2CppClass* Boolean_array_TypeInfo() {
+        return *reinterpret_cast<Il2CppClass**>(exl::util::modules::GetTargetOffset(0x04c55920));
+    }
+    PRIMITIVE_ARRAY(Byte);
+    PRIMITIVE_ARRAY(Char);
+    PRIMITIVE_ARRAY(Int32);
+    PRIMITIVE_ARRAY(UInt32);
+    PRIMITIVE_ARRAY(Int64);
+}

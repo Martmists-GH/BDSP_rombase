@@ -6,7 +6,7 @@
 #include "logger/logger.h"
 #include "externals/Dpr/UI/UIManager.h"
 #include "externals/Dpr/UI/ShopBoutique.h"
-#include "externals/SmartPoint/AssetAssistant/SingletonMonoBehavior.h"
+#include "externals/SmartPoint/AssetAssistant/SingletonMonoBehaviour.h"
 #include "externals/Dpr/UI/ShopBoutiqueChange.h"
 #include "externals/Dpr/UI/UIBag.h"
 #include "externals/Dpr/UI/UIMsgWindowController.h"

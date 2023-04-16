@@ -42,8 +42,8 @@
 #include "externals/DPData/TV_DATA.h"
 #include "externals/Dpr/BallDeco/SaveBallDecoExtraData.h"
 
-struct PlayerWork : IlClass<PlayerWork> {
-    struct SaveData : IlStruct<SaveData> {
+struct PlayerWork : ILClass<PlayerWork> {
+    struct SaveData : ILStruct<SaveData> {
         struct Fields {
             int32_t version;
             void* intValues;

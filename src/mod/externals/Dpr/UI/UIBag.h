@@ -5,8 +5,8 @@
 #include "UIWindow.h"
 
 namespace Dpr::UI {
-    struct UIBag : IlClass<UIBag> {
-        struct __c__DisplayClass127_0 : IlClass<__c__DisplayClass127_0> {
+    struct UIBag : ILClass<UIBag> {
+        struct __c__DisplayClass127_0 : ILClass<__c__DisplayClass127_0> {
             struct Fields {
                 Dpr::UI::UIBag::Object* __4__this;
                 Dpr::Item::ItemInfo::Object* item;
@@ -19,14 +19,14 @@ namespace Dpr::UI {
             };
         };
 
-        struct __c__DisplayClass127_1 : IlClass<__c__DisplayClass127_1> {
+        struct __c__DisplayClass127_1 : ILClass<__c__DisplayClass127_1> {
             struct Fields {
                 uint32_t fieldFuncType;
                 Dpr::UI::UIBag::__c__DisplayClass127_0::Object* CS___8__locals1;
             };
         };
 
-        struct __c__DisplayClass134_0 : IlClass<__c__DisplayClass134_0> {
+        struct __c__DisplayClass134_0 : ILClass<__c__DisplayClass134_0> {
             inline void _UseWazaMachine_b__3(int32_t index) {
                 external<void>(0x01be0fa0, this, index);
             }

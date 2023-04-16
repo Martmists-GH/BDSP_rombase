@@ -5,7 +5,7 @@
 #include "INTERVIEWER_DATA.h"
 
 namespace DPData {
-    struct TV_DATA : IlStruct<TV_DATA> {
+    struct TV_DATA : ILStruct<TV_DATA> {
         struct Fields {
             DPData::TV_RECORD::Object UseRecord;
             DPData::TV_RECORD::Object MyRecord;

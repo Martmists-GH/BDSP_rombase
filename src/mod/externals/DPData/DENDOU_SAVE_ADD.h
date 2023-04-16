@@ -2,7 +2,7 @@
 
 
 namespace DPData {
-    struct DENDOU_SAVE_ADD : IlStruct<DENDOU_SAVE_ADD> {
+    struct DENDOU_SAVE_ADD : ILStruct<DENDOU_SAVE_ADD> {
         struct Fields {
             void* data;
         };

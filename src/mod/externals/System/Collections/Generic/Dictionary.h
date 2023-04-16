@@ -16,7 +16,7 @@ namespace System::Collections::Generic {
         };
 
         struct Fields {
-            System_Int32_array* buckets;
+            System::Int32_array* buckets;
             Entry::Array* entries;
             int32_t count;
             int32_t version;

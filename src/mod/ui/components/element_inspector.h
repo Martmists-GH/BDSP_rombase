@@ -9,27 +9,42 @@
 #include "externals/UnityEngine/Transform.h"
 #include "externals/UnityEngine/_Object.h"
 #include "externals/UnityEngine/UI/ListPool.h"
+#include "externals/UnityEngine/SceneManagement/SceneManager.h"
+#include "externals/Dpr/UI/UIManager.h"
+#include "externals/Dpr/Battle/View/BattleViewCore.h"
 
 namespace ui {
     ELEMENT(ElementInspector) {
+        // TODO: Consider an std::vector for roots?
         UnityEngine::Transform* root;
         bool showChildren = true;
         bool showComponents = false;
 
-        bool beginDraw() override {
-            return root != nullptr;
-        }
-
         void draw() override {
-            drawElement(root);
+            if (root != nullptr) {
+                drawElement(root);
+            } else {
+                auto scene = UnityEngine::SceneManagement::SceneManager::GetActiveScene();
+                auto name = scene.get_name()->asCString();
+                if (ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
+                    auto objs = scene.GetRootGameObjects();
+                    for (auto& o : *objs) {
+                        drawElement(o.get_transform());
+                    }
+                    ImGui::TreePop();
+                }
+
+                auto manager = Dpr::UI::UIManager::instance();
+                drawElement(manager->fields._activeRoot);
+            }
         }
 
     private:
         void drawElement(UnityEngine::Transform* element, const std::string& prefix = "") {
             auto name = element->cast<UnityEngine::_Object>()->GetName();
             auto str = prefix + name->asCString();
-            if (ImGui::TreeNode(str.c_str())) {
-                auto childCount = element->get_childCount();
+            auto childCount = element->get_childCount();
+            if (ImGui::TreeNodeEx(str.c_str(), ImGuiTreeNodeFlags_DefaultOpen * (childCount < 3))) {  // Default open if the element has less than 3 children
                 auto list = UnityEngine::UI::ListPool::Get(UnityEngine::UI::ListPool::Method$$Component$$Get);
                 System::RuntimeTypeHandle::Object handle{};
                 handle.fields.value = &UnityEngine::Component::getClass()->_1.byval_arg;

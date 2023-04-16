@@ -5,7 +5,7 @@
 #include "ShopBoutique.h"
 
 namespace Dpr::UI {
-    struct ShopBoutiqueChange : IlClass<ShopBoutiqueChange> {
+    struct ShopBoutiqueChange : ILClass<ShopBoutiqueChange> {
         struct Fields : Dpr::UI::ShopBoutique::Fields {
             // TODO
         };

@@ -1,6 +1,6 @@
 #include "common.hpp"
 
-#include "exlaunch/setting.hpp"
+#include "setting.hpp"
 
 extern "C" {
     /* These magic symbols are provided by the linker.  */

@@ -4,7 +4,7 @@
 #include "externals/il2cpp-api.h"
 
 namespace DPData {
-    struct CONFIG : IlStruct<CONFIG> {
+    struct CONFIG : ILStruct<CONFIG> {
         struct Fields {
             int32_t msg_speed;
             int32_t msg_lang_id;

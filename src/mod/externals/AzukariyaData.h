@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-struct AzukariyaData : IlStruct<AzukariyaData> {
+struct AzukariyaData : ILStruct<AzukariyaData> {
     struct Fields {
         void* pokemonParam;
         bool eggExist;

@@ -1,7 +1,7 @@
 #pragma once
 
 namespace DPData {
-    struct BoukenNote : IlStruct<BoukenNote> {
+    struct BoukenNote : ILStruct<BoukenNote> {
         struct Fields {
             void* VanishNew;
         };

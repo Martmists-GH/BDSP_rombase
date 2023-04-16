@@ -9,7 +9,7 @@
 #include "externals/UnityEngine/DrivenRectTransformTracker.h"
 
 namespace UnityEngine::UI {
-    struct LayoutGroup : IlClass<LayoutGroup> {
+    struct LayoutGroup : ILClass<LayoutGroup> {
         struct Fields : UnityEngine::EventSystems::UIBehaviour::Fields {
             void* m_Padding;
             int32_t m_ChildAlignment;

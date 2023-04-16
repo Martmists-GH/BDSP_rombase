@@ -1,7 +1,7 @@
 #pragma once
 
 namespace DPData {
-    struct FieldGimmickSaveData : IlStruct<FieldGimmickSaveData> {
+    struct FieldGimmickSaveData : ILStruct<FieldGimmickSaveData> {
         struct Fields {
             void* VanishNew;
         };

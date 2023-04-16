@@ -5,7 +5,7 @@
 #include "ShopBase.h"
 
 namespace Dpr::UI {
-    struct ShopBoutique : IlClass<ShopBoutique> {
+    struct ShopBoutique : ILClass<ShopBoutique> {
         struct Fields : Dpr::UI::ShopBase::Fields {
             void* _charge;
             void* _modelView;

@@ -4,7 +4,7 @@
 #include "externals/UnityEngine/UI/HorizontalOrVerticalLayoutGroup.h"
 
 namespace UnityEngine::UI {
-    struct HorizontalLayoutGroup : IlClass<HorizontalLayoutGroup> {
+    struct HorizontalLayoutGroup : ILClass<HorizontalLayoutGroup> {
         struct Fields : UnityEngine::UI::HorizontalOrVerticalLayoutGroup::Fields {
 
         };

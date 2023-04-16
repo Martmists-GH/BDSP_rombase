@@ -8,7 +8,7 @@
 #include "BTL_POKEPARAM.h"
 
 namespace Dpr::Battle::Logic {
-    struct MainModule : IlClass<MainModule> {
+    struct MainModule : ILClass<MainModule> {
         struct Fields {
             void* m_setupParam;
             void* m_viewCore;
@@ -22,7 +22,7 @@ namespace Dpr::Battle::Logic {
             Pml::PokeParty::Array* m_srcPartyForServer;
             Pml::PokeParty::Object* m_tmpParty;
             Dpr::Battle::Logic::MyStatus::Object* m_playerStatus;
-            System_Boolean_array* m_fClientQuit;
+            System::Boolean_array* m_fClientQuit;
             int32_t m_rule;
             uint32_t m_regularMoney;
             uint32_t m_bonusMoney;
@@ -38,7 +38,7 @@ namespace Dpr::Battle::Logic {
             int32_t m_changeMode;
             uint8_t m_MultiAIDataSeq;
             uint8_t m_MultiAIClientNum;
-            System_Byte_array* m_MultiAIClientID;
+            System::Byte_array* m_MultiAIClientID;
             bool m_fCommError;
             bool m_fCommErrorMainQuit;
             bool m_fWazaEffectEnable;
@@ -54,7 +54,7 @@ namespace Dpr::Battle::Logic {
             void* m_clientPublicInformation;
             void* m_adapterFactory;
             void* m_recReader;
-            System_Boolean_array* m_moneyDblUpCause;
+            System::Boolean_array* m_moneyDblUpCause;
             void* m_zukanDataOnBattleStart;
             void* m_deadPokeIDRec;
             void* m_battleEnvForClient;

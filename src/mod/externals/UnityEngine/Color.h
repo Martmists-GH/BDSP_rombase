@@ -3,7 +3,7 @@
 #include "externals/il2cpp-api.h"
 
 namespace UnityEngine {
-    struct Color : IlStruct<Color> {
+    struct Color : ILStruct<Color> {
         struct Fields {
             float r;
             float g;

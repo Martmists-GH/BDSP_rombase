@@ -8,8 +8,8 @@
 #include "externals/UnityEngine/UI/ScrollRect.h"
 
 namespace Dpr::UI {
-    struct SettingWindow : IlClass<SettingWindow> {
-        struct _OpOpen_d__11 : IlClass<_OpOpen_d__11> {
+    struct SettingWindow : ILClass<SettingWindow> {
+        struct _OpOpen_d__11 : ILClass<_OpOpen_d__11> {
             struct Fields {
                 int32_t __1__state;
                 Il2CppObject* __2__current;

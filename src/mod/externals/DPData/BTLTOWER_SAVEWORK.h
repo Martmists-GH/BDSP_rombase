@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace DPData {
-    struct BTLTOWER_SAVEWORK : IlStruct<BTLTOWER_SAVEWORK> {
+    struct BTLTOWER_SAVEWORK : ILStruct<BTLTOWER_SAVEWORK> {
         struct Fields {
             uint32_t max_master_rank;
             int32_t play_mode;

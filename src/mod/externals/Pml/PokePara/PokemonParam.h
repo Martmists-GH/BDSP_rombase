@@ -4,7 +4,7 @@
 #include "externals/il2cpp-api.h"
 
 namespace Pml::PokePara {
-    struct PokemonParam : IlClass<PokemonParam, 0x04c59c10> {
+    struct PokemonParam : ILClass<PokemonParam, 0x04c59c10> {
         struct Fields : public CoreParam::Fields {
             // TODO
         };

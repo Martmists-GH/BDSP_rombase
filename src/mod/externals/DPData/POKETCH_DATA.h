@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace DPData {
-    struct POKETCH_DATA : IlStruct<POKETCH_DATA> {
+    struct POKETCH_DATA : ILStruct<POKETCH_DATA> {
         struct Fields {
             bool get_flag;
             bool pedometer_flag;

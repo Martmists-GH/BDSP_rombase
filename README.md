@@ -18,6 +18,7 @@ It has been modified to be used for Pokémon Luminescent.
 - Friendship toggle as flag (1753)
 - Custom menu settings
 - Element inspector for Unity transforms
+- 2-button poketch
 
 ### Installation
 

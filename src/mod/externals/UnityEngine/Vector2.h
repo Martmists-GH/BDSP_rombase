@@ -3,7 +3,7 @@
 #include "externals/il2cpp-api.h"
 
 namespace UnityEngine {
-    struct Vector2 : IlStruct<Vector2> {
+    struct Vector2 : ILStruct<Vector2> {
         struct Fields {
             float x;
             float y;

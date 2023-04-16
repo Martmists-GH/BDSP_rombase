@@ -67,26 +67,26 @@ void AddSetting(Dpr::UI::SettingWindow::_OpOpen_d__11::Object* __this, int confi
     auto contentRoot = window->fields._scrollRect->fields.m_Content;
     auto child = contentRoot->cast<UnityEngine::Transform>()->Find(System::String::Create("BattleAnim"));
 
-    auto origItem = child->cast<UnityEngine::Component>()->GetComponent(UnityEngine::Component::Method$$SettingMenuItem$$GetComponent);
+    auto origItem = child->GetComponent(UnityEngine::Component::Method$$SettingMenuItem$$GetComponent);
 
     auto newTransform = UnityEngine::_Object::Instantiate<UnityEngine::Transform>(child);
     newTransform->SetParent(contentRoot->cast<UnityEngine::Transform>(), false);
 
-    Dpr::UI::SettingMenuItem::Object* newItem = newTransform->cast<UnityEngine::Component>()->GetComponent(UnityEngine::Component::Method$$SettingMenuItem$$GetComponent);
+    Dpr::UI::SettingMenuItem::Object* newItem = newTransform->GetComponent(UnityEngine::Component::Method$$SettingMenuItem$$GetComponent);
     newItem->Setup(configId, selectedIndex, System::String::Create(description), origItem->fields._onValueChanged);
     auto textRoot = newTransform->GetChild(1);
     auto titleChild = textRoot->GetChild(0);
 
     system_load_typeinfo(0x870a);
 
-    auto titleComponent = titleChild->cast<UnityEngine::Component>()->GetComponent(UnityEngine::Component::Method$$UIText$$GetComponent);
+    auto titleComponent = titleChild->GetComponent(UnityEngine::Component::Method$$UIText$$GetComponent);
     titleComponent->SetupMessage(
         System::String::Create("ss_option"),
         System::String::Create(title)
     );
-    auto options = textRoot->GetChild(1)->GetChild(0);
+    auto options = textRoot->GetChild({ 1, 0 });
     for (int i=0; i<optionNames.size(); i++) {
-        auto option = options->GetChild(i)->GetChild(0)->cast<UnityEngine::Component>()->GetComponent(UnityEngine::Component::Method$$UIText$$GetComponent);
+        auto option = options->GetChild({ i, 0 })->GetComponent(UnityEngine::Component::Method$$UIText$$GetComponent);
         option->SetupMessage(
             System::String::Create("ss_option"),
             System::String::Create(optionNames[i])

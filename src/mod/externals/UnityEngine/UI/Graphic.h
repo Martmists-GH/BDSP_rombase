@@ -7,7 +7,7 @@
 #include "externals/UnityEngine/Vector2.h"
 
 namespace UnityEngine::UI {
-    struct Graphic : IlClass<Graphic> {
+    struct Graphic : ILClass<Graphic> {
         struct Fields : UnityEngine::EventSystems::UIBehaviour::Fields {
             void* m_Material;
             UnityEngine::Color::Object m_Color;

@@ -5,7 +5,6 @@
 #include "externals/Dpr/Field/FieldEncount/ENC_FLD_SPA.h"
 #include "data/species.h"
 #include "data/utils.h"
-#include "externals/Dpr/UI/SettingMenuItem.h"
 #include "imgui.h"
 #include "logger/logger.h"
 

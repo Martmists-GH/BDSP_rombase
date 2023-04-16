@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace DPData {
-    struct CON_PHOTO_LANG_DATA : IlStruct<CON_PHOTO_LANG_DATA> {
+    struct CON_PHOTO_LANG_DATA : ILStruct<CON_PHOTO_LANG_DATA> {
         struct Fields {
             uint8_t styleMonsLangID;
             uint8_t beautifulMonsLangID;

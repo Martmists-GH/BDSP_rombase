@@ -8,7 +8,7 @@
 #include "externals/Dpr/UI/UIText.h"
 
 namespace Dpr::UI {
-    struct SettingMenuItem : IlClass<SettingMenuItem> {
+    struct SettingMenuItem : ILClass<SettingMenuItem> {
         struct Fields : UnityEngine::MonoBehaviour::Fields {
             int32_t _itemType;
             UnityEngine::RectTransform::Object* _contentRoot;
@@ -38,7 +38,7 @@ namespace Dpr::UI {
 
 namespace System::Collections::Generic {
     struct List$$SettingMenuItem : List<List$$SettingMenuItem, Dpr::UI::SettingMenuItem> {
-        static ILMethod<0x04c89908> Method$$Add;
+        static inline StaticILMethod<0x04c89908> Method$$Add {};
 
         void insert(Dpr::UI::SettingMenuItem* elem, int32_t pos) {
             this->Add(elem);

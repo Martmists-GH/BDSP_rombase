@@ -5,7 +5,7 @@
 #include "externals/Pml/PokePara/CoreParam.h"
 
 namespace Dpr::Battle::Logic {
-    struct MyStatus : IlClass<MyStatus> {
+    struct MyStatus : ILClass<MyStatus> {
         struct Fields {
             System::String::Object* name;
             bool sex;

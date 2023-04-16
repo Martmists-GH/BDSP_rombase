@@ -4,7 +4,7 @@
 #include "externals/il2cpp-api.h"
 
 namespace Dpr::Field {
-    struct EncountResult : IlClass<EncountResult> {
+    struct EncountResult : ILClass<EncountResult> {
         struct Fields {
             int32_t Type;
             Pml_MonsNo_array* Enemy;

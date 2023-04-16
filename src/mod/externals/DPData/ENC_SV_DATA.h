@@ -7,7 +7,7 @@
 #include "PLAYER_ZONE_HIST.h"
 
 namespace DPData {
-    struct ENC_SV_DATA : IlStruct<ENC_SV_DATA> {
+    struct ENC_SV_DATA : ILStruct<ENC_SV_DATA> {
         struct Fields {
             int32_t encountWalkCount;
             int32_t SafariRandSeed;

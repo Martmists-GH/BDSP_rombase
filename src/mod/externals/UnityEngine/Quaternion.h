@@ -2,7 +2,7 @@
 
 
 namespace UnityEngine {
-    struct Quaternion : IlStruct<Quaternion> {
+    struct Quaternion : ILStruct<Quaternion> {
         struct Fields {
             float x;
             float y;

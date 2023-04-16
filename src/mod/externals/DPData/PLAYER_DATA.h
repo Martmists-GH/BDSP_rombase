@@ -6,7 +6,7 @@
 #include "CONTEST_DATA.h"
 
 namespace DPData {
-    struct PLAYER_DATA : IlStruct<PLAYER_DATA> {
+    struct PLAYER_DATA : ILStruct<PLAYER_DATA> {
         struct Fields {
             DPData::CONFIG::Object config;
             DPData::MYSTATUS::Object mystatus;

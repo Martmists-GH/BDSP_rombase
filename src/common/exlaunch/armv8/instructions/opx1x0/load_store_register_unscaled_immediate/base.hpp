@@ -1,7 +1,7 @@
 #pragma once
 
-#include "exlaunch/armv8.hpp"
-#include "exlaunch/util/math/sign_extend.hpp"
+#include <exlaunch/armv8.hpp>
+#include "util/math/sign_extend.hpp"
 
 namespace exl::armv8::inst::impl::opx1x0 {
 

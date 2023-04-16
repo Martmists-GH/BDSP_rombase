@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace DPData {
-    struct PLAYTIME : IlStruct<PLAYTIME> {
+    struct PLAYTIME : ILStruct<PLAYTIME> {
         struct Fields {
             uint16_t hour;
             uint8_t minute;

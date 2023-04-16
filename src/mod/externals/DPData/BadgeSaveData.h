@@ -1,7 +1,7 @@
 #pragma once
 
 namespace DPData {
-    struct BadgeSaveData : IlStruct<BadgeSaveData> {
+    struct BadgeSaveData : ILStruct<BadgeSaveData> {
         struct Fields {
             void* CleanValues;
         };

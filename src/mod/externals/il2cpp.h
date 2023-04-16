@@ -35,6 +35,13 @@ struct MethodInfo {
     uint16_t slot;
     uint8_t parameters_count;
     uint8_t bitflags;
+
+    MethodInfo* copyWith(Il2CppMethodPointer method) {
+        auto m = new MethodInfo;
+        memcpy(m, this, sizeof(MethodInfo));
+        m->methodPointer = method;
+        return m;
+    }
 };
 
 

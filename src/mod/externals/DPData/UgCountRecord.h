@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace DPData {
-    struct UgCountRecord : IlStruct<UgCountRecord> {
+    struct UgCountRecord : ILStruct<UgCountRecord> {
         struct Fields {
             int16_t DigFossilPlayCount;
             int16_t NumStatueBroadcastOnTV;

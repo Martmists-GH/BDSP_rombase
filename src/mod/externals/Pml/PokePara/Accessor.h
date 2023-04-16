@@ -3,7 +3,7 @@
 #include "externals/il2cpp-api.h"
 
 namespace Pml::PokePara {
-    struct Accessor : IlClass<Accessor> {
+    struct Accessor : ILClass<Accessor> {
         inline void SetLangID(uint8_t langId) {
             external<void>(0x024a8bb0, this, langId);
         }

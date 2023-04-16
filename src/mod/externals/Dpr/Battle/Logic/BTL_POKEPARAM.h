@@ -5,7 +5,7 @@
 #include "externals/Pml/PokePara/PokemonParam.h"
 
 namespace Dpr::Battle::Logic {
-    struct BTL_POKEPARAM : IlClass<BTL_POKEPARAM> {
+    struct BTL_POKEPARAM : ILClass<BTL_POKEPARAM> {
         struct Fields {
             void* m_coreParam;
             void* m_baseParam;
@@ -28,13 +28,13 @@ namespace Dpr::Battle::Logic {
             int32_t m_prevActWazaID;
             int32_t m_prevSelectWazaID;
             int32_t m_prevDamagedWaza;
-            System_Byte_array * m_turnFlag;
-            System_Byte_array * m_contFlag;
-            System_Byte_array * m_permFlag;
-            System_Byte_array * m_counter;
-            System_UInt32_array * m_permCounter;
+            System::Byte_array * m_turnFlag;
+            System::Byte_array * m_contFlag;
+            System::Byte_array * m_permFlag;
+            System::Byte_array * m_counter;
+            System::UInt32_array * m_permCounter;
             void * m_wazaDamageRec;
-            System_Byte_array * m_dmgrecCount;
+            System::Byte_array * m_dmgrecCount;
             uint8_t m_dmgrecTurnPtr;
             uint8_t m_dmgrecPtr;
             uint16_t m_migawariHP;

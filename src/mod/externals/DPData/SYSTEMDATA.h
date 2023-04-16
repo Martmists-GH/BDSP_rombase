@@ -3,7 +3,7 @@
 #include "GMTIME.h"
 
 namespace DPData {
-    struct SYSTEMDATA : IlStruct<SYSTEMDATA> {
+    struct SYSTEMDATA : ILStruct<SYSTEMDATA> {
         struct Fields {
             DPData::GMTIME::Object StartTime;
             DPData::GMTIME::Object SaveTime;
