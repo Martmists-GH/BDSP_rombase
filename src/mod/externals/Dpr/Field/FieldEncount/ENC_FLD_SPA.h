@@ -12,7 +12,7 @@ namespace Dpr::Field::FieldEncount {
             int32_t SpMyLv;
             bool Egg;
             int32_t Spa;
-            System_Int32_array* FormProb;
+            System::Int32_array* FormProb;
             int32_t AnnoonTblType;
         };
     };

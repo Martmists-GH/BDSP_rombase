@@ -24,7 +24,7 @@ namespace System {
             System::String::Object* str = this->instance();
             System::Text::UTF8Encoding::Object* encoding = System::Text::Encoding::get_UTF8();
             uint32_t size = encoding->GetByteCount(str);
-            auto arr = reinterpret_cast<System_Byte_array *>(system_array_new(*(Il2CppClass**)exl::util::modules::GetTargetOffset(0x04c552e0), size+1));
+            auto arr = reinterpret_cast<System::Byte_array *>(system_array_new(*(Il2CppClass**)exl::util::modules::GetTargetOffset(0x04c552e0), size+1));
             encoding->GetBytes(str, 0, str->fields.m_stringLength, arr, 0);
             arr->m_Items[size] = 0;
             auto res = std::string((char*)&arr->m_Items[0]);

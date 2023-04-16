@@ -45,7 +45,7 @@ struct GameController : ILClass<GameController, 0x04c5a618> {
         int32_t push;
         int32_t release;
         int32_t accel;
-        System_Int64_array* times;
+        System::Int64_array* times;
         int32_t repeat;
         int64_t start;
         int64_t interval;
@@ -57,8 +57,8 @@ struct GameController : ILClass<GameController, 0x04c5a618> {
         u8 npadState[0x30];
         int32_t npadId;
         int32_t npadStyle;
-        System_Int32_array* _analogStickLButtonMasks;
-        System_Int32_array* _analogStickRButtonMasks;
+        System::Int32_array* _analogStickLButtonMasks;
+        System::Int32_array* _analogStickRButtonMasks;
     };
 
     static inline bool IsOn(GameController_Button button) {

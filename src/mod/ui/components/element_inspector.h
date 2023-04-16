@@ -36,12 +36,6 @@ namespace ui {
 
                 auto manager = Dpr::UI::UIManager::instance();
                 drawElement(manager->fields._activeRoot);
-
-                // TODO: Figure out how to do this without causing crashes after battle
-//                auto core = Dpr::Battle::View::BattleViewCore::instance();
-//                if (core->fields._UISystem_k__BackingField != nullptr) {
-//                    drawElement(core->cast<UnityEngine::Component>()->get_transform());
-//                }
             }
         }
 

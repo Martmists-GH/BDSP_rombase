@@ -12,7 +12,7 @@ namespace System::Text {
             return external<uint32_t>(0x02588990, this, str);
         }
 
-        inline int32_t GetBytes(System::String* str, int32_t charIndex, int32_t charCount, System_Byte_array* bytes, int32_t byteIndex) {
+        inline int32_t GetBytes(System::String* str, int32_t charIndex, int32_t charCount, System::Byte_array* bytes, int32_t byteIndex) {
             return external<int32_t>(0x02588b50, this, str, charIndex, charCount, bytes, byteIndex);
         }
     };

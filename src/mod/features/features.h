@@ -14,3 +14,4 @@ void exl_settings_main();
 void exl_il2cpp_log_main();
 void exl_sounds_main();
 void exl_poketch_main();
+void exl_battle_revolver_main();

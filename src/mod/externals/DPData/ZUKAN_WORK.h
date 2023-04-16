@@ -11,10 +11,10 @@ namespace DPData {
     struct ZUKAN_WORK : ILStruct<ZUKAN_WORK> {
         struct Fields {
             DPData::GET_STATUS_array* get_status;
-            System_Boolean_array* male_color_flag;
-            System_Boolean_array* female_color_flag;
-            System_Boolean_array* male_flag;
-            System_Boolean_array* female_flag;
+            System::Boolean_array* male_color_flag;
+            System::Boolean_array* female_color_flag;
+            System::Boolean_array* male_flag;
+            System::Boolean_array* female_flag;
             void* UnknownTurn;
             void* UnknownColor;
             void* PowarunTurn;
