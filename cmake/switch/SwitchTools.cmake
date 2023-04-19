@@ -155,7 +155,7 @@ macro(__add_binary_library target)
             OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/bin2s_lib/${target}.s
             COMMAND ${bin2s} ${ARGN} > ${CMAKE_CURRENT_BINARY_DIR}/bin2s_lib/${target}.s
             DEPENDS ${ARGN}
-            WORKING_DIRECTORY ../..
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
 
     # Add the respective library target.

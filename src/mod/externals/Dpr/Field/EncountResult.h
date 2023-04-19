@@ -2,13 +2,14 @@
 
 #include "externals/Pml/MonsNo.h"
 #include "externals/il2cpp-api.h"
+#include "externals/System/Primitives.h"
 
 namespace Dpr::Field {
     struct EncountResult : ILClass<EncountResult> {
         struct Fields {
             int32_t Type;
             Pml_MonsNo_array* Enemy;
-            void* Level;
+            System::Int32_array* Level;
             void* FixSex;
             void* FixSeikaku;
             bool IsRare;

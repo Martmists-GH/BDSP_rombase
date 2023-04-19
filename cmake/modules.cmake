@@ -1,9 +1,10 @@
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/switch/SwitchTools.cmake)
+set(__SWITCH_TOOLS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 add_custom_target(all_modules)
 
 function(add_module index name)
-    cmake_parse_arguments(MODULE_ARGS "" "" "INCLUDE;SOURCE;SOURCE_SHALLOW" ${ARGN})
+    cmake_parse_arguments(MODULE_ARGS "" "" "INCLUDE;SOURCE;SOURCE_SHALLOW;EMBED_BINARIES" ${ARGN})
 
     set(ALL_INCLUDE)
     foreach(include ${MODULE_ARGS_INCLUDE})
@@ -23,6 +24,11 @@ function(add_module index name)
         list(APPEND ALL_SOURCE ${SOURCE_FILES})
     endforeach()
 
+    set(ALL_EMBED_BINARIES)
+    foreach(embed_binary ${MODULE_ARGS_EMBED_BINARIES})
+        list(APPEND ALL_EMBED_BINARIES ${embed_binary})
+    endforeach()
+
     add_custom_target(${name})
     add_dependencies(all_modules ${name})
 
@@ -36,6 +42,10 @@ function(add_module index name)
     )
     set_property(
         TARGET ${name}
+        PROPERTY EMBED_BINARIES ${ALL_EMBED_BINARIES}
+    )
+    set_property(
+        TARGET ${name}
         PROPERTY SUBSDK "subsdk${index}"
     )
 
@@ -43,7 +53,7 @@ function(add_module index name)
 endfunction()
 
 function(add_module_variant module variant title_id game)
-    cmake_parse_arguments(VARIANT_ARGS "" "NPDM_TEMPLATE;LINKER_SCRIPT;SPECS_TEMPLATE" "INCLUDE;SOURCE" ${ARGN})
+    cmake_parse_arguments(VARIANT_ARGS "" "NPDM_TEMPLATE;LINKER_SCRIPT;SPECS_TEMPLATE" "INCLUDE;SOURCE;EMBED_BINARIES" ${ARGN})
 
     if (NOT DEFINED VARIANT_ARGS_NPDM_TEMPLATE)
         set(VARIANT_ARGS_NPDM_TEMPLATE ${CMAKE_CURRENT_SOURCE_DIR}/module/npdm.json.template)
@@ -72,13 +82,20 @@ function(add_module_variant module variant title_id game)
         list(APPEND ALL_SOURCE ${SOURCE_FILES})
     endforeach()
 
+    set(ALL_EMBED_BINARIES)
+    foreach(embed_binary ${VARIANT_ARGS_EMBED_BINARIES})
+        list(APPEND ALL_EMBED_BINARIES ${embed_binary})
+    endforeach()
+
     set(variant ${module}_${variant})
 
     get_target_property(PARENT_INCLUDE ${module} MODULE_INCLUDE)
     get_target_property(PARENT_SOURCE ${module} MODULE_SOURCE)
+    get_target_property(PARENT_EMBED_BINARIES ${module} EMBED_BINARIES)
 
     add_executable(${variant} ${ALL_SOURCE} ${PARENT_SOURCE})
     target_include_directories(${variant} PUBLIC ${ALL_INCLUDE} ${PARENT_INCLUDE})
+    target_embed_binaries(${variant} ${ALL_EMBED_BINARIES} ${PARENT_EMBED_BINARIES})
 
     string(LENGTH ${module} MODULE_NAME_LEN)
     target_compile_definitions(
