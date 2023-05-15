@@ -19,6 +19,7 @@ add_module(
                src/common/exlaunch/
                src/mod/
         SOURCE_SHALLOW imgui/
+        EMBED_BINARIES embedded_files/shaders/imgui.bin
 )
 add_module_variant(
         RomBase                         # Module name

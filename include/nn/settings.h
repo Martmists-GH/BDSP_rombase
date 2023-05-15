@@ -1,5 +1,8 @@
 #pragma once
 
+#include "types.h"
+#include "result.h"
+
 namespace nn {
 namespace settings {
     namespace system {

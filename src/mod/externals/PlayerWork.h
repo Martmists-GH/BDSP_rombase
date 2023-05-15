@@ -42,7 +42,7 @@
 #include "externals/DPData/TV_DATA.h"
 #include "externals/Dpr/BallDeco/SaveBallDecoExtraData.h"
 
-struct PlayerWork : ILClass<PlayerWork> {
+struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     struct SaveData : ILStruct<SaveData> {
         struct Fields {
             int32_t version;
@@ -100,6 +100,11 @@ struct PlayerWork : ILClass<PlayerWork> {
             DPData::TV_DATA::Object tvData;
             Dpr::BallDeco::SaveBallDecoExtraData::Object ballDecoExtraData;
         };
+    };
+
+    struct StaticFields {
+        char padding[72];
+        int32_t _SafariBallNum_k__BackingField;
     };
 
     struct Fields : SmartPoint::Components::PlayerPrefsProvider_PlayerWork_::Fields {

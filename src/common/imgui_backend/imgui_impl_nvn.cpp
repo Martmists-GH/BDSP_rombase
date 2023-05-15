@@ -13,6 +13,7 @@
 #include "../../../imgui/imgui.h"
 #include "oe.h"
 #include "logger/logger.h"
+#include "imgui_bin.h"
 
 #define UBOSIZE 0x1000
 
@@ -214,31 +215,14 @@ namespace ImguiNvnBackend {
     }
 
     bool createShaders() {
-
-        Logger::log("Creating/Loading Shaders.\n");
+        Logger::log("Loading Shaders.\n");
 
         auto bd = getBackendData();
 
-        if (false && ImguiShaderCompiler::CheckIsValidVersion(bd->device)) {
-            Logger::log("GLSLC compiler can be used!\n");
+        Logger::log("Shader data: u8[%d] = %p\n", imgui_bin_size, &imgui_bin);
 
-            ImguiShaderCompiler::InitializeCompiler();
-
-            bd->imguiShaderBinary = ImguiShaderCompiler::CompileShader("imgui");
-
-        } else {
-            Logger::log("Unable to compile shaders at runtime. falling back to pre-compiled shaders.\n");
-
-            FsHelper::LoadData loadData = {
-                    .path = "sd:/shaders/imgui.bin",
-                    .alignment = 0x1000,
-            };
-
-            FsHelper::loadFileFromPath(loadData);
-
-            bd->imguiShaderBinary.size = loadData.bufSize;
-            bd->imguiShaderBinary.ptr = (u8 *) loadData.buffer;
-        }
+        bd->imguiShaderBinary.size = imgui_bin_size;
+        bd->imguiShaderBinary.ptr = (u8*)&imgui_bin;
 
         if (bd->imguiShaderBinary.size > 0) {
             return true;
