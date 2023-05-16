@@ -37,7 +37,7 @@ HOOK_DEFINE_REPLACE(ObedienceMax) {
 HOOK_DEFINE_INLINE(CheckSurfFlags) {
     static void Callback(exl::hook::nx64::InlineCtx* ctx) {
         bool result = true;
-        result &= PlayerWork::GetSytemFlag(BADGE_ID_C06);
+        result &= PlayerWork::GetSystemFlag(BADGE_ID_C06);
         result &= PlayerWork::GetBool(FE_HIDEN_03_GET);
 
         ctx->X[0] = result ? 1 : 0;

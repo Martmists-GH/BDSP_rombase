@@ -155,6 +155,10 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
         external<bool>(0x02ceda30, index);
     }
 
+    static inline bool GetBool(int32_t index) {
+        external<bool>(0x02ce3e40, index);
+    }
+
     static inline void SetMoney(int32_t money) {
         external<void>(0x02cefc80, money);
     }
