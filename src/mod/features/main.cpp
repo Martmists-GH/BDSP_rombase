@@ -11,11 +11,10 @@ void exl_features_main() {
     //exl_patches_main();
     //exl_il2cpp_log_main();
     //exl_sounds_main();
+    //exl_poketch_main();
+    //exl_battle_revolver_main();
 
     exl_settings_main();
     exl_ability_changes_main();
-    exl_il2cpp_log_main();
-    exl_sounds_main();
-    exl_poketch_main();
-    exl_battle_revolver_main();
+    exl_badge_check_main();
 }

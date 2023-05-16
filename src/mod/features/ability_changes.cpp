@@ -1,5 +1,3 @@
-#include <utility>
-
 #include "exlaunch.hpp"
 #include "externals/Dpr/Battle/Logic/BTL_CLIENT.h"
 #include "externals/Dpr/Battle/Logic/BTL_POKEPARAM.h"
