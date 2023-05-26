@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "../armv8.hpp"
 #include "stream_patcher.hpp"
 
@@ -39,6 +41,14 @@ namespace exl::patch {
         }
         inline void BranchLinkInst(void* ptr) {
             BranchLinkInstRel(RelativeAddressFromPointer(ptr));
+        }
+
+        /* Write multiple instructions */
+        inline void WriteInst(std::vector<std::pair<uint32_t, exl::armv8::inst::Instruction>>& insts) {
+            for (auto& i : insts) {
+                Seek(i.first);
+                WriteInst(i.second);
+            }
         }
     };
 }

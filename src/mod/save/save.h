@@ -20,7 +20,7 @@ struct CustomSaveData {
     bool initialized;
     ModVersion version;
     // ONLY MAKE MODIFICATIONS TO SAVE FORMAT BELOW HERE, OTHERWISE YOU WILL BREAK SAVE COMPATIBILITY
-    DexSaveData<DexSize-1> dex;  // start at 0
+    DexSaveData<DexSize> dex;  // start at 0
 };
 
 void migrate(CustomSaveData* data, PlayerWork::Object* playerWork);

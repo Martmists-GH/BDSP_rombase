@@ -1,14 +1,15 @@
 #include "exlaunch.hpp"
 #include "externals/Dpr/Battle/Logic/BTL_CLIENT.h"
 #include "externals/Dpr/Battle/Logic/BTL_POKEPARAM.h"
-#include "externals/Pml/Pml_Enums.h"
+#include "data/utils.h"
+#include "data/abilities.h"
 
 using namespace Dpr::Battle::Logic;
 
 HOOK_DEFINE_TRAMPOLINE(CheckForbidChangeEscapeCommon) {
     static int32_t Callback(BTL_CLIENT *__this, BTL_POKEPARAM *procPoke, uint8_t *pokeID, uint16_t *tokuseiID) {
         // Nigeashi (Run Away) allows switch outs
-        if (procPoke->GetValue(0x12) == NIGEASI) {
+        if (procPoke->GetValue(0x12) == array_index(ABILITIES, "Run Away")) {
             return CANTESC_NULL; 
         } else {
             return Orig(__this, procPoke, pokeID, tokuseiID);
