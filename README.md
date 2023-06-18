@@ -24,7 +24,7 @@ It has been modified to be used for Pokémon Luminescent.
 Installation requires Linux or a WSL instance for the building process.
 
 1. Clone the repository and its submodule using `git clone --recurse-submodules https://github.com/TeamLumi/Luminescent_ExLaunch.git`.
-2. Build the project using `cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE:STRING="Debug" -DCMAKE_INSTALL_PREFIX:PATH="/path/to/repo/out/install/WSL-GCC-Debug" -DCMAKE_TOOLCHAIN_FILE:FILEPATH="/path/to/repo/cmake/toolchain.cmake" -B/path/to/repo/build -S/path/to/repo /path/to/repo/CMakeLists.txt;`.
+2. Build the project using `cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE:STRING="Debug" -DCMAKE_INSTALL_PREFIX:PATH="out/install/WSL-GCC-Debug" -DCMAKE_TOOLCHAIN_FILE:FILEPATH="cmake/toolchain.cmake" -Bbuild`.
 3. In the `build` directory, make the RomBase target with `make RomBase`.
 4. Again, in the `build` directory, make the RomBase_release_x target with `make RomBase_release_x` where x is yuzu, ryujinx, or atmosphere. The only difference between all these targets should be the directory structure of the output.
 5. Copy the built files from the corresponding directory in `build/RomBase_Diamond_releases`, or use the existing copy/ftp tasks from cmake.
