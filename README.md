@@ -29,6 +29,8 @@ Installation requires Linux or a WSL instance for the building process.
 4. Again, in the `build` directory, make the RomBase_release_x target with `make RomBase_release_x` where x is yuzu, ryujinx, or atmosphere. The only difference between all these targets should be the directory structure of the output.
 5. Copy the built files from the corresponding directory in `build/RomBase_Diamond_releases`, or use the existing copy/ftp tasks from cmake.
 6. Put `embedded_files/shaders/imgui.bin` at `sdmc:/shaders/imgui.bin` (or `sdcard/shaders/imgui.bin` for Ryujinx)
+<br>
+After the initial installation, only steps 4-6 need to be repeated to rebuild the mod.
 
 ### License
 
