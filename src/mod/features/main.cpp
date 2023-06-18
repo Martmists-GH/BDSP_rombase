@@ -8,7 +8,6 @@ void exl_features_main() {
     //exl_remap_main();
     //exl_tms_main();
     //exl_exp_share_main();
-    //exl_patches_main();
     //exl_il2cpp_log_main();
     //exl_sounds_main();
     //exl_poketch_main();
@@ -17,4 +16,5 @@ void exl_features_main() {
     exl_settings_main();
     exl_ability_changes_main();
     exl_badge_check_main();
+    exl_patches_main();
 }
