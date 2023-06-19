@@ -17,3 +17,4 @@ void exl_ability_changes_main();
 void exl_poketch_main();
 void exl_battle_revolver_main();
 void exl_badge_check_main();
+void exl_level_cap_main();
