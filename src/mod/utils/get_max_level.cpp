@@ -1,8 +1,8 @@
 #pragma once
 
 #include "externals/PlayerWork.h"
+#include "externals/FlagWork_Enums.h"
 #include "utils/get_badges.cpp"
-#include "FlagWork_Enums.h"
 #include "romdata/romdata.h"
 
 uint32_t GetLevelCapIndex()
