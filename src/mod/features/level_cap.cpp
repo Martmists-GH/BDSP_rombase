@@ -19,14 +19,14 @@ HOOK_DEFINE_REPLACE(LevelCap) {
         float exp = (((fVar4 * fVar4 * sqrt(fVar4)) / (fVar5 * fVar5 * sqrt(fVar5))) *
                 (float)(uint64_t)base_exp + 1.0);
 
-        // Beaten Stark Mountain
-        if (PlayerWork::GetBool(2538))
+        // Past all the level caps
+        if (GetLevelCapIndex() == GetLevelCapIndexOfLevel(100))
         {
             return (uint32_t) exp;
         }
 
         // Is Level Cap enabled
-        if (!PlayerWork::GetBool(2197))
+        if (!PlayerWork::GetBool(FLAG_DISABLE_LEVEL_CAP))
         {
             return (uint32_t) exp;
         }
