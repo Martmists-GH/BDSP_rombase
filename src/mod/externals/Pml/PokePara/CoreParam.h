@@ -17,5 +17,17 @@ namespace Pml::PokePara {
         inline uint32_t GetLangId() {
             return external<uint32_t>(0x0204b810, this);
         }
+
+        inline bool IsNull() {
+            external<bool>(0x0204c9d0, this);
+        }
+
+        inline bool IsEgg(int32_t type) {
+            external<bool>(0x02049370, this, type);
+        }
+
+        inline int32_t GetSeikaku() {
+            external<int32_t>(0x02048740, this);
+        }
     };
 }

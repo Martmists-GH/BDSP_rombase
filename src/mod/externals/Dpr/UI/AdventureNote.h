@@ -7,8 +7,8 @@
 #include "externals/UnityEngine/RectTransform.h"
 
 namespace Dpr::UI {
-    struct AdventureNote : IlClass<AdventureNote> {
-        struct TypeParam : IlClass<TypeParam> {
+    struct AdventureNote : ILClass<AdventureNote> {
+        struct TypeParam : ILClass<TypeParam> {
             struct Fields {
                 UnityEngine::RectTransform::Object* root;
                 Dpr::UI::UIText::Object* detail;

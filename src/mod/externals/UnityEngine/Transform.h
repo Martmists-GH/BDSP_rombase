@@ -1,12 +1,13 @@
 #pragma once
 
 #include "externals/il2cpp-api.h"
-#include "externals/UnityEngine/Component.h"
-#include "Vector3.h"
 
+#include "externals/System/String.h"
+#include "externals/UnityEngine/Component.h"
+#include "externals/UnityEngine/Vector3.h"
 
 namespace UnityEngine {
-    struct Transform : ILClass<Transform> {
+    struct Transform : ILClass<Transform, 0x4c57e80> {
         struct Fields : UnityEngine::Component::Fields {
 
         };
@@ -51,17 +52,17 @@ namespace UnityEngine {
 
         template <typename T>
         inline T::Object* GetComponent() {
-            return this->cast<UnityEngine::Component>()->GetComponent<T>();
+            return this->cast<UnityEngine::Transform>()->GetComponent<T>();
         }
 
         template <typename T>
         inline T::Object* GetComponent(ILMethod<T>& method) {
-            return this->cast<UnityEngine::Component>()->GetComponent<T>(method);
+            return this->cast<UnityEngine::Transform>()->GetComponent<T>(method);
         }
 
         template <typename T>
         inline T::Object* GetComponent(T::Class* klass) {
-            return this->cast<UnityEngine::Component>()->GetComponent<T>(klass);
+            return this->cast<UnityEngine::Transform>()->GetComponent<T>(klass);
         }
     };
 }

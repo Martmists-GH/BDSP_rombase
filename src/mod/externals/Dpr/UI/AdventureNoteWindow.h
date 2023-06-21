@@ -8,8 +8,8 @@
 
 
 namespace Dpr::UI {
-    struct AdventureNoteWindow : IlClass<AdventureNoteWindow> {
-        struct _OpOpen_d__6 : IlClass<_OpOpen_d__6> {
+    struct AdventureNoteWindow : ILClass<AdventureNoteWindow> {
+        struct _OpOpen_d__6 : ILClass<_OpOpen_d__6> {
             struct Fields {
                 int32_t __1__state;
                 Il2CppObject* __2__current;

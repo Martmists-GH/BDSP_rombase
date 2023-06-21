@@ -1,13 +1,18 @@
 #pragma once
 
 #include "externals/il2cpp.h"
-#include "externals/System/String.h"
+
+#include "externals/Dpr/EvScript/EvScriptData.h"
 #include "externals/Dpr/Item/ItemInfo.h"
+#include "externals/Effect/EffectInstance.h"
+#include "externals/EvData.h"
+#include "externals/Pml/PokePara/PokemonParam.h"
+#include "externals/System/String.h"
+#include "externals/UnityEngine/Coroutine.h"
 #include "externals/UnityEngine/Vector3.h"
 #include "externals/UnityEngine/Vector2Int.h"
 #include "externals/UnityEngine/Quaternion.h"
 #include "externals/UnityEngine/Vector2.h"
-#include "externals/EvData/Aregment.h"
 
 //extern Dpr_EvScript_EvDataManager_o* (*Dpr_EvScript_EvDataManager$$get_Instanse)();
 //
@@ -21,7 +26,7 @@
 //extern bool (*Dpr_EvScript_EvDataManager$$EvCmdShopOpenWait)(Dpr_EvScript_EvDataManager_o* __this);
 
 namespace Dpr::EvScript {
-    struct EvDataManager : ILClass<EvDataManager> {
+    struct EvDataManager : ILClass<EvDataManager, 0x04c59c50> {
         struct WorpEventData : ILStruct<WorpEventData> {
             struct Fields {
                 void* Entity;
@@ -218,14 +223,14 @@ namespace Dpr::EvScript {
             void * _umaAnimatorCtr;
             bool _isOpenCustomBallTrainer;
             int32_t _nicknamePlacementSequence;
-            void * _scriptEffects;
-            void * _scriptScaleCorutine;
+            Effect::EffectInstance::Array * _scriptEffects;
+            UnityEngine::Coroutine::Array * _scriptScaleCorutine;
             void * _scriptScaleVectol;
             void * _temp_PokePara;
             bool _isBattleTowerBtl;
             bool _isBattleTowerWin;
             UnityEngine::Vector2::Object _playerMoveGridCenterAngle;
-            void * _evData;
+            Dpr::EvScript::EvScriptData::Object * _evData;
             void * _evScript;
             void * _evCommand;
             EvData::Aregment::Array * _evArg;
@@ -261,5 +266,17 @@ namespace Dpr::EvScript {
             bool _nowInstantiate;
             void * _poolLoadObjects;
         };
+
+        inline bool RunEvCmd(int32_t index) {
+            return external<bool>(0x02c5b290, this, index);
+        }
+
+        inline int32_t GetPokemonFormNo(Pml::PokePara::PokemonParam::Object* index) {
+            return external<int32_t>(0x02c67ff0, this, index);
+        }
+
+        inline Pml::PokePara::PokemonParam::Object* GetPokemonParam(int32_t trayIndex, int32_t index) {
+            return external<Pml::PokePara::PokemonParam::Object*>(0x02c67f20, this, trayIndex, index);
+        }
     };
 }

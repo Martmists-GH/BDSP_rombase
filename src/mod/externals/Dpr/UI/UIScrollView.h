@@ -6,7 +6,7 @@
 #include "externals/UnityEngine/UI/LayoutGroup.h"
 
 namespace Dpr::UI {
-    struct UIScrollView : IlClass<UIScrollView> {
+    struct UIScrollView : ILClass<UIScrollView> {
         struct Fields : UnityEngine::MonoBehaviour::Fields {
             UnityEngine::UI::ScrollRect::Object* scrollRect;
             void* itemPrefab;

@@ -1,30 +1,21 @@
 #pragma once
 
-#include "externals/il2cpp.h"
-#include "externals/UnityEngine/_Object.h"
+#include "externals/il2cpp-api.h"
+
+#include "externals/Dpr/UI/SettingMenuItem.h"
+#include "externals/Dpr/UI/UIText.h"
 #include "externals/System/Collections/Generic/List.h"
 #include "externals/System/Type.h"
 #include "externals/System/_Object.h"
-
-namespace System::Collections::Generic {
-    struct List$$Component;
-}
-
-namespace UnityEngine::UI {
-    struct HorizontalLayoutGroup;
-}
-
-namespace Dpr::UI {
-    struct SettingMenuItem;
-    struct UIText;
-}
+#include "externals/UnityEngine/BoxCollider.h"
+#include "externals/UnityEngine/RectTransform.h"
+#include "externals/UnityEngine/Transform.h"
+#include "externals/UnityEngine/UI/HorizontalLayoutGroup.h"
+#include "externals/UnityEngine/_Object.h"
 
 namespace UnityEngine {
-    struct Transform;
-    struct RectTransform;
-
     struct Component : ILClass<Component, 0x04c57e88> {
-        struct Fields : public UnityEngine::_Object::Fields {
+        struct Fields : UnityEngine::_Object::Fields {
 
         };
 
@@ -32,6 +23,7 @@ namespace UnityEngine {
         static inline StaticILMethod<0x04c667e0, Dpr::UI::UIText> Method$$UIText$$GetComponent {};
         static inline StaticILMethod<0x04c66970, UnityEngine::UI::HorizontalLayoutGroup> Method$$HorizontalLayoutGroup$$GetComponent {};
         static inline StaticILMethod<0x04c66918, UnityEngine::RectTransform> Method$$RectTransform$$GetComponent {};
+        static inline StaticILMethod<0x04c67050, UnityEngine::BoxCollider> Method$$BoxCollider$$GetComponent {};
 
         template <typename T>
         inline T::Object* GetComponent() {

@@ -3,6 +3,7 @@
 #include "externals/il2cpp.h"
 #include "externals/il2cpp-api.h"
 #include "Primitives.h"
+#include "externals/System/Collections/Generic/List.h"
 #include "externals/System/Text/Encoding.h"
 
 namespace System {
@@ -30,5 +31,11 @@ namespace System {
             auto res = std::string((char*)&arr->m_Items[0]);
             return res;
         }
+    };
+}
+
+namespace System::Collections::Generic {
+    struct List$$String : List<List$$String, System::String> {
+        
     };
 }
