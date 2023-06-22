@@ -1,5 +1,3 @@
-#pragma once
-
 #include "externals/FlagWork_Enums.h"
 #include "externals/PlayerWork.h"
 

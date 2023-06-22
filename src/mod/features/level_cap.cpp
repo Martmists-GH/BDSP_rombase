@@ -3,7 +3,8 @@
 #include "externals/Pml/PokePara/Accessor.h"
 #include "externals/PlayerWork.h"
 #include "externals/Dpr/Battle/Logic/Exp.h"
-#include "utils/get_max_level.cpp"
+#include "externals/FlagWork_Enums.h"
+#include "utils/utils.h"
 
 #include <math.h>
 
