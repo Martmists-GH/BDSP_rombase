@@ -1,5 +1,4 @@
-#pragma once
-
+#include "externals/FlagWork_Enums.h"
 #include "externals/PlayerWork.h"
 
 uint32_t GetBadgeCount()
