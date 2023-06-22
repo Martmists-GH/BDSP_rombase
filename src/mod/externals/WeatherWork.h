@@ -8,6 +8,6 @@ struct WeatherWork : ILClass<WeatherWork> {
     };
 
     static inline void set_WeatherID(int32_t value) {
-        return external<void>(0x017d18a0, value);
+        external<void>(0x017d18a0, value);
     }
 };

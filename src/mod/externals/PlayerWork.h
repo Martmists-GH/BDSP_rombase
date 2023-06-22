@@ -160,7 +160,7 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     }
 
     static inline void SetBool(int32_t index, bool flag) {
-        return external<void>(0x02ced9a0, index, flag);
+        external<void>(0x02ced9a0, index, flag);
     }
 
     static inline int32_t GetInt(int32_t index) {
@@ -168,7 +168,7 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     }
 
     static inline void SetInt(int32_t index, int32_t value) {
-        return external<void>(0x02ced920, index, value);
+        external<void>(0x02ced920, index, value);
     }
 
     static inline void SetMoney(int32_t money) {

@@ -11,7 +11,7 @@ namespace SmartPoint::AssetAssistant {
         };
 
         static inline void Stop(UnityEngine::Coroutine::Object *coroutine) {
-            return external<void>(0x02bc29b0, coroutine);
+            external<void>(0x02bc29b0, coroutine);
         }
     };
 }
