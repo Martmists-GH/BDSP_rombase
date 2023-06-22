@@ -52,17 +52,17 @@ namespace UnityEngine {
 
         template <typename T>
         inline T::Object* GetComponent() {
-            return this->cast<UnityEngine::Transform>()->GetComponent<T>();
+            return this->cast<UnityEngine::Component>()->GetComponent<T>();
         }
 
         template <typename T>
         inline T::Object* GetComponent(ILMethod<T>& method) {
-            return this->cast<UnityEngine::Transform>()->GetComponent<T>(method);
+            return this->cast<UnityEngine::Component>()->GetComponent<T>(method);
         }
 
         template <typename T>
         inline T::Object* GetComponent(T::Class* klass) {
-            return this->cast<UnityEngine::Transform>()->GetComponent<T>(klass);
+            return this->cast<UnityEngine::Component>()->GetComponent<T>(klass);
         }
     };
 }

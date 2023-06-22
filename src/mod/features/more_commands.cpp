@@ -7,7 +7,9 @@
 #include "externals/Dpr/EvScript/EvCmdID.h"
 #include "externals/Dpr/EvScript/EvDataManager.h"
 #include "externals/Dpr/EvScript/EvScriptData.h"
-#include "externals/EvData.h"
+#include "externals/EvData/Aregment.h"
+#include "externals/EvData/ArgType.h"
+#include "externals/EvData/_EvData.h"
 #include "externals/FlagWork.h"
 #include "externals/PlayerWork.h"
 #include "externals/Pml/PokePara/CoreParam.h"
@@ -326,8 +328,7 @@ bool ToggleCollisionBox(Dpr::EvScript::EvDataManager::Object * manager)
 
             if (object != nullptr)
             {
-                UnityEngine::BoxCollider::Object * boxCollider = (UnityEngine::BoxCollider::Object *)object->GetComponent(UnityEngine::Component::Method$$SettingMenuItem$$GetComponent);
-
+                UnityEngine::BoxCollider::Object * boxCollider = (UnityEngine::BoxCollider::Object *)object->GetComponent(UnityEngine::Component::Method$$BoxCollider$$GetComponent);
                 if (boxCollider != nullptr)
                 {
                     UnityEngine::Collider::Object * collider = (UnityEngine::Collider::Object *)boxCollider;

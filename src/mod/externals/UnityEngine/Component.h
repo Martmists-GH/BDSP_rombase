@@ -2,20 +2,32 @@
 
 #include "externals/il2cpp-api.h"
 
-#include "externals/Dpr/UI/SettingMenuItem.h"
-#include "externals/Dpr/UI/UIText.h"
+#include "externals/UnityEngine/_Object.h"
 #include "externals/System/Collections/Generic/List.h"
 #include "externals/System/Type.h"
 #include "externals/System/_Object.h"
-#include "externals/UnityEngine/BoxCollider.h"
-#include "externals/UnityEngine/RectTransform.h"
-#include "externals/UnityEngine/Transform.h"
-#include "externals/UnityEngine/UI/HorizontalLayoutGroup.h"
-#include "externals/UnityEngine/_Object.h"
+
+// These are all to avoid cyclical definitions
+namespace System::Collections::Generic {
+    struct List$$Component;
+}
+
+namespace UnityEngine::UI {
+    struct HorizontalLayoutGroup;
+}
+
+namespace Dpr::UI {
+    struct SettingMenuItem;
+    struct UIText;
+}
 
 namespace UnityEngine {
+    struct Transform;
+    struct RectTransform;
+    struct BoxCollider;
+
     struct Component : ILClass<Component, 0x04c57e88> {
-        struct Fields : UnityEngine::_Object::Fields {
+        struct Fields : public UnityEngine::_Object::Fields {
 
         };
 

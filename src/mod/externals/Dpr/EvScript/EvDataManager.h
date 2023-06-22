@@ -5,7 +5,7 @@
 #include "externals/Dpr/EvScript/EvScriptData.h"
 #include "externals/Dpr/Item/ItemInfo.h"
 #include "externals/Effect/EffectInstance.h"
-#include "externals/EvData.h"
+#include "externals/EvData/Aregment.h"
 #include "externals/Pml/PokePara/PokemonParam.h"
 #include "externals/System/String.h"
 #include "externals/UnityEngine/Coroutine.h"
