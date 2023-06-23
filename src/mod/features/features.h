@@ -18,3 +18,4 @@ void exl_poketch_main();
 void exl_battle_revolver_main();
 void exl_badge_check_main();
 void exl_level_cap_main();
+void exl_commands_main();

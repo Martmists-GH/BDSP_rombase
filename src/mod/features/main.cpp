@@ -18,4 +18,5 @@ void exl_features_main() {
     exl_badge_check_main();
     exl_level_cap_main();
     exl_patches_main();
+    exl_commands_main();
 }

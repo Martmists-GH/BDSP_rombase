@@ -1,11 +1,13 @@
 #pragma once
 
-#include "externals/il2cpp.h"
+#include "externals/il2cpp-api.h"
+
 #include "externals/UnityEngine/_Object.h"
 #include "externals/System/Collections/Generic/List.h"
 #include "externals/System/Type.h"
 #include "externals/System/_Object.h"
 
+// These are all to avoid cyclical definitions
 namespace System::Collections::Generic {
     struct List$$Component;
 }
@@ -22,6 +24,7 @@ namespace Dpr::UI {
 namespace UnityEngine {
     struct Transform;
     struct RectTransform;
+    struct BoxCollider;
 
     struct Component : ILClass<Component, 0x04c57e88> {
         struct Fields : public UnityEngine::_Object::Fields {
@@ -32,6 +35,7 @@ namespace UnityEngine {
         static inline StaticILMethod<0x04c667e0, Dpr::UI::UIText> Method$$UIText$$GetComponent {};
         static inline StaticILMethod<0x04c66970, UnityEngine::UI::HorizontalLayoutGroup> Method$$HorizontalLayoutGroup$$GetComponent {};
         static inline StaticILMethod<0x04c66918, UnityEngine::RectTransform> Method$$RectTransform$$GetComponent {};
+        static inline StaticILMethod<0x04c67050, UnityEngine::BoxCollider> Method$$BoxCollider$$GetComponent {};
 
         template <typename T>
         inline T::Object* GetComponent() {

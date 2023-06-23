@@ -1,17 +1,17 @@
 #pragma once
 
-#include "externals/il2cpp.h"
+#include "externals/il2cpp-api.h"
+
 #include "externals/UnityEngine/Component.h"
-#include "Component.h"
 
 namespace UnityEngine {
-    struct Behaviour : ILClass<Behaviour> {
+    struct Collider : ILClass<Collider, 0x04c57608> {
         struct Fields : UnityEngine::Component::Fields {
 
         };
 
         inline void set_enabled(bool value) {
-            external<void>(0x026a3450, this, value);
+            external<void>(0x02c1c600, this, value);
         }
     };
 }

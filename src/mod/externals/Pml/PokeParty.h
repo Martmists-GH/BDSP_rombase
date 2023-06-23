@@ -14,5 +14,9 @@ namespace Pml {
         inline void ReplaceMember(uint32_t idx, Pml::PokePara::PokemonParam* param) {
             external<void>(0x020560a0, this, idx, param);
         }
+
+        inline Pml::PokePara::PokemonParam::Object* GetMemberPointer(uint32_t idx) {
+            return external<Pml::PokePara::PokemonParam::Object*>(0x020556f0, this, idx);
+        }
     };
 }

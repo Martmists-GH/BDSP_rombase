@@ -2,19 +2,19 @@
 
 #include "externals/il2cpp-api.h"
 
+#include "externals/EvData/Aregment.h"
 #include "externals/System/Collections/Generic/List.h"
 
 namespace EvData {
-    struct Aregment : ILStruct<Aregment> {
+    struct Command : ILClass<Command> {
         struct Fields {
-            int32_t argType;
-            int32_t data;
+            System::Collections::Generic::List$$Aregment::Object* Arg;
         };
     };
 }
 
 namespace System::Collections::Generic {
-    struct List$$Aregment : List<List$$Aregment, EvData::Aregment> {
+    struct List$$Command : List<List$$Command, EvData::Command> {
         
     };
 }

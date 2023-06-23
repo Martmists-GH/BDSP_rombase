@@ -9,8 +9,8 @@
 #include "externals/Dpr/UI/AdventureNoteData.h"
 
 namespace Dpr::UI {
-    struct AdventureNoteItem : IlClass<AdventureNoteItem, 0x04c61558> {
-        struct Param : IlClass<Param, 0x04c61568> {
+    struct AdventureNoteItem : ILClass<AdventureNoteItem, 0x04c61558> {
+        struct Param : ILClass<Param, 0x04c61568> {
             struct Fields {
                 int32_t noteId;
                 void* datas;
