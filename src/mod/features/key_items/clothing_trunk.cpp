@@ -10,13 +10,16 @@
 
 void UseClothingTrunk(int32_t itemId, bool fromBag, Dpr::UI::UIBag::__c__DisplayClass127_1::Object* bagDisplayClass)
 {
+    Dpr::EvScript::EvDataManager::Object* evDataManager = Dpr::EvScript::EvDataManager::get_Instanse();
+
     if (fromBag)
     {
-        Dpr::EvScript::EvDataManager::Object* evDataManager = Dpr::EvScript::EvDataManager::get_Instanse();
-        evDataManager->EvCmdOpenBoutiqueShopChange();
+        System::String::Object * labelName = System::String::Create("ev_keyitem_clothingtrunk_bag");
+        evDataManager->JumpLabel(labelName, nullptr);
     }
     else
     {
-        // TODO, call ev_script
+        System::String::Object * labelName = System::String::Create("ev_keyitem_clothingtrunk");
+        evDataManager->JumpLabel(labelName, nullptr);
     }
 }
