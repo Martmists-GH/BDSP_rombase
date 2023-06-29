@@ -1,6 +1,8 @@
 #pragma once
 
 #include "externals/il2cpp.h"
+
+#include "externals/UnityEngine/Events/UnityAction.h"
 #include "externals/UnityEngine/MonoBehaviour.h"
 
 namespace Dpr::UI {
@@ -14,8 +16,8 @@ namespace Dpr::UI {
             int32_t _prevWindowId;
             void* _messageWindow;
             void* instance;
-            void* onClosed;
-            void* onPreClose;
+            UnityEngine::Events::UnityAction::Object* onClosed;
+            UnityEngine::Events::UnityAction::Object* onPreClose;
             bool _IsClosing_k__BackingField;
             int32_t _animStateIn;
             int32_t _animStateOut;

@@ -7,6 +7,7 @@
 #include "externals/Effect/EffectInstance.h"
 #include "externals/EvData/Aregment.h"
 #include "externals/Pml/PokePara/PokemonParam.h"
+#include "externals/System/MulticastDelegate.h"
 #include "externals/System/String.h"
 #include "externals/UnityEngine/Coroutine.h"
 #include "externals/UnityEngine/Vector3.h"
@@ -56,6 +57,20 @@ namespace Dpr::EvScript {
             };
         };
 
+        struct EventEndDelegate : ILClass<EventEndDelegate> {
+            struct Fields : System::MulticastDelegate::Fields {
+                void* Entity;
+                int32_t State;
+                float Time;
+            };
+        };
+
+        enum class TalkState : int32_t {
+            Init = 0,
+            EndWait = 1,
+            CloseWait = 2
+        };
+
         struct Fields {
             void * OnTalkStartCallBack;
             bool _isScriptLoad;
@@ -81,7 +96,7 @@ namespace Dpr::EvScript {
             bool _isInitFirstMap;
             void * __dummyPlayer_k__BackingField;
             void * _updateDelegate;
-            void * _eventEndDelegate;
+            EventEndDelegate::Object * _eventEndDelegate;
             void * _doorEntity;
             Dpr::EvScript::EvDataManager::WorpEventData::Object _worpEventData;
             UnityEngine::Vector2Int::Object _eqZoneWorpGrid;
@@ -153,7 +168,7 @@ namespace Dpr::EvScript {
             void * _msgWindow;
             void * _msgWindowOther;
             void * _msgWindowCoroutine;
-            int32_t _talkStart;
+            TalkState _talkStart;
             int32_t _macroCmd;
             int32_t _procCmd;
             void * _talkOpenMsbt;
@@ -277,6 +292,22 @@ namespace Dpr::EvScript {
 
         inline Pml::PokePara::PokemonParam::Object* GetPokemonParam(int32_t trayIndex, int32_t index) {
             return external<Pml::PokePara::PokemonParam::Object*>(0x02c67f20, this, trayIndex, index);
+        }
+
+        inline bool JumpLabel(System::String::Object* label, EventEndDelegate::Object* callback) {
+            return external<bool>(0x02c423c0, this, label, callback);
+        }
+
+        inline bool Cmd_TalkMsg(System::String::Object* msbt, System::String::Object* label) {
+            return external<bool>(0x02c567f0, this, msbt, label);
+        }
+
+        inline bool EvCmdOpenBoutiqueShopChange() {
+            return external<bool>(0x02c8a810, this);
+        }
+
+        static inline Dpr::EvScript::EvDataManager::Object* get_Instanse() {
+            return external<Dpr::EvScript::EvDataManager::Object*>(0x02c3d4d0);
         }
     };
 }

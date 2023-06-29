@@ -5,6 +5,7 @@
 #include "externals/System/String.h"
 #include "externals/System/Type.h"
 #include "externals/UnityEngine/_Object.h"
+#include "externals/UnityEngine/Transform.h"
 
 namespace UnityEngine {
     struct GameObject : ILClass<GameObject> {

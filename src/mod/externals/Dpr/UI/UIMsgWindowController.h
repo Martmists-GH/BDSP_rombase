@@ -2,7 +2,9 @@
 
 #include "externals/il2cpp.h"
 #include "externals/UnityEngine/Vector2.h"
+#include "externals/System/Action.h"
 #include "externals/System/Nullable.h"
+#include "externals/System/String.h"
 
 namespace Dpr::UI {
     struct UIMsgWindowController : ILClass<UIMsgWindowController, 0x04c5e6a8> {
@@ -19,6 +21,14 @@ namespace Dpr::UI {
 
         inline void ctor() {
             external<void>(0x01a140a0, this);
+        }
+        
+        inline void OpenMsgWindow(int32_t messageFileType, System::String::Object * labelName, bool isWait, bool isBatchDisplay, System::Action::Object * onFinishedMessage, System::Action::Object * onCloseWindow) {
+            external<void>(0x01a133c0, this, messageFileType, labelName, isWait, isBatchDisplay, onFinishedMessage, onCloseWindow);
+        }
+
+        inline void CloseMsgWindow() {
+            external<void>(0x01a13610, this);
         }
     };
 }

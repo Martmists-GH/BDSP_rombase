@@ -6,7 +6,7 @@ void migrate(CustomSaveData* save, PlayerWork::Object* playerWork) {
     ModVersion newVersion;
 
     switch (save->version) {
-        case Vanilla: {
+        case ModVersion::Vanilla: {
             // Copy over dex data
             auto zukan = playerWork->fields._saveData.fields.zukanData.fields;
 
@@ -22,14 +22,14 @@ void migrate(CustomSaveData* save, PlayerWork::Object* playerWork) {
             break;
         }
 
-        case Release_001: {
+        case ModVersion::Release_001: {
             // Save migration code goes here
 
-            newVersion = Dev;
+            newVersion = ModVersion::Dev;
             break;
         }
 
-        case Dev: {  // should never happen; return
+        case ModVersion::Dev: {  // should never happen; return
             return;
         }
     }

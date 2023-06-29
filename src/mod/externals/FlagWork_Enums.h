@@ -1,6 +1,6 @@
 #pragma once
 
-enum FlagWork_Flag {
+enum class FlagWork_Flag : int32_t {
     FH_01 = 0,
     FH_02 = 1,
     FH_03 = 2,
@@ -1764,6 +1764,8 @@ enum FlagWork_Flag {
     FLAG_MYSTERY_BOX = 1758,
 
     // Luminescent Flags
+    FLAG_INFINITE_REPEL = 2195,
+    
     FLAG_DISABLE_LEVEL_CAP = 2197,
     FLAG_DISABLE_EXP_SHARE = 2198,
     FLAG_DISABLE_AFFECTION = 2199,
@@ -1773,7 +1775,7 @@ enum FlagWork_Flag {
     FLAG_END_SAVE_SIZE = 4000,
 };
 
-enum FlagWork_SysFlag {
+enum class FlagWork_SysFlag : int32_t {
     SYS_FLAG_ARRIVE_START = 0,
     SYS_FLAG_BAG_GET = 1,
     SYS_FLAG_PAIR = 2,
@@ -2743,7 +2745,7 @@ enum FlagWork_SysFlag {
     SYSFLAG_SAVE_SIZE = 1000,
 };
 
-enum FlagWork_Work {
+enum class FlagWork_Work : int32_t {
     LOCALWORK0 = 0,
     LOCALWORK1 = 1,
     LOCALWORK2 = 2,

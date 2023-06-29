@@ -1,5 +1,5 @@
 #include "externals/PlayerWork.h"
-#include "externals/FlagWork_Enums.h"
+#include "externals/FlagWork.h"
 #include "romdata/romdata.h"
 #include "utils/utils.h"
 
@@ -10,20 +10,20 @@ uint32_t GetLevelCapIndex()
     constexpr size_t NUM_WORK_VALUES = 2;
     uint32_t numEvents = GetBadgeCount();
 
-    uint32_t flags[NUM_FLAGS] = {
-        FLAG_CYRUS_SPEAR_PILLAR // Beating Cyrus at spear pillar
+    int32_t flags[NUM_FLAGS] = {
+        (int32_t)FlagWork_Flag::FLAG_CYRUS_SPEAR_PILLAR // Beating Cyrus at spear pillar
     };
 
-    uint32_t sysflags[NUM_SYS_FLAGS] = {
-        SYS_FLAG_GAME_CLEAR
+    int32_t sysflags[NUM_SYS_FLAGS] = {
+        (int32_t)FlagWork_SysFlag::SYS_FLAG_GAME_CLEAR
     };
 
-    uint32_t works[NUM_WORK_VALUES] = {
-        WK_SCENE_R205A, // Beating Mars at Valley Windworks
-        WK_SCENE_C02 // Beating Barry at Canalave
+    int32_t works[NUM_WORK_VALUES] = {
+        (int32_t)FlagWork_Work::WK_SCENE_R205A, // Beating Mars at Valley Windworks
+        (int32_t)FlagWork_Work::WK_SCENE_C02 // Beating Barry at Canalave
     };
 
-    uint32_t workMins[NUM_WORK_VALUES] = {
+    int32_t workMins[NUM_WORK_VALUES] = {
         2, // WK_SCENE_R205A, Beating Mars at Valley Windworks
         1 // WK_SCENE_C02, Beating Barry at Canalave
     };

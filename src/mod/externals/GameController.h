@@ -4,7 +4,7 @@
 #include "externals/UnityEngine/Vector2.h"
 #include "externals/System/Primitives.h"
 
-enum GameController_Button {
+enum class GameController_Button : int32_t {
     BUTTON_A = 0x1,
     BUTTON_B = 0x2,
     BUTTON_X = 0x4,
@@ -62,22 +62,22 @@ struct GameController : ILClass<GameController, 0x04c5a618> {
     };
 
     static inline bool IsOn(GameController_Button button) {
-        return getClass()->static_fields->on & button;
+        return getClass()->static_fields->on & (int32_t)button;
     }
 
     static inline bool IsPush(GameController_Button button) {
-        return getClass()->static_fields->push & button;
+        return getClass()->static_fields->push & (int32_t)button;
     }
 
     static inline bool IsRelease(GameController_Button button) {
-        return getClass()->static_fields->release & button;
+        return getClass()->static_fields->release & (int32_t)button;
     }
 
     static inline bool IsAccel(GameController_Button button) {
-        return getClass()->static_fields->accel & button;
+        return getClass()->static_fields->accel & (int32_t)button;
     }
 
     static inline bool IsRepeat(GameController_Button button) {
-        return getClass()->static_fields->repeat & button;
+        return getClass()->static_fields->repeat & (int32_t)button;
     }
 };

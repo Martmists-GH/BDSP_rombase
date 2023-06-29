@@ -1,7 +1,12 @@
 #pragma once
 
 #include "externals/il2cpp.h"
+
 #include "externals/UnityEngine/MonoBehaviour.h"
+
+namespace Audio {
+    struct AudioManager;
+}
 
 namespace Dpr {
     namespace Battle {
@@ -23,6 +28,7 @@ namespace SmartPoint::AssetAssistant {
 
         static_assert(offsetof(Fields, m_CachedPtr) == 0);
 
+        static inline StaticILMethod<0x04c676a0, Audio::AudioManager> Method$$AudioManager$$get_Instance {};
         static inline StaticILMethod<0x04c676c0, Dpr::Battle::View::BattleViewCore> Method$$BattleViewCore$$get_Instance {};
         static inline StaticILMethod<0x04c67700, Dpr::UI::UIManager> Method$$UIManager$$get_Instance {};
 
