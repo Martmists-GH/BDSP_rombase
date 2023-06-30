@@ -15,12 +15,13 @@ const uint32_t REPEL_SOUND_ID = 0x8e8a8de1;
 
 void UseInfiniteRepel(int32_t itemId, bool fromBag, Dpr::UI::UIBag::__c__DisplayClass127_1::Object* bagDisplayClass)
 {
-    if (fromBag) Logger::log("UseInfiniteRepel from Bag\n");
-    else Logger::log("UseInfiniteRepel from Registered\n");
-    
     bool flag = PlayerWork::GetBool((int32_t)FlagWork_Flag::FLAG_INFINITE_REPEL);
     flag = !flag;
     PlayerWork::SetBool((int32_t)FlagWork_Flag::FLAG_INFINITE_REPEL, flag);
+
+    System::Action::Class* actionClass = System::Action::getClass(System::Action::void_TypeInfo);
+    actionClass->initIfNeeded();
+    System::Action::Object* action = actionClass->newInstance(bagDisplayClass->fields.CS___8__locals1, *Dpr::UI::UIBag::__c__DisplayClass127_0::Method$$ShowItemContextMenu_EndUseAction);
 
     if (flag)
     {
@@ -42,7 +43,7 @@ void UseInfiniteRepel(int32_t itemId, bool fromBag, Dpr::UI::UIBag::__c__Display
         }
 
         Dpr::UI::UIBag::Object * uiBag = bagDisplayClass->fields.CS___8__locals1->fields.__4__this;
-        uiBag->fields.msgWindowController->OpenMsgWindow(0, labelName, true, false, nullptr, nullptr);
+        uiBag->fields.msgWindowController->OpenMsgWindow(0, labelName, true, false, nullptr, action);
     }
     else
     {

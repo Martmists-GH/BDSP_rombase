@@ -194,6 +194,10 @@ public:
         static_assert(TypeInfo != 0, "TypeInfo address not set");
         return *reinterpret_cast<T::Class**>(exl::util::modules::GetTargetOffset(TypeInfo));
     }
+
+    static Class* getClass(long ti) {
+        return *reinterpret_cast<T::Class**>(exl::util::modules::GetTargetOffset(ti));
+    }
 };
 
 #define PRIMITIVE_ARRAY(name)                               \
