@@ -41,11 +41,7 @@ void UseInfiniteRepel(int32_t itemId, bool fromBag, Dpr::UI::UIBag::__c__Display
         Dpr::UI::UIBag::Object * uiBag = bagDisplayClass->fields.CS___8__locals1->fields.__4__this;
         
         system_load_typeinfo(0x955c);
-        Logger::log("EndUseAction %08X\n", Dpr::UI::UIBag::__c__DisplayClass127_0::Method$$ShowItemContextMenu_EndUseAction);
-        Logger::log("EndUseAction* %08X\n", *Dpr::UI::UIBag::__c__DisplayClass127_0::Method$$ShowItemContextMenu_EndUseAction);
-        Logger::log("sDisplayClassLocals %08X\n", bagDisplayClass->fields.CS___8__locals1);
         System::Action::Object* action = System::Action::getClass(System::Action::void_TypeInfo)->newInstance(bagDisplayClass->fields.CS___8__locals1, *Dpr::UI::UIBag::__c__DisplayClass127_0::Method$$ShowItemContextMenu_EndUseAction);
-        Logger::log("Action %08X\n", action);
 
         uiBag->fields.msgWindowController->OpenMsgWindow(0, labelName, true, false, nullptr, action);
     }

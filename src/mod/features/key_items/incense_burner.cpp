@@ -23,7 +23,6 @@ static Dpr::UI::UIBag::__c__DisplayClass127_0::Object* sDisplayClassLocals = nul
 
 void OnSelectedIncenseBurner(Dpr::UI::UIBag::__c__DisplayClass144_0::Object * __this, int32_t selectContextMenuId)
 {
-    Logger::log("OnSelectedIncenseBurner with %08X and %d\n", __this, selectContextMenuId);
     Dpr::UI::UIBag::Object* uiBag = __this->fields.__4__this;
     uiBag->fields.msgWindowController->CloseMsgWindow();
     System::String::Object* labelName;
@@ -67,14 +66,9 @@ void OnSelectedIncenseBurner(Dpr::UI::UIBag::__c__DisplayClass144_0::Object * __
     }
 
     system_load_typeinfo(0x955c);
-    Logger::log("EndUseAction %08X\n", Dpr::UI::UIBag::__c__DisplayClass127_0::Method$$ShowItemContextMenu_EndUseAction);
-    Logger::log("EndUseAction* %08X\n", *Dpr::UI::UIBag::__c__DisplayClass127_0::Method$$ShowItemContextMenu_EndUseAction);
-    Logger::log("sDisplayClassLocals %08X\n", sDisplayClassLocals);
     System::Action::Object* action = System::Action::getClass(System::Action::void_TypeInfo)->newInstance(sDisplayClassLocals, *Dpr::UI::UIBag::__c__DisplayClass127_0::Method$$ShowItemContextMenu_EndUseAction);
-    Logger::log("Action %08X\n", action);
 
     uiBag->fields.msgWindowController->OpenMsgWindow(0, labelName, true, false, nullptr, action);
-    Logger::log("Opened the window!\n");
 }
 
 void UseIncenseBurner(int32_t itemId, bool fromBag, Dpr::UI::UIBag::__c__DisplayClass127_1::Object* bagDisplayClass)

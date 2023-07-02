@@ -98,7 +98,9 @@ namespace Dpr::UI {
         }
 
         inline void OpenContextMenu(System::Int32_array* contextMenuIDs, System::Action::Object* onSelected, UnityEngine::Vector2::Object pivot, UnityEngine::Vector3::Object pos, System::Action::Object* onClosed, bool isNoDecideSe, bool isNoCancelSe) {
-            external<void>(0x0185c1f0, this, contextMenuIDs, onSelected, pivot, pos, onClosed, isNoDecideSe, isNoCancelSe);
+            struct { float x; float y; } pivotProxy = { pivot.fields.x, pivot.fields.y };
+            struct { float x; float y; float z; } posProxy = { pos.fields.x, pos.fields.y, pos.fields.z };
+            external<void>(0x0185c1f0, this, contextMenuIDs, onSelected, pivotProxy, posProxy, onClosed, isNoDecideSe, isNoCancelSe);
         }
     };
 }
