@@ -85,8 +85,8 @@ void AddSetting(Dpr::UI::SettingWindow::_OpOpen_d__11::Object* __this, int confi
         System::String::Create(title)
     );
     auto options = textRoot->GetChild({ 1, 0 });
-    for (int i=0; i<optionNames.size(); i++) {
-        auto option = options->GetChild({ i, 0 })->GetComponent(UnityEngine::Component::Method$$UIText$$GetComponent);
+    for (uint64_t i=0; i<optionNames.size(); i++) {
+        auto option = options->GetChild({ (int32_t)i, 0 })->GetComponent(UnityEngine::Component::Method$$UIText$$GetComponent);
         option->SetupMessage(
             System::String::Create("ss_option"),
             System::String::Create(optionNames[i])

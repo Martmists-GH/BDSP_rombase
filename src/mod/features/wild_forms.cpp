@@ -25,7 +25,7 @@ HOOK_DEFINE_REPLACE(PatchDataInit) {
             return;
         }
 
-        for (int i = 0; i < encSpecies->max_length; i++) {
+        for (uint64_t i = 0; i < encSpecies->max_length; i++) {
             int species = _SPECIES(encSpecies->m_Items[i]);
             int form = _FORM(encSpecies->m_Items[i]);
 

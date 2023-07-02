@@ -69,7 +69,7 @@ HOOK_DEFINE_TRAMPOLINE(PoketchAppButtonExtend) {
         window->fields._preButton = btn;
 
         auto apps = window->fields._poketchAppList->fields._items;
-        for (int i = 0; i < apps->max_length; i++) {
+        for (uint64_t i = 0; i < apps->max_length; i++) {
             auto app = apps->m_Items[i];
             auto size = app->fields.Buttons->max_length;
             auto newArray = (Dpr::UI::PoketchButton::Array*)system_array_new(app->fields.Buttons->obj.klass, size + 1);

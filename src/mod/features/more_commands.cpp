@@ -148,7 +148,7 @@ bool StopEffect(Dpr::EvScript::EvDataManager::Object * manager)
                 fadeTime = GetWorkOrFloatValue(args->m_Items[3]);
             }
 
-            if (index < manager->fields._scriptEffects->max_length)
+            if (index < (int32_t)manager->fields._scriptEffects->max_length)
             {
                 if (manager->fields._scriptEffects->m_Items[index] != nullptr)
                 {
@@ -156,7 +156,7 @@ bool StopEffect(Dpr::EvScript::EvDataManager::Object * manager)
                     manager->fields._scriptEffects->m_Items[index]->Stop(fadeTime, isForce == 1);
                 }
 
-                if (index < manager->fields._scriptScaleCorutine->max_length)
+                if (index < (int32_t)manager->fields._scriptScaleCorutine->max_length)
                 {
                     if (manager->fields._scriptScaleCorutine->m_Items[index] != nullptr)
                     {

@@ -49,7 +49,7 @@ public:
         T::Object m_Items[1];
 
         inline void copyInto(T::Object* dst) {
-            for (long i = 0; i < max_length; i++) {
+            for (uint64_t i = 0; i < max_length; i++) {
                 dst[i] = m_Items[i];
             }
         }
@@ -134,7 +134,7 @@ public:
         T::Object* m_Items[1];
 
         inline void copyInto(T::Object** dst) {
-            for (long i = 0; i < max_length; i++) {
+            for (uint64_t i = 0; i < max_length; i++) {
                 dst[i] = m_Items[i];
             }
         }
