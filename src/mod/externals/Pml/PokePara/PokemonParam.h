@@ -10,7 +10,7 @@ namespace Pml::PokePara {
         };
 
         inline void ctor(uint32_t species, uint16_t level, uint64_t id) {
-            external<void>(0x0205a4a0, this, species, level, id);
+            external<void>(0x02054fe0, this, species, level, id);
         }
     };
 }
