@@ -13,11 +13,11 @@ HOOK_DEFINE_TRAMPOLINE(GetSetting) {
     static int32_t Callback(DPData::CONFIG::Object* __this, int32_t id) {
         switch (id) {
             case 14:
-                return !FlagWork::GetFlag(FLAG_DISABLE_EXP_SHARE) ? 0 : 1;
+                return !FlagWork::GetFlag(FlagWork_Flag::FLAG_DISABLE_EXP_SHARE) ? 0 : 1;
             case 15:
-                return !FlagWork::GetFlag(FLAG_DISABLE_AFFECTION) ? 0 : 1;
+                return !FlagWork::GetFlag(FlagWork_Flag::FLAG_DISABLE_AFFECTION) ? 0 : 1;
             case 16:
-                return !FlagWork::GetFlag(FLAG_DISABLE_LEVEL_CAP) ? 0 : 1;
+                return !FlagWork::GetFlag(FlagWork_Flag::FLAG_DISABLE_LEVEL_CAP) ? 0 : 1;
             default:
                 return Orig(__this, id);
                 break;
@@ -29,13 +29,13 @@ HOOK_DEFINE_TRAMPOLINE(SetSetting) {
     static void Callback(DPData::CONFIG::Object* __this, int32_t id, int32_t value) {
         switch (id) {
             case 14:
-                FlagWork::SetFlag(FLAG_DISABLE_EXP_SHARE, value == 0 ? 1 : 0);
+                FlagWork::SetFlag(FlagWork_Flag::FLAG_DISABLE_EXP_SHARE, value == 0 ? 1 : 0);
                 break;
             case 15:
-                FlagWork::SetFlag(FLAG_DISABLE_AFFECTION, value == 0 ? 1 : 0);
+                FlagWork::SetFlag(FlagWork_Flag::FLAG_DISABLE_AFFECTION, value == 0 ? 1 : 0);
                 break;
             case 16:
-                FlagWork::SetFlag(FLAG_DISABLE_LEVEL_CAP, value == 0 ? 1 : 0);
+                FlagWork::SetFlag(FlagWork_Flag::FLAG_DISABLE_LEVEL_CAP, value == 0 ? 1 : 0);
                 break;
             default:
                 Orig(__this, id, value);
@@ -108,9 +108,9 @@ HOOK_DEFINE_TRAMPOLINE(AddSettingsEntries) {
         }
 
         std::vector<const char*> onOffNames = { "SS_option_007", "SS_option_008" };
-        AddSetting(__this, 14, FlagWork::GetFlag(FLAG_DISABLE_EXP_SHARE) ? 0 : 1, "SS_option_110", "SS_option_113", onOffNames, 1);
-        AddSetting(__this, 15, FlagWork::GetFlag(FLAG_DISABLE_AFFECTION) ? 0 : 1, "SS_option_109", "SS_option_112", onOffNames, 2);
-        AddSetting(__this, 16, FlagWork::GetFlag(FLAG_DISABLE_LEVEL_CAP) ? 0 : 1, "SS_option_111", "SS_option_114", onOffNames, 3);
+        AddSetting(__this, 14, FlagWork::GetFlag(FlagWork_Flag::FLAG_DISABLE_EXP_SHARE) ? 0 : 1, "SS_option_110", "SS_option_113", onOffNames, 1);
+        AddSetting(__this, 15, FlagWork::GetFlag(FlagWork_Flag::FLAG_DISABLE_AFFECTION) ? 0 : 1, "SS_option_109", "SS_option_112", onOffNames, 2);
+        AddSetting(__this, 16, FlagWork::GetFlag(FlagWork_Flag::FLAG_DISABLE_LEVEL_CAP) ? 0 : 1, "SS_option_111", "SS_option_114", onOffNames, 3);
 
         return res;
     }

@@ -18,6 +18,9 @@ namespace System {
     PRIMITIVE_ARRAY(Byte);
     PRIMITIVE_ARRAY(Char);
     PRIMITIVE_ARRAY(Int32);
+    static Il2CppClass* Int32_array_TypeInfo() {
+        return *reinterpret_cast<Il2CppClass**>(exl::util::modules::GetTargetOffset(0x04c553e0));
+    }
     PRIMITIVE_ARRAY(UInt32);
     PRIMITIVE_ARRAY(Int64);
 }

@@ -4,8 +4,7 @@
 
 namespace Dpr::EvScript {
     struct EvCmdID : ILClass<EvCmdID> {
-        enum class NAME
-        {
+        enum class NAME : int32_t {
             _NONE_USE_NUMBER = 0, // Dummied out
             _NOP = 1,
             _DUMMY = 2, // Dummied out

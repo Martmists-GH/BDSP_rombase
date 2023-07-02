@@ -3,7 +3,7 @@
 #include "externals/PlayerWork.h"
 #include "dex_savedata.h"
 
-enum ModVersion : int32_t {
+enum class ModVersion : int32_t {
     // Base game
     Vanilla,
 

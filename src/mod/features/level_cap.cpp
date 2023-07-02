@@ -3,7 +3,7 @@
 #include "externals/Pml/PokePara/Accessor.h"
 #include "externals/PlayerWork.h"
 #include "externals/Dpr/Battle/Logic/Exp.h"
-#include "externals/FlagWork_Enums.h"
+#include "externals/FlagWork.h"
 #include "utils/utils.h"
 
 #include <math.h>
@@ -27,7 +27,7 @@ HOOK_DEFINE_REPLACE(LevelCap) {
         }
 
         // Is Level Cap enabled
-        if (!PlayerWork::GetBool(FLAG_DISABLE_LEVEL_CAP))
+        if (!PlayerWork::GetBool((int32_t)FlagWork_Flag::FLAG_DISABLE_LEVEL_CAP))
         {
             return (uint32_t) exp;
         }

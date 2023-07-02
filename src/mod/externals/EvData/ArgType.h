@@ -1,7 +1,9 @@
 #pragma once
 
+#include "externals/il2cpp-api.h"
+
 namespace EvData {
-    enum ArgType {
+    enum class ArgType : int32_t {
         Command = 0,
         Float = 1,
         Work = 2,

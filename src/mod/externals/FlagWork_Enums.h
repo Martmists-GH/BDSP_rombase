@@ -1,6 +1,8 @@
 #pragma once
 
-enum FlagWork_Flag {
+#include "externals/il2cpp-api.h"
+
+enum class FlagWork_Flag : int32_t {
     FH_01 = 0,
     FH_02 = 1,
     FH_03 = 2,
@@ -1764,16 +1766,24 @@ enum FlagWork_Flag {
     FLAG_MYSTERY_BOX = 1758,
 
     // Luminescent Flags
+    FLAG_INFINITE_REPEL = 2195,
+    
     FLAG_DISABLE_LEVEL_CAP = 2197,
     FLAG_DISABLE_EXP_SHARE = 2198,
     FLAG_DISABLE_AFFECTION = 2199,
+
+    FLAG_INCENSE_FLOWER_UNOVA = 2561,
+    FLAG_INCENSE_FLOWER_KALOS = 2562,
+    FLAG_INCENSE_FLOWER_ALOLA = 2563,
+    FLAG_INCENSE_FLOWER_HISUI = 2564,
+    FLAG_INCENSE_FLOWER_GALAR = 2565,
 
     FLAG_CYRUS_SPEAR_PILLAR = 2770,
 
     FLAG_END_SAVE_SIZE = 4000,
 };
 
-enum FlagWork_SysFlag {
+enum class FlagWork_SysFlag : int32_t {
     SYS_FLAG_ARRIVE_START = 0,
     SYS_FLAG_BAG_GET = 1,
     SYS_FLAG_PAIR = 2,
@@ -2743,7 +2753,7 @@ enum FlagWork_SysFlag {
     SYSFLAG_SAVE_SIZE = 1000,
 };
 
-enum FlagWork_Work {
+enum class FlagWork_Work : int32_t {
     LOCALWORK0 = 0,
     LOCALWORK1 = 1,
     LOCALWORK2 = 2,
@@ -3182,5 +3192,8 @@ enum FlagWork_Work {
     WK_TV_STR_DATA041_USE_GENDER = 435,
     WK_DAILY_RANDOM = 436,
     SCWK_WK_END = 437,
+
+    // Luminescent Works
+    WK_INCENSE_SLOT = 495,
     SCWK_WK_SAVE_SIZE = 500,
 };

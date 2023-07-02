@@ -9,15 +9,15 @@
 HOOK_DEFINE_REPLACE(RemapPoketchToPlus) {
     static bool Callback(FieldManager* __this) {
         system_load_typeinfo(0x4929);
-        if (FlagWork::GetFlag(FE_POKETCH_GET) &&
-            !FlagWork::GetSysFlag(SYS_FLAG_POKETCH_HOOK) &&
-            !FlagWork::GetSysFlag(SYS_INPUT_OFF)) {
+        if (FlagWork::GetFlag(FlagWork_Flag::FE_POKETCH_GET) &&
+            !FlagWork::GetSysFlag(FlagWork_SysFlag::SYS_FLAG_POKETCH_HOOK) &&
+            !FlagWork::GetSysFlag(FlagWork_SysFlag::SYS_INPUT_OFF)) {
 
             system_load_typeinfo(0x4910);
             GameController::getClass()->initIfNeeded();
             FieldPoketch::getClass()->initIfNeeded();
 
-            if (GameController::IsPush(BUTTON_PLUS)) {
+            if (GameController::IsPush(GameController_Button::BUTTON_PLUS)) {
                 FieldPoketch::OnPushedAppearButton();
             } else {
                 FieldPoketch::RestorePoketchWindow();
@@ -55,7 +55,7 @@ void exl_remap_main() {
     // Remap Poketch to Plus
     RemapPoketchToPlus::InstallAtOffset(0x0179e360);
     exl::patch::CodePatcher p(0x01e66ac0);
-    p.WriteInst(exl::armv8::inst::Movz(exl::armv8::reg::X1, GameController_Button::BUTTON_PLUS));
+    p.WriteInst(exl::armv8::inst::Movz(exl::armv8::reg::X1, (int32_t)GameController_Button::BUTTON_PLUS));
 
     // Disable Y to warp to union room
     UnionWarp::InstallAtOffset(0x017a1050);

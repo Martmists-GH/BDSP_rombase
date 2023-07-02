@@ -3,13 +3,13 @@
 
 HOOK_DEFINE_REPLACE(FriendshipFlag) {
     static bool Callback() {
-        return FlagWork::GetFlag(FLAG_DISABLE_AFFECTION);
+        return FlagWork::GetFlag(FlagWork_Flag::FLAG_DISABLE_AFFECTION);
     }
 };
 
 HOOK_DEFINE_REPLACE(ExpShareFlag) {
     static bool Callback() {
-        return FlagWork::GetFlag(FLAG_DISABLE_EXP_SHARE);
+        return FlagWork::GetFlag(FlagWork_Flag::FLAG_DISABLE_EXP_SHARE);
     }
 };
 
