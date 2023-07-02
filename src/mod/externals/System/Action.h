@@ -11,6 +11,7 @@ namespace System {
         };
 
         static const inline long void_TypeInfo = 0x04c56040;
+        static const inline long ContextMenuID_TypeInfo = 0x04c627e0;
 
         template <typename T, typename... Args>
         inline void ctor(T* owner, ILMethod<T, Args...>& mi) {

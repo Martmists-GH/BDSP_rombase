@@ -1,12 +1,18 @@
 #pragma once
 
 #include "externals/il2cpp.h"
+
+#include "externals/ContextMenuID.h"
 #include "externals/Dpr/Item/ItemInfo.h"
+#include "externals/Dpr/UI/PokemonPartyItem.h"
 #include "externals/Dpr/UI/UIMsgWindowController.h"
 #include "externals/Dpr/UI/UIWindow.h"
 #include "externals/Pml/PokePara/PokemonParam.h"
 #include "externals/Pml/PokeParty.h"
+#include "externals/System/Action.h"
 #include "externals/UnityEngine/RectTransform.h"
+#include "externals/UnityEngine/Vector2.h"
+#include "externals/UnityEngine/Vector3.h"
 
 namespace Dpr::UI {
     struct UIBag : ILClass<UIBag> {
@@ -35,6 +41,20 @@ namespace Dpr::UI {
         struct __c__DisplayClass134_0 : ILClass<__c__DisplayClass134_0> {
             inline void _UseWazaMachine_b__3(int32_t index) {
                 external<void>(0x01be0fa0, this, index);
+            }
+        };
+
+        struct __c__DisplayClass144_0 : ILClass<__c__DisplayClass144_0, 0x04c62840> {
+            struct Fields {
+                Dpr::UI::UIBag::Object* __4__this;
+                Pml::PokePara::PokemonParam::Object* pokemonParam;
+                Dpr::UI::PokemonPartyItem::Object* pokemonPartyItem;
+            };
+
+            static inline StaticILMethod<0x04c801a0, int32_t> Method$$DisplayClass144_0_UseFormChange {};
+
+            inline void ctor() {
+                external<void>(0x01be1910, this);
             }
         };
 
@@ -75,6 +95,10 @@ namespace Dpr::UI {
 
         inline void Close(void* onClosed, int32_t nextWindowId, bool isPlayCloseSe) {
             external<void>(0x01859870, this, onClosed, nextWindowId, isPlayCloseSe);
+        }
+
+        inline void OpenContextMenu(System::Int32_array* contextMenuIDs, System::Action::Object* onSelected, UnityEngine::Vector2::Object pivot, UnityEngine::Vector3::Object pos, System::Action::Object* onClosed, bool isNoDecideSe, bool isNoCancelSe) {
+            external<void>(0x0185c1f0, this, contextMenuIDs, onSelected, pivot, pos, onClosed, isNoDecideSe, isNoCancelSe);
         }
     };
 }

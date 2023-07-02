@@ -60,8 +60,6 @@ HOOK_DEFINE_TRAMPOLINE(BagUseKeyItem) {
 
 HOOK_DEFINE_TRAMPOLINE(ShortcutCheckAvailability) {
     static bool Callback(FieldManager::Object *__this, uint16_t itemno) {
-        Logger::log("ShortcutCheckAvailability: %s\n", ITEMS[itemno]);
-
         if (CanUseRegisteredCustomItem(itemno)) {
             return true;
         }
@@ -72,13 +70,10 @@ HOOK_DEFINE_TRAMPOLINE(ShortcutCheckAvailability) {
 
 HOOK_DEFINE_TRAMPOLINE(ShortcutUseKeyItem) {
     static void Callback(FieldManager::Object *__this, uint16_t itemno) {
-        Logger::log("ShortcutUseKeyItem: %s\n", ITEMS[itemno]);
-
         if (CustomItemBehavior(itemno, false, nullptr)) {
             return;
         }
 
-        Logger::log("Calling Orig ShortcutUseKeyItem: %s\n", ITEMS[itemno]);
         Orig(__this, itemno);
     }
 };

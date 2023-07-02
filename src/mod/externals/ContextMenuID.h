@@ -1,5 +1,7 @@
 #pragma once
 
+#include "externals/il2cpp-api.h"
+
 enum class ContextMenuID : int32_t {
     XMENU_YES = 0,
 	XMENU_NO = 1,
@@ -115,12 +117,13 @@ enum class ContextMenuID : int32_t {
 	ZUKANREGISTER_ITEM_SEND_TO_BOX = 111,
 
     // Luminescent Context IDs
-    CONTEXT_112 = 112,
-    CONTEXT_113 = 113,
+    PARTY_CHANGE_MOVES = 112,
+    PARTY_CHANGE_NAME = 113,
     INCENSE_DISABLE = 114,
     INCENSE_UNOVA = 115,
     INCENSE_KALOS = 116,
     INCENSE_ALOLA = 117,
     INCENSE_HISUI = 118,
     INCENSE_GALAR = 119,
+    INCENSE_CANCEL = 120,
 };
