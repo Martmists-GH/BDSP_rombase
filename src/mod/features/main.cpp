@@ -19,4 +19,5 @@ void exl_features_main() {
     exl_patches_main();
     exl_commands_main();
     exl_key_items_main();
+    exl_encounter_slots_main();
 }
