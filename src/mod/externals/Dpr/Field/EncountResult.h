@@ -5,7 +5,7 @@
 #include "externals/System/Primitives.h"
 
 namespace Dpr::Field {
-    struct EncountResult : ILClass<EncountResult> {
+    struct EncountResult : ILClass<EncountResult, 0x04c5f200> {
         struct Fields {
             int32_t Type;
             Pml_MonsNo_array* Enemy;
@@ -21,5 +21,9 @@ namespace Dpr::Field {
             int32_t karanaForm;
             int32_t annoForm;
         };
+
+        inline Dpr::Field::EncountResult::Object* ctor() {
+            return external<Dpr::Field::EncountResult::Object*>(0x019b2c70);
+        }
     };
 }

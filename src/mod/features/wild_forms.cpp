@@ -2,7 +2,7 @@
 #include "externals/FieldManager.h"
 #include "externals/Dpr/Field/EncountResult.h"
 #include "externals/Pml/PokeParty.h"
-#include "externals/Dpr/Field/FieldEncount/ENC_FLD_SPA.h"
+#include "externals/Dpr/Field/FieldEncount.h"
 #include "data/species.h"
 #include "data/utils.h"
 #include "imgui.h"
