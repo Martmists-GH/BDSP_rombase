@@ -55,8 +55,7 @@ struct GameManager : ILClass<GameManager, 0x04c59b50> {
     }
 
     static inline void GetAttribute(UnityEngine::Vector2Int::Object grid, int32_t *code, int32_t *stop, bool debugdraw) {
-        struct { int32_t x; int32_t y; } gridProxy = { grid.fields.m_X, grid.fields.m_Y };
-        external<void>(0x02cd3b60, gridProxy, code, stop, debugdraw);
+        external<void>(0x02cd3b60, grid, code, stop, debugdraw);
     }
 
     static inline XLSXContent::MapAttributeTable::SheetData::Object* GetAttributeTable(int32_t code) {

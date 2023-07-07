@@ -48,8 +48,8 @@ namespace Dpr::Field {
             return external<bool>(0x019b6e30, param, inRodType, inFldSpa, inData, location, inTarget, outBattleParam);
         }
         
-        static inline bool SetSpaStruct(Pml::PokePara::PokemonParam::Object *inPokeParam, XLSXContent::FieldEncountTable::Sheettable::Object *inData, Dpr::Field::FieldEncount::ENC_FLD_SPA::Object *outSpa) {
-            return external<bool>(0x019b3eb0, inPokeParam, inData, outSpa);
+        static inline void SetSpaStruct(Pml::PokePara::PokemonParam::Object *inPokeParam, XLSXContent::FieldEncountTable::Sheettable::Object *inData, Dpr::Field::FieldEncount::ENC_FLD_SPA::Object *outSpa) {
+            external<void>(0x019b3eb0, inPokeParam, inData, outSpa);
         }
 
         static inline bool MapEncountCheck(uint32_t per, int32_t attr, bool inGridmove) {

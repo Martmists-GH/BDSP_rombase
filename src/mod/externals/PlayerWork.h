@@ -228,6 +228,6 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     }
 
     static inline void set_WalkEncountCount(int32_t value) {
-        external<void>(0x02cf2840, value);
+        external<void>(0x02cf2c00, value);
     }
 };

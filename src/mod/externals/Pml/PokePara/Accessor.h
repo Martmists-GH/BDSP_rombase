@@ -11,5 +11,9 @@ namespace Pml::PokePara {
         inline void SetOwnedOthersFlag(bool flag) {
             external<void>(0x024ab2b0, this, flag);
         }
+
+        inline void SetFormNo(uint16_t formno) {
+            external<void>(0x024a9c30, this, formno);
+        }
     };
 }
