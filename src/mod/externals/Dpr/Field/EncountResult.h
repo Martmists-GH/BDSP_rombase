@@ -32,8 +32,8 @@ namespace Dpr::Field {
 
         static_assert(offsetof(Fields, annoForm) == 0x44);
 
-        inline Dpr::Field::EncountResult::Object* ctor() {
-            return external<Dpr::Field::EncountResult::Object*>(0x019b2c70, this);
+        inline void ctor() {
+            external<void>(0x019b2c70, this);
         }
     };
 }

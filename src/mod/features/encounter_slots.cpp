@@ -46,11 +46,6 @@ const int32_t SLOT_DUALSLOT_BUMP_1 = 10;
 const int32_t SLOT_DUALSLOT_BUMP_2 = 11;
 
 
-// Constants
-
-const int32_t FEEBAS_MONSNO = 349;
-
-
 // Logs the given encounter slots.
 void LogSlots(MonsLv::Array *slots)
 {
@@ -409,13 +404,10 @@ int32_t GetBaseFishingEncounterRate(int32_t inRodType)
     {
         case 1:
             return fieldEnc->fields.encRate_turi_boro;
-            break;
         case 2:
             return fieldEnc->fields.encRate_turi_ii;
-            break;
         case 3:
             return fieldEnc->fields.encRate_sugoi;
-            break;
     }
     return 0;
 }
@@ -431,7 +423,7 @@ void CheckRepel(Dpr::Field::FieldEncount::ENC_FLD_SPA::Object *spaStruct)
         firstLevel = 1;
         for (uint32_t i=0; i<party->fields.m_memberCount; i++)
         {
-            auto *currentPoke = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(i);
+            auto currentPoke = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(i);
             if (!currentPoke->IsEgg(2) && !currentPoke->IsHpZero())
             {
                 firstLevel = currentPoke->GetLevel();
@@ -516,7 +508,7 @@ int32_t ApplyFishingAbilityToEncounterRate(Dpr::Field::FieldEncount::ENC_FLD_SPA
 int32_t ApplyLeadItemToEncounterRate(int32_t baseEncounterRate)
 {
     Pml::PokeParty::Object *party = PlayerWork::get_playerParty();
-    auto *firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
+    auto firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
 
     int32_t encounterRate = baseEncounterRate;
     uint16_t item = firstPokemon->GetItem();
@@ -563,7 +555,7 @@ void SetEncounterType(Dpr::Field::EncountResult::Object **encounterHolder, Dpr::
 Dpr::Field::EncountResult::Object * ReturnRoamingPokemonEncounter(Dpr::Field::EncountResult::Object **encounterHolder, Dpr::Field::FieldEncount::ENC_FLD_SPA::Object *spaStruct)
 {
     Pml::PokeParty::Object *party = PlayerWork::get_playerParty();
-    auto *firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
+    auto firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
 
     int32_t moveZoneId = Dpr::Field::FieldEncount::CheckMovePokeEnc();
     DPData::MV_POKE_DATA::Object mvPokeData; // local_120 = 0x0, local_118 = 0x8, etc. Total size 0x28 NOTE: ALIGNMENT IS WRONG IN GHIDRA
@@ -582,7 +574,7 @@ Dpr::Field::EncountResult::Object * ReturnRoamingPokemonEncounter(Dpr::Field::En
 Dpr::Field::EncountResult::Object * ReturnWaterEncounter(Dpr::Field::EncountResult::Object **encounterHolder, Dpr::Field::FieldEncount::ENC_FLD_SPA::Object *spaStruct, MonsLv::Array *slots, bool resetWalkEncountCount)
 {
     Pml::PokeParty::Object *party = PlayerWork::get_playerParty();
-    auto *firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
+    auto firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
 
     XLSXContent::FieldEncountTable::Sheettable::Object * fieldEnc = GetFieldEncountersOfCurrentZoneID();
 
@@ -661,7 +653,7 @@ HOOK_DEFINE_REPLACE(FieldEncountCheckEncounterSlots) {
 
         XLSXContent::FieldEncountTable::Sheettable::Object * fieldEnc = GetFieldEncountersOfCurrentZoneID();
         Pml::PokeParty::Object *party = PlayerWork::get_playerParty();
-        auto *firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
+        auto firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
         Dpr::Field::FieldEncount::ENC_FLD_SPA::Object spaStruct; // local_e8 = 0x0, local_e0 = 0x8, etc. Total size 0x28
         Dpr::Field::FieldEncount::SetSpaStruct((Pml::PokePara::PokemonParam::Object *)firstPokemon, fieldEnc, &spaStruct);
 
@@ -690,7 +682,7 @@ HOOK_DEFINE_REPLACE(FieldEncountCheckEncounterSlots) {
         }
 
         Dpr::Field::EncountResult::Object *encounterHolder = Dpr::Field::EncountResult::newInstance();
-        auto *slots = (MonsLv::Array*)system_array_new(MonsLv::Array_TypeInfo(), 12); // local_100 = 0x0
+        auto slots = (MonsLv::Array*)system_array_new(MonsLv::Array_TypeInfo(), 12); // local_100 = 0x0
         bool isSafariFlag = false;
 
         // Handle Roaming and water encounters
@@ -760,7 +752,7 @@ HOOK_DEFINE_REPLACE(GetSafariScopeMonsterEncounterSlots) {
     static int32_t Callback(int32_t zoneId) {
         system_load_typeinfo(0x48c3);
 
-        auto *slots = (MonsLv::Array*)system_array_new(MonsLv::Array_TypeInfo(), 12);
+        auto slots = (MonsLv::Array*)system_array_new(MonsLv::Array_TypeInfo(), 12);
         XLSXContent::FieldEncountTable::Sheettable::Object *fieldEnc = GameManager::GetFieldEncountData(zoneId);
 
         if (slots->max_length > 0)
@@ -801,7 +793,7 @@ HOOK_DEFINE_REPLACE(SetFishingEncountEncounterSlots) {
 
         XLSXContent::FieldEncountTable::Sheettable::Object * fieldEnc = GetFieldEncountersOfCurrentZoneID();
         Pml::PokeParty::Object *party = PlayerWork::get_playerParty();
-        auto *firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
+        auto firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
         Dpr::Field::FieldEncount::ENC_FLD_SPA::Object spaStruct; // local_b0 = 0x0, local_a8 = 0x8, etc. Total size 0x28
         Dpr::Field::FieldEncount::SetSpaStruct((Pml::PokePara::PokemonParam::Object *)firstPokemon, fieldEnc, &spaStruct);
 
@@ -816,7 +808,7 @@ HOOK_DEFINE_REPLACE(SetFishingEncountEncounterSlots) {
         }
 
         Dpr::Field::EncountResult::Object *encounterHolder = Dpr::Field::EncountResult::newInstance();
-        auto *slots = (MonsLv::Array*)system_array_new(MonsLv::Array_TypeInfo(), 5);
+        auto slots = (MonsLv::Array*)system_array_new(MonsLv::Array_TypeInfo(), 5);
 
         // Set slots
         SetBaseFishingSlots(&encounterHolder, slots, inRodType);
@@ -854,7 +846,7 @@ HOOK_DEFINE_REPLACE(SetSweetEncountEncounterSlots) {
         }
 
         // No encounters if current tile does not give encounters
-        auto *entity = (FieldObjectEntity::Object *)EntityManager::getClass()->static_fields->_activeFieldPlayer_k__BackingField;
+        auto entity = (FieldObjectEntity::Object *)EntityManager::getClass()->static_fields->_activeFieldPlayer_k__BackingField;
         if (!DoesTileGiveEncounters(entity->get_gridPosition()))
         {
             return nullptr;
@@ -876,12 +868,12 @@ HOOK_DEFINE_REPLACE(SetSweetEncountEncounterSlots) {
 
         XLSXContent::FieldEncountTable::Sheettable::Object * fieldEnc = GetFieldEncountersOfCurrentZoneID();
         Pml::PokeParty::Object *party = PlayerWork::get_playerParty();
-        auto *firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
+        auto firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
         Dpr::Field::FieldEncount::ENC_FLD_SPA::Object spaStruct; // local_e0 = 0x0, local_d8 = 0x8, etc. Total size 0x28
         Dpr::Field::FieldEncount::SetSpaStruct((Pml::PokePara::PokemonParam::Object *)firstPokemon, fieldEnc, &spaStruct);
 
         Dpr::Field::EncountResult::Object *encounterHolder = Dpr::Field::EncountResult::newInstance();
-        auto *slots = (MonsLv::Array*)system_array_new(MonsLv::Array_TypeInfo(), 12); // local_100 = 0x0
+        auto slots = (MonsLv::Array*)system_array_new(MonsLv::Array_TypeInfo(), 12); // local_100 = 0x0
         bool isSafariFlag = false;
 
         // Handle Roaming and water encounters
