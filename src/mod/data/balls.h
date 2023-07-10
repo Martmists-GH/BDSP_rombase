@@ -38,6 +38,7 @@ static constexpr const char* BALLS[] = {
         "Vintage Leaden Ball",
         "Vintage Gigaton Ball",
         "Vintage Origin Ball",
+        "Vintage GS Ball",
 };
 
 constexpr int BALL_COUNT = sizeof(BALLS) / sizeof(BALLS[0]);

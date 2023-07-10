@@ -1840,6 +1840,7 @@ static constexpr const char* ITEMS[] = {
     "Mewtwo Armor",
     "Infinite Repel",
     "Old Mewtwo Armor",
+    "Vintage GS Ball",
 };
 
 constexpr int ITEM_COUNT = sizeof(ITEMS) / sizeof(ITEMS[0]);

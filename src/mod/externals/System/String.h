@@ -21,6 +21,10 @@ namespace System {
             return Create(value.c_str());
         }
 
+        static inline bool op_Equality(String::Object* a, String::Object* b) {
+            return external<bool>(0x026f05c0, a, b);
+        }
+
         std::string asCString() {
             System::String::Object* str = this->instance();
             System::Text::UTF8Encoding::Object* encoding = System::Text::Encoding::get_UTF8();
