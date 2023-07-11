@@ -1292,21 +1292,23 @@ static constexpr const char* ITEMS[] = {
     "★Sgr7121",
     "★Sgr6746",
     "★Sgr7194",
-    "★Sgr7337",
-    "★Sgr7343",
-    "★Sgr6812",
-    "★Sgr7116",
-    "★Sgr7264",
-    "★Sgr7597",
-    "★Del7882",
-    "★Del7906",
-    "★Del7852",
-    "★Psc596",
-    "★Psc361",
-    "★Psc510",
-    "★Psc437",
-    "★Psc8773",
-    "★Lep1865",
+
+    // Luminescent Items
+    "GS Ball", // ★Sgr7337
+    "Odd Invitation", // ★Sgr7343
+    "Everlasting Candy", // ★Sgr6812
+    "Wind Badge", // ★Sgr7116
+    "Fang Badge", // ★Sgr7264
+    "Acid Badge", // ★Sgr7597
+    "Shadow Badge", // ★Del7882
+    "General Badge", // ★Del7906
+    "Moon Badge", // ★Del7852
+    "Silver Wing", // ★Psc596
+    "Incense Burner", // ★Psc361
+    "Mewtwo Armor", // ★Psc510
+    "Infinite Repel", // ★Psc437
+    "Old Mewtwo Armor", // ★Psc8773
+    "Vintage GS Ball", // ★Lep1865
     "★Lep1829",
     "★Boo5340",
     "★Boo5506",
@@ -1623,7 +1625,7 @@ static constexpr const char* ITEMS[] = {
     "Swap Snack",
     "Caster Fern",
     "Seed of Mastery",
-    "Poké Ball",
+    "Vintage Poké Ball (Copy)",
     "1623",
     "Eternal Ice",
     "Uxie's Claw",
@@ -1824,23 +1826,6 @@ static constexpr const char* ITEMS[] = {
     "Discovery Slate",
     "Distortion Slate",
     "DS Sounds",
-
-    // Luminescent Items
-    "GS Ball",
-    "Odd Invitation",
-    "Everlasting Candy",
-    "Wind Badge",
-    "Fang Badge",
-    "Acid Badge",
-    "Shadow Badge",
-    "General Badge",
-    "Moon Badge",
-    "Silver Wing",
-    "Incense Burner",
-    "Mewtwo Armor",
-    "Infinite Repel",
-    "Old Mewtwo Armor",
-    "Vintage GS Ball",
 };
 
 constexpr int ITEM_COUNT = sizeof(ITEMS) / sizeof(ITEMS[0]);

@@ -11,5 +11,9 @@ namespace Pml::PokePara {
         inline void SetOwnedOthersFlag(bool flag) {
             external<void>(0x024ab2b0, this, flag);
         }
+
+        inline void SetGetBall(uint8_t ball) {
+            external<void>(0x024aaba0, this, ball);
+        }
     };
 }

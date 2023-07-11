@@ -10,6 +10,7 @@
 #include "externals/Pml/PokePara/PokemonParam.h"
 #include "data/moves.h"
 #include "data/utils.h"
+#include "data/balls.h"
 #include "save/save.h"
 
 using namespace ui;
@@ -119,6 +120,12 @@ static Window mainWindow = Window::single([](Window &_) {
             _.max = 100;
             _.value = 5;
         });
+        auto *ball = _.ComboSimple([](ComboSimple &_) {
+            _.label = "Caught Ball";
+            _.items = BALLS;
+            _.items_count = BALL_COUNT;
+            _.selected = array_index(BALLS, "--BALL ZERO--");
+        });
         auto* customMoves = _.Checkbox([](Checkbox &_) {
             _.label = "Custom moves";
             _.enabled = false;
@@ -148,9 +155,9 @@ static Window mainWindow = Window::single([](Window &_) {
             _.selected = array_index(MOVES, "Comet Punch");
         });
 
-        _.Button([species, level, customMoves, move1, move2, move3, move4](Button &_) {
+        _.Button([species, level, ball, customMoves, move1, move2, move3, move4](Button &_) {
             _.label = "Give Pokemon";
-            _.onClick = [species, level, customMoves, move1, move2, move3, move4]() {
+            _.onClick = [species, level, ball, customMoves, move1, move2, move3, move4]() {
                 auto party = PlayerWork::get_playerParty();
 
                 auto param = Pml::PokePara::PokemonParam::newInstance(species->selected, level->value, 0);
@@ -159,6 +166,7 @@ static Window mainWindow = Window::single([](Window &_) {
 
                 param->fields.m_accessor->SetLangID(lang);
                 param->fields.m_accessor->SetOwnedOthersFlag(false);
+                param->fields.m_accessor->SetGetBall(ball->selected);
 
                 if (customMoves->enabled) {
                     auto core = param->cast<Pml::PokePara::CoreParam>();

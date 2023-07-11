@@ -41,6 +41,7 @@ HOOK_DEFINE_REPLACE(IsStrangeBall) {
 HOOK_DEFINE_INLINE(InlineGetBallModelPath) {
     static void Callback(exl::hook::nx64::InlineCtx* ctx) {
         uint8_t ballid = ctx->W[24];
+        Logger::log("InlineGetBallModelPath with ballId %d\n", ballid);
         ctx->X[0] = (uint64_t)GenerateBallModelPath(ballid);
     }
 };
@@ -50,10 +51,12 @@ HOOK_DEFINE_REPLACE(BattleViewSystemGetBallModelPath) {
         if (idx < __this->fields.m_effectBallInfo->max_length)
         {
             uint8_t ballid = __this->fields.m_effectBallInfo->m_Items[idx].fields.ballId;
+            Logger::log("BattleViewSystemGetBallModelPath with ballId %d\n", ballid);
             return GenerateBallModelPath(ballid);
         }
         else
         {
+            Logger::log("BattleViewSystemGetBallModelPath with 0\n");
             return GenerateBallModelPath(0);
         }
     }
@@ -64,10 +67,12 @@ HOOK_DEFINE_REPLACE(SealPreviewViewSystemGetBallModelPath) {
         if (idx < __this->fields.m_effectBallInfo->max_length)
         {
             uint8_t ballid = __this->fields.m_effectBallInfo->m_Items[idx].fields.ballId;
+            Logger::log("SealPreviewViewSystemGetBallModelPath with ballId %d\n", ballid);
             return GenerateBallModelPath(ballid);
         }
         else
         {
+            Logger::log("SealPreviewViewSystemGetBallModelPath with 0\n");
             return GenerateBallModelPath(0);
         }
     }
@@ -75,6 +80,14 @@ HOOK_DEFINE_REPLACE(SealPreviewViewSystemGetBallModelPath) {
 
 HOOK_DEFINE_REPLACE(UtilsGetBallModelPath) {
     static System::String::Object * Callback(uint8_t ballId) {
+        Logger::log("UtilsGetBallModelPath with ballId %d\n", ballId);
+        return GenerateBallModelPath(ballId);
+    }
+};
+
+HOOK_DEFINE_REPLACE(UtilsGetBallModelPath2) {
+    static System::String::Object * Callback(uint8_t ballId) {
+        Logger::log("UtilsGetBallModelPath2 with ballId %d\n", ballId);
         return GenerateBallModelPath(ballId);
     }
 };
@@ -87,7 +100,6 @@ HOOK_DEFINE_INLINE(InlineGetSubstituteModelPath) {
 
 HOOK_DEFINE_INLINE(InlineSubstituteModelPathEquality) {
     static void Callback(exl::hook::nx64::InlineCtx* ctx) {
-        Logger::log("Normal path: %s\n", ((System::String::Object*)ctx->X[1])->asCString().c_str());
         ctx->W[0] = (uint32_t)System::String::op_Equality((System::String::Object*)ctx->X[0], GenerateSubstituteModelPath());
     }
 };
@@ -98,10 +110,10 @@ void exl_balls_main() {
     BattleViewSystemGetBallModelPath::InstallAtOffset(0x01c92790);
     SealPreviewViewSystemGetBallModelPath::InstallAtOffset(0x01bd9aa0);
     UtilsGetBallModelPath::InstallAtOffset(0x0186b4a0);
-    UtilsGetBallModelPath::InstallAtOffset(0x01e4df50);
-    InlineGetSubstituteModelPath::InstallAtOffset(0x0173c81c);
-    InlineGetSubstituteModelPath::InstallAtOffset(0x017b3fb0);
-    InlineGetSubstituteModelPath::InstallAtOffset(0x01e2be40);
+    UtilsGetBallModelPath2::InstallAtOffset(0x01e4df50);
+    //InlineGetSubstituteModelPath::InstallAtOffset(0x0173c81c);
+    //InlineGetSubstituteModelPath::InstallAtOffset(0x017b3fb0);
+    //InlineGetSubstituteModelPath::InstallAtOffset(0x01e2be40);
     //InlineSubstituteModelPathEquality::InstallAtOffset(0x01e54ec4);
 
     // Assembly Patches
