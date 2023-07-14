@@ -19,9 +19,11 @@ static Window debugLogWindow = Window::single([](Window &_) {
     _.title = "Debug Log";
     auto *view = _.StringView();
 
-    Logger::addListener([view](const char *message) {
+    // WARNING: Turning this on is a ticking time bomb.
+    // Eventually there are too many logs and the game hangs.
+    /*Logger::addListener([view](const char *message) {
         view->append(message);
-    });
+    });*/
 });
 
 static ElementInspector inspector = ElementInspector::single([](ElementInspector &_) {
