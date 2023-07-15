@@ -19,3 +19,5 @@ void exl_battle_revolver_main();
 void exl_badge_check_main();
 void exl_level_cap_main();
 void exl_commands_main();
+void exl_balls_main();
+void exl_unity_log_main();
