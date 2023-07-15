@@ -20,4 +20,7 @@ void exl_features_main() {
     exl_encounter_slots_main();
     exl_dex_expansion_main();
     exl_wild_forms_main();
+    exl_balls_main();
+
+    //exl_unity_log_main();
 }

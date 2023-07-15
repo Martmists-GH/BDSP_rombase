@@ -15,5 +15,9 @@ namespace Pml::PokePara {
         inline void SetFormNo(uint16_t formno) {
             external<void>(0x024a9c30, this, formno);
         }
+        
+        inline void SetGetBall(uint8_t ball) {
+            external<void>(0x024aaba0, this, ball);
+        }
     };
 }
