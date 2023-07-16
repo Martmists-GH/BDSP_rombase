@@ -317,11 +317,6 @@ Dpr::Field::EncountResult::Object * ReturnEncounterSlots(bool randomWildEncounte
     if (stopRadarSE) Dpr::Field::SwayGrass::StopSE();
     if (resetWalkEncountCount) PlayerWork::set_WalkEncountCount(0);
 
-    Logger::log("Encounter! Karana is %d\n", (*encounterHolder)->fields.karanaForm);
-    for (uint32_t i=0; i<(*encounterHolder)->fields.Enemy->max_length; i++)
-    {
-        Logger::log("Enemy %d: Species %d @ Level %d\n", i, (*encounterHolder)->fields.Enemy->m_Items[i], (*encounterHolder)->fields.Level->m_Items[i]);
-    }
     return *encounterHolder;
 }
 
@@ -558,8 +553,18 @@ Dpr::Field::EncountResult::Object * ReturnRoamingPokemonEncounter(Dpr::Field::En
     auto firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
 
     int32_t moveZoneId = Dpr::Field::FieldEncount::CheckMovePokeEnc();
-    DPData::MV_POKE_DATA::Object mvPokeData; // local_120 = 0x0, local_118 = 0x8, etc. Total size 0x28 NOTE: ALIGNMENT IS WRONG IN GHIDRA
+    Logger::log("moveZoneId: %d\n", moveZoneId);
+    DPData::MV_POKE_DATA::Object mvPokeData{}; // local_120 = 0x0, local_118 = 0x8, etc. Total size 0x28 NOTE: ALIGNMENT IS WRONG IN GHIDRA
     EncountDataWork::GetMovePokeData(moveZoneId, &mvPokeData);
+    Logger::log("mvPokeData full: %08X\n", mvPokeData);
+    Logger::log("mvPokeData ZoneIDIndex: %d\n", mvPokeData.fields.ZoneIDIndex);
+    Logger::log("mvPokeData RndSeed1: %d\n", mvPokeData.fields.RndSeed1);
+    Logger::log("mvPokeData RndSeed2: %d\n", mvPokeData.fields.RndSeed2);
+    Logger::log("mvPokeData MonsNo: %d\n", mvPokeData.fields.MonsNo);
+    Logger::log("mvPokeData Hp: %d\n", mvPokeData.fields.Hp);
+    Logger::log("mvPokeData Lv: %d\n", mvPokeData.fields.Lv);
+    Logger::log("mvPokeData Sick: %d\n", mvPokeData.fields.Sick);
+    Logger::log("mvPokeData EncountStatus: %d\n", mvPokeData.fields.EncountStatus);
     if (spaStruct->fields.SprayCheck && mvPokeData.fields.Lv < spaStruct->fields.SpMyLv)
     {
         return nullptr;
@@ -654,7 +659,7 @@ HOOK_DEFINE_REPLACE(FieldEncountCheckEncounterSlots) {
         XLSXContent::FieldEncountTable::Sheettable::Object * fieldEnc = GetFieldEncountersOfCurrentZoneID();
         Pml::PokeParty::Object *party = PlayerWork::get_playerParty();
         auto firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
-        Dpr::Field::FieldEncount::ENC_FLD_SPA::Object spaStruct; // local_e8 = 0x0, local_e0 = 0x8, etc. Total size 0x28
+        Dpr::Field::FieldEncount::ENC_FLD_SPA::Object spaStruct{}; // local_e8 = 0x0, local_e0 = 0x8, etc. Total size 0x28
         Dpr::Field::FieldEncount::SetSpaStruct((Pml::PokePara::PokemonParam::Object *)firstPokemon, fieldEnc, &spaStruct);
 
         // Sets repel-related values in spaStruct
@@ -667,7 +672,7 @@ HOOK_DEFINE_REPLACE(FieldEncountCheckEncounterSlots) {
         // Roll for a grass encounter / Check if radar patch entered
         XLSXContent::MapAttributeTable::SheetData::Object * attribute = GetAttributeOfTile(entity->get_gridPosition());
         bool rolledGrassEncounter = Dpr::Field::FieldEncount::MapEncountCheck(encounterRate, (attribute->fields).Code, inGridmove);
-        Dpr::Field::FieldEncount::SWAY_ENC_INFO::Object swayInfo; // local_f0 = 0x0, Total size 0x8
+        Dpr::Field::FieldEncount::SWAY_ENC_INFO::Object swayInfo{}; // local_f0 = 0x0, Total size 0x8
         bool radarEncounter = Dpr::Field::SwayGrass::SwayGrass_CheckSpEncount(&swayInfo, &entity->fields.worldPosition, 0.48);
         if (!radarEncounter)
         {
@@ -794,7 +799,7 @@ HOOK_DEFINE_REPLACE(SetFishingEncountEncounterSlots) {
         XLSXContent::FieldEncountTable::Sheettable::Object * fieldEnc = GetFieldEncountersOfCurrentZoneID();
         Pml::PokeParty::Object *party = PlayerWork::get_playerParty();
         auto firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
-        Dpr::Field::FieldEncount::ENC_FLD_SPA::Object spaStruct; // local_b0 = 0x0, local_a8 = 0x8, etc. Total size 0x28
+        Dpr::Field::FieldEncount::ENC_FLD_SPA::Object spaStruct{}; // local_b0 = 0x0, local_a8 = 0x8, etc. Total size 0x28
         Dpr::Field::FieldEncount::SetSpaStruct((Pml::PokePara::PokemonParam::Object *)firstPokemon, fieldEnc, &spaStruct);
 
         // Applies ability effects to the encounter rate
@@ -869,7 +874,7 @@ HOOK_DEFINE_REPLACE(SetSweetEncountEncounterSlots) {
         XLSXContent::FieldEncountTable::Sheettable::Object * fieldEnc = GetFieldEncountersOfCurrentZoneID();
         Pml::PokeParty::Object *party = PlayerWork::get_playerParty();
         auto firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
-        Dpr::Field::FieldEncount::ENC_FLD_SPA::Object spaStruct; // local_e0 = 0x0, local_d8 = 0x8, etc. Total size 0x28
+        Dpr::Field::FieldEncount::ENC_FLD_SPA::Object spaStruct{}; // local_e0 = 0x0, local_d8 = 0x8, etc. Total size 0x28
         Dpr::Field::FieldEncount::SetSpaStruct((Pml::PokePara::PokemonParam::Object *)firstPokemon, fieldEnc, &spaStruct);
 
         Dpr::Field::EncountResult::Object *encounterHolder = Dpr::Field::EncountResult::newInstance();
@@ -929,7 +934,7 @@ HOOK_DEFINE_REPLACE(SetSweetEncountEncounterSlots) {
                 SetSafariSlots(slots);
             }
             
-            Dpr::Field::FieldEncount::SWAY_ENC_INFO::Object swayInfo;
+            Dpr::Field::FieldEncount::SWAY_ENC_INFO::Object swayInfo{};
             bool randomWildEncounter = Dpr::Field::FieldEncount::WildEncSingle((Pml::PokePara::PokemonParam::Object*)firstPokemon, &encounterHolder, fieldEnc, slots, spaStruct, swayInfo);
             return ReturnEncounterSlots(randomWildEncounter, &encounterHolder, &spaStruct, slots, true, true);
         }
