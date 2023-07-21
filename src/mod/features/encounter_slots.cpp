@@ -547,24 +547,15 @@ void SetEncounterType(Dpr::Field::EncountResult::Object **encounterHolder, Dpr::
 }
 
 // Performs repel checks and triggers an encounter with the romaing Pokémon in the current route if it fails.
+// TODO: Check to make sure the crash on Mesprit specifically is fixed once we have custom save data for roamers.
 Dpr::Field::EncountResult::Object * ReturnRoamingPokemonEncounter(Dpr::Field::EncountResult::Object **encounterHolder, Dpr::Field::FieldEncount::ENC_FLD_SPA::Object *spaStruct)
 {
     Pml::PokeParty::Object *party = PlayerWork::get_playerParty();
     auto firstPokemon = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(0);
 
     int32_t moveZoneId = Dpr::Field::FieldEncount::CheckMovePokeEnc();
-    Logger::log("moveZoneId: %d\n", moveZoneId);
     DPData::MV_POKE_DATA::Object mvPokeData{}; // local_120 = 0x0, local_118 = 0x8, etc. Total size 0x28 NOTE: ALIGNMENT IS WRONG IN GHIDRA
     EncountDataWork::GetMovePokeData(moveZoneId, &mvPokeData);
-    Logger::log("mvPokeData full: %08X\n", mvPokeData);
-    Logger::log("mvPokeData ZoneIDIndex: %d\n", mvPokeData.fields.ZoneIDIndex);
-    Logger::log("mvPokeData RndSeed1: %d\n", mvPokeData.fields.RndSeed1);
-    Logger::log("mvPokeData RndSeed2: %d\n", mvPokeData.fields.RndSeed2);
-    Logger::log("mvPokeData MonsNo: %d\n", mvPokeData.fields.MonsNo);
-    Logger::log("mvPokeData Hp: %d\n", mvPokeData.fields.Hp);
-    Logger::log("mvPokeData Lv: %d\n", mvPokeData.fields.Lv);
-    Logger::log("mvPokeData Sick: %d\n", mvPokeData.fields.Sick);
-    Logger::log("mvPokeData EncountStatus: %d\n", mvPokeData.fields.EncountStatus);
     if (spaStruct->fields.SprayCheck && mvPokeData.fields.Lv < spaStruct->fields.SpMyLv)
     {
         return nullptr;
