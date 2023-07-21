@@ -38,8 +38,24 @@ namespace Pml::PokePara {
             return external<uint32_t>(0x02043e30, this);
         }
 
+        inline int32_t GetMonsNo() {
+            return external<int32_t>(0x02044240, this);
+        }
+
+        inline uint16_t GetFormNo() {
+            return external<uint16_t>(0x02044250, this);
+        }
+
         inline uint16_t GetItem() {
             return external<uint16_t>(0x02049660, this);
+        }
+
+        inline uint16_t GetTokuseiNo() {
+            return external<uint16_t>(0x020488a0, this);
+        }
+
+        inline void SetItem(uint16_t itemno) {
+            external<void>(0x02049680, this, itemno);
         }
     };
 }
