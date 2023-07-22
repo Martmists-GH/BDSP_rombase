@@ -30,6 +30,14 @@ namespace Pml::PokePara {
             return external<int32_t>(0x02048740, this);
         }
 
+        inline bool IsHpZero() {
+            return external<bool>(0x02043bd0, this);
+        }
+
+        inline uint32_t GetLevel() {
+            return external<uint32_t>(0x02043e30, this);
+        }
+
         inline int32_t GetMonsNo() {
             return external<int32_t>(0x02044240, this);
         }
@@ -49,6 +57,5 @@ namespace Pml::PokePara {
         inline void SetItem(uint16_t itemno) {
             external<void>(0x02049680, this, itemno);
         }
-
     };
 }

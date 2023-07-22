@@ -1,46 +1,49 @@
 #pragma once
 
+#include "externals/il2cpp-api.h"
+
+#include "externals/AzukariyaData.h"
+#include "externals/DPData/_DENDOU_SAVEDATA.h"
+#include "externals/DPData/_FIELDOBJ_SAVE.h"
+#include "externals/DPData/_RANDOM_GROUP.h"
+#include "externals/DPData/BadgeSaveData.h"
+#include "externals/DPData/BoukenNote.h"
+#include "externals/DPData/BTLTOWER_SAVEWORK.h"
+#include "externals/DPData/CON_PHOTO_LANG_DATA.h"
+#include "externals/DPData/DENDOU_SAVE_ADD.h"
+#include "externals/DPData/ENC_SV_DATA.h"
+#include "externals/DPData/FieldGimmickSaveData.h"
+#include "externals/DPData/GMS_DATA.h"
+#include "externals/DPData/KinomiGrowSaveData.h"
+#include "externals/DPData/MysteryGiftSaveData.h"
+#include "externals/DPData/PLAYER_DATA.h"
+#include "externals/DPData/PLAYER_NETWORK_DATA.h"
+#include "externals/DPData/PLAYER_SAVE_DATA.h"
+#include "externals/DPData/PoffinSaveData.h"
+#include "externals/DPData/POKETCH_DATA.h"
+#include "externals/DPData/POKETCH_POKETORE_COUNT.h"
+#include "externals/DPData/RECORD.h"
+#include "externals/DPData/RECORD_ADD_DATA.h"
+#include "externals/DPData/SYSTEMDATA.h"
+#include "externals/DPData/TOPMENU_WORK.h"
+#include "externals/DPData/TV_DATA.h"
+#include "externals/DPData/UgCountRecord.h"
+#include "externals/DPData/UgSaveData.h"
+#include "externals/DPData/UnionSaveData.h"
+#include "externals/DPData/ZUKAN_PERSONAL_RND_DATA.h"
+#include "externals/DPData/ZUKAN_WORK.h"
+#include "externals/Dpr/BallDeco/SaveBallDecoData.h"
+#include "externals/Dpr/BallDeco/SaveBallDecoExtraData.h"
+#include "externals/Dpr/Box/SaveBoxData.h"
+#include "externals/Dpr/Item/ItemInfo.h"
+#include "externals/MT_DATA.h"
+#include "externals/PLAYREPORT_DATA.h"
+#include "externals/Pml/PokePara/SavePokeParty.h"
 #include "externals/Pml/PokeParty.h"
+#include "externals/ReBuffnameData.h"
 #include "externals/SmartPoint/Components/PlayerPrefsProvider_PlayerWork_.h"
 #include "externals/System/Nullable.h"
 #include "externals/System/String.h"
-#include "externals/Pml/PokePara/SavePokeParty.h"
-#include "externals/Dpr/Box/SaveBoxData.h"
-#include "externals/DPData/PLAYER_DATA.h"
-#include "externals/DPData/ZUKAN_WORK.h"
-#include "externals/DPData/TOPMENU_WORK.h"
-#include "externals/DPData/_FIELDOBJ_SAVE.h"
-#include "externals/DPData/RECORD.h"
-#include "externals/DPData/ENC_SV_DATA.h"
-#include "externals/DPData/PLAYER_SAVE_DATA.h"
-#include "externals/Dpr/BallDeco/SaveBallDecoData.h"
-#include "externals/DPData/_RANDOM_GROUP.h"
-#include "externals/DPData/FieldGimmickSaveData.h"
-#include "externals/DPData/KinomiGrowSaveData.h"
-#include "externals/DPData/PoffinSaveData.h"
-#include "externals/DPData/BTLTOWER_SAVEWORK.h"
-#include "externals/DPData/SYSTEMDATA.h"
-#include "externals/DPData/POKETCH_DATA.h"
-#include "externals/AzukariyaData.h"
-#include "externals/DPData/_DENDOU_SAVEDATA.h"
-#include "externals/DPData/BadgeSaveData.h"
-#include "externals/DPData/BoukenNote.h"
-#include "externals/DPData/UgSaveData.h"
-#include "externals/DPData/GMS_DATA.h"
-#include "externals/DPData/PLAYER_NETWORK_DATA.h"
-#include "externals/DPData/UnionSaveData.h"
-#include "externals/DPData/CON_PHOTO_LANG_DATA.h"
-#include "externals/DPData/ZUKAN_PERSONAL_RND_DATA.h"
-#include "externals/DPData/UgCountRecord.h"
-#include "externals/ReBuffnameData.h"
-#include "externals/DPData/RECORD_ADD_DATA.h"
-#include "externals/DPData/MysteryGiftSaveData.h"
-#include "externals/DPData/POKETCH_POKETORE_COUNT.h"
-#include "externals/PLAYREPORT_DATA.h"
-#include "externals/MT_DATA.h"
-#include "externals/DPData/DENDOU_SAVE_ADD.h"
-#include "externals/DPData/TV_DATA.h"
-#include "externals/Dpr/BallDeco/SaveBallDecoExtraData.h"
 
 struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     struct SaveData : ILStruct<SaveData> {
@@ -103,9 +106,50 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     };
 
     struct StaticFields {
-        char padding[72];
+        bool _NoSavePlayerPos_k__BackingField;
+        int32_t _capturedMonsNo_k__BackingField;
+        int32_t _capturedBallCountTvTopic_k__BackingField;
+        bool _encountEnable_k__BackingField;
+        bool _isDebugWalk_k__BackingField;
+        bool _isDebugPlayerVisible_k__BackingField;
+        bool _isDebugBattleTextView_k__BackingField;
+        bool _isPlayerInputActive;
+        bool _isPlayerInputActive_ContactEvent;
+        bool IsFieldKuruKuruStart;
+        bool IsFieldFallStart;
+        bool IsToUg;
+        bool IsFromUg;
+        bool ReserveZoneChangeNaminoriEnd;
+        System::String::Object* _FieldWorpLinkName_k__BackingField;
+        System::String::Object* _FieldWorpLabel_k__BackingField;
+        bool _isDebugNpcVisble_k__BackingField;
+        bool _isDebugNpcPokeVisble_k__BackingField;
+        int32_t _DebugEncountMonsNo_k__BackingField;
+        int32_t _FieldWeather_k__BackingField;
+        int32_t _DebugWeek_k__BackingField;
+        int32_t _FieldInputMode_k__BackingField;
+        bool _IsZenmetuFlag_k__BackingField;
+        bool _IsNeedUnloadOnFieldConnector_k__BackingField;
+        int32_t _Warp_k__BackingField;
+        bool _Telescope_k__BackingField;
+        bool _TelescopeReturn_k__BackingField;
+        bool _FieldCacheFlag_k__BackingField;
         int32_t _SafariBallNum_k__BackingField;
+        int32_t _SafariStepCount_k__BackingField;
+        void* _SafariCaptureMonsNo_k__BackingField;
+        int32_t _IsCpuBoostMode_k__BackingField;
+        Dpr::Item::ItemInfo::Object* _UsedFieldItem_k__BackingField;
+        int32_t _UsedFieldWazaNo_k__BackingField;
+        int32_t _UsedFieldWazaTemotiNo_k__BackingField;
+        bool _Flash_k__BackingField;
+        void* UsedFieldWazaInArea;
+        bool _PoketchOpen_k__BackingField;
+        int32_t _MovePokemonIndex_k__BackingField;
+        bool _IsD26Key_k__BackingField;
+        bool isNeedFixPokemonExp;
     };
+
+    static_assert(offsetof(StaticFields, _SafariBallNum_k__BackingField) == 72);
 
     struct Fields : SmartPoint::Components::PlayerPrefsProvider_PlayerWork_::Fields {
         PlayerWork::SaveData::Object _saveData;
@@ -173,5 +217,17 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
 
     static inline void SetMoney(int32_t money) {
         external<void>(0x02cefc80, money);
+    }
+
+    static inline int32_t get_zoneID() {
+        return external<int32_t>(0x02ceea50);
+    }
+
+    static inline DPData::ENC_SV_DATA::Object get_Enc_SV_Data() {
+        return external<DPData::ENC_SV_DATA::Object>(0x02cf2840, nullptr); // Passing nullptr as the "return_storage_ptr" and making this return the struct works
+    }
+
+    static inline void set_WalkEncountCount(int32_t value) {
+        external<void>(0x02cf2c00, value);
     }
 };

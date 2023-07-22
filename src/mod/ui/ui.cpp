@@ -116,6 +116,12 @@ static Window mainWindow = Window::single([](Window &_) {
             _.items_count = SPECIES_COUNT;
             _.selected =  array_index(SPECIES, "Bulbasaur");
         });
+        auto *form = _.InputInt([](InputInt &_) {
+            _.label = "Form";
+            _.min = 0;
+            _.max = 100;
+            _.value = 0;
+        });
         auto *level = _.InputInt([](InputInt &_) {
             _.label = "Level";
             _.min = 1;
@@ -157,15 +163,16 @@ static Window mainWindow = Window::single([](Window &_) {
             _.selected = array_index(MOVES, "Comet Punch");
         });
 
-        _.Button([species, level, ball, customMoves, move1, move2, move3, move4](Button &_) {
+        _.Button([species, form, level, ball, customMoves, move1, move2, move3, move4](Button &_) {
             _.label = "Give Pokemon";
-            _.onClick = [species, level, ball, customMoves, move1, move2, move3, move4]() {
+            _.onClick = [species, form, level, ball, customMoves, move1, move2, move3, move4]() {
                 auto party = PlayerWork::get_playerParty();
 
                 auto param = Pml::PokePara::PokemonParam::newInstance(species->selected, level->value, 0);
                 auto pmlUse = Pml::PmlUse::get_Instance();
                 int32_t lang = pmlUse->get_LangId();
 
+                param->fields.m_accessor->SetFormNo(form->value);
                 param->fields.m_accessor->SetLangID(lang);
                 param->fields.m_accessor->SetOwnedOthersFlag(false);
                 param->fields.m_accessor->SetGetBall(ball->selected);

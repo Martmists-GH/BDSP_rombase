@@ -1,6 +1,6 @@
 #pragma once
 
-static constexpr const char* ABILITIES[] = {
+static constexpr const char *ABILITIES[] = {
     "-ABILITY ZERO-",
     "Stench",
     "Drizzle",

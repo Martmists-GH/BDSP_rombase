@@ -8,12 +8,14 @@
 #include "externals/EvData/Aregment.h"
 #include "externals/Pml/PokePara/PokemonParam.h"
 #include "externals/System/MulticastDelegate.h"
+#include "externals/System/Primitives.h"
 #include "externals/System/String.h"
 #include "externals/UnityEngine/Coroutine.h"
-#include "externals/UnityEngine/Vector3.h"
-#include "externals/UnityEngine/Vector2Int.h"
 #include "externals/UnityEngine/Quaternion.h"
+#include "externals/UnityEngine/RectInt.h"
 #include "externals/UnityEngine/Vector2.h"
+#include "externals/UnityEngine/Vector2Int.h"
+#include "externals/UnityEngine/Vector3.h"
 
 //extern Dpr_EvScript_EvDataManager_o* (*Dpr_EvScript_EvDataManager$$get_Instanse)();
 //
@@ -62,6 +64,50 @@ namespace Dpr::EvScript {
                 void* Entity;
                 int32_t State;
                 float Time;
+            };
+        };
+
+        struct EntityParam : ILClass<EntityParam> {
+            struct Fields {
+                System::String::Object* TalkLabel;
+                System::String::Object* ContactLabel;
+                int32_t VanishFlagIndex;
+                bool IsContact;
+                int32_t WorkIndex;
+                int32_t WorkValue;
+                int32_t Type;
+                UnityEngine::RectInt::Object StopGridArea;
+                bool IsEventRunning;
+                int32_t MoveCodeIndex;
+                bool Kairiki;
+                bool Iwakudaki;
+                bool Iaigiri;
+                bool Rockclimb;
+                int32_t Dowsing;
+                bool SnowBall;
+                bool AzukariyaOldMan;
+                bool HoneyTree;
+                bool HeightIgnore;
+                UnityEngine::Vector2::Object ContactSize;
+                bool IsContactCenter;
+                bool Sit;
+                int32_t IdleAnimOverride;
+                int32_t WalkAnimOverride;
+                int32_t TrainerID;
+                int32_t FieldObjectIndex;
+                System::Int32_array* NearObject;
+                float TalkRange;
+                bool isTalkHit;
+                float TalkAngle;
+                bool SaveObject;
+                int32_t LocaitionZoneID;
+                bool IsObject;
+                UnityEngine::Vector2::Object TalkSegment;
+                uint8_t TalkBit;
+                int32_t CharacterGraphicsIndex;
+                bool BattleReturnNotRotate;
+                bool isNoPlayerHit;
+                bool IsInvalidVanishActive;
             };
         };
 
