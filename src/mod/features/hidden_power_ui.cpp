@@ -3,31 +3,18 @@
 #include "externals/Pml/PokePara/CoreParam.h"
 #include "externals/Pml/WazaData.h"
 #include "data/moves.h"
+#include "data/utils.h"
 #include "logger/logger.h"
 
-
-int32_t findHiddenPowerIndex()
-{
-    for(int i=0; i<MOVE_COUNT; i++)
-    {
-        if(MOVES[i] == "Hidden Power")
-        {
-            Logger::log("Hidden Power ID: %D\n", i);
-            return i;
-        }
-    }
-}
-
-const int32_t HIDDEN_POWER_ID = findHiddenPowerIndex();
 
 static Pml::PokePara::CoreParam::Object * gPokemonParam;
 
 uint8_t WazaDataSystem_GetType(int32_t id, Pml::PokePara::CoreParam::Object * pokemonParam)
 {
     Logger::log("WazaDataSystem_GetType. ID: %D\n", id);
-    if (pokemonParam == nullptr || id != HIDDEN_POWER_ID)
+    if (pokemonParam == nullptr || id != array_index(MOVES, "Hidden Power"))
     {
-        Logger::log("Invalid hidden power. Expecting ID: %D\n", HIDDEN_POWER_ID);
+        Logger::log("Invalid hidden power. Expecting ID: %D\n", array_index(MOVES, "Hidden Power"));
         return Pml::WazaData::WazaDataSystem::GetType(id);
     }
 
@@ -55,8 +42,7 @@ int32_t WazaManagePokemonStausPanel_GetWazaNo(Pml::PokePara::CoreParam::Object *
 {
     Logger::log("pokemonParam: %08X\n", coreParam);
     gPokemonParam = coreParam;
-    // __this->fields.m_accessor->GetWazaNo(index);
-    return coreParam->fields.m_accessor->GetWazaNo(index);
+    return coreParam->GetWazaNo(index);
 }
 
 void exl_hidden_power_ui_main(){
