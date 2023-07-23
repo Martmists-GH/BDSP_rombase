@@ -30,6 +30,9 @@ void exl_encounter_slots_main();
 // Adds functionality to the Exp. Share item.
 void exl_exp_share_main();
 
+// Replaces every instance of Hidden Power being shown as "Normal" type with its actual type for the Pokémon.
+void exl_hidden_power_ui_main();
+
 // Reroutes IL2CPP logs to the ExLaunch logger.
 void exl_il2cpp_log_main();
 
