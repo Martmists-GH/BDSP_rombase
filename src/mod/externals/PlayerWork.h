@@ -36,6 +36,7 @@
 #include "externals/Dpr/BallDeco/SaveBallDecoExtraData.h"
 #include "externals/Dpr/Box/SaveBoxData.h"
 #include "externals/Dpr/Item/ItemInfo.h"
+#include "externals/Dpr/Item/SaveItem.h"
 #include "externals/MT_DATA.h"
 #include "externals/PLAYREPORT_DATA.h"
 #include "externals/Pml/PokePara/SavePokeParty.h"
@@ -229,5 +230,9 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
 
     static inline void set_WalkEncountCount(int32_t value) {
         external<void>(0x02cf2c00, value);
+    }
+
+    static inline Dpr::Item::SaveItem::Object GetItem(int32_t itemno) {
+        return external<Dpr::Item::SaveItem::Object>(0x02cefde0, itemno);
     }
 };

@@ -42,8 +42,14 @@ void exl_level_cap_main();
 // Applies multiple small one-line patches.
 void exl_patches_main();
 
+// Adds nicknaming and move relearning to the party menu.
+void exl_pla_context_menu_main();
+
 // Adds support for two-button Pokétch.
 void exl_poketch_main();
+
+// Tweaks the move relearner menu to include owned TMs.
+void exl_relearn_tms_main();
 
 // Remaps the controls.
 void exl_remap_main();
