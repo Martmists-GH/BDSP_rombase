@@ -12,6 +12,10 @@ namespace Pml::PokePara {
             external<void>(0x024ab2b0, this, flag);
         }
 
+        inline int32_t GetWazaNo(uint8_t wazaIndex) {
+            return external<int32_t>(0x024a5d70, this, wazaIndex);
+        }
+
         inline void SetFormNo(uint16_t formno) {
             external<void>(0x024a9c30, this, formno);
         }
