@@ -1,11 +1,8 @@
 #include "exlaunch.hpp"
-#include "externals/il2cpp.h"
 #include "externals/Dpr/UI/UIBag.h"
 #include "externals/Pml/PokePara/CoreParam.h"
 #include "externals/Pml/PokePara/PokemonParam.h"
 #include "externals/Pml/Personal/PersonalSystem.h"
-#include "utils/utils.h"
-#include "logger/logger.h"
 
 // Checks if Ability Patch can be used.
 HOOK_DEFINE_REPLACE(AbilityPatchUsability) {
@@ -43,6 +40,6 @@ static bool Callback(Dpr::UI::UIBag::__c__DisplayClass135_0::Object *bagObject, 
     }
 };
 
-void exl_item_changes_main(){
+void exl_items_ability_patch_main(){
     AbilityPatchUsability::InstallAtOffset(0x01be1580);
 };

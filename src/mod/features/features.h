@@ -27,17 +27,14 @@ void exl_dex_expansion_main();
 // Defaults to changing slots how Luminescent does it.
 void exl_encounter_slots_main();
 
-//Enables ever lasting candy item to not consume on use
-void exl_everlasting_candies_main();
-
 // Adds functionality to the Exp. Share item.
 void exl_exp_share_main();
 
 // Reroutes IL2CPP logs to the ExLaunch logger.
 void exl_il2cpp_log_main();
 
-//Enables Ability Patch item to be used multiple times
-void exl_item_changes_main();
+//Enables Everlasting Candy and Ability Patch changes
+void exl_items_changes_main();
 
 // Adds new key item functionality.
 void exl_key_items_main();

@@ -38,7 +38,7 @@ int32_t ItemWork_SubItem(int32_t itemno, int32_t num) {
     return 0;
 }
 
-void exl_everlasting_candies_main(){
+void exl_items_everlasting_candies_main(){
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
 
