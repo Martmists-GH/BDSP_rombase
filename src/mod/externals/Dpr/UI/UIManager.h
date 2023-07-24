@@ -1,7 +1,10 @@
 #pragma once
 
 #include "externals/il2cpp-api.h"
+
+#include "externals/Dpr/UI/UIWazaManage.h"
 #include "externals/SmartPoint/AssetAssistant/SingletonMonoBehaviour.h"
+#include "externals/UIWindowID.h"
 #include "externals/UnityEngine/Transform.h"
 
 namespace Dpr {
@@ -9,7 +12,6 @@ namespace Dpr {
         struct ShopBoutiqueChange;
     }
 }
-
 
 namespace Dpr::UI {
     struct UIManager : ILClass<UIManager> {
@@ -23,10 +25,11 @@ namespace Dpr::UI {
         }
 
         static inline StaticILMethod<0x04c8ffe8, Dpr::UI::ShopBoutiqueChange> Method$$CreateUIWindow_ShopBoutiqueChange_ {};
+        static inline StaticILMethod<0x04c90098, Dpr::UI::UIWazaManage> Method$$CreateUIWindow_UIWazaManage_ {};
 
         template <typename T>
-        inline T::Object* CreateUIWindow(int32_t windowId, ILMethod<T>& method) {
-            return external<typename T::Object*>(0x01cf9f20, this, windowId, *method);
+        inline T::Object* CreateUIWindow(UIWindowID windowId, ILMethod<T>& method) {
+            return external<typename T::Object*>(0x01cf9f20, this, (int32_t)windowId, *method);
         }
     };
 }

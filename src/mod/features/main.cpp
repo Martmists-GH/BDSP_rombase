@@ -12,6 +12,8 @@ void exl_features_main() {
     exl_key_items_main();
     exl_level_cap_main();
     exl_patches_main();
+    exl_pla_context_menu_main();
+    exl_relearn_tms_main();
     exl_settings_main();
     exl_wild_held_items_main();
     exl_wild_forms_main();

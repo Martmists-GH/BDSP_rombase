@@ -1,6 +1,6 @@
 #pragma once
 
-#include "externals/il2cpp.h"
+#include "externals/il2cpp-api.h"
 
 #include "externals/Dpr/EvScript/EvScriptData.h"
 #include "externals/Dpr/Item/ItemInfo.h"
@@ -16,17 +16,6 @@
 #include "externals/UnityEngine/Vector2.h"
 #include "externals/UnityEngine/Vector2Int.h"
 #include "externals/UnityEngine/Vector3.h"
-
-//extern Dpr_EvScript_EvDataManager_o* (*Dpr_EvScript_EvDataManager$$get_Instanse)();
-//
-//extern bool (*Dpr_EvScript_EvDataManager$$Cmd_ObjPauseClearAll)(Dpr_EvScript_EvDataManager_o* __this);
-//extern bool (*Dpr_EvScript_EvDataManager$$CallLabel)(Dpr_EvScript_EvDataManager_o* __this, System::String_o* label);
-//
-//extern bool (*Dpr_EvScript_EvDataManager$$EvCmdEnd)(Dpr_EvScript_EvDataManager_o* __this);
-//extern bool (*Dpr_EvScript_EvDataManager$$EvCmdConOpenBoutiqueSelectMenu)(Dpr_EvScript_EvDataManager_o* __this);
-//extern bool (*Dpr_EvScript_EvDataManager$$EvCmdOpenBoutiqueShopBuy)(Dpr_EvScript_EvDataManager_o* __this);
-//extern bool (*Dpr_EvScript_EvDataManager$$EvCmdOpenBoutiqueShopChange)(Dpr_EvScript_EvDataManager_o* __this);
-//extern bool (*Dpr_EvScript_EvDataManager$$EvCmdShopOpenWait)(Dpr_EvScript_EvDataManager_o* __this);
 
 namespace Dpr::EvScript {
     struct EvDataManager : ILClass<EvDataManager, 0x04c59c50> {
@@ -109,6 +98,32 @@ namespace Dpr::EvScript {
                 bool isNoPlayerHit;
                 bool IsInvalidVanishActive;
             };
+        };
+
+        struct DisplayClass773_0 : ILClass<DisplayClass773_0, 0x04c5edf0> {
+            struct Fields {
+                Pml::PokePara::PokemonParam::Object* pokemonParam;
+                int32_t trayIndex;
+                int32_t index;
+                EvDataManager::Object * __4__this;
+            };
+
+            inline void ctor() {
+                external<void>(0x019aeef0, this);
+            }
+        };
+
+        struct DisplayClass1544_0 : ILClass<DisplayClass1544_0, 0x04c5f000> {
+            struct Fields {
+                EvDataManager::Object* __4__this;
+                Pml::PokePara::PokemonParam::Object* param;
+                int32_t tray;
+                int32_t idx;
+            };
+
+            inline void ctor() {
+                external<void>(0x019ae530, this);
+            }
         };
 
         enum class TalkState : int32_t {
@@ -328,6 +343,12 @@ namespace Dpr::EvScript {
             void * _poolLoadObjects;
         };
 
+        static inline StaticILMethod<0x04c2afe0, int32_t, int32_t> PTR_Method$$EvDataManager_EvCmdCallWazaOmoidashiUi {};
+        static inline StaticILMethod<0x04c2b028, int32_t, int32_t> PTR_Method$$EvDataManager_EvCmdCallWazaOshieUi {};
+
+        static inline StaticILMethod<0x04c77ce0, int32_t, int32_t> Method$$EvDataManager_EvCmdNameInPoke_OnInputCheck {};
+        static inline StaticILMethod<0x04c7cf70, int32_t, int32_t> Method$$EvDataManager_EvCmdNameInPoke_OnComplete {};
+
         inline bool RunEvCmd(int32_t index) {
             return external<bool>(0x02c5b290, this, index);
         }
@@ -350,6 +371,10 @@ namespace Dpr::EvScript {
 
         inline bool EvCmdOpenBoutiqueShopChange() {
             return external<bool>(0x02c8a810, this);
+        }
+
+        inline void LearnWaza(Pml::PokePara::PokemonParam::Object *param, int32_t learnWazaNo, int32_t unlearnWazaNo) {
+            external<void>(0x02c92a70, this, param, learnWazaNo, unlearnWazaNo);
         }
 
         static inline Dpr::EvScript::EvDataManager::Object* get_Instanse() {
