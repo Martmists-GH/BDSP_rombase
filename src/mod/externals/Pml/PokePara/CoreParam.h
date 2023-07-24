@@ -54,8 +54,8 @@ namespace Pml::PokePara {
             return external<uint8_t>(0x02045ce0, this);
         }
 
-        inline void SetTokuseiIndex(Pml::PokePara::CoreParam::Object *paramInput,uint8_t tokuseiIndex) {
-            return external<void>(0x02048ac0, paramInput, tokuseiIndex);
+        inline void SetTokuseiIndex(uint8_t tokuseiIndex) {
+            external<void>(0x02048ac0, this, tokuseiIndex);
         }
 
         inline uint16_t GetTokuseiNo() {

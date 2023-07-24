@@ -18,8 +18,8 @@ namespace Dpr::UI {
             void * noDataText; //Dpr_UI_UIText_o*
             void * bagItemDescriptionPanel; //Dpr_UI_BagItemDescriptionPanel_o*
             void * selectAmount; //Dpr_UI_BagItemSelectAmount_o*
-            void * isRemoveNewEnable; //bool
-            void * isBattle; //bool
+            bool isRemoveNewEnable;
+            bool isBattle;
             void * itemListMemory; //Dpr_Item_ItemListMemory_o*
             void * items; //System_Collections_Generic_List_ItemInfo__o*
             void * currentCategoryButton; //Dpr_UI_BagCategoryButton_o*

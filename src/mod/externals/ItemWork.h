@@ -8,7 +8,7 @@ struct ItemWork : ILClass<ItemWork> {
     }
 
     static inline int32_t SubItem(int32_t itemno,int32_t num) {
-        return external<int32_t>(0x0185eb8c, itemno, num);
+        return external<int32_t>(0x01aea450, itemno, num);
     }
 
 
