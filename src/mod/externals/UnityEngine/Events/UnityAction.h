@@ -5,11 +5,12 @@
 #include "externals/System/MulticastDelegate.h"
 
 namespace UnityEngine::Events {
-    // TODO: template this class maybe?
     struct UnityAction : ILClass<UnityAction> {
         struct Fields : System::MulticastDelegate::Fields {
 
         };
+
+        static const inline long bool_String_TypeInfo = 0x04c5ee10;
 
         template <typename T, typename... Args>
         inline void ctor(T* owner, ILMethod<T, Args...>& mi) {

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "externals/il2cpp.h"
 #include "externals/il2cpp-api.h"
-#include "Primitives.h"
+
 #include "externals/System/Collections/Generic/List.h"
+#include "externals/System/Primitives.h"
 #include "externals/System/Text/Encoding.h"
 
 namespace System {
@@ -23,6 +23,10 @@ namespace System {
 
         static inline bool op_Equality(String::Object* a, String::Object* b) {
             return external<bool>(0x026f05c0, a, b);
+        }
+
+        static inline bool IsNullOrEmpty(String::Object* value) {
+            return external<bool>(0x026f3810, value);
         }
 
         std::string asCString() {

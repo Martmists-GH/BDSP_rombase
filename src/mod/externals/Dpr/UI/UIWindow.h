@@ -1,6 +1,6 @@
 #pragma once
 
-#include "externals/il2cpp.h"
+#include "externals/il2cpp-api.h"
 
 #include "externals/UnityEngine/Events/UnityAction.h"
 #include "externals/UnityEngine/MonoBehaviour.h"
@@ -22,5 +22,9 @@ namespace Dpr::UI {
             int32_t _animStateIn;
             int32_t _animStateOut;
         };
+
+        inline bool IsPushButton(int32_t button, bool isForce) {
+            return external<bool>(0x01a352a0, this, button, isForce);
+        }
     };
 }

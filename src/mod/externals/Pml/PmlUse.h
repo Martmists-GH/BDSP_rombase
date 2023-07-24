@@ -1,13 +1,37 @@
 #pragma once
 
-#include "externals/il2cpp.h"
+#include "externals/il2cpp-api.h"
 
+#include "externals/XLSXContent/ItemTable.h"
 
 namespace Pml {
     struct PmlUse : ILClass<PmlUse> {
+        struct Fields {
+            bool isAutoLoad;
+            void* personalTotal; // XLSXContent_PersonalTable_o*
+            void* growTableTotal; // XLSXContent_GrowTable_o*
+            void* evolveTableTotal; // XLSXContent_EvolveTable_o*
+            void* wazaOboeTotal; // XLSXContent_WazaOboeTable_o*
+            void* wazaDataTotal; // XLSXContent_WazaTable_o*
+            XLSXContent::ItemTable::Object* itemPrmTotal;
+            void* tamagoWazaTotal; // XLSXContent_TamagoWazaTable_o*
+            void* addPersonalTotal; // XLSXContent_AddPersonalTable_o*
+            void* sealTotal; // XLSXContent_SealTable_o*
+            void* ugItemPrmTotal; // XLSXContent_UgItemTable_o*
+            void* tamaTableTotal; // XLSXContent_TamaTable_o*
+            void* pedestalTableTotal; // XLSXContent_PedestalTable_o*
+            void* stoneStatuEeffectTotal; // XLSXContent_StoneStatuEeffect_o*
+            void* ugfPosTotal; // XLSXContent_UgFatherPos_o*
+            void* ugfExpansionTotal; // XLSXContent_UgFatherExpansion_o*
+            void* ugfShopTotal; // XLSXContent_UgFatherShopTable_o*
+            void* evolveManager; // Pml_PokePara_EvolveManager_o*
+            bool isABAppended;
+            bool isInitialized;
+            bool _IsPersistentTiming_k__BackingField;
+        };
 
-        static inline PmlUse::Object* get_Instance() {
-            return external<PmlUse::Object*>(0x024a0110);
+        static inline Pml::PmlUse::Object* get_Instance() {
+            return external<Pml::PmlUse::Object*>(0x024a0110);
         }
 
         inline int32_t get_LangId() {
