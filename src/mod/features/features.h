@@ -36,6 +36,9 @@ void exl_hidden_power_ui_main();
 // Reroutes IL2CPP logs to the ExLaunch logger.
 void exl_il2cpp_log_main();
 
+//Enables Everlasting Candy and Ability Patch changes
+void exl_items_changes_main();
+
 // Adds new key item functionality.
 void exl_key_items_main();
 

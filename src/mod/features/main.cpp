@@ -10,6 +10,7 @@ void exl_features_main() {
     exl_dex_expansion_main();
     exl_encounter_slots_main();
     exl_hidden_power_ui_main();
+    exl_items_changes_main();
     exl_key_items_main();
     exl_level_cap_main();
     exl_patches_main();

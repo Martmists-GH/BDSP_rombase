@@ -7,6 +7,7 @@
 #include "externals/Dpr/UI/PokemonPartyItem.h"
 #include "externals/Dpr/UI/UIMsgWindowController.h"
 #include "externals/Dpr/UI/UIWindow.h"
+#include "externals/Dpr/UI/BagItemPanel.h"
 #include "externals/Pml/PokePara/PokemonParam.h"
 #include "externals/Pml/PokeParty.h"
 #include "externals/System/Action.h"
@@ -44,6 +45,12 @@ namespace Dpr::UI {
             }
         };
 
+        struct __c__DisplayClass135_0 : ILClass<__c__DisplayClass135_0> {
+            struct Fields{
+
+            };
+        };
+
         struct __c__DisplayClass144_0 : ILClass<__c__DisplayClass144_0, 0x04c62840> {
             struct Fields {
                 Dpr::UI::UIBag::Object* __4__this;
@@ -68,7 +75,7 @@ namespace Dpr::UI {
         };
 
         struct Fields : Dpr::UI::UIWindow::Fields {
-            void * bagItemPanel; // BagItemPanel_o
+            Dpr::UI::BagItemPanel::Object* bagItemPanel; // BagItemPanel_o
             void * pokemonParty; // PokemonParty_o
             void * wazaSelectPanel; // BagWazaSelectPanel_o
             UnityEngine::RectTransform::Object * effectRoot;
