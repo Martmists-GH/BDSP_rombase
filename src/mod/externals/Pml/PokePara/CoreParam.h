@@ -1,7 +1,9 @@
 #pragma once
 
 #include "externals/il2cpp-api.h"
-#include "Accessor.h"
+
+#include "externals/Pml/PokePara/Accessor.h"
+#include "externals/Pml/WazaNo.h"
 
 namespace Pml::PokePara {
     struct CoreParam : ILClass<CoreParam> {
@@ -10,6 +12,10 @@ namespace Pml::PokePara {
             void* m_calcData;
             Pml::PokePara::Accessor::Object* m_accessor;
         };
+
+        inline int32_t GetWazaNo(uint8_t index) {
+            return external<int32_t>(0x02045e00, this, index);
+        }
 
         inline void SetWaza(uint32_t index, uint32_t wazaId) {
             external<void>(0x020464e0, this, index, wazaId);
@@ -65,6 +71,26 @@ namespace Pml::PokePara {
 
         inline int32_t GetWazaNo(uint8_t index) {
             return external<int32_t>(0x02045e00, this, index);
+        }
+
+        inline uint8_t GetSex() {
+            return external<uint8_t>(0x02048540, this);
+        }
+
+        inline void SetNickName(System::String::Object* nickName) {
+            external<void>(0x02048e90, this, nickName);
+        }
+
+        inline System::Collections::Generic::HashSet$$Pml_WazaNo::Object* CollectRemindableWaza() {
+            return external< System::Collections::Generic::HashSet$$Pml_WazaNo::Object*>(0x02047aa0, this);
+        }
+
+        inline int32_t AddWazaIfEmptyExist(int32_t wazano) {
+            return external<int32_t>(0x02047370, this, wazano);
+        }
+
+        inline bool CheckWazaMachine(uint32_t machineNo) {
+            return external<bool>(0x02046b40, this, machineNo);
         }
     };
 }
