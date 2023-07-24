@@ -1,7 +1,8 @@
 #pragma once
 
 #include "externals/PlayerWork.h"
-#include "dex_savedata.h"
+#include "save/savedata/dex_savedata.h"
+#include "save/savedata/variables_savedata.h"
 
 enum class ModVersion : int32_t {
     // Base game
@@ -14,13 +15,17 @@ enum class ModVersion : int32_t {
     Dev,
 };
 
-constexpr int32_t DexSize = 905;
+constexpr int32_t DexSize = 1010;
+constexpr int32_t WorkCount = 5000;
+constexpr int32_t FlagCount = 15000;
+constexpr int32_t SysFlagCount = 5000;
 
 struct CustomSaveData {
     bool initialized;
     ModVersion version;
     // ONLY MAKE MODIFICATIONS TO SAVE FORMAT BELOW HERE, OTHERWISE YOU WILL BREAK SAVE COMPATIBILITY
-    DexSaveData<DexSize> dex;  // start at 0
+    DexSaveData<DexSize> dex;
+    VariablesSaveData<WorkCount, FlagCount, SysFlagCount> variables;
 };
 
 void migrate(CustomSaveData* data, PlayerWork::Object* playerWork);

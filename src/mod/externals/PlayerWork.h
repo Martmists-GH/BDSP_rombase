@@ -43,15 +43,16 @@
 #include "externals/ReBuffnameData.h"
 #include "externals/SmartPoint/Components/PlayerPrefsProvider_PlayerWork_.h"
 #include "externals/System/Nullable.h"
+#include "externals/System/Primitives.h"
 #include "externals/System/String.h"
 
 struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     struct SaveData : ILStruct<SaveData> {
         struct Fields {
             int32_t version;
-            void* intValues;
-            void* boolValues;
-            void* systemFlags;
+            System::Int32_array* intValues;
+            System::Boolean_array* boolValues;
+            System::Boolean_array* systemFlags;
             System::String::Object* rivalName;
             int32_t zoneID;
             float timeScale;

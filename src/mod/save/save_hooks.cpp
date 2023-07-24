@@ -11,6 +11,7 @@ static CustomSaveData gCustomSaveData {
     .initialized = false,
     .version = ModVersion::Vanilla,
     .dex = {},
+    .variables = {},
 };
 
 CustomSaveData* getCustomSaveData() {
@@ -66,6 +67,10 @@ zukan_cache(male_flag);
 zukan_cache(female_flag);
 #undef zukan_cache
 
+static System::Int32_array* cache_works;
+static System::Boolean_array* cache_flags;
+static System::Boolean_array* cache_sysflags;
+
 HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
     static bool Callback(PlayerWork::Object* playerWork) {
         bool success = Orig(playerWork);
@@ -86,19 +91,32 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
                 load_default_custom_data(playerWork);
             }
 
-            auto newStatus = (DPData::GET_STATUS_array*)system_array_new(DPData::GET_STATUS_array_TypeInfo(), DexSize);
             auto boolCls = System::Boolean_array_TypeInfo();
+            auto int32Cls = System::Int32_array_TypeInfo();
+
+            // Create new arrays
+            auto newStatus = (DPData::GET_STATUS_array*)system_array_new(DPData::GET_STATUS_array_TypeInfo(), DexSize);
             auto newMaleColorFlag = (System::Boolean_array*)system_array_new(boolCls, DexSize);
             auto newFemaleColorFlag = (System::Boolean_array*)system_array_new(boolCls, DexSize);
             auto newMaleFlag = (System::Boolean_array*)system_array_new(boolCls, DexSize);
             auto newFemaleFlag = (System::Boolean_array*)system_array_new(boolCls, DexSize);
 
+            auto newWorks = (System::Int32_array*) system_array_new(int32Cls, WorkCount);
+            auto newFlags = (System::Boolean_array*) system_array_new(boolCls, FlagCount);
+            auto newSysflags = (System::Boolean_array*) system_array_new(boolCls, SysFlagCount);
+
+            // Fill the new arrays with the custom save data
             memcpy(newStatus->m_Items, gCustomSaveData.dex.get_status, sizeof(gCustomSaveData.dex.get_status));
             memcpy(newMaleColorFlag->m_Items, gCustomSaveData.dex.male_color_flag, sizeof(gCustomSaveData.dex.male_color_flag));
             memcpy(newFemaleColorFlag->m_Items, gCustomSaveData.dex.female_color_flag, sizeof(gCustomSaveData.dex.female_color_flag));
             memcpy(newMaleFlag->m_Items, gCustomSaveData.dex.male_flag, sizeof(gCustomSaveData.dex.male_flag));
             memcpy(newFemaleFlag->m_Items, gCustomSaveData.dex.female_flag, sizeof(gCustomSaveData.dex.female_flag));
 
+            memcpy(newWorks->m_Items, gCustomSaveData.variables.works, sizeof(gCustomSaveData.variables.works));
+            memcpy(newFlags->m_Items, gCustomSaveData.variables.flags, sizeof(gCustomSaveData.variables.flags));
+            memcpy(newSysflags->m_Items, gCustomSaveData.variables.sysflags, sizeof(gCustomSaveData.variables.sysflags));
+
+            // Cache the data in the vanilla save
             auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
             cache_get_status = zukan.get_status;
             cache_male_color_flag = zukan.male_color_flag;
@@ -106,11 +124,21 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
             cache_male_flag = zukan.male_flag;
             cache_female_flag = zukan.female_flag;
 
+            auto& savedata = playerWork->fields._saveData.fields;
+            cache_works = savedata.intValues;
+            cache_flags = savedata.boolValues;
+            cache_sysflags = savedata.systemFlags;
+
+            // Set the data in PlayerWork to our custom save data
             zukan.get_status = newStatus;
             zukan.male_color_flag = newMaleColorFlag;
             zukan.female_color_flag = newFemaleColorFlag;
             zukan.male_flag = newMaleFlag;
             zukan.female_flag = newFemaleFlag;
+
+            savedata.intValues = newWorks;
+            savedata.boolValues = newFlags;
+            savedata.systemFlags = newSysflags;
         }
 
         return success;
@@ -120,24 +148,40 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
 HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
     static void Callback(PlayerWork::Object* playerWork, void* param_2, void* param_3, void* param_4) {
         auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
+        auto& savedata = playerWork->fields._saveData.fields;
 
+        // Copy PlayerWork data to our Custom save data
         memcpy(gCustomSaveData.dex.get_status, zukan.get_status->m_Items, sizeof(gCustomSaveData.dex.get_status));
         memcpy(gCustomSaveData.dex.male_color_flag, zukan.male_color_flag->m_Items, sizeof(gCustomSaveData.dex.male_color_flag));
         memcpy(gCustomSaveData.dex.female_color_flag, zukan.female_color_flag->m_Items, sizeof(gCustomSaveData.dex.female_color_flag));
         memcpy(gCustomSaveData.dex.male_flag, zukan.male_flag->m_Items, sizeof(gCustomSaveData.dex.male_flag));
         memcpy(gCustomSaveData.dex.female_flag, zukan.female_flag->m_Items, sizeof(gCustomSaveData.dex.female_flag));
 
+        memcpy(gCustomSaveData.variables.works, savedata.intValues->m_Items, sizeof(gCustomSaveData.variables.works));
+        memcpy(gCustomSaveData.variables.flags, savedata.boolValues->m_Items, sizeof(gCustomSaveData.variables.flags));
+        memcpy(gCustomSaveData.variables.sysflags, savedata.systemFlags->m_Items, sizeof(gCustomSaveData.variables.sysflags));
+
+        // Create a temp copy of the PlayerWork data
         auto tmp_get_status = zukan.get_status;
         auto tmp_male_color_flag = zukan.male_color_flag;
         auto tmp_female_color_flag = zukan.female_color_flag;
         auto tmp_male_flag = zukan.male_flag;
         auto tmp_female_flag = zukan.female_flag;
 
+        auto tmp_works = savedata.intValues;
+        auto tmp_flags = savedata.boolValues;
+        auto tmp_sysflags = savedata.systemFlags;
+
+        // Set PlayerWork to our cached data
         zukan.get_status = cache_get_status;
         zukan.male_color_flag = cache_male_color_flag;
         zukan.female_color_flag = cache_female_color_flag;
         zukan.male_flag = cache_male_flag;
         zukan.female_flag = cache_female_flag;
+
+        savedata.intValues = cache_works;
+        savedata.boolValues = cache_flags;
+        savedata.systemFlags = cache_sysflags;
 
         char buffer[sizeof(CustomSaveData)];
 #ifndef DEBUG_DISABLE_SAVE  // Allow disabling the saving to test the save migration code
@@ -147,11 +191,16 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
 
         Orig(playerWork, param_2, param_3, param_4);
 
+        // Restore PlayerWork to our temp copy
         zukan.get_status = tmp_get_status;
         zukan.male_color_flag = tmp_male_color_flag;
         zukan.female_color_flag = tmp_female_color_flag;
         zukan.male_flag = tmp_male_flag;
         zukan.female_flag = tmp_female_flag;
+
+        savedata.intValues = tmp_works;
+        savedata.boolValues = tmp_flags;
+        savedata.systemFlags = tmp_sysflags;
     }
 };
 
