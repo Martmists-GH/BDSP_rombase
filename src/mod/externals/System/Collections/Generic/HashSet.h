@@ -26,13 +26,13 @@ namespace System::Collections::Generic {
             System::Runtime::Serialization::SerializationInfo::Object* _siInfo;
         };
 
-        inline void Add(E* item) {
-            ILClass<T>::template external<void>(0x028f8520, this, item, *T::Method$$Add);
+        inline bool Add(E* item) {
+            return ILClass<T>::template external<bool>(0x028f8520, this, item, *T::Method$$Add);
         }
 
         // Only use for primitive types
-        inline void AddPrimitive(E item) {
-            ILClass<T>::template external<void>(0x028f8520, this, item, *T::Method$$Add);
+        inline bool AddPrimitive(E item) {
+            return ILClass<T>::template external<bool>(0x028f8520, this, item, *T::Method$$Add);
         }
     };
 }
