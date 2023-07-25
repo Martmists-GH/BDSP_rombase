@@ -77,10 +77,6 @@ namespace Pml::PokePara {
             return external<uint8_t>(0x0204b950, this);
         }
 
-        inline int32_t GetWazaNo(uint8_t index) {
-            return external<int32_t>(0x02045e00, this, index);
-        }
-
         inline uint8_t GetSex() {
             return external<uint8_t>(0x02048540, this);
         }
