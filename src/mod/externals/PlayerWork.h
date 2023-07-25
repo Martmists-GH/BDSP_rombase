@@ -26,6 +26,7 @@
 #include "externals/DPData/RECORD_ADD_DATA.h"
 #include "externals/DPData/SYSTEMDATA.h"
 #include "externals/DPData/TOPMENU_WORK.h"
+#include "externals/DPData/TR_BATTLE_DATA.h"
 #include "externals/DPData/TV_DATA.h"
 #include "externals/DPData/UgCountRecord.h"
 #include "externals/DPData/UgSaveData.h"
@@ -64,7 +65,7 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
             void* boxTray;
             DPData::PLAYER_DATA::Object playerData;
             DPData::ZUKAN_WORK::Object zukanData;
-            void* tr_battleData;
+            DPData::TR_BATTLE_DATA::Array* tr_battleData;
             DPData::TOPMENU_WORK::Object topMenuData;
             DPData::_FIELDOBJ_SAVE::Object fieldObj_Save;
             DPData::RECORD_ARRAY::Object record;
@@ -226,6 +227,10 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
 
     static inline DPData::ENC_SV_DATA::Object get_Enc_SV_Data() {
         return external<DPData::ENC_SV_DATA::Object>(0x02cf2840, nullptr); // Passing nullptr as the "return_storage_ptr" and making this return the struct works
+    }
+
+    static inline DPData::TR_BATTLE_DATA::Array* get_tr_battleData() {
+        return external<DPData::TR_BATTLE_DATA::Array*>(0x02cf1bd0, nullptr);
     }
 
     static inline void set_WalkEncountCount(int32_t value) {

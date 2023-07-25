@@ -2,6 +2,7 @@
 
 #include "externals/PlayerWork.h"
 #include "save/savedata/dex_savedata.h"
+#include "save/savedata/trainer_savedata.h"
 #include "save/savedata/variables_savedata.h"
 
 enum class ModVersion : int32_t {
@@ -18,7 +19,8 @@ enum class ModVersion : int32_t {
 constexpr int32_t DexSize = 1010;
 constexpr int32_t WorkCount = 5000;
 constexpr int32_t FlagCount = 15000;
-constexpr int32_t SysFlagCount = 5000;
+constexpr int32_t SysFlagCount = 15000;
+constexpr int32_t TrainerCount = 10000;
 
 struct CustomSaveData {
     bool initialized;
@@ -26,6 +28,7 @@ struct CustomSaveData {
     // ONLY MAKE MODIFICATIONS TO SAVE FORMAT BELOW HERE, OTHERWISE YOU WILL BREAK SAVE COMPATIBILITY
     DexSaveData<DexSize> dex;
     VariablesSaveData<WorkCount, FlagCount, SysFlagCount> variables;
+    TrainerSaveData<TrainerCount> trainers;
 };
 
 void migrate(CustomSaveData* data, PlayerWork::Object* playerWork);

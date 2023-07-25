@@ -25,6 +25,9 @@ void migrate(CustomSaveData* save, PlayerWork::Object* playerWork) {
             savedata.boolValues->copyInto(save->variables.flags);
             savedata.systemFlags->copyInto(save->variables.sysflags);
 
+            Logger::log("Trainers max_length: %d\n", savedata.tr_battleData->max_length);
+            savedata.tr_battleData->copyInto(save->trainers.trainers);
+
             newVersion = ModVersion::Release_001;
             break;
         }

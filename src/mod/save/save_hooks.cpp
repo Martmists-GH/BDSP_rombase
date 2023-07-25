@@ -12,6 +12,7 @@ static CustomSaveData gCustomSaveData {
     .version = ModVersion::Vanilla,
     .dex = {},
     .variables = {},
+    .trainers = {},
 };
 
 CustomSaveData* getCustomSaveData() {
@@ -71,6 +72,8 @@ static System::Int32_array* cache_works;
 static System::Boolean_array* cache_flags;
 static System::Boolean_array* cache_sysflags;
 
+static DPData::TR_BATTLE_DATA::Array* cache_trainers;
+
 HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
     static bool Callback(PlayerWork::Object* playerWork) {
         bool success = Orig(playerWork);
@@ -93,6 +96,7 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
 
             auto boolCls = System::Boolean_array_TypeInfo();
             auto int32Cls = System::Int32_array_TypeInfo();
+            auto trainerCls = DPData::TR_BATTLE_DATA_array_TypeInfo();
 
             // Create new arrays
             auto newStatus = (DPData::GET_STATUS_array*)system_array_new(DPData::GET_STATUS_array_TypeInfo(), DexSize);
@@ -105,6 +109,8 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
             auto newFlags = (System::Boolean_array*) system_array_new(boolCls, FlagCount);
             auto newSysflags = (System::Boolean_array*) system_array_new(boolCls, SysFlagCount);
 
+            auto newTrainers = (DPData::TR_BATTLE_DATA::Array*) system_array_new(trainerCls, TrainerCount);
+
             // Fill the new arrays with the custom save data
             memcpy(newStatus->m_Items, gCustomSaveData.dex.get_status, sizeof(gCustomSaveData.dex.get_status));
             memcpy(newMaleColorFlag->m_Items, gCustomSaveData.dex.male_color_flag, sizeof(gCustomSaveData.dex.male_color_flag));
@@ -115,6 +121,8 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
             memcpy(newWorks->m_Items, gCustomSaveData.variables.works, sizeof(gCustomSaveData.variables.works));
             memcpy(newFlags->m_Items, gCustomSaveData.variables.flags, sizeof(gCustomSaveData.variables.flags));
             memcpy(newSysflags->m_Items, gCustomSaveData.variables.sysflags, sizeof(gCustomSaveData.variables.sysflags));
+
+            memcpy(newTrainers->m_Items, gCustomSaveData.trainers.trainers, sizeof(gCustomSaveData.trainers.trainers));
 
             // Cache the data in the vanilla save
             auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
@@ -129,6 +137,8 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
             cache_flags = savedata.boolValues;
             cache_sysflags = savedata.systemFlags;
 
+            cache_trainers = savedata.tr_battleData;
+
             // Set the data in PlayerWork to our custom save data
             zukan.get_status = newStatus;
             zukan.male_color_flag = newMaleColorFlag;
@@ -139,6 +149,8 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
             savedata.intValues = newWorks;
             savedata.boolValues = newFlags;
             savedata.systemFlags = newSysflags;
+
+            savedata.tr_battleData = newTrainers;
         }
 
         return success;
@@ -161,6 +173,8 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
         memcpy(gCustomSaveData.variables.flags, savedata.boolValues->m_Items, sizeof(gCustomSaveData.variables.flags));
         memcpy(gCustomSaveData.variables.sysflags, savedata.systemFlags->m_Items, sizeof(gCustomSaveData.variables.sysflags));
 
+        memcpy(gCustomSaveData.trainers.trainers, savedata.tr_battleData->m_Items, sizeof(gCustomSaveData.trainers.trainers));
+
         // Create a temp copy of the PlayerWork data
         auto tmp_get_status = zukan.get_status;
         auto tmp_male_color_flag = zukan.male_color_flag;
@@ -172,6 +186,8 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
         auto tmp_flags = savedata.boolValues;
         auto tmp_sysflags = savedata.systemFlags;
 
+        auto tmp_trainers = savedata.tr_battleData;
+
         // Set PlayerWork to our cached data
         zukan.get_status = cache_get_status;
         zukan.male_color_flag = cache_male_color_flag;
@@ -182,6 +198,8 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
         savedata.intValues = cache_works;
         savedata.boolValues = cache_flags;
         savedata.systemFlags = cache_sysflags;
+
+        savedata.tr_battleData = cache_trainers;
 
         char buffer[sizeof(CustomSaveData)];
 #ifndef DEBUG_DISABLE_SAVE  // Allow disabling the saving to test the save migration code
@@ -201,6 +219,8 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
         savedata.intValues = tmp_works;
         savedata.boolValues = tmp_flags;
         savedata.systemFlags = tmp_sysflags;
+
+        savedata.tr_battleData = tmp_trainers;
     }
 };
 
