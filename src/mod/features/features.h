@@ -19,7 +19,7 @@ void exl_battle_revolver_main();
 // Adds support for new ev_script commands.
 void exl_commands_main();
 
-// Extends the Pokédex to 905 Pokémon.
+// Extends the Pokédex to 1010 Pokémon.
 // Patches many checks for max Pokédex size.
 void exl_dex_expansion_main();
 
