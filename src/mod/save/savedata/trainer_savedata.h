@@ -4,5 +4,5 @@
 
 template <int32_t size>
 struct TrainerSaveData {
-    DPData::TR_BATTLE_DATA::Object trainers[size];
+    DPData::TR_BATTLE_DATA::Object items[size];
 };

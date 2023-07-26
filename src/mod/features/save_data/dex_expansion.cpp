@@ -24,7 +24,7 @@ void ZukanInfo_SetupUITexts_SetupMessage(Dpr::UI::UIText::Object* __this, System
     __this->SetupMessage(messageFile, messageIndex);
 }
 
-void exl_dex_expansion_main() {
+void exl_save_dex_expansion_main() {
     // Patch dex limit checks
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;

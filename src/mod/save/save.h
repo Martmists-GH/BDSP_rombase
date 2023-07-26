@@ -1,7 +1,11 @@
 #pragma once
 
 #include "externals/PlayerWork.h"
+#include "save/savedata/badge_savedata.h"
+#include "save/savedata/berry_savedata.h"
+#include "save/savedata/box_savedata.h"
 #include "save/savedata/dex_savedata.h"
+#include "save/savedata/item_savedata.h"
 #include "save/savedata/trainer_savedata.h"
 #include "save/savedata/variables_savedata.h"
 
@@ -21,6 +25,10 @@ constexpr int32_t WorkCount = 5000;
 constexpr int32_t FlagCount = 15000;
 constexpr int32_t SysFlagCount = 15000;
 constexpr int32_t TrainerCount = 10000;
+constexpr int32_t SaveItemCount = 10000;
+constexpr int32_t BerryCount = 1000;
+constexpr int32_t BoxCount = 40;
+constexpr int32_t BadgeCount = 80;
 
 struct CustomSaveData {
     bool initialized;
@@ -29,6 +37,10 @@ struct CustomSaveData {
     DexSaveData<DexSize> dex;
     VariablesSaveData<WorkCount, FlagCount, SysFlagCount> variables;
     TrainerSaveData<TrainerCount> trainers;
+    ItemSaveData<SaveItemCount> items;
+    BerrySaveData<BerryCount> berries;
+    BoxSaveData<BoxCount> boxes;
+    BadgeSaveData<BadgeCount> badges_polish;
 };
 
 void migrate(CustomSaveData* data, PlayerWork::Object* playerWork);

@@ -36,7 +36,9 @@
 #include "externals/Dpr/BallDeco/SaveBallDecoData.h"
 #include "externals/Dpr/BallDeco/SaveBallDecoExtraData.h"
 #include "externals/Dpr/Box/SaveBoxData.h"
+#include "externals/Dpr/Box/SaveBoxTrayData.h"
 #include "externals/Dpr/Item/ItemInfo.h"
+#include "externals/Dpr/Item/SaveItem.h"
 #include "externals/MT_DATA.h"
 #include "externals/PLAYREPORT_DATA.h"
 #include "externals/Pml/PokePara/SavePokeParty.h"
@@ -57,12 +59,12 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
             System::String::Object* rivalName;
             int32_t zoneID;
             float timeScale;
-            void* saveItem;
+            Dpr::Item::SaveItem::Array* saveItem;
             void* saveUgItem;
             void* saveItemShortcut;
             Pml::PokePara::SavePokeParty::Object playerParty;
             Dpr::Box::SaveBoxData::Object boxData;
-            void* boxTray;
+            Dpr::Box::SaveBoxTrayData::Array* boxTray;
             DPData::PLAYER_DATA::Object playerData;
             DPData::ZUKAN_WORK::Object zukanData;
             DPData::TR_BATTLE_DATA::Array* tr_battleData;
@@ -105,6 +107,18 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
             DPData::TV_DATA::Object tvData;
             Dpr::BallDeco::SaveBallDecoExtraData::Object ballDecoExtraData;
         };
+
+        static_assert(offsetof(Fields, tr_battleData) == 0x220);
+        static_assert(offsetof(Fields, kinomiGrowSaveData) == 0x340);
+        static_assert(offsetof(Fields, poffinSaveData) == 0x350);
+        static_assert(offsetof(Fields, btlTowerSave) == 0x360);
+        static_assert(offsetof(Fields, systemData) == 0x388);
+        static_assert(sizeof(DPData::SYSTEMDATA::Fields) == 0x6c);
+        static_assert(offsetof(Fields, azukariyaData) == 0x438);
+        static_assert(offsetof(Fields, badgeSaveData) == 0x468);
+        static_assert(offsetof(Fields, ugCountRecord) == 0x590);
+        static_assert(offsetof(Fields, ballDecoExtraData) == 0x7a8);
+        static_assert(sizeof(Fields) == 0x7b8);
     };
 
     struct StaticFields {

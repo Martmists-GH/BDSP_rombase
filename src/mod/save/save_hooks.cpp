@@ -13,6 +13,10 @@ static CustomSaveData gCustomSaveData {
     .dex = {},
     .variables = {},
     .trainers = {},
+    .items = {},
+    .berries = {},
+    .boxes = {},
+    .badges_polish = {},
 };
 
 CustomSaveData* getCustomSaveData() {
@@ -74,6 +78,16 @@ static System::Boolean_array* cache_sysflags;
 
 static DPData::TR_BATTLE_DATA::Array* cache_trainers;
 
+static Dpr::Item::SaveItem::Array* cache_items;
+
+static DPData::KinomiGrow::Array* cache_berries;
+
+static Dpr::Box::SaveBoxData::_STR17::Array* cache_boxNames;
+static System::Byte_array* cache_wallpapers;
+static Dpr::Box::SaveBoxTrayData::Array* cache_boxPokemonParams;
+
+static System::Byte_array* cache_badgePolish;
+
 HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
     static bool Callback(PlayerWork::Object* playerWork) {
         bool success = Orig(playerWork);
@@ -96,7 +110,12 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
 
             auto boolCls = System::Boolean_array_TypeInfo();
             auto int32Cls = System::Int32_array_TypeInfo();
+            auto byteCls = System::Byte_array_TypeInfo();
             auto trainerCls = DPData::TR_BATTLE_DATA_array_TypeInfo();
+            auto saveItemCls = Dpr::Item::SaveItem_array_TypeInfo();
+            auto kinomiGrowCls = DPData::KinomiGrow_array_TypeInfo();
+            auto saveBoxSTR17Cls = Dpr::Box::SaveBoxData::_STR17_array_TypeInfo();
+            auto saveBoxTrayCls = Dpr::Box::SaveBoxTrayData_array_TypeInfo();
 
             // Create new arrays
             auto newStatus = (DPData::GET_STATUS_array*)system_array_new(DPData::GET_STATUS_array_TypeInfo(), DexSize);
@@ -111,6 +130,16 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
 
             auto newTrainers = (DPData::TR_BATTLE_DATA::Array*) system_array_new(trainerCls, TrainerCount);
 
+            auto newItems = (Dpr::Item::SaveItem::Array*) system_array_new(saveItemCls, SaveItemCount);
+
+            auto newBerries = (DPData::KinomiGrow::Array*) system_array_new(kinomiGrowCls, BerryCount);
+
+            auto newBoxNames = (Dpr::Box::SaveBoxData::_STR17::Array*) system_array_new(saveBoxSTR17Cls, BoxCount);
+            auto newWallpapers = (System::Byte_array*) system_array_new(byteCls, BoxCount);
+            auto newBoxPokemonParams = (Dpr::Box::SaveBoxTrayData::Array*) system_array_new(saveBoxTrayCls, BoxCount);
+
+            auto newBadgePolish = (System::Byte_array*) system_array_new(byteCls, BadgeCount);
+
             // Fill the new arrays with the custom save data
             memcpy(newStatus->m_Items, gCustomSaveData.dex.get_status, sizeof(gCustomSaveData.dex.get_status));
             memcpy(newMaleColorFlag->m_Items, gCustomSaveData.dex.male_color_flag, sizeof(gCustomSaveData.dex.male_color_flag));
@@ -122,7 +151,17 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
             memcpy(newFlags->m_Items, gCustomSaveData.variables.flags, sizeof(gCustomSaveData.variables.flags));
             memcpy(newSysflags->m_Items, gCustomSaveData.variables.sysflags, sizeof(gCustomSaveData.variables.sysflags));
 
-            memcpy(newTrainers->m_Items, gCustomSaveData.trainers.trainers, sizeof(gCustomSaveData.trainers.trainers));
+            memcpy(newTrainers->m_Items, gCustomSaveData.trainers.items, sizeof(gCustomSaveData.trainers.items));
+
+            memcpy(newItems->m_Items, gCustomSaveData.items.items, sizeof(gCustomSaveData.items.items));
+
+            memcpy(newBerries->m_Items, gCustomSaveData.berries.items, sizeof(gCustomSaveData.berries.items));
+
+            memcpy(newBoxNames->m_Items, gCustomSaveData.boxes.boxNames, sizeof(gCustomSaveData.boxes.boxNames));
+            memcpy(newWallpapers->m_Items, gCustomSaveData.boxes.wallpapers, sizeof(gCustomSaveData.boxes.wallpapers));
+            memcpy(newBoxPokemonParams->m_Items, gCustomSaveData.boxes.pokemonParams, sizeof(gCustomSaveData.boxes.pokemonParams));
+
+            memcpy(newBadgePolish->m_Items, gCustomSaveData.badges_polish.items, sizeof(gCustomSaveData.badges_polish.items));
 
             // Cache the data in the vanilla save
             auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
@@ -139,6 +178,19 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
 
             cache_trainers = savedata.tr_battleData;
 
+            cache_items = savedata.saveItem;
+
+            auto& kinomigrow = playerWork->fields._saveData.fields.kinomiGrowSaveData.fields;
+            cache_berries = kinomigrow.kinomiGrows;
+
+            auto& boxdata = playerWork->fields._saveData.fields.boxData.fields;
+            cache_boxNames = boxdata.trayName;
+            cache_wallpapers = boxdata.wallPaper;
+            cache_boxPokemonParams = savedata.boxTray;
+
+            auto& badgedata = playerWork->fields._saveData.fields.badgeSaveData.fields;
+            cache_badgePolish = badgedata.CleanValues;
+
             // Set the data in PlayerWork to our custom save data
             zukan.get_status = newStatus;
             zukan.male_color_flag = newMaleColorFlag;
@@ -151,6 +203,16 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
             savedata.systemFlags = newSysflags;
 
             savedata.tr_battleData = newTrainers;
+
+            savedata.saveItem = newItems;
+
+            kinomigrow.kinomiGrows = newBerries;
+
+            boxdata.trayName = newBoxNames;
+            boxdata.wallPaper = newWallpapers;
+            savedata.tr_battleData = newTrainers;
+
+            badgedata.CleanValues = newBadgePolish;
         }
 
         return success;
@@ -161,6 +223,9 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
     static void Callback(PlayerWork::Object* playerWork, void* param_2, void* param_3, void* param_4) {
         auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
         auto& savedata = playerWork->fields._saveData.fields;
+        auto& kinomigrow = playerWork->fields._saveData.fields.kinomiGrowSaveData.fields;
+        auto& boxdata = playerWork->fields._saveData.fields.boxData.fields;
+        auto& badgedata = playerWork->fields._saveData.fields.badgeSaveData.fields;
 
         // Copy PlayerWork data to our Custom save data
         memcpy(gCustomSaveData.dex.get_status, zukan.get_status->m_Items, sizeof(gCustomSaveData.dex.get_status));
@@ -173,7 +238,17 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
         memcpy(gCustomSaveData.variables.flags, savedata.boolValues->m_Items, sizeof(gCustomSaveData.variables.flags));
         memcpy(gCustomSaveData.variables.sysflags, savedata.systemFlags->m_Items, sizeof(gCustomSaveData.variables.sysflags));
 
-        memcpy(gCustomSaveData.trainers.trainers, savedata.tr_battleData->m_Items, sizeof(gCustomSaveData.trainers.trainers));
+        memcpy(gCustomSaveData.trainers.items, savedata.tr_battleData->m_Items, sizeof(gCustomSaveData.trainers.items));
+
+        memcpy(gCustomSaveData.items.items, savedata.saveItem->m_Items, sizeof(gCustomSaveData.items.items));
+
+        memcpy(gCustomSaveData.berries.items, kinomigrow.kinomiGrows->m_Items, sizeof(gCustomSaveData.berries.items));
+
+        memcpy(gCustomSaveData.boxes.boxNames, boxdata.trayName->m_Items, sizeof(gCustomSaveData.boxes.boxNames));
+        memcpy(gCustomSaveData.boxes.wallpapers, boxdata.wallPaper->m_Items, sizeof(gCustomSaveData.boxes.wallpapers));
+        memcpy(gCustomSaveData.boxes.pokemonParams, savedata.boxTray->m_Items, sizeof(gCustomSaveData.boxes.pokemonParams));
+
+        memcpy(gCustomSaveData.badges_polish.items, badgedata.CleanValues->m_Items, sizeof(gCustomSaveData.badges_polish.items));
 
         // Create a temp copy of the PlayerWork data
         auto tmp_get_status = zukan.get_status;
@@ -188,6 +263,16 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
 
         auto tmp_trainers = savedata.tr_battleData;
 
+        auto tmp_items = savedata.saveItem;
+
+        auto tmp_berries = kinomigrow.kinomiGrows;
+
+        auto tmp_boxNames = boxdata.trayName;
+        auto tmp_wallpapers = boxdata.wallPaper;
+        auto tmp_boxPokemonParams = savedata.boxTray;
+
+        auto tmp_badgePolish = badgedata.CleanValues;
+
         // Set PlayerWork to our cached data
         zukan.get_status = cache_get_status;
         zukan.male_color_flag = cache_male_color_flag;
@@ -200,6 +285,16 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
         savedata.systemFlags = cache_sysflags;
 
         savedata.tr_battleData = cache_trainers;
+
+        savedata.saveItem = cache_items;
+
+        kinomigrow.kinomiGrows = cache_berries;
+
+        boxdata.trayName = cache_boxNames;
+        boxdata.wallPaper = cache_wallpapers;
+        savedata.boxTray = cache_boxPokemonParams;
+
+        badgedata.CleanValues = cache_badgePolish;
 
         char buffer[sizeof(CustomSaveData)];
 #ifndef DEBUG_DISABLE_SAVE  // Allow disabling the saving to test the save migration code
@@ -221,6 +316,16 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
         savedata.systemFlags = tmp_sysflags;
 
         savedata.tr_battleData = tmp_trainers;
+
+        savedata.saveItem = tmp_items;
+
+        kinomigrow.kinomiGrows = tmp_berries;
+
+        boxdata.trayName = tmp_boxNames;
+        boxdata.wallPaper = tmp_wallpapers;
+        savedata.boxTray = tmp_boxPokemonParams;
+
+        badgedata.CleanValues = tmp_badgePolish;
     }
 };
 

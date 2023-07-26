@@ -7,9 +7,12 @@ void migrate(CustomSaveData* save, PlayerWork::Object* playerWork) {
 
     switch (save->version) {
         case ModVersion::Vanilla: {
-            // Copy over dex data
-            auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
+            // Copy over data
             auto& savedata = playerWork->fields._saveData.fields;
+            auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
+            auto& kinomigrow = playerWork->fields._saveData.fields.kinomiGrowSaveData.fields;
+            auto& boxdata = playerWork->fields._saveData.fields.boxData.fields;
+            auto& badgedata = playerWork->fields._saveData.fields.badgeSaveData.fields;
 
             Logger::log("Zukan get_status max_length: %d\n", zukan.get_status->max_length);
             zukan.get_status->copyInto(save->dex.get_status);
@@ -26,7 +29,24 @@ void migrate(CustomSaveData* save, PlayerWork::Object* playerWork) {
             savedata.systemFlags->copyInto(save->variables.sysflags);
 
             Logger::log("Trainers max_length: %d\n", savedata.tr_battleData->max_length);
-            savedata.tr_battleData->copyInto(save->trainers.trainers);
+            savedata.tr_battleData->copyInto(save->trainers.items);
+
+            Logger::log("SaveItem max_length: %d\n", savedata.saveItem->max_length);
+            savedata.saveItem->copyInto(save->items.items);
+
+            Logger::log("kinomiGrows max_length: %d\n", kinomigrow.kinomiGrows->max_length);
+            kinomigrow.kinomiGrows->copyInto(save->berries.items);
+
+            Logger::log("box (trayName) max_length: %d\n", savedata.boxData.fields.trayName->max_length);
+            boxdata.trayName->copyInto(save->boxes.boxNames);
+            boxdata.wallPaper->copyInto(save->boxes.wallpapers);
+            savedata.boxTray->copyInto(save->boxes.pokemonParams);
+
+            Logger::log("badgeSaveData max_length: %d\n", savedata.badgeSaveData.fields.CleanValues->max_length);
+            badgedata.CleanValues->copyInto(save->badges_polish.items);
+
+            // Set amount of boxes unlocked to 40 for now
+            playerWork->fields._saveData.fields.boxData.fields.trayMax = 40;
 
             newVersion = ModVersion::Release_001;
             break;

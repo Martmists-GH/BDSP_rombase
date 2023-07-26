@@ -19,10 +19,6 @@ void exl_battle_revolver_main();
 // Adds support for new ev_script commands.
 void exl_commands_main();
 
-// Extends the Pokédex to 1010 Pokémon.
-// Patches many checks for max Pokédex size.
-void exl_dex_expansion_main();
-
 // Rewrites the methods that deal with determining a zone's encounter slots.
 // Defaults to changing slots how Luminescent does it.
 void exl_encounter_slots_main();
@@ -47,6 +43,9 @@ void exl_poketch_main();
 
 // Remaps the controls.
 void exl_remap_main();
+
+// Applies patches to support the expansion of many things in the save data.
+void exl_save_data_expansion();
 
 // Adds support for new settings.
 void exl_settings_main();
