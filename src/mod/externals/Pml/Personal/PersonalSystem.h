@@ -13,5 +13,12 @@ namespace Pml::Personal {
             return external<XLSXContent::PersonalTable::SheetPersonal::Object*>(0x024a0ca0, monsno, formno);
         }
 
+        static inline XLSXContent::PersonalTable::SheetPersonal::Object* LoadPersonalData(int32_t monsno,uint16_t formno) {
+            return external<XLSXContent::PersonalTable::SheetPersonal::Object*>(0x024a0d50, monsno, formno);
+        }
+        static inline int32_t GetTokuseiPattern(int32_t monsno,uint16_t formno) {
+            return external<int32_t>(0x024a15d0, monsno, formno);
+        }
+
     };
 }

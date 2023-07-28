@@ -251,6 +251,10 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
         external<void>(0x02cf2c00, value);
     }
 
+    static inline Dpr::Item::SaveItem::Object GetItem(int32_t itemno) {
+        return external<Dpr::Item::SaveItem::Object>(0x02cefde0, itemno);
+    }
+
     static inline int32_t get_cassetVersion() {
         return external<int32_t>(0x02cefa60);
     }

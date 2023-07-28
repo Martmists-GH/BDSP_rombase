@@ -1,4 +1,6 @@
 #include "exlaunch.hpp"
+
+#include "data/items.h"
 #include "externals/FlagWork.h"
 
 HOOK_DEFINE_REPLACE(FriendshipFlag) {
@@ -24,6 +26,7 @@ void exl_patches_main() {
     auto inst = std::vector {
         std::make_pair<uint32_t, Instruction>(0x02177394, Branch(0x44)),            // Catch Rate fix (No high level debuff)
         std::make_pair<uint32_t, Instruction>(0x02053b24, CmpImmediate(W8, 0x7)),   // Allow 6IV Pokémon
+        std::make_pair<uint32_t, Instruction>(0x0202c140, CmpImmediate(W19, ITEM_COUNT)),   // Make the battle check for if you own balls go past 1822 items
     };
     p.WriteInst(inst);
 }

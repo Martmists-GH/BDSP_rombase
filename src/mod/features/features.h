@@ -26,8 +26,17 @@ void exl_encounter_slots_main();
 // Adds functionality to the Exp. Share item.
 void exl_exp_share_main();
 
+// Adds Gender Neutral Boutique
+void exl_gender_neutral_boutique_main();
+
+// Replaces every instance of Hidden Power being shown as "Normal" type with its actual type for the Pokémon.
+void exl_hidden_power_ui_main();
+
 // Reroutes IL2CPP logs to the ExLaunch logger.
 void exl_il2cpp_log_main();
+
+//Enables Everlasting Candy and Ability Patch changes
+void exl_items_changes_main();
 
 // Adds new key item functionality.
 void exl_key_items_main();
@@ -38,8 +47,14 @@ void exl_level_cap_main();
 // Applies multiple small one-line patches.
 void exl_patches_main();
 
+// Adds nicknaming and move relearning to the party menu.
+void exl_pla_context_menu_main();
+
 // Adds support for two-button Pokétch.
 void exl_poketch_main();
+
+// Tweaks the move relearner menu to include owned TMs.
+void exl_relearn_tms_main();
 
 // Remaps the controls.
 void exl_remap_main();
