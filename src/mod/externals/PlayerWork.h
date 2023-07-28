@@ -250,4 +250,8 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     static inline void set_WalkEncountCount(int32_t value) {
         external<void>(0x02cf2c00, value);
     }
+
+    static inline int32_t get_cassetVersion() {
+        return external<int32_t>(0x02cefa60);
+    }
 };

@@ -1,5 +1,7 @@
+#include "externals/Dpr/EvScript/EvDataManager.h"
 #include "externals/PlayerWork.h"
 #include "externals/FlagWork.h"
+
 #include "romdata/romdata.h"
 #include "utils/utils.h"
 
@@ -8,7 +10,9 @@ uint32_t GetLevelCapIndex()
     constexpr size_t NUM_FLAGS = 1;
     constexpr size_t NUM_SYS_FLAGS = 1;
     constexpr size_t NUM_WORK_VALUES = 2;
-    uint32_t numEvents = GetBadgeCount();
+
+    Dpr::EvScript::EvDataManager::Object* evDataManager = Dpr::EvScript::EvDataManager::get_Instanse();
+    int32_t numEvents = evDataManager->GetBadgeCount();
 
     int32_t flags[NUM_FLAGS] = {
         (int32_t)FlagWork_Flag::FLAG_CYRUS_SPEAR_PILLAR // Beating Cyrus at spear pillar
