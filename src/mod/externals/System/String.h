@@ -29,6 +29,10 @@ namespace System {
             return external<bool>(0x026f3810, value);
         }
 
+        static inline System::String::Object * Concat(Il2CppObject *arg0) {
+            return external<System::String::Object *>(0x026f8f50, arg0);
+        }
+
         std::string asCString() {
             System::String::Object* str = this->instance();
             System::Text::UTF8Encoding::Object* encoding = System::Text::Encoding::get_UTF8();

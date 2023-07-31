@@ -96,5 +96,18 @@ namespace Pml::PokePara {
         inline bool CheckWazaMachine(uint32_t machineNo) {
             return external<bool>(0x02046b40, this, machineNo);
         }
+
+        inline uint32_t GetPower(int32_t powerId) {
+            return external<uint32_t>(0x020435c0, this, powerId);
+        }
+
+        inline bool IsTrainingDone(int32_t powerId) {
+            return external<bool>(0x02044680, this, powerId);
+        }
+
+        inline uint32_t GetTalentPower(int32_t powerId) {
+            return external<uint32_t>(0x02044610, this, powerId);
+        }
+
     };
 }

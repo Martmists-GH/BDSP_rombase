@@ -30,6 +30,9 @@ void exl_encounter_slots_main();
 // Adds functionality to the Exp. Share item.
 void exl_exp_share_main();
 
+//Adds EV/IV to Summary UI with number based color gradient
+void exl_ev_iv_ui_main();
+
 // Adds Gender Neutral Boutique
 void exl_gender_neutral_boutique_main();
 
