@@ -3,11 +3,12 @@
 
 #include "externals/Pml/PokePara/CoreParam.h"
 #include "externals/Dpr/Message/MessageWordSetHelper.h"
-#include "externals/System/Array.h"
+#include "externals/Dpr/Message/MessageManager.h"
 #include "externals/Dpr/UI/BoxStatusPanelUI.h"
 #include "externals/Dpr/UI/StatusPanelUI.h"
 #include "externals/Dpr/UI/StatusPanelLocals.h"
 #include "externals/System/String.h"
+#include "logger/logger.h"
 
 
 
@@ -242,9 +243,10 @@ void displayPower2(Dpr::UI::BoxStatusPanelUI::Object *boxStatusPanel)
 
 HOOK_DEFINE_REPLACE(displaySummaryPower) {
     static void Callback(Dpr::UI::StatusPanelUI::Object *statusPanel) {
+        //Logger::log("Display summary power\n");
         Dpr::UI::StatusPanelLocals::Object *locals = statusPanel->fields.locals;
         Pml::PokePara::CoreParam *pokemonParam = locals->fields.pokemonParam;
-        System::Array<int32_t> *_powerIdMap = locals->fields.__4__this->fields._powerIdMap;
+        System::Int32_array* _powerIdMap = locals->fields.__4__this->fields._powerIdMap;
         int32_t i = statusPanel->fields.i;
         int32_t power = pokemonParam->GetPower(_powerIdMap->m_Items[i]);
 
@@ -262,12 +264,12 @@ HOOK_DEFINE_REPLACE(displaySummaryPower) {
     }
 };
 
-Il2CppObject * thunk_FUN_7100252fd8(void * typeInfo, void * data);
-
 HOOK_DEFINE_REPLACE(Dpr_UI_BoxStatusPanel_GetJudgeTextCode) {
     static System::String *
-    Callback(Dpr::UI::BoxStatusPanelUI::Object *__this, Pml::PokePara::CoreParam *pokemonParam, int32_t powerId) {
-        
+    Callback(Dpr::UI::BoxStatusPanelUI::Object *boxPanel, Pml::PokePara::CoreParam *pokemonParam, int32_t powerId) {
+        Logger::log("Get Judge Text Code\n");
+        int32_t power = pokemonParam->GetPower(0);
+
         bool trainingDone = pokemonParam->IsTrainingDone(powerId);
         int32_t messageID;
         if (trainingDone) {
@@ -276,10 +278,12 @@ HOOK_DEFINE_REPLACE(Dpr_UI_BoxStatusPanel_GetJudgeTextCode) {
             messageID = 0x24e + pokemonParam->GetTalentPower(powerId);
         }
 
-        //system_load_typeinfo(0x2609);
-
-        Il2CppObject *intObject = thunk_FUN_7100252fd8(int_TypeInfo, (void *) &messageID);
-        return System::String::Concat(intObject);
+        System::String::Object* msgFileName;
+        System::String::Object* msgLabel;
+        System::String::Object* trainingStr = Dpr::Message::MessageManager::GetSimpleMessage(msgFileName, msgLabel);
+        std::string powerStr = std::to_string(power);
+        System::String::Object* returnInt = System::String::Create(powerStr);
+        return System::String::Concat(trainingStr, returnInt);
     }
 };
 

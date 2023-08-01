@@ -7,8 +7,8 @@
 namespace Dpr::UI {
     struct StatusPanelLocals : ILClass<StatusPanelLocals> {
         struct Fields {
-            Pml::PokePara::CoreParam * pokemonParam;
-            struct Dpr::UI::PokemonStatusPanelAbility::Object* __4__this;
+            Pml::PokePara::CoreParam::Object * pokemonParam;
+            Dpr::UI::PokemonStatusPanelAbility::Object* __4__this;
             int32_t tokuseiNo;
         };
     };

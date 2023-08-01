@@ -7,7 +7,7 @@ namespace Dpr::UI {
     struct StatusPanelUI : ILClass<StatusPanelUI> {
         struct Fields {
             int32_t i;
-            struct StatusPanelLocals::Object* locals;
+            StatusPanelLocals::Object* locals;
         };
     };
 }

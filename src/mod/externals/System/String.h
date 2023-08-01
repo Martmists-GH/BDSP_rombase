@@ -29,8 +29,9 @@ namespace System {
             return external<bool>(0x026f3810, value);
         }
 
-        static inline System::String::Object * Concat(Il2CppObject *arg0) {
-            return external<System::String::Object *>(0x026f8f50, arg0);
+
+        static inline System::String::Object * Concat(String::Object* str0,String::Object* str1) {
+            return external<System::String::Object *>(0x026ef430, str0, str1);
         }
 
         std::string asCString() {

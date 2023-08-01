@@ -4,7 +4,6 @@
 #include "externals/Dpr/UI/PokemonStatusPanel.h"
 #include "externals/UnityEngine/Color.h"
 #include "externals/Dpr/UI/UIText.h"
-#include "externals/System/Array.h"
 
 namespace Dpr::UI {
     struct PokemonStatusPanelAbility : ILClass<PokemonStatusPanelAbility> {
@@ -20,7 +19,7 @@ namespace Dpr::UI {
             void * _curveAbility; //UnityEngine_AnimationCurve_o*
             int32_t _selectRaderChartIndex;
             void * _effects; //System_Collections_Generic_List_EffectInstance__o*
-            System::Array<int32_t> * _powerIdMap;
+            System::Int32_array* _powerIdMap;
         };
     };
 }
