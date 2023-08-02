@@ -34,7 +34,7 @@ namespace System {
         }
 
         inline String::Object* Truncate(int32_t maxLength) {
-            auto str = (String::Object*)this;
+            String::Object* str = this->instance();
             if (IsNullOrEmpty(str))
                 return str;
             else if (str->fields.m_stringLength <= maxLength)
@@ -49,7 +49,8 @@ namespace System {
         }
 
         static inline System::String::Object* fromUnicodeBytes(void* bytes, long count) {
-            auto byteArray = (System::Byte_array*) system_array_new(System::Byte_array_TypeInfo(), count);
+            auto byteArray = (System::Byte_array*)system_array_new(System::Byte_array_TypeInfo(), count);
+            memcpy((void*)byteArray->m_Items, bytes, count);
             return fromUnicodeBytes(byteArray);
         }
 

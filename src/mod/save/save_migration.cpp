@@ -35,7 +35,14 @@ void migrateFromVanilla(PlayerWork::Object* playerWork) {
     // Put stuff into our extra strings to test them out
     for (int32_t i=0; i<StringCount; i++)
     {
-        save->strings.items[i].fields.str = System::String::Create(std::to_string(i) + ": This is long string number " + std::to_string(i) + "!!!!");
+        auto str = System::String::Create(std::to_string(i) + ": This is long string number " + std::to_string(i) + "!!!!");
+        auto ptr = &save->strings.items[i].fields.str;
+        *ptr = str;
+        system_array_init(ptr, str);
+    }
+    for (int i=0; i<StringCount; i++)
+    {
+        Logger::log("STRING %d: %s\n", i, getCustomSaveData()->strings.items[i].fields.str->asCString().c_str());
     }
 
     Logger::log("Migration from Vanilla done!\n");

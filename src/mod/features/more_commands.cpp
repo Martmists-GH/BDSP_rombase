@@ -1,6 +1,4 @@
 #include <cstring>
-#include <utility>
-#include <vector>
 
 #include "exlaunch.hpp"
 #include "externals/Dpr/Box/BoxPokemonWork.h"
@@ -20,6 +18,7 @@
 #include "externals/UnityEngine/Collider.h"
 #include "externals/UnityEngine/GameObject.h"
 #include "externals/WeatherWork.h"
+#include "save/save.h"
 
 #include "logger/logger.h"
 
@@ -347,6 +346,16 @@ bool ToggleCollisionBox(Dpr::EvScript::EvDataManager::Object * manager)
     return true;
 }
 
+bool FlagSet(Dpr::EvScript::EvDataManager::Object * manager)
+{
+    for (int i=0; i<StringCount; i++)
+    {
+        Logger::log("STRING %d: %s\n", i, getCustomSaveData()->strings.items[i].fields.str->asCString().c_str());
+    }
+
+    return true;
+}
+
 // Handles overriden and new script commands, then calls the original method to handle the rest normally.
 HOOK_DEFINE_TRAMPOLINE(RunEvCmdCustom) {
     static bool Callback(Dpr::EvScript::EvDataManager::Object *__this, int32_t index) {
@@ -367,6 +376,8 @@ HOOK_DEFINE_TRAMPOLINE(RunEvCmdCustom) {
                 return PartyBoxRelease(__this);
             case Dpr::EvScript::EvCmdID::NAME::_TOGGLE_COLLISION_BOX:
                 return ToggleCollisionBox(__this);
+            case Dpr::EvScript::EvCmdID::NAME::_FLAG_SET:
+                return FlagSet(__this);
             default:
                 break;
         }
