@@ -4,6 +4,7 @@
 #include "externals/Pml/PokePara/CoreParam.h"
 #include "externals/Dpr/Message/MessageWordSetHelper.h"
 #include "externals/Dpr/Message/MessageManager.h"
+#include "externals/Dpr/UI/BoxStatusPanel.h"
 #include "externals/Dpr/UI/BoxStatusPanelUI.h"
 #include "externals/Dpr/UI/StatusPanelUI.h"
 #include "externals/Dpr/UI/StatusPanelLocals.h"
@@ -243,7 +244,7 @@ void displayPower2(Dpr::UI::BoxStatusPanelUI::Object *boxStatusPanel)
 
 HOOK_DEFINE_REPLACE(displaySummaryPower) {
     static void Callback(Dpr::UI::StatusPanelUI::Object *statusPanel) {
-        //Logger::log("Display summary power\n");
+        Logger::log("Display summary power\n");
         Dpr::UI::StatusPanelLocals::Object *locals = statusPanel->fields.locals;
         Pml::PokePara::CoreParam *pokemonParam = locals->fields.pokemonParam;
         System::Int32_array* _powerIdMap = locals->fields.__4__this->fields._powerIdMap;
@@ -265,37 +266,38 @@ HOOK_DEFINE_REPLACE(displaySummaryPower) {
 };
 
 HOOK_DEFINE_REPLACE(Dpr_UI_BoxStatusPanel_GetJudgeTextCode) {
-    static System::String *
-    Callback(Dpr::UI::BoxStatusPanelUI::Object *boxPanel, Pml::PokePara::CoreParam *pokemonParam, int32_t powerId) {
-        Logger::log("Get Judge Text Code\n");
-        int32_t power = pokemonParam->GetPower(0);
+    static System::String * Callback(Dpr::UI::BoxStatusPanel::Object *boxPanel, Pml::PokePara::CoreParam *pokemonParam, int32_t powerId) {
 
         bool trainingDone = pokemonParam->IsTrainingDone(powerId);
         int32_t messageID;
+
         if (trainingDone) {
             messageID = 0x241;
         } else {
             messageID = 0x24e + pokemonParam->GetTalentPower(powerId);
         }
 
-        System::String::Object* msgFileName;
-        System::String::Object* msgLabel;
-        System::String::Object* trainingStr = Dpr::Message::MessageManager::GetSimpleMessage(msgFileName, msgLabel);
-        std::string powerStr = std::to_string(power);
-        System::String::Object* returnInt = System::String::Create(powerStr);
-        return System::String::Concat(trainingStr, returnInt);
+        System::String::Object* msgFileName = System::String::Create("ss_box");
+        System::String::Object* msgLabel = System::String::Create("SS_box_577");
+        Dpr::Message::MessageManager::Object* messageManagerObj = Dpr::Message::MessageManager::instance();
+        System::String::Object* stringObj = messageManagerObj->GetSimpleMessage(msgFileName, msgLabel);
+
+        std::string powerStr = std::to_string(messageID);
+        System::String::Object* convertedPowerStr = System::String::Create(powerStr);
+
+        System::String* returnStr = System::String::Concat(stringObj, convertedPowerStr);
+        return returnStr;
     }
 };
 
 void exl_ev_iv_ui_main(){
     displayPower1::InstallAtOffset(0x01cb2380);
     displaySummaryPower::InstallAtOffset(0x01d99c20);
+    Dpr_UI_BoxStatusPanel_GetJudgeTextCode::InstallAtOffset(0x01cb1e40);
 
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
 
     exl::patch::CodePatcher p(0x01cba4f4);
-    p.WriteInst(MovRegister(X0, X1));
-
-    Dpr_UI_BoxStatusPanel_GetJudgeTextCode::InstallAtOffset(0x01cb1e40);
+    p.WriteInst(Movz(X0, 1));
 };
