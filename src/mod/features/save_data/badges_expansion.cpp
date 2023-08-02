@@ -8,7 +8,7 @@
 
 #include "logger/logger.h"
 
-int32_t GetBadgeCount() {
+/*int32_t GetBadgeCount() {
     system_load_typeinfo(0x99e2);
     Logger::log("GetBadgeCount\n");
 
@@ -104,11 +104,11 @@ HOOK_DEFINE_REPLACE(PlayerWork_GetBadge) {
         if (count > 255) return 255;
         else return (uint8_t)count;
     }
-};
+};*/
 
 void exl_save_badges_expansion_main() {
     // Patch badge limit checks
-    using namespace exl::armv8::inst;
+    /*using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
     exl::patch::CodePatcher p(0);
     auto inst = std::vector {
@@ -127,5 +127,5 @@ void exl_save_badges_expansion_main() {
     EvDataManager_EvCmdSysFlagBadgeCount::InstallAtOffset(0x02c73b60);
     BadgeCaseObject_SetupModels_MoveNext::InstallAtOffset(0x01a9f5d0);
     BadgeObject_Hit::InstallAtOffset(0x01a9dc44);
-    PlayerWork_GetBadge::InstallAtOffset(0x02cef8d0);
+    PlayerWork_GetBadge::InstallAtOffset(0x02cef8d0);*/
 }

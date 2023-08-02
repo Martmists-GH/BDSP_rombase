@@ -5,4 +5,27 @@
 template <int32_t size>
 struct BerrySaveData {
     DPData::KinomiGrow::Object items[size];
+
+    long GetByteCount() {
+        return sizeof(BerrySaveData<size>);
+    }
+
+    long ToBytes(char* buffer, long index) {
+        memcpy((void*)(buffer+index), &items, sizeof(DPData::KinomiGrow::Object)*size);
+        index += sizeof(DPData::KinomiGrow::Object)*size;
+
+        return index;
+    }
+
+    long FromBytes(char* buffer, long buffer_size, long index) {
+        if (buffer_size >= GetByteCount() + index)
+        {
+            memcpy(&items, (void*)(buffer+index), sizeof(DPData::KinomiGrow::Object)*size);
+            index += sizeof(DPData::KinomiGrow::Object)*size;
+
+            return index;
+        }
+
+        return index + GetByteCount();
+    }
 };

@@ -9,6 +9,10 @@ namespace Dpr::Box {
         struct Fields {
             Pml::PokePara::SerializedPokemonFull::Array* pokemonParam;
         };
+
+        static long GetByteCount() {
+            return Pml::PokePara::SerializedPokemonFull::GetByteCount()*30;
+        }
     };
 
     static Il2CppClass* SaveBoxTrayData_array_TypeInfo() {

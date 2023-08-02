@@ -6,7 +6,7 @@
 
 void exl_save_box_expansion_main() {
     // Patch box limit checks
-    using namespace exl::armv8::inst;
+    /*using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
     exl::patch::CodePatcher p(0);
     auto inst = std::vector {
@@ -64,7 +64,7 @@ void exl_save_box_expansion_main() {
 
     // Hardcode to always be considered to have "max" boxes (disables upgrades)
     p.Seek(0x01d3185c);
-    p.WriteInst(CmpImmediate(W20, 0));
+    p.WriteInst(CmpImmediate(W20, 0));*/
 
     // Double-check lVar7 in Dpr.Box.BoxPokemonWork$$SwapTray, weird numbers?
     // Double-check Dpr.Box.SaveBoxData$$Clear, see if I need to overwrite the array sizes

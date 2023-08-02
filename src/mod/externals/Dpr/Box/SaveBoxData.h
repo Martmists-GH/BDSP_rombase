@@ -7,9 +7,13 @@
 namespace Dpr::Box {
     struct SaveBoxData : ILStruct<SaveBoxData> {
         struct _STR17 : ILStruct<_STR17> {
-            struct Fields{
+            struct Fields {
                 System::String::Object* str;
             };
+
+            static long GetByteCount() {
+                return 17*2;
+            }
         };
 
         static Il2CppClass* _STR17_array_TypeInfo() {
@@ -17,7 +21,7 @@ namespace Dpr::Box {
         }
 
         struct _STR11 : ILStruct<_STR11> {
-            struct Fields{
+            struct Fields {
                 System::String::Object* str;
             };
         };
