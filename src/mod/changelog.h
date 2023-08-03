@@ -2,4 +2,5 @@
 
 const char* CHANGELOG = "Changelog:\n"
                         "\n"
-                        "- Initial release\n";
+                        "- 3.0 release\n"
+                        "Initial Natdex release.\n";

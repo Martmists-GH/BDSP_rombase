@@ -32,19 +32,6 @@ void migrateFromVanilla(PlayerWork::Object* playerWork) {
     // Set amount of boxes unlocked to 40 for now
     playerWork->fields._saveData.fields.boxData.fields.trayMax = 40;
 
-    // Put stuff into our extra strings to test them out
-    for (int32_t i=0; i<StringCount; i++)
-    {
-        auto str = System::String::Create(std::to_string(i) + ": This is long string number " + std::to_string(i) + "!!!!");
-        auto ptr = &save->strings.items[i].fields.str;
-        *ptr = str;
-        system_array_init(ptr, str);
-    }
-    for (int i=0; i<StringCount; i++)
-    {
-        Logger::log("STRING %d: %s\n", i, getCustomSaveData()->strings.items[i].fields.str->asCString().c_str());
-    }
-
     Logger::log("Migration from Vanilla done!\n");
 }
 
@@ -55,11 +42,11 @@ void migrate(PlayerWork::Object* playerWork) {
         case ModVersion::Vanilla: {
             migrateFromVanilla(playerWork);
 
-            newVersion = ModVersion::Release_001;
+            newVersion = ModVersion::Release_3_0;
             break;
         }
 
-        case ModVersion::Release_001: {
+        case ModVersion::Release_3_0: {
             // New save migration code goes here
 
             newVersion = ModVersion::Dev;

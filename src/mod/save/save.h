@@ -15,7 +15,7 @@ enum class ModVersion : int32_t {
     Vanilla,
 
     // Mod releases (in order!)
-    Release_001,
+    Release_3_0,
 
     // Development version, always after the latest release
     Dev,
@@ -28,7 +28,6 @@ constexpr int32_t SysFlagCount = 15000;
 constexpr int32_t TrainerCount = 10000;
 constexpr int32_t SaveItemCount = 10000;
 constexpr int32_t BerryCount = 1000;
-constexpr int32_t StringCount = 10;
 
 struct CustomSaveData {
     bool initialized;
@@ -39,7 +38,6 @@ struct CustomSaveData {
     TrainerSaveData<TrainerCount> trainers;
     ItemSaveData<SaveItemCount> items;
     BerrySaveData<BerryCount> berries;
-    StringSaveData<StringCount> strings;
 
     long GetByteCount() {
         long count = 0;
@@ -50,7 +48,6 @@ struct CustomSaveData {
         count += trainers.GetByteCount();
         count += items.GetByteCount();
         count += berries.GetByteCount();
-        count += strings.GetByteCount();
         return count;
     }
 
@@ -65,7 +62,6 @@ struct CustomSaveData {
         index = trainers.ToBytes(buffer, index);
         index = items.ToBytes(buffer, index);
         index = berries.ToBytes(buffer, index);
-        index = strings.ToBytes(buffer, index);
     }
 
     void FromBytes(char* buffer, long buffer_size, long index) {
@@ -82,7 +78,6 @@ struct CustomSaveData {
             index = trainers.FromBytes(buffer, buffer_size, index);
             index = items.FromBytes(buffer, buffer_size, index);
             index = berries.FromBytes(buffer, buffer_size, index);
-            index = strings.FromBytes(buffer, buffer_size, index);
         }
     }
 };
@@ -92,7 +87,7 @@ CustomSaveData* getCustomSaveData();
 void exl_save_main();
 
 #if NDEBUG
-constexpr ModVersion CURRENT_VERSION = ModVersion::Release_001;
+constexpr ModVersion CURRENT_VERSION = ModVersion::Release_3_0;
 #else
 constexpr ModVersion CURRENT_VERSION = ModVersion::Dev;
 #endif

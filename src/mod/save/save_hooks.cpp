@@ -15,7 +15,6 @@ static CustomSaveData gCustomSaveData {
     .trainers = {},
     .items = {},
     .berries = {},
-    .strings = {},
 };
 
 const char* saveFileName = "SaveData:/Luminescent.bin";
@@ -90,7 +89,6 @@ void load_default_custom_data(PlayerWork::Object* playerWork) {
 
     ModVersion version;
     while ((version = gCustomSaveData.version) < CURRENT_VERSION) {
-        Logger::log("Custom save data version mismatch! Expected %d, got %d; performing migration.\n", CURRENT_VERSION, version);
         migrate(playerWork);
     }
 
@@ -355,7 +353,6 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
 
         bool isMain = playerWork->fields._isMainSave;
         bool isBackup = playerWork->fields._isBackupSave;
-        Logger::log("LOAD: isMain %d, isBackup %d\n", isMain, isBackup);
 
         if (success)
         {
@@ -406,7 +403,6 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
     static void Callback(PlayerWork::Object* playerWork, void* param_2, void* param_3, void* param_4) {
         bool isMain = playerWork->fields._isMainSave;
         bool isBackup = playerWork->fields._isBackupSave;
-        Logger::log("SAVE: isMain %d, isBackup %d\n", isMain, isBackup);
 
         saveZukan(playerWork);
         saveVariables(playerWork);
