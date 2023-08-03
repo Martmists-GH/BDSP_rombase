@@ -14,4 +14,8 @@ namespace Dpr::Item {
             uint16_t SortNumber;
         };
     };
+
+    static Il2CppClass* SaveItem_array_TypeInfo() {
+        return *reinterpret_cast<Il2CppClass**>(exl::util::modules::GetTargetOffset(0x04c64d90));
+    }
 }

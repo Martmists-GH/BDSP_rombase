@@ -1,6 +1,4 @@
 #include <cstring>
-#include <utility>
-#include <vector>
 
 #include "exlaunch.hpp"
 #include "externals/Dpr/Box/BoxPokemonWork.h"

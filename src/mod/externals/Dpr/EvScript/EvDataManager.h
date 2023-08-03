@@ -377,6 +377,10 @@ namespace Dpr::EvScript {
             external<void>(0x02c92a70, this, param, learnWazaNo, unlearnWazaNo);
         }
 
+        inline int32_t GetBadgeCount() {
+            return external<int32_t>(0x02c4ea10, this);
+        }
+
         static inline Dpr::EvScript::EvDataManager::Object* get_Instanse() {
             return external<Dpr::EvScript::EvDataManager::Object*>(0x02c3d4d0);
         }

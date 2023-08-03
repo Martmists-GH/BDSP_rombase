@@ -29,15 +29,51 @@ namespace System {
             return external<bool>(0x026f3810, value);
         }
 
+        inline String::Object* Substring(int32_t startIndex, int32_t length) {
+            return external<String::Object*>(0x026f4560, this, startIndex, length);
+        }
+
+        inline String::Object* Truncate(int32_t maxLength) {
+            String::Object* str = this->instance();
+            if (IsNullOrEmpty(str))
+                return str;
+            else if (str->fields.m_stringLength <= maxLength)
+                return str;
+            else
+                return str->Substring(0, maxLength);
+        }
+
+        static inline System::String::Object* fromUnicodeBytes(System::Byte_array* bytes) {
+            System::Text::UnicodeEncoding::Object* encoding = System::Text::Encoding::get_Unicode();
+            return (System::String::Object *)encoding->GetString(bytes, 0, bytes->max_length);
+        }
+
+        static inline System::String::Object* fromUnicodeBytes(void* bytes, long count) {
+            auto byteArray = (System::Byte_array*)system_array_new(System::Byte_array_TypeInfo(), count);
+            memcpy((void*)byteArray->m_Items, bytes, count);
+            return fromUnicodeBytes(byteArray);
+        }
+
         std::string asCString() {
             System::String::Object* str = this->instance();
             System::Text::UTF8Encoding::Object* encoding = System::Text::Encoding::get_UTF8();
             uint32_t size = encoding->GetByteCount(str);
-            auto arr = reinterpret_cast<System::Byte_array *>(system_array_new(*(Il2CppClass**)exl::util::modules::GetTargetOffset(0x04c552e0), size+1));
+            auto arr = reinterpret_cast<System::Byte_array *>(system_array_new(System::Byte_array_TypeInfo(), size+1));
             encoding->GetBytes(str, 0, str->fields.m_stringLength, arr, 0);
             arr->m_Items[size] = 0;
             auto res = std::string((char*)&arr->m_Items[0]);
             return res;
+        }
+
+        System::Byte_array* asUnicodeBytes() {
+            System::String::Object* str = this->instance();
+            System::Text::UnicodeEncoding::Object* encoding = System::Text::Encoding::get_Unicode();
+            uint32_t size = encoding->GetByteCount(str);
+            auto arr = reinterpret_cast<System::Byte_array *>(system_array_new(System::Byte_array_TypeInfo(), size+2));
+            encoding->GetBytes(str, 0, str->fields.m_stringLength, arr, 0);
+            arr->m_Items[size] = 0;
+            arr->m_Items[size+1] = 0;
+            return arr;
         }
     };
 }

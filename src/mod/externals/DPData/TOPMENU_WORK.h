@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cstdint>
+#include "externals/il2cpp.h"
 
 namespace DPData {
     struct TOPMENU_WORK : ILStruct<TOPMENU_WORK> {

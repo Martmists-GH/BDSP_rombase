@@ -7,7 +7,6 @@ void exl_features_main() {
     exl_badge_check_main();
     exl_balls_main();
     exl_commands_main();
-    exl_dex_expansion_main();
     exl_encounter_slots_main();
     exl_gender_neutral_boutique_main();
     exl_hidden_power_ui_main();
@@ -17,6 +16,7 @@ void exl_features_main() {
     exl_patches_main();
     exl_pla_context_menu_main();
     exl_relearn_tms_main();
+    exl_save_data_expansion();
     exl_settings_main();
     exl_wild_held_items_main();
     exl_wild_forms_main();

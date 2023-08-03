@@ -26,6 +26,7 @@
 #include "externals/DPData/RECORD_ADD_DATA.h"
 #include "externals/DPData/SYSTEMDATA.h"
 #include "externals/DPData/TOPMENU_WORK.h"
+#include "externals/DPData/TR_BATTLE_DATA.h"
 #include "externals/DPData/TV_DATA.h"
 #include "externals/DPData/UgCountRecord.h"
 #include "externals/DPData/UgSaveData.h"
@@ -35,6 +36,7 @@
 #include "externals/Dpr/BallDeco/SaveBallDecoData.h"
 #include "externals/Dpr/BallDeco/SaveBallDecoExtraData.h"
 #include "externals/Dpr/Box/SaveBoxData.h"
+#include "externals/Dpr/Box/SaveBoxTrayData.h"
 #include "externals/Dpr/Item/ItemInfo.h"
 #include "externals/Dpr/Item/SaveItem.h"
 #include "externals/MT_DATA.h"
@@ -44,27 +46,28 @@
 #include "externals/ReBuffnameData.h"
 #include "externals/SmartPoint/Components/PlayerPrefsProvider_PlayerWork_.h"
 #include "externals/System/Nullable.h"
+#include "externals/System/Primitives.h"
 #include "externals/System/String.h"
 
 struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     struct SaveData : ILStruct<SaveData> {
         struct Fields {
             int32_t version;
-            void* intValues;
-            void* boolValues;
-            void* systemFlags;
+            System::Int32_array* intValues;
+            System::Boolean_array* boolValues;
+            System::Boolean_array* systemFlags;
             System::String::Object* rivalName;
             int32_t zoneID;
             float timeScale;
-            void* saveItem;
+            Dpr::Item::SaveItem::Array* saveItem;
             void* saveUgItem;
             void* saveItemShortcut;
             Pml::PokePara::SavePokeParty::Object playerParty;
             Dpr::Box::SaveBoxData::Object boxData;
-            void* boxTray;
+            Dpr::Box::SaveBoxTrayData::Array* boxTray;
             DPData::PLAYER_DATA::Object playerData;
             DPData::ZUKAN_WORK::Object zukanData;
-            void* tr_battleData;
+            DPData::TR_BATTLE_DATA::Array* tr_battleData;
             DPData::TOPMENU_WORK::Object topMenuData;
             DPData::_FIELDOBJ_SAVE::Object fieldObj_Save;
             DPData::RECORD_ARRAY::Object record;
@@ -104,6 +107,18 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
             DPData::TV_DATA::Object tvData;
             Dpr::BallDeco::SaveBallDecoExtraData::Object ballDecoExtraData;
         };
+
+        static_assert(offsetof(Fields, tr_battleData) == 0x220);
+        static_assert(offsetof(Fields, kinomiGrowSaveData) == 0x340);
+        static_assert(offsetof(Fields, poffinSaveData) == 0x350);
+        static_assert(offsetof(Fields, btlTowerSave) == 0x360);
+        static_assert(offsetof(Fields, systemData) == 0x388);
+        static_assert(sizeof(DPData::SYSTEMDATA::Fields) == 0x6c);
+        static_assert(offsetof(Fields, azukariyaData) == 0x438);
+        static_assert(offsetof(Fields, badgeSaveData) == 0x468);
+        static_assert(offsetof(Fields, ugCountRecord) == 0x590);
+        static_assert(offsetof(Fields, ballDecoExtraData) == 0x7a8);
+        static_assert(sizeof(Fields) == 0x7b8);
     };
 
     struct StaticFields {
@@ -228,11 +243,19 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
         return external<DPData::ENC_SV_DATA::Object>(0x02cf2840, nullptr); // Passing nullptr as the "return_storage_ptr" and making this return the struct works
     }
 
+    static inline DPData::TR_BATTLE_DATA::Array* get_tr_battleData() {
+        return external<DPData::TR_BATTLE_DATA::Array*>(0x02cf1bd0, nullptr);
+    }
+
     static inline void set_WalkEncountCount(int32_t value) {
         external<void>(0x02cf2c00, value);
     }
 
     static inline Dpr::Item::SaveItem::Object GetItem(int32_t itemno) {
         return external<Dpr::Item::SaveItem::Object>(0x02cefde0, itemno);
+    }
+
+    static inline int32_t get_cassetVersion() {
+        return external<int32_t>(0x02cefa60);
     }
 };
