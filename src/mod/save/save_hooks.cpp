@@ -18,6 +18,9 @@ static CustomSaveData gCustomSaveData {
     .strings = {},
 };
 
+const char* saveFileName = "SaveData:/Luminescent.bin";
+const char* saveFileBackupName = "SaveData:/Luminescent_Backup.bin";
+
 // Vanilla data cache
 static DPData::GET_STATUS_array* cache_get_status;
 static System::Boolean_array* cache_male_color_flag;
@@ -350,19 +353,38 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
     static bool Callback(PlayerWork::Object* playerWork) {
         bool success = Orig(playerWork);
 
-        if (success) {
-            if (FsHelper::isFileExist("SaveData:/Custom.bin")) {
-                long size = std::max(FsHelper::getFileSize("SaveData:/Custom.bin"),
-                                     (long)sizeof(CustomSaveData));
+        bool isMain = playerWork->fields._isMainSave;
+        bool isBackup = playerWork->fields._isBackupSave;
+        Logger::log("LOAD: isMain %d, isBackup %d\n", isMain, isBackup);
+
+        if (success)
+        {
+            if (isBackup && FsHelper::isFileExist(saveFileBackupName))
+            {
+                long size = std::max(FsHelper::getFileSize(saveFileBackupName), gCustomSaveData.GetByteCount());
                 FsHelper::LoadData data {
-                    .path = "SaveData:/Custom.bin",
+                    .path = saveFileBackupName,
                     .alignment = 0x1000,
                     .bufSize = size,
                 };
                 FsHelper::loadFileFromPath(data);
-
                 load_custom_data(data, playerWork);
-            } else {
+                Logger::log("Loaded Custom Backup File!\n");
+            }
+            else if (isMain && FsHelper::isFileExist(saveFileName))
+            {
+                long size = std::max(FsHelper::getFileSize(saveFileName), gCustomSaveData.GetByteCount());
+                FsHelper::LoadData data {
+                        .path = saveFileName,
+                        .alignment = 0x1000,
+                        .bufSize = size,
+                };
+                FsHelper::loadFileFromPath(data);
+                load_custom_data(data, playerWork);
+                Logger::log("Loaded Custom Main File!\n");
+            }
+            else
+            {
                 load_default_custom_data(playerWork);
             }
 
@@ -374,12 +396,18 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
             loadBerries(playerWork);
         }
 
+        playerWork->fields._isBackupSave = false;
+
         return success;
     }
 };
 
 HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
     static void Callback(PlayerWork::Object* playerWork, void* param_2, void* param_3, void* param_4) {
+        bool isMain = playerWork->fields._isMainSave;
+        bool isBackup = playerWork->fields._isBackupSave;
+        Logger::log("SAVE: isMain %d, isBackup %d\n", isMain, isBackup);
+
         saveZukan(playerWork);
         saveVariables(playerWork);
         saveTrainers(playerWork);
@@ -390,7 +418,11 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
 #ifndef DEBUG_DISABLE_SAVE  // Allow disabling the saving to test the save migration code
         save_custom_data(buffer);
 #endif
-        FsHelper::writeFileToPath(buffer, sizeof(buffer), "SaveData:/Custom.bin");
+
+        if (isMain)
+            FsHelper::writeFileToPath(buffer, sizeof(buffer), saveFileName);
+        if (isBackup)
+            FsHelper::writeFileToPath(buffer, sizeof(buffer), saveFileBackupName);
 
         Orig(playerWork, param_2, param_3, param_4);
 
@@ -412,4 +444,14 @@ void exl_save_main() {
     PatchExistingSaveData__Load::InstallAtOffset(0x02ceb850);
     PatchExistingSaveData__Save::InstallAtOffset(0x01a8c2f0);
     PatchExistingSaveData__Verify::InstallAtOffset(0x02ceba00);
+
+    // Backup save patches
+    using namespace exl::armv8::inst;
+    using namespace exl::armv8::reg;
+    exl::patch::CodePatcher p(0);
+    auto inst = std::vector {
+        std::make_pair<uint32_t, Instruction>(0x02ceb9dc, Nop()),
+    };
+    p.WriteInst(inst);
+
 }
