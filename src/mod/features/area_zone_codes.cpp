@@ -40,21 +40,18 @@ int32_t ConvertZoneIDToArriveFlag(int32_t zoneId) {
     {
         // First Arrive Flag section
         int32_t adjustedZoneId = zoneId - startRange1;
-        Logger::log("Converted zoneId %d to sysFlag %d\n", zoneId, ((int32_t)FlagWork_SysFlag::FLAG_ARRIVE_C01) + adjustedZoneId);
         return ((int32_t)FlagWork_SysFlag::FLAG_ARRIVE_C01) + adjustedZoneId;
     }
     else if (zoneId >= startRange2 && zoneId < startRange3)
     {
         // Second Arrive Flag section
         int32_t adjustedZoneId = zoneId - startRange2;
-        Logger::log("Converted zoneId %d to sysFlag %d\n", zoneId, ((int32_t)FlagWork_SysFlag::FLAG_ARRIVE_D10R0902) + adjustedZoneId);
         return ((int32_t)FlagWork_SysFlag::FLAG_ARRIVE_D10R0902) + adjustedZoneId;
     }
     else
     {
         // Third Arrive Flag section (Custom)
         int32_t adjustedZoneId = zoneId - startRange3;
-        Logger::log("Converted zoneId %d to sysFlag %d\n", zoneId, ((int32_t)FlagWork_SysFlag::FLAG_ARRIVE_EXTRA_000) + adjustedZoneId);
         return ((int32_t)FlagWork_SysFlag::FLAG_ARRIVE_EXTRA_000) + adjustedZoneId;
     }
 }
