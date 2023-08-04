@@ -7,6 +7,9 @@ void exl_features_main();
 // Applies some basic ability changes.
 void exl_ability_changes_main();
 
+// Overrides calls to C#'s Enum.GetName on AreaID and ZoneID enums.
+void exl_area_zone_codes_main();
+
 // Swaps the badges to the Platinum order.
 void exl_badge_check_main();
 

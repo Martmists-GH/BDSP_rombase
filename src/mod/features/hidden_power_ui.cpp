@@ -14,7 +14,6 @@ uint8_t WazaDataSystem_GetType(int32_t id, Pml::PokePara::CoreParam::Object * po
         return Pml::WazaData::WazaDataSystem::GetType(id);
     }
 
-    uint8_t TypeID = pokemonParam->GetMezapaType();
     return pokemonParam->GetMezapaType();
 }
 
