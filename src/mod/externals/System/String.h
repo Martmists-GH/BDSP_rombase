@@ -29,6 +29,18 @@ namespace System {
             return external<bool>(0x026f3810, value);
         }
 
+        static inline String::Object* Concat(String::Object* str0, String::Object* str1) {
+            return external<String::Object*>(0x026ef430, str0, str1);
+        }
+
+        static inline String::Object* Format(String::Object* format, Il2CppObject* arg0) {
+            return external<String::Object*>(0x026f8970, format, arg0);
+        }
+
+        static inline String::Object* Format(String::Object* format, Il2CppObject* arg0, Il2CppObject* arg1) {
+            return external<String::Object*>(0x026f8ab0, format, arg0, arg1);
+        }
+
         inline String::Object* Substring(int32_t startIndex, int32_t length) {
             return external<String::Object*>(0x026f4560, this, startIndex, length);
         }
