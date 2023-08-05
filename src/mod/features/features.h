@@ -29,6 +29,9 @@ void exl_encounter_slots_main();
 // Adds functionality to the Exp. Share item.
 void exl_exp_share_main();
 
+// Adds functionality to the Exp. Share item.
+void exl_form_change_held_items_main();
+
 // Adds Gender Neutral Boutique
 void exl_gender_neutral_boutique_main();
 
