@@ -61,4 +61,14 @@ HOOK_DEFINE_REPLACE(CheckUnbreakablePokeItem) {
 void exl_form_change_held_items_main(){
     DecideFormNoFromHoldItem::InstallAtOffset(0x024aeb90);
     CheckUnbreakablePokeItem::InstallAtOffset(0x01d0d780);
-};
+
+    // Remove hardcoded Arceus Type check on GetType1 and GetType2 and use the form data instead
+    using namespace exl::armv8::inst;
+    using namespace exl::armv8::reg;
+    exl::patch::CodePatcher p(0);
+    auto inst = std::vector {
+        std::make_pair<uint32_t, Instruction>(0x0204aa48, Branch(0x50)),
+        std::make_pair<uint32_t, Instruction>(0x0204ab48, Branch(0x50)),
+    };
+    p.WriteInst(inst);
+}
