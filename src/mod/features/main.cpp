@@ -26,7 +26,7 @@ void exl_features_main() {
     // Extra rombase features
     //exl_battle_revolver_main();
     //exl_exp_share_main();
-    //exl_poketch_main();
+    exl_poketch_main();
     //exl_remap_main();
     //exl_sounds_main();
     //exl_tms_main();

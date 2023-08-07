@@ -86,6 +86,10 @@ namespace Dpr::UI {
             external<void>(0x01e68ca0, this, forward);
         }
 
+        inline void OnInputPrev(int32_t button, int32_t state) {
+            external<void>(0x01e68c90, this, button, state);
+        }
+
         inline bool IsInRange(Dpr::UI::PoketchButton* btn, float x, float y) {
             return external<bool>(0x01e68830, this, btn, x, y);
         }

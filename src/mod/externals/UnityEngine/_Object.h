@@ -3,7 +3,6 @@
 #include "externals/il2cpp-api.h"
 #include "externals/System/String.h"
 
-
 namespace UnityEngine {
     struct _Object : ILClass<_Object> {
         struct Fields {
@@ -17,6 +16,10 @@ namespace UnityEngine {
 
         System::String::Object* GetName() {
             return external<System::String::Object*>(0x0268a940, this);
+        }
+
+        static inline bool op_Equality(UnityEngine::_Object::Object* x, UnityEngine::_Object::Object* y) {
+            return external<bool>(0x02688120, x, y);
         }
     };
 }

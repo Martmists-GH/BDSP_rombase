@@ -11,14 +11,20 @@ namespace UnityEngine::Events {
         };
 
         static const inline long bool_String_TypeInfo = 0x04c5ee10;
+        static const inline long void_TypeInfo = 0x04c57230;
 
         template <typename T, typename... Args>
         inline void ctor(T* owner, ILMethod<T, Args...>& mi) {
             ctor(owner, *mi);
         }
 
+        // Owner will be the first param of the method it seems
         inline void ctor(void* owner, MethodInfo* mi) {
             external<void>(0x026adeb0, this, owner, mi);
+        }
+
+        inline void ctor() {
+            external<void>(0x026adeb0, this);
         }
 
         // DEBUGGING PURPOSES ONLY
