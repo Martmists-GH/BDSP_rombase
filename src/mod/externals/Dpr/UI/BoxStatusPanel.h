@@ -23,11 +23,11 @@ namespace Dpr::UI {
             UnityEngine::UI::Image::Object* _RereImage;
             void* _condition; //Dpr_UI_PokemonSick_o*
             void* _pokerusSprites; //UnityEngine_Sprite_array*
-            void* _statusValues;
+            Dpr::UI::UIText::Array* _statusValues;
             UnityEngine::GameObject::Object* _wazaFrame;
             Dpr::UI::UIText::Object* _judgeTotalText;
             void* _wazaBgs; //UnityEngine_UI_Image_array*
-            void* _wazaTexts; //Dpr_UI_UIText_array*
+            Dpr::UI::UIText::Array* _wazaTexts;
             void* _wazaTypeSprites; //UnityEngine_Sprite_array*
             void* _markImages; //UnityEngine_UI_Image_array*
             void* _markColorSet; //UnityEngine_Color32_array*

@@ -7,8 +7,15 @@
 
 namespace Dpr::UI {
     struct PokemonStatusPanelAbility : ILClass<PokemonStatusPanelAbility> {
+        struct ChartItem : ILClass <ChartItem>{
+            Dpr::UI::UIText::Object* name;
+            Dpr::UI::UIText::Object* text;
+            void* icon; //UnityEngine_UI_Image_o*
+            void* effectRoot; //UnityEngine_RectTransform_o*
+        };
+
         struct Fields : Dpr::UI::PokemonStatusPanel::Fields {
-            void * _chartItems; //Dpr_UI_PokemonStatusPanelAbility_ChartItem_array*
+            Dpr::UI::PokemonStatusPanelAbility::ChartItem::Array* _chartItems;
             Dpr::UI::UIText::Object* _tokuseiName;
             Dpr::UI::UIText::Object* _tokuseiDescription;
             UnityEngine::Color::Array* _raderColors; //Pokemon Grid Colors
@@ -20,6 +27,10 @@ namespace Dpr::UI {
             int32_t _selectRaderChartIndex;
             void * _effects; //System_Collections_Generic_List_EffectInstance__o*
             System::Int32_array* _powerIdMap;
+
+            inline void Setup(PokemonStatusPanelAbility::Object *__this, Pml::PokePara::PokemonParam::Object *pokemonParam) {
+                external<void>(0x01d98280, this, pokemonParam);
+            }
         };
     };
 }

@@ -21,6 +21,10 @@ namespace UnityEngine::Events {
             external<void>(0x026adeb0, this, owner, mi);
         }
 
+        inline void Invoke(UnityAction::Object *__this) {
+            external<void>(0x026a3140, this);
+        }
+
         // DEBUGGING PURPOSES ONLY
         inline uintptr_t getMethodPtrForDebug() {
             return this->instance()->fields.method_ptr - exl::util::modules::GetTargetStart();
