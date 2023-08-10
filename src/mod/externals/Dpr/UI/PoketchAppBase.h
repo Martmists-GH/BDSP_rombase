@@ -17,6 +17,10 @@ namespace Dpr::UI {
             Dpr::UI::PoketchButton::Object* _PreButton_k__BackingField;
             int32_t _PreState_k__BackingField;
         };
+
+        inline void OnUpdate(bool isAppControlEnable, Dpr::UI::PoketchButton::Object* currentButton, int32_t currentState) {
+            external<void>(0x019ffa60, this, isAppControlEnable, currentButton, currentState);
+        }
     };
 }
 

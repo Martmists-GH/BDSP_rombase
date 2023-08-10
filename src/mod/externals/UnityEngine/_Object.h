@@ -21,5 +21,9 @@ namespace UnityEngine {
         static inline bool op_Equality(UnityEngine::_Object::Object* x, UnityEngine::_Object::Object* y) {
             return external<bool>(0x02688120, x, y);
         }
+
+        static inline bool op_Inequality(UnityEngine::_Object::Object* x, UnityEngine::_Object::Object* y) {
+            return external<bool>(0x0268b620, x, y);
+        }
     };
 }
