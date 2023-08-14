@@ -1248,6 +1248,8 @@ namespace Dpr::EvScript {
             _GET_BOX_POKE_SEIKAKU = 1238,
             _RELEASE_BOX_POKE = 1239,
             _TOGGLE_COLLISION_BOX = 1240,
+
+            CUSTOM_CMD_END = 1500,
         };
     };
 }

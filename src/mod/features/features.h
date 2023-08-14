@@ -38,9 +38,6 @@ void exl_gender_neutral_boutique_main();
 // Replaces every instance of Hidden Power being shown as "Normal" type with its actual type for the Pokémon.
 void exl_hidden_power_ui_main();
 
-// Changes the honey tree system to use tables based on zoneid
-void exl_honey_trees_main();
-
 // Reroutes IL2CPP logs to the ExLaunch logger.
 void exl_il2cpp_log_main();
 

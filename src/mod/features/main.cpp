@@ -12,7 +12,6 @@ void exl_features_main() {
     exl_form_change_held_items_main();
     exl_gender_neutral_boutique_main();
     exl_hidden_power_ui_main();
-    exl_honey_trees_main();
     exl_items_changes_main();
     exl_key_items_main();
     exl_level_cap_main();
