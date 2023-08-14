@@ -2,10 +2,13 @@
 #include "externals/ItemWork.h"
 #include "data/items.h"
 #include "externals/PlayerWork.h"
+#include "externals/ZukanWork.h"
 #include "data/species.h"
 #include "externals/il2cpp.h"
 #include "data/arenas.h"
 #include "data/zones.h"
+#include "externals/Dpr/EvScript/EvDataManager.h"
+#include "externals/Dpr/EvScript/EvCmdID.h"
 #include "externals/Pml/PmlUse.h"
 #include "externals/Pml/PokePara/PokemonParam.h"
 #include "data/moves.h"
@@ -285,6 +288,34 @@ static Window mainWindow = Window::single([](Window &_) {
             _.label = "Dump save to SD";
             _.onClick = []() {
                 FsHelper::writeFileToPath(getCustomSaveData(), sizeof(CustomSaveData), "sd:/SigPlat_Custom_Savedata.bin");
+            };
+        });
+    });
+
+    _.CollapsingHeader([](CollapsingHeader& _){
+        _.label = "Natdex Tools";
+
+        _.Button([](Button &_) {
+            _.label = "All Pokemon";
+            _.onClick = []() {
+
+            for (int i = 1; i <= SPECIES_COUNT; i++){
+                ZukanWork::SetPoke(i, 3, 0, 0, 1);
+                ZukanWork::SetPoke(i, 3, 1, 0, 1);
+                ZukanWork::SetPoke(i, 3, 0, 0, 0);
+                ZukanWork::SetPoke(i, 3, 1, 0, 0);
+            }
+
+            };
+        });
+
+        _.Button([](Button &_) {
+            _.label = "Poffins";
+            _.onClick = []() {
+                Logger::log("Trying to add Poffin\n");
+                Dpr::EvScript::EvDataManager::Object * evDataManager = Dpr::EvScript::EvDataManager::get_Instanse();
+                evDataManager->RunEvCmd((int32_t)Dpr::EvScript::EvCmdID::NAME::_ADD_MAROYAKA_POFFIN);
+                Logger::log("Added Poffin\n");
             };
         });
     });
