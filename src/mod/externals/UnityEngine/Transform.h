@@ -40,6 +40,16 @@ namespace UnityEngine {
             external<void>(0x0299e630, this, translation);
         }
 
+        inline UnityEngine::Vector3::Object get_position() {
+            return {
+                .fields = external<UnityEngine::Vector3::Fields>(0x0299d1c0, this)
+            };
+        }
+
+        inline void set_position(UnityEngine::Vector3::Object value) {
+            UnityEngine::Vector3::Fields valueProxy = { .x = value.fields.x, .y = value.fields.y, .z = value.fields.z };
+            external<void>(0x0299d270, this, valueProxy);
+        }
 
         // utility functions
         UnityEngine::Transform::Object* GetChild(std::initializer_list<std::int32_t> index) {

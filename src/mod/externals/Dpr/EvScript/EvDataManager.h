@@ -381,6 +381,10 @@ namespace Dpr::EvScript {
             return external<int32_t>(0x02c4ea10, this);
         }
 
+        inline bool IsRunningEvent() {
+            return external<bool>(0x02c423a0, this);
+        }
+
         static inline Dpr::EvScript::EvDataManager::Object* get_Instanse() {
             return external<Dpr::EvScript::EvDataManager::Object*>(0x02c3d4d0);
         }

@@ -15,4 +15,12 @@ struct FieldPoketch : ILClass<FieldPoketch, 0x04c5e648> {
     static inline bool IsControlPoketch() {
         return external<bool>(0x01db0a70);
     }
+
+    static inline bool IsRejectPoketch() {
+        return external<bool>(0x01db9c60);
+    }
+
+    static inline bool IsCloseOncePoketch() {
+        return external<bool>(0x01db9e40);
+    }
 };

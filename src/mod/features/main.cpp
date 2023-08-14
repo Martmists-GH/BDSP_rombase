@@ -17,6 +17,7 @@ void exl_features_main() {
     exl_level_cap_main();
     exl_patches_main();
     exl_pla_context_menu_main();
+    exl_poketch_main();
     exl_relearn_tms_main();
     exl_save_data_expansion();
     exl_settings_main();
@@ -26,7 +27,6 @@ void exl_features_main() {
     // Extra rombase features
     //exl_battle_revolver_main();
     //exl_exp_share_main();
-    //exl_poketch_main();
     //exl_remap_main();
     //exl_sounds_main();
     //exl_tms_main();

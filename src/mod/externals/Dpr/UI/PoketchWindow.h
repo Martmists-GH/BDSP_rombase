@@ -1,14 +1,16 @@
 #pragma once
 
-#include "externals/il2cpp.h"
 #include "externals/il2cpp-api.h"
-#include "externals/Dpr/UI/UIWindow.h"
-#include "externals/Dpr/UI/PoketchButton.h"
+
 #include "externals/Dpr/UI/PoketchAppBase.h"
+#include "externals/Dpr/UI/PoketchButton.h"
+#include "externals/Dpr/UI/UIInputButton.h"
+#include "externals/Dpr/UI/UIWindow.h"
+#include "externals/UnityEngine/Color32.h"
+#include "externals/UnityEngine/Events/UnityAction.h"
 #include "externals/UnityEngine/RectTransform.h"
 #include "externals/UnityEngine/UI/Image.h"
 #include "externals/UnityEngine/Vector3.h"
-#include "externals/UnityEngine/Color32.h"
 
 namespace Dpr::UI {
     struct PoketchWindow : ILClass<PoketchWindow> {
@@ -19,6 +21,14 @@ namespace Dpr::UI {
                 Dpr::UI::PoketchWindow::Object* __4__this;
                 int32_t prevWindowId;
             };
+        };
+
+        enum class TouchState: int32_t {
+            None = 0,
+            Touch = 1,
+            Hold = 2,
+            Release = 3,
+            Push = 4,
         };
 
         struct Fields : public Dpr::UI::UIWindow::Fields {
@@ -49,8 +59,8 @@ namespace Dpr::UI {
             UnityEngine::Color32::Array* _bgColors;
             float _cursolMoveValue;
             float _voiceWait;
-            void* _buttonR;
-            void* _buttonSR;
+            Dpr::UI::UIInputButton::Object* _buttonR;
+            Dpr::UI::UIInputButton::Object* _buttonSR;
             bool _isSizeChanging;
             bool _isBackLight;
             bool _isTouch;
@@ -77,7 +87,7 @@ namespace Dpr::UI {
             int32_t AppHeight;
             float _cursorX;
             float _cursorY;
-            int32_t touchState;
+            TouchState _touchState;
         };
 
         static_assert(sizeof(Fields) == 424);
@@ -86,8 +96,24 @@ namespace Dpr::UI {
             external<void>(0x01e68ca0, this, forward);
         }
 
+        inline void OnInputPrev(int32_t button, int32_t state) {
+            external<void>(0x01e68c90, this, button, state);
+        }
+
         inline bool IsInRange(Dpr::UI::PoketchButton* btn, float x, float y) {
             return external<bool>(0x01e68830, this, btn, x, y);
+        }
+
+        inline void Close(UnityEngine::Events::UnityAction::Object* onClosed_) {
+            external<void>(0x01e670e0, this, onClosed_);
+        }
+
+        inline void ChangePoketchSize(bool notReleaseUncontrol, UnityEngine::Events::UnityAction::Object* callback) {
+            external<void>(0x01e68410, this, notReleaseUncontrol, callback);
+        }
+
+        inline void SetCursorPosition(float posX, float posY) {
+            external<void>(0x01e68a80, this, posX, posY);
         }
     };
 }
