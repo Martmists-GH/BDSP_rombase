@@ -14,3 +14,9 @@ std::vector<std::tuple<int32_t, uint16_t>> GetFormHeldItemMonsDefault();
 // Returns the list of Pokémon and held item pairs that can't be separated.
 // Format is <Mons No, Item No>.
 std::vector<std::tuple<uint16_t, uint16_t>> GetUnbreakablePokeItems();
+
+// Returns the honey tree Pokémon at the given zoneID and slot.
+int32_t GetHoneyTreeMonsNo(int32_t zoneID, int32_t slot);
+
+// Returns the honey tree level at the given zoneID.
+int32_t GetHoneyTreeLevel(int32_t zoneID);

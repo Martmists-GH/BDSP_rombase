@@ -1,12 +1,10 @@
+#include <cmath>
+
 #include "exlaunch.hpp"
-#include "externals/Pml/PokePara/CoreParam.h"
-#include "externals/Pml/PokePara/Accessor.h"
+
 #include "externals/PlayerWork.h"
-#include "externals/Dpr/Battle/Logic/Exp.h"
 #include "externals/FlagWork.h"
 #include "utils/utils.h"
-
-#include <math.h>
 
 HOOK_DEFINE_REPLACE(LevelCap) {
     static uint32_t Callback(uint32_t base_exp, uint16_t getpoke_lv, uint16_t deadpoke_lv)
