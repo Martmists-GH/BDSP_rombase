@@ -8,6 +8,7 @@
 #include "externals/EvData/Aregment.h"
 #include "externals/EvData/ArgType.h"
 #include "externals/EvData/_EvData.h"
+#include "externals/FieldManager.h"
 #include "externals/FlagWork.h"
 #include "externals/PlayerWork.h"
 #include "externals/Pml/PokePara/CoreParam.h"
@@ -17,10 +18,12 @@
 #include "externals/UnityEngine/BoxCollider.h"
 #include "externals/UnityEngine/Collider.h"
 #include "externals/UnityEngine/GameObject.h"
+#include "externals/UnityEngine/Random.h"
 #include "externals/WeatherWork.h"
 
-#include "logger/logger.h"
+#include "romdata/romdata.h"
 
+#include "logger/logger.h"
 
 // UTILITY METHODS
 
@@ -116,6 +119,28 @@ bool SetWeather(Dpr::EvScript::EvDataManager::Object * manager)
         Logger::log("Calling set_WeatherID with weatherId: %d\n", weather);
         WeatherWork::set_WeatherID(weather);
     }
+
+    return true;
+}
+
+// Sets the data for the current honey tree encounter.
+// Arguments:
+//   None.
+bool HoneyTreeBattleSet(Dpr::EvScript::EvDataManager::Object * manager)
+{
+    Logger::log("_HONEY_TREE_BTL_SET\n");
+    system_load_typeinfo(0x4452);
+    system_load_typeinfo(0x497c);
+
+    int32_t zoneID = PlayerWork::get_zoneID();
+    int32_t slot = UnityEngine::Random::Range(0, 10);
+    int32_t monsno = GetHoneyTreeMonsNo(zoneID, slot);
+    int32_t formno = 0;
+    int32_t level = GetHoneyTreeLevel(zoneID);
+
+    manager->SetBattleReturn();
+    FieldManager::Object* fieldManager = FieldManager::getClass()->static_fields->_Instance_k__BackingField->instance();
+    fieldManager->EventWildBattle(monsno, level, false, false, true, 0, false, formno, false);
 
     return true;
 }
@@ -345,28 +370,41 @@ bool ToggleCollisionBox(Dpr::EvScript::EvDataManager::Object * manager)
     return true;
 }
 
+
+static bool ACTIVATED_COMMANDS[(int32_t)Dpr::EvScript::EvCmdID::NAME::CUSTOM_CMD_END];
+
+void SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME command)
+{
+    ACTIVATED_COMMANDS[(int32_t)command] = true;
+}
+
 // Handles overriden and new script commands, then calls the original method to handle the rest normally.
 HOOK_DEFINE_TRAMPOLINE(RunEvCmdCustom) {
     static bool Callback(Dpr::EvScript::EvDataManager::Object *__this, int32_t index) {
         // Overriden/New Commands
-        switch ((Dpr::EvScript::EvCmdID::NAME)index)
+        if (ACTIVATED_COMMANDS[index])
         {
-            case Dpr::EvScript::EvCmdID::NAME::_SET_WEATHER:
-                return SetWeather(__this);
-            case Dpr::EvScript::EvCmdID::NAME::_STOP_EFFECT:
-                return StopEffect(__this);
-            case Dpr::EvScript::EvCmdID::NAME::_TEMOTI_FORMNO:
-                return PartyFormsNo(__this);
-            case Dpr::EvScript::EvCmdID::NAME::_TEMOTI_BOX_FORMNO:
-                return PartyBoxFormsNo(__this);
-            case Dpr::EvScript::EvCmdID::NAME::_GET_BOX_POKE_SEIKAKU:
-                return PartyBoxNature(__this);
-            case Dpr::EvScript::EvCmdID::NAME::_RELEASE_BOX_POKE:
-                return PartyBoxRelease(__this);
-            case Dpr::EvScript::EvCmdID::NAME::_TOGGLE_COLLISION_BOX:
-                return ToggleCollisionBox(__this);
-            default:
-                break;
+            switch ((Dpr::EvScript::EvCmdID::NAME)index)
+            {
+                case Dpr::EvScript::EvCmdID::NAME::_SET_WEATHER:
+                    return SetWeather(__this);
+                case Dpr::EvScript::EvCmdID::NAME::_HONEY_TREE_BTL_SET:
+                    return HoneyTreeBattleSet(__this);
+                case Dpr::EvScript::EvCmdID::NAME::_STOP_EFFECT:
+                    return StopEffect(__this);
+                case Dpr::EvScript::EvCmdID::NAME::_TEMOTI_FORMNO:
+                    return PartyFormsNo(__this);
+                case Dpr::EvScript::EvCmdID::NAME::_TEMOTI_BOX_FORMNO:
+                    return PartyBoxFormsNo(__this);
+                case Dpr::EvScript::EvCmdID::NAME::_GET_BOX_POKE_SEIKAKU:
+                    return PartyBoxNature(__this);
+                case Dpr::EvScript::EvCmdID::NAME::_RELEASE_BOX_POKE:
+                    return PartyBoxRelease(__this);
+                case Dpr::EvScript::EvCmdID::NAME::_TOGGLE_COLLISION_BOX:
+                    return ToggleCollisionBox(__this);
+                default:
+                    break;
+            }
         }
 
         // Call original method
@@ -374,7 +412,18 @@ HOOK_DEFINE_TRAMPOLINE(RunEvCmdCustom) {
     }
 };
 
-
 void exl_commands_main() {
     RunEvCmdCustom::InstallAtOffset(0x02c5b290);
+
+    // Select which new commands/overrides are activated
+    for (bool & i : ACTIVATED_COMMANDS)
+        i = false;
+    SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_SET_WEATHER);
+    SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_HONEY_TREE_BTL_SET);
+    SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_STOP_EFFECT);
+    SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_TEMOTI_FORMNO);
+    SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_TEMOTI_BOX_FORMNO);
+    SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_GET_BOX_POKE_SEIKAKU);
+    SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_RELEASE_BOX_POKE);
+    SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_TOGGLE_COLLISION_BOX);
 }

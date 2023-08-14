@@ -385,6 +385,10 @@ namespace Dpr::EvScript {
             return external<bool>(0x02c423a0, this);
         }
 
+        inline void SetBattleReturn() {
+            external<void>(0x02c45c90, this);
+        }
+
         static inline Dpr::EvScript::EvDataManager::Object* get_Instanse() {
             return external<Dpr::EvScript::EvDataManager::Object*>(0x02c3d4d0);
         }
