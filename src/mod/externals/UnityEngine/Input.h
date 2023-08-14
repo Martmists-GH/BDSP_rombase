@@ -3,6 +3,7 @@
 #include "externals/il2cpp-api.h"
 
 #include "externals/UnityEngine/Touch.h"
+#include "logger/logger.h"
 
 namespace UnityEngine {
     struct Input : ILClass<Input> {
@@ -10,8 +11,8 @@ namespace UnityEngine {
             return external<int32_t>(0x02c2b130);
         }
 
-        static inline UnityEngine::Touch::Object GetTouch(int32_t index) {
-            return external<UnityEngine::Touch::Object>(0x02c2abb0, index);
+        static inline void GetTouch(int32_t index, UnityEngine::Touch::Object* returnPtr) {
+            external<void>(0x02c2ac50, index, returnPtr);
         }
     };
 }

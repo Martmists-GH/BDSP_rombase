@@ -16,11 +16,15 @@ namespace UnityEngine {
         }
 
         static inline bool op_Equality(Vector2::Object lhs, Vector2::Object rhs) {
-            return external<bool>(0x029a1d00, lhs, rhs);
+            UnityEngine::Vector2::Fields lhsProxy = { .x = lhs.fields.x, .y = lhs.fields.y };
+            UnityEngine::Vector2::Fields rhsProxy = { .x = rhs.fields.x, .y = rhs.fields.y };
+            return external<bool>(0x029a1d00, lhsProxy, rhsProxy);
         }
 
         static inline bool op_Inequality(Vector2::Object lhs, Vector2::Object rhs) {
-            return external<bool>(0x029a1d30, lhs, rhs);
+            UnityEngine::Vector2::Fields lhsProxy = { .x = lhs.fields.x, .y = lhs.fields.y };
+            UnityEngine::Vector2::Fields rhsProxy = { .x = rhs.fields.x, .y = rhs.fields.y };
+            return external<bool>(0x029a1d30, lhsProxy, rhsProxy);
         }
     };
 }

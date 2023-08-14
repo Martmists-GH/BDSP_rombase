@@ -25,7 +25,9 @@ namespace UnityEngine {
         };
 
         inline UnityEngine::Vector2::Object get_position() {
-            return external<UnityEngine::Vector2::Object>(0x02c2c510, this);
+            return {
+                .fields = external<UnityEngine::Vector2::Fields>(0x02c2c510, this)
+            };
         }
     };
 }
