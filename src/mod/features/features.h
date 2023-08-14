@@ -57,6 +57,7 @@ void exl_patches_main();
 void exl_pla_context_menu_main();
 
 // Adds support for two-button Pokétch.
+// Requires an edited uiresidentwindow bundle with a second Pokétch button.
 void exl_poketch_main();
 
 // Tweaks the move relearner menu to include owned TMs.

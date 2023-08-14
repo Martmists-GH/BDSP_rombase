@@ -36,12 +36,13 @@ HOOK_DEFINE_INLINE(ButtonInit) {
 
         auto poketchWindow = (Dpr::UI::PoketchWindow::Object*)ctx->X[19];
         auto windowTransform = poketchWindow->cast<UnityEngine::Component>()->get_transform();
-        auto mask = windowTransform->Find(System::String::Create("Window"))
+        auto backwardsButtonTransform = windowTransform->Find(System::String::Create("Window"))
                 ->Find(System::String::Create("Poketch"))
                 ->Find(System::String::Create("Body_02"))
-                ->Find(System::String::Create("Mask"));
+                ->Find(System::String::Create("Mask"))
+                ->Find(System::String::Create("Image_button2"));
 
-        auto backwardsButton = mask->Find(System::String::Create("Image_button2"))->GetComponent<Dpr::UI::PoketchButton>(poketchWindow->fields._changeButton->klass);
+        auto backwardsButton = backwardsButtonTransform->GetComponent<Dpr::UI::PoketchButton>(poketchWindow->fields._changeButton->klass);
         ILMethod mi(forwardsAction->fields.method);
         auto backwardsAction = UnityEngine::Events::UnityAction::getClass(UnityEngine::Events::UnityAction::void_TypeInfo)->newInstance(poketchWindow, mi.copyWith((Il2CppMethodPointer) &goBackAction));
 
@@ -49,7 +50,7 @@ HOOK_DEFINE_INLINE(ButtonInit) {
     }
 };
 
-void joined_r0x007101e67668(Dpr::UI::PoketchWindow::Object* __this, float deltaTime) {
+void returnNoTouch(Dpr::UI::PoketchWindow::Object* __this, float deltaTime) {
     int32_t currentApp = __this->fields._CurrentAppIndex_k__BackingField;
     if (__this->fields._poketchAppList->fields._size <= currentApp)
     {
@@ -64,7 +65,7 @@ void joined_r0x007101e67668(Dpr::UI::PoketchWindow::Object* __this, float deltaT
     }
 }
 
-void joined_r0x007101e681a8(Dpr::UI::PoketchWindow::Object* __this, float deltaTime, Dpr::UI::PoketchButton::Object* target, Dpr::UI::PoketchWindow::TouchState touchState) {
+void returnTouch(Dpr::UI::PoketchWindow::Object* __this, float deltaTime, Dpr::UI::PoketchButton::Object* target, Dpr::UI::PoketchWindow::TouchState touchState) {
     int32_t currentApp = __this->fields._CurrentAppIndex_k__BackingField;
     if (__this->fields._poketchAppList->fields._size <= currentApp)
     {
@@ -118,6 +119,14 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
         bool isCurrentWindowPoketch = !UnityEngine::_Object::op_Inequality(currentWindow, (UnityEngine::_Object::Object *)__this);
         if (isCurrentWindowPoketch)
         {
+            Dpr::UI::PoketchButton::Object* backwardsButton = __this->cast<UnityEngine::Component>()->get_transform()
+                    ->Find(System::String::Create("Window"))
+                    ->Find(System::String::Create("Poketch"))
+                    ->Find(System::String::Create("Body_02"))
+                    ->Find(System::String::Create("Mask"))
+                    ->Find(System::String::Create("Image_button2"))
+                    ->GetComponent<Dpr::UI::PoketchButton>(__this->fields._changeButton->klass);
+
             Dpr::EvScript::EvDataManager::getClass()->initIfNeeded();
             auto evManager = Dpr::EvScript::EvDataManager::get_Instanse();
             if (!evManager->IsRunningEvent() && !Dpr::MsgWindow::MsgWindowManager::get_IsOpenWindow())
@@ -156,8 +165,12 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                         {
                             __this->fields._changeButton->OnPush();
                         }
+                        else if (__this->IsInRange(backwardsButton, touchVec2.fields.x, touchVec2.fields.y))
+                        {
+                            backwardsButton->OnPush();
+                        }
                     }
-                    joined_r0x007101e67668(__this, deltaTime);
+                    returnNoTouch(__this, deltaTime);
                     return;
                 }
 
@@ -166,8 +179,8 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                 float cursorX = touchVec2.fields.x;
                 float cursorY = touchVec2.fields.y;
 
-                float changeX = 0.0;
-                float changeY = 0.0;
+                float changeX = GameController::getClass()->static_fields->analogStickL.fields.x;
+                float changeY = GameController::getClass()->static_fields->analogStickL.fields.y;
 
                 bool movingCursor = UnityEngine::Vector2::op_Inequality(GameController::getClass()->static_fields->analogStickL, UnityEngine::Vector2::get_zero());
                 if (!movingCursor)
@@ -234,16 +247,22 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                     {
                         Dpr::UI::PoketchButton::Object* btn27 = nullptr;
 
-                        for (uint64_t j=0; j<app->fields.Buttons->max_length+1; j++)
+                        for (uint64_t i=0; i < app->fields.Buttons->max_length + 2; i++)
                         {
                             Dpr::UI::PoketchButton::Object** currentButtonPtr1 = &__this->fields._preButton;
 
-                            Dpr::UI::PoketchButton::Object** currentButtonPtr11 = &__this->fields._changeButton;
-                            if (j < app->fields.Buttons->max_length)
+                            if (i < app->fields.Buttons->max_length)
                             {
-                                currentButtonPtr11 = &app->fields.Buttons->m_Items[j];
+                                target = app->fields.Buttons->m_Items[i];
                             }
-                            target = *currentButtonPtr11;
+                            else if (i == app->fields.Buttons->max_length)
+                            {
+                                target = __this->fields._changeButton;
+                            }
+                            else
+                            {
+                                target = backwardsButton;
+                            }
 
                             UnityEngine::Transform::Object* cursorTransform = __this->fields._cursor->cast<UnityEngine::Component>()->get_transform()->instance();
                             UnityEngine::Vector3::Object cursorVec3 = cursorTransform->get_position();
@@ -259,7 +278,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                             *currentButtonPtr1 = nullptr;
                                             target = btn27;
                                             touchState = Dpr::UI::PoketchWindow::TouchState::Release;
-                                            joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                            returnTouch(__this, deltaTime, target, touchState);
                                             return;
                                         }
                                     }
@@ -277,7 +296,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                                 targetTransform->set_position(newCursorVec);
 
                                                 touchState = Dpr::UI::PoketchWindow::TouchState::Hold;
-                                                joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                                returnTouch(__this, deltaTime, target, touchState);
                                                 return;
                                             }
                                         }
@@ -287,7 +306,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                     *currentButtonPtr1 = nullptr;
                                     touchState = Dpr::UI::PoketchWindow::TouchState::Release;
                                     target = btn27;
-                                    joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                    returnTouch(__this, deltaTime, target, touchState);
                                     return;
                                 }
 
@@ -303,7 +322,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                     *currentButtonPtr1 = target;
                                     target->SetTouch();
                                     touchState = Dpr::UI::PoketchWindow::TouchState::Touch;
-                                    joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                    returnTouch(__this, deltaTime, target, touchState);
                                     return;
                                 }
 
@@ -328,7 +347,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                             target->OnPush();
                                             touchState = Dpr::UI::PoketchWindow::TouchState::Push;
                                         }
-                                        joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                        returnTouch(__this, deltaTime, target, touchState);
                                         return;
                                     }
                                 }
@@ -353,7 +372,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                                 targetTransform->set_position(newCursorVec);
                                             }
                                             touchState = Dpr::UI::PoketchWindow::TouchState::Hold;
-                                            joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                            returnTouch(__this, deltaTime, target, touchState);
                                             return;
                                         }
                                     }
@@ -371,7 +390,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                         *currentButtonPtr1 = target;
                                         target->SetTouch();
                                         touchState = Dpr::UI::PoketchWindow::TouchState::Touch;
-                                        joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                        returnTouch(__this, deltaTime, target, touchState);
                                         return;
                                     }
 
@@ -396,7 +415,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                                 target->OnPush();
                                                 touchState = Dpr::UI::PoketchWindow::TouchState::Push;
                                             }
-                                            joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                            returnTouch(__this, deltaTime, target, touchState);
                                             return;
                                         }
                                     }
@@ -421,7 +440,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                                     targetTransform->set_position(newCursorVec);
                                                 }
                                                 touchState = Dpr::UI::PoketchWindow::TouchState::Hold;
-                                                joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                                returnTouch(__this, deltaTime, target, touchState);
                                                 return;
                                             }
                                         }
@@ -446,7 +465,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                     target->OnPush();
                                     touchState = Dpr::UI::PoketchWindow::TouchState::Push;
                                 }
-                                joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                returnTouch(__this, deltaTime, target, touchState);
                                 return;
                             }
 
@@ -455,7 +474,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                 *currentButtonPtr1 = target;
                                 target->SetTouch();
                                 touchState = Dpr::UI::PoketchWindow::TouchState::Touch;
-                                joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                returnTouch(__this, deltaTime, target, touchState);
                                 return;
                             }
 
@@ -467,7 +486,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                     *currentButtonPtr1 = target;
                                     target->SetTouch();
                                     touchState = Dpr::UI::PoketchWindow::TouchState::Touch;
-                                    joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                    returnTouch(__this, deltaTime, target, touchState);
                                     return;
                                 }
 
@@ -492,7 +511,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                             target->OnPush();
                                             touchState = Dpr::UI::PoketchWindow::TouchState::Push;
                                         }
-                                        joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                        returnTouch(__this, deltaTime, target, touchState);
                                         return;
                                     }
                                 }
@@ -517,7 +536,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                                                 targetTransform->set_position(newCursorVec);
                                             }
                                             touchState = Dpr::UI::PoketchWindow::TouchState::Hold;
-                                            joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                                            returnTouch(__this, deltaTime, target, touchState);
                                             return;
                                         }
                                     }
@@ -541,20 +560,20 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
                             }
 
                             touchState = Dpr::UI::PoketchWindow::TouchState::Hold;
-                            joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                            returnTouch(__this, deltaTime, target, touchState);
                             return;
                         }
 
                         touchState = Dpr::UI::PoketchWindow::TouchState::None;
                         target = btn27;
-                        joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                        returnTouch(__this, deltaTime, target, touchState);
                         return;
                     }
                 }
 
                 target = nullptr;
                 touchState = Dpr::UI::PoketchWindow::TouchState::None;
-                joined_r0x007101e681a8(__this, deltaTime, target, touchState);
+                returnTouch(__this, deltaTime, target, touchState);
                 return;
             }
         }
@@ -564,7 +583,7 @@ HOOK_DEFINE_REPLACE(PoketchWindow_OnUpdate) {
             __this->ChangePoketchSize(false, nullptr);
         }
 
-        joined_r0x007101e67668(__this, deltaTime);
+        returnNoTouch(__this, deltaTime);
     }
 };
 
