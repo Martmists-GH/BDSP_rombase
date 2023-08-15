@@ -109,9 +109,16 @@ namespace Pml::PokePara {
             return external<uint32_t>(0x02044610, this, powerId);
         }
 
-        inline uint32_t GetEffortPower(CoreParam::Object *__this,int32_t powerId){
+        inline uint32_t GetEffortPower(int32_t powerId){
             return external<uint32_t>(0x02044c50, this, powerId);
         }
 
+        inline uint32_t GetHp(){
+            return external<uint32_t>(0x02043970, this);
+        }
+
+        inline uint32_t GetMaxHp(){
+            return external<uint32_t>(0x02043620, this);
+        }
     };
 }

@@ -362,6 +362,19 @@ HOOK_DEFINE_REPLACE(Dpr_UI_PokemonStatusPanelAbility__SelectRaderChartIndex) {
     }
 };
 
+HOOK_DEFINE_REPLACE(HpCode) {
+    static void Callback (Dpr::UI::PokemonStatusPanelAbility::DisplayClass17_0::Object *__this) {
+        system_load_typeinfo(0x9606);
+        Dpr::Message::MessageWordSetHelper::getClass()->initIfNeeded();
+
+        uint32_t uVar1 = ((Pml::PokePara::CoreParam::Object *)__this->fields.pokemonParam)->GetHp();
+        Dpr::Message::MessageWordSetHelper::SetStringWord(0,System::String::Create("Test"));
+
+        uint32_t uVar2 = ((Pml::PokePara::CoreParam::Object *)__this->fields.pokemonParam)->GetMaxHp();
+        Dpr::Message::MessageWordSetHelper::SetDigitWord(1,(int32_t)uVar2);
+    }
+};
+
 /*
 void Dpr_UI_UIText_SetFormattedText (Dpr::UI::UIText::Object *__this,UnityEngine::Events::UnityAction::Object *onSet, System::String::Object *messageFile,System::String::Object *messageId) {
     UnityEngine::Coroutine::Object **ppUVar1;
@@ -397,9 +410,11 @@ void exl_ev_iv_ui_main(){
     //Dpr.UI.PokemonStatusPanelAbility.<>c__DisplayClass17_1$$<Setup>b__2
     //displaySummaryPower::InstallAtOffset(0x01d99c20);
 
-    Dpr_UI_PokemonStatusPanelAbility__SelectRaderChartIndex::InstallAtOffset(0x01d99260);
+    //Dpr_UI_PokemonStatusPanelAbility__SelectRaderChartIndex::InstallAtOffset(0x01d99260);
 
     Dpr_UI_BoxStatusPanel_GetJudgeTextCode::InstallAtOffset(0x01cb1e40);
+
+    HpCode::InstallAtOffset(0x01d99b10);
 
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
