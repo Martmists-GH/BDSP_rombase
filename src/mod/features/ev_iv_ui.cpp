@@ -12,6 +12,7 @@
 #include "externals/Dpr/Message/MessageManager.h"
 #include "externals/UnityEngine/Events/UnityAction.h"
 #include "externals/UnityEngine/Coroutine.h"
+#include "externals/UnityEngine/Transform.h"
 #include "externals/System/String.h"
 #include "logger/logger.h"
 
@@ -224,6 +225,7 @@ colorFields mapColorToPower(int32_t power) {
     return customColorFields;
 }
 
+/*
 HOOK_DEFINE_REPLACE(displayPower) {
     static void Callback(Dpr::UI::BoxStatusPanelUI::Object *boxStatusPanel) {
 
@@ -242,14 +244,13 @@ HOOK_DEFINE_REPLACE(displaySummaryPower) {
 
         System::Int32_array* _powerIdMap = locals->fields.__4__this->fields._powerIdMap;
         int32_t i = statusPanel->fields.i;
-        int32_t  effortPower = coreParamObj->GetEffortPower(coreParamObj, _powerIdMap->m_Items[i]);
-        //Logger::log("Displaying effort power: %d\n", effortPower);
+        int32_t effortPower = coreParamObj->GetEffortPower(coreParamObj, _powerIdMap->m_Items[i]);
+        Logger::log("Displaying effort power: %d\n", effortPower);
         int32_t power = pokemonParam->GetPower(_powerIdMap->m_Items[i]);
 
         //Dpr::Message::MessageManager::Object* messageManagerObj = Dpr::Message::MessageManager::instance();
         //System::String::Object* stringObj = messageManagerObj->GetSimpleMessage(locals->fields.__4__this->fields._tokuseiDescription->fields._messageFile, locals->fields.__4__this->fields._tokuseiDescription->fields._messageId);
 
-        /*
         for (int j = 0; j < statusPanel->fields.locals->fields.__4__this->fields._colorUpDowns->max_length; j++)
         {
             mapColorToPower(power);
@@ -259,11 +260,11 @@ HOOK_DEFINE_REPLACE(displaySummaryPower) {
             statusPanel->fields.locals->fields.__4__this->fields._colorUpDowns->m_Items[j].fields.b = mapColorToPower(power).b;
             statusPanel->fields.locals->fields.__4__this->fields._colorUpDowns->m_Items[j].fields.a = mapColorToPower(power).a;
         }
-         */
 
         Dpr::Message::MessageWordSetHelper::SetDigitWord(0, power);
     }
 };
+*/
 
 HOOK_DEFINE_REPLACE(Dpr_UI_BoxStatusPanel_GetJudgeTextCode) {
     static System::String::Object * Callback(Dpr::UI::BoxStatusPanel::Object *boxPanel, Pml::PokePara::CoreParam *pokemonParam, int32_t powerId) {
@@ -290,8 +291,79 @@ HOOK_DEFINE_REPLACE(Dpr_UI_BoxStatusPanel_GetJudgeTextCode) {
     }
 };
 
+HOOK_DEFINE_REPLACE(Dpr_UI_PokemonStatusPanelAbility__SelectRaderChartIndex) {
+    static void Callback (Dpr::UI::PokemonStatusPanelAbility::Object *panelRef,int32_t selectIndex,bool isInitialized) {
+
+    int32_t panelIndex;
+    UnityEngine::Transform::Object *panelObjRef;
+    UnityEngine::GameObject::Object *gameObjRef;
+    //undefined8 longUndef;
+    Dpr::UI::PokemonStatusPanelAbility::ChartItem::Array* panelArray;
+    ulong longLength;
+    int childCursor;
+    ulong panelLenCursor;
+
+    if (((panelRef->fields)._selectRaderChartIndex == selectIndex) && (!isInitialized)) {
+        return;
+    }
+
+    panelRef->fields._selectRaderChartIndex = selectIndex;
+    Logger::log("Index selected: %d\n", panelRef->fields._selectRaderChartIndex);
+    panelIndex = ((UnityEngine::Transform::Object *)panelRef->fields._raderChartRoot)->get_childCount();
+    Logger::log("Cast to transform obj success\n");
+
+    if (0 < panelIndex) {
+        Logger::log("0 less than child count\n");
+        childCursor = 0;
+        do {
+            UnityEngine::Transform::Object * transformObj00 = (UnityEngine::Transform::Object *)panelRef->fields._raderChartRoot;
+            panelObjRef = transformObj00->GetChild(childCursor);
+            UnityEngine::Component::Object * componentObj = (UnityEngine::Component::Object *)panelObjRef;
+            UnityEngine::GameObject::Object * gameObj = (UnityEngine::GameObject::Object *)componentObj;
+
+            gameObjRef = gameObj->get_gameObject();
+
+            gameObj->SetActive(childCursor);
+
+            childCursor = childCursor + 1;
+            panelIndex = transformObj00->get_childCount();
+        }
+        while (childCursor < panelIndex);
+    }
+
+    panelArray = (panelRef->fields)._chartItems;
+
+    Logger::log("Checking chart length\n");
+
+    Logger::log("Zero less than chart length\n");
+    childCursor = (panelRef->fields)._selectRaderChartIndex;
+    panelLenCursor = 0;
+        longLength = panelArray->max_length & 0xffffffff;
+        do {
+
+            /*
+            if (uVar5 <= panelLenCursor) {
+                longUndef = thunk_FUN_710025c83c();
+                FUN_71002afbc0(longUndef,0);
+            }
+            */
+
+            UnityEngine::Component::Object * componentObj = (UnityEngine::Component::Object *)panelArray->m_Items[panelLenCursor]->fields.text;
+            UnityEngine::GameObject::Object * gameObj = (UnityEngine::GameObject::Object *)componentObj;
+            gameObj = gameObj->get_gameObject();
+            gameObj->SetActive(childCursor);
+            panelArray = (panelRef->fields)._chartItems;
+            panelLenCursor = panelLenCursor + 1;
+            longLength = (ulong)*(uint *)&panelArray->max_length;
+        }
+            while ((long)panelLenCursor < (long)(int)*(uint *)&panelArray->max_length);
+        panelRef->PlayEffortEffects( (panelRef->fields)._pokemonParam);
+    return;
+    }
+};
+
+/*
 void Dpr_UI_UIText_SetFormattedText (Dpr::UI::UIText::Object *__this,UnityEngine::Events::UnityAction::Object *onSet, System::String::Object *messageFile,System::String::Object *messageId) {
-    /*
     UnityEngine::Coroutine::Object **ppUVar1;
     ulong *puVar2;
     char cVar3;
@@ -307,7 +379,6 @@ void Dpr_UI_UIText_SetFormattedText (Dpr::UI::UIText::Object *__this,UnityEngine
     if (messageId != (System::String::Object *) 0x0) {
         *(System::String::Object **) &(__this->fields).super.m_ClipRect.fields = messageId;
     }
-    */
 
     onSet->Invoke(onSet);
     //*(undefined *) ((long) &(__this->fields).super.m_DelayedGraphicRebuild + 4) = 1;
@@ -317,13 +388,16 @@ void Dpr_UI_UIText_SetFormattedText (Dpr::UI::UIText::Object *__this,UnityEngine
     Logger::log("Set formatted text\n");
     return;
 }
+*/
 
 void exl_ev_iv_ui_main(){
     //Dpr.UI.BoxStatusPanel.<>c__DisplayClass35_0$$<SetUp>b__5
-    displayPower::InstallAtOffset(0x01cb2380);
+    //displayPower::InstallAtOffset(0x01cb2380);
 
     //Dpr.UI.PokemonStatusPanelAbility.<>c__DisplayClass17_1$$<Setup>b__2
-    displaySummaryPower::InstallAtOffset(0x01d99c20);
+    //displaySummaryPower::InstallAtOffset(0x01d99c20);
+
+    Dpr_UI_PokemonStatusPanelAbility__SelectRaderChartIndex::InstallAtOffset(0x01d99260);
 
     Dpr_UI_BoxStatusPanel_GetJudgeTextCode::InstallAtOffset(0x01cb1e40);
 
