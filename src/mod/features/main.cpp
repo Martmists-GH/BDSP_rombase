@@ -35,5 +35,5 @@ void exl_features_main() {
     // Debug features
     exl_battle_bundles_in_ui_main();
     //exl_il2cpp_log_main();
-    //exl_unity_log_main();
+    exl_unity_log_main();
 }
