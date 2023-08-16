@@ -294,74 +294,39 @@ HOOK_DEFINE_REPLACE(Dpr_UI_BoxStatusPanel_GetJudgeTextCode) {
 HOOK_DEFINE_REPLACE(Dpr_UI_PokemonStatusPanelAbility__SelectRaderChartIndex) {
     static void Callback (Dpr::UI::PokemonStatusPanelAbility::Object *panelRef,int32_t selectIndex,bool isInitialized) {
 
-    int32_t panelIndex;
     UnityEngine::Transform::Object *panelObjRef;
     UnityEngine::GameObject::Object *gameObjRef;
-    //undefined8 longUndef;
-    Dpr::UI::PokemonStatusPanelAbility::ChartItem::Array* panelArray;
-    ulong longLength;
-    int childCursor;
-    ulong panelLenCursor;
 
-    if (((panelRef->fields)._selectRaderChartIndex == selectIndex) && (!isInitialized)) {
-        return;
-    }
-
-    panelRef->fields._selectRaderChartIndex = selectIndex;
-    Logger::log("Index selected: %d\n", panelRef->fields._selectRaderChartIndex);
-    panelIndex = ((UnityEngine::Transform::Object *)panelRef->fields._raderChartRoot)->get_childCount();
-    Logger::log("Cast to transform obj success\n");
-
-    if (0 < panelIndex) {
-        Logger::log("0 less than child count\n");
-        childCursor = 0;
-        do {
-            UnityEngine::Transform::Object * transformObj00 = (UnityEngine::Transform::Object *)panelRef->fields._raderChartRoot;
-            panelObjRef = transformObj00->GetChild(childCursor);
-            UnityEngine::Component::Object * componentObj = (UnityEngine::Component::Object *)panelObjRef;
-            UnityEngine::GameObject::Object * gameObj = (UnityEngine::GameObject::Object *)componentObj;
-
-            gameObjRef = gameObj->get_gameObject();
-
-            gameObj->SetActive(childCursor);
-
-            childCursor = childCursor + 1;
-            panelIndex = transformObj00->get_childCount();
+        if (((panelRef->fields)._selectRaderChartIndex == selectIndex) && (!isInitialized)) {
+            Logger::log("early return\n");
+            return;
         }
-        while (childCursor < panelIndex);
-    }
 
-    panelArray = (panelRef->fields)._chartItems;
+        (panelRef->fields)._selectRaderChartIndex = selectIndex;
 
-    Logger::log("Checking chart length\n");
-
-    Logger::log("Zero less than chart length\n");
-    childCursor = (panelRef->fields)._selectRaderChartIndex;
-    panelLenCursor = 0;
-        longLength = panelArray->max_length & 0xffffffff;
-        do {
-
-            /*
-            if (uVar5 <= panelLenCursor) {
-                longUndef = thunk_FUN_710025c83c();
-                FUN_71002afbc0(longUndef,0);
-            }
-            */
-
-            UnityEngine::Component::Object * componentObj = (UnityEngine::Component::Object *)panelArray->m_Items[panelLenCursor]->fields.text;
-            UnityEngine::GameObject::Object * gameObj = (UnityEngine::GameObject::Object *)componentObj;
-            gameObj = gameObj->get_gameObject();
-            gameObj->SetActive(childCursor);
-            panelArray = (panelRef->fields)._chartItems;
-            panelLenCursor = panelLenCursor + 1;
-            longLength = (ulong)*(uint *)&panelArray->max_length;
+        for (int i = 0; i < ((UnityEngine::Transform::Object *)panelRef->fields._raderChartRoot)->get_childCount(); i++) {
+            panelObjRef = ((UnityEngine::Transform::Object *)panelRef->fields._raderChartRoot)->GetChild(i);
+            Logger::log("Got child: %08X\n", panelObjRef);
+            gameObjRef = ((UnityEngine::GameObject::Object *)panelObjRef)->get_gameObject();
+            Logger::log("Got game obj: %08X\n", gameObjRef);
+            gameObjRef->SetActive(true);
+            Logger::log("set active\n");
         }
-            while ((long)panelLenCursor < (long)(int)*(uint *)&panelArray->max_length);
+
+        for (int i = 0; i < panelRef->fields._chartItems->max_length; i++) {
+            gameObjRef = ((UnityEngine::GameObject::Object*)panelRef->fields._chartItems->m_Items[i]->fields.text)->get_gameObject();
+            Logger::log("Got game obj\n");
+            //gameObjRef->SetActive(selectIndex == 0);
+            //Logger::log("Set active\n");
+        }
+
         panelRef->PlayEffortEffects( (panelRef->fields)._pokemonParam);
-    return;
+        Logger::log("Played effects\n");
+        return;
     }
 };
 
+/*
 HOOK_DEFINE_REPLACE(HpCode) {
     static void Callback (Dpr::UI::PokemonStatusPanelAbility::DisplayClass17_0::Object *__this) {
         system_load_typeinfo(0x9606);
@@ -375,7 +340,7 @@ HOOK_DEFINE_REPLACE(HpCode) {
     }
 };
 
-/*
+
 void Dpr_UI_UIText_SetFormattedText (Dpr::UI::UIText::Object *__this,UnityEngine::Events::UnityAction::Object *onSet, System::String::Object *messageFile,System::String::Object *messageId) {
     UnityEngine::Coroutine::Object **ppUVar1;
     ulong *puVar2;
@@ -410,11 +375,11 @@ void exl_ev_iv_ui_main(){
     //Dpr.UI.PokemonStatusPanelAbility.<>c__DisplayClass17_1$$<Setup>b__2
     //displaySummaryPower::InstallAtOffset(0x01d99c20);
 
-    //Dpr_UI_PokemonStatusPanelAbility__SelectRaderChartIndex::InstallAtOffset(0x01d99260);
+    Dpr_UI_PokemonStatusPanelAbility__SelectRaderChartIndex::InstallAtOffset(0x01d99260);
 
     Dpr_UI_BoxStatusPanel_GetJudgeTextCode::InstallAtOffset(0x01cb1e40);
 
-    HpCode::InstallAtOffset(0x01d99b10);
+    //HpCode::InstallAtOffset(0x01d99b10);
 
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;

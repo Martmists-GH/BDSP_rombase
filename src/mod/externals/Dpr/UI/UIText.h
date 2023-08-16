@@ -9,7 +9,6 @@
 namespace Dpr::UI {
     struct UIText : ILClass<UIText> {
         struct Fields : TMPro::TextMeshProUGUI::Fields {
-            TMPro::TextMeshProUGUI::Fields super;
             int32_t _sizeId;
             bool _useMessage;
             System::String::Object* _messageFile;
@@ -26,9 +25,11 @@ namespace Dpr::UI {
             external<void>(0x01dd18d0, this, messageFile, messageId);
         }
 
+        /*
         inline void UpdateMessage(UIText::Object *__this, bool isForce, int32_t langId) {
             external<void>(0x01dd1480, this, isForce, langId);
         }
+        */
     };
 }
 

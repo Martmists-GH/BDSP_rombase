@@ -21,12 +21,12 @@ namespace UnityEngine {
             return external<GameObject::Object*>(0x026b1ea0, name);
         }
 
-        static inline GameObject::Object* get_gameObject() {
-            return external<GameObject::Object*>(0x026b1fa0);
+        inline GameObject::Object* get_gameObject() {
+            return external<GameObject::Object*>(0x026b1fa0, this);
         }
 
-        static inline void SetActive(bool value) {
-            return external<void>(0x026b19c0, value);
+        inline void SetActive(bool value) {
+            external<void>(0x026b19c0, this, value);
         }
 
         template <typename T>
