@@ -11,5 +11,9 @@ namespace Pml::PokePara {
         static inline bool IsRareColor(uint32_t id, uint32_t rnd) {
             return external<bool>(0x024ad790, id, rnd);
         }
+
+        static inline uint32_t CorrectColorRndForRareType(uint32_t id, uint32_t rnd, uint8_t type) {
+            return external<uint32_t>(0x024adce0, id, rnd, type);
+        }
     };
 }

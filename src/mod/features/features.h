@@ -16,6 +16,9 @@ void exl_badge_check_main();
 // Adds support for new Poké Balls.
 void exl_balls_main();
 
+// Repoints the Pokémon model loader for UIs to the battle bundle instead of the field one if a sysflag is set.
+void exl_battle_bundles_in_ui_main();
+
 // Makes the battle menu scroll instead of the cursor.
 void exl_battle_revolver_main();
 
@@ -41,7 +44,7 @@ void exl_hidden_power_ui_main();
 // Reroutes IL2CPP logs to the ExLaunch logger.
 void exl_il2cpp_log_main();
 
-//Enables Everlasting Candy and Ability Patch changes
+// Enables Everlasting Candy and Ability Patch changes
 void exl_items_changes_main();
 
 // Adds new key item functionality.

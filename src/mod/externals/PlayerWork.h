@@ -262,4 +262,8 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     static inline bool get_isPlayerInputActive() {
         return external<bool>(0x02cf1110);
     }
+
+    static inline DPData::MYSTATUS::Object* get_playerStatus() {
+        return external<DPData::MYSTATUS::Object*>(0x02ce2d20);
+    }
 };

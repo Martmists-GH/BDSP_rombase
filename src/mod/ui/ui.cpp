@@ -1,20 +1,27 @@
-#include "ui/ui.h"
-#include "externals/ItemWork.h"
-#include "data/items.h"
-#include "externals/PlayerWork.h"
-#include "externals/ZukanWork.h"
-#include "data/species.h"
 #include "externals/il2cpp.h"
+
 #include "data/arenas.h"
+#include "data/balls.h"
+#include "data/clip_names.h"
+#include "data/debug.h"
+#include "data/items.h"
+#include "data/moves.h"
+#include "data/species.h"
+#include "data/utils.h"
 #include "data/zones.h"
 #include "externals/Dpr/EvScript/EvDataManager.h"
 #include "externals/Dpr/EvScript/EvCmdID.h"
-#include "externals/Pml/PmlUse.h"
+#include "externals/FlagWork.h"
+#include "externals/ItemWork.h"
+#include "externals/PlayerWork.h"
+#include "externals/Pml/PokePara/InitialSpec.h"
 #include "externals/Pml/PokePara/PokemonParam.h"
-#include "data/moves.h"
-#include "data/utils.h"
-#include "data/balls.h"
+#include "externals/poketool/poke_memo/poketool_poke_memo.h"
+#include "externals/ZukanWork.h"
+
+#include "logger/logger.h"
 #include "save/save.h"
+#include "ui/ui.h"
 
 using namespace ui;
 
@@ -137,6 +144,18 @@ static Window mainWindow = Window::single([](Window &_) {
             _.items_count = BALL_COUNT;
             _.selected = array_index(BALLS, "--BALL ZERO--");
         });
+        auto *sex = _.ComboSimple([](ComboSimple &_) {
+            _.label = "Sex";
+            _.items = DEBUG_SEXES;
+            _.items_count = DEBUG_SEX_COUNT;
+            _.selected = array_index(DEBUG_SEXES, "-");
+        });
+        auto *shiny = _.ComboSimple([](ComboSimple &_) {
+            _.label = "Shininess";
+            _.items = DEBUG_SHINIES;
+            _.items_count = DEBUG_SHINY_COUNT;
+            _.selected = array_index(DEBUG_SHINIES, "-");
+        });
         auto* customMoves = _.Checkbox([](Checkbox &_) {
             _.label = "Custom moves";
             _.enabled = false;
@@ -166,29 +185,46 @@ static Window mainWindow = Window::single([](Window &_) {
             _.selected = array_index(MOVES, "Comet Punch");
         });
 
-        _.Button([species, form, level, ball, customMoves, move1, move2, move3, move4](Button &_) {
+        _.Button([species, form, level, ball, sex, shiny, customMoves, move1, move2, move3, move4](Button &_) {
             _.label = "Give Pokemon";
-            _.onClick = [species, form, level, ball, customMoves, move1, move2, move3, move4]() {
+            _.onClick = [species, form, level, ball, sex, shiny, customMoves, move1, move2, move3, move4]() {
+                system_load_typeinfo(0x43be);
                 auto party = PlayerWork::get_playerParty();
 
-                auto param = Pml::PokePara::PokemonParam::newInstance(species->selected, level->value, 0);
-                auto pmlUse = Pml::PmlUse::get_Instance();
-                int32_t lang = pmlUse->get_LangId();
+                auto initialSpec = Pml::PokePara::InitialSpec::newInstance();
+                initialSpec->fields.monsno = species->selected;
+                initialSpec->fields.formno = form->value;
+                initialSpec->fields.level = level->value;
+                if (sex->selected == array_index(DEBUG_SEXES, "Male"))
+                    initialSpec->fields.sex = 0;
+                else if (sex->selected == array_index(DEBUG_SEXES, "Female"))
+                    initialSpec->fields.sex = 1;
+                else if (sex->selected == array_index(DEBUG_SEXES, "Genderless"))
+                    initialSpec->fields.sex = 2;
 
-                param->fields.m_accessor->SetFormNo(form->value);
-                param->fields.m_accessor->SetLangID(lang);
-                param->fields.m_accessor->SetOwnedOthersFlag(false);
-                param->fields.m_accessor->SetGetBall(ball->selected);
+                auto param = Pml::PokePara::PokemonParam::newInstance(initialSpec);
+                auto core = param->cast<Pml::PokePara::CoreParam>();
 
-                if (customMoves->enabled) {
-                    auto core = param->cast<Pml::PokePara::CoreParam>();
+                if (customMoves->enabled)
+                {
                     core->SetWaza(0, move1->selected);
                     core->SetWaza(1, move2->selected);
                     core->SetWaza(2, move3->selected);
                     core->SetWaza(3, move4->selected);
                 }
+                core->SetGetBall(ball->selected);
+                if (shiny->selected == array_index(DEBUG_SHINIES, "Non-shiny"))
+                    core->SetRareType(0);
+                else if (shiny->selected == array_index(DEBUG_SHINIES, "Shiny"))
+                    core->SetRareType(1);
+                else if (shiny->selected == array_index(DEBUG_SHINIES, "Square Shiny"))
+                    core->SetRareType(2);
 
-                party->ReplaceMember(0, param);
+                auto myStatus = PlayerWork::get_playerStatus();
+                auto zoneID = PlayerWork::get_zoneID();
+                poketool::poke_memo::poketool_poke_memo::SetFromCapture((Pml::PokePara::CoreParam::Object*)param, myStatus, zoneID);
+                if (!party->AddMember(param))
+                    Logger::log("Could not give Pokémon!\n");
             };
         });
     });
@@ -296,16 +332,14 @@ static Window mainWindow = Window::single([](Window &_) {
         _.label = "Natdex Tools";
 
         _.Button([](Button &_) {
-            _.label = "All Pokemon";
+            _.label = "Register all Pokémon to Dex";
             _.onClick = []() {
-
-            for (int i = 1; i <= SPECIES_COUNT; i++){
-                ZukanWork::SetPoke(i, 3, 0, 0, 1);
-                ZukanWork::SetPoke(i, 3, 1, 0, 1);
-                ZukanWork::SetPoke(i, 3, 0, 0, 0);
-                ZukanWork::SetPoke(i, 3, 1, 0, 0);
-            }
-
+                for (int i = 1; i <= SPECIES_COUNT; i++){
+                    ZukanWork::SetPoke(i, 3, 0, 0, true);
+                    ZukanWork::SetPoke(i, 3, 1, 0, true);
+                    ZukanWork::SetPoke(i, 3, 0, 0, false);
+                    ZukanWork::SetPoke(i, 3, 1, 0, false);
+                }
             };
         });
 
@@ -316,6 +350,51 @@ static Window mainWindow = Window::single([](Window &_) {
                 Dpr::EvScript::EvDataManager::Object * evDataManager = Dpr::EvScript::EvDataManager::get_Instanse();
                 evDataManager->RunEvCmd((int32_t)Dpr::EvScript::EvCmdID::NAME::_ADD_MAROYAKA_POFFIN);
                 Logger::log("Added Poffin\n");
+            };
+        });
+
+        auto* loopAnim = _.Checkbox([](Checkbox &_) {
+            _.label = "Loop Animation";
+            _.enabled = true;
+        });
+
+        _.Checkbox([](Checkbox &_) {
+            _.label = "Force Battle Bundles in UI";
+            _.enabled = false;
+            _.onChange = [](bool value) {
+                FlagWork::SetSysFlag(FlagWork_SysFlag::SYSFLAG_999, value);
+            };
+        });
+
+        auto *fieldAnimationId = _.ComboSimple([](ComboSimple &_) {
+            _.label = "Field Animation ID";
+            _.items = FIELD_MON_CLIPS;
+            _.items_count = FIELD_MON_CLIP_COUNT;
+            _.selected = array_index(FIELD_MON_CLIPS, "Idle");
+        });
+
+        auto *battleAnimationId = _.ComboSimple([](ComboSimple &_) {
+            _.label = "Battle Animation ID";
+            _.items = BATTLE_MON_CLIPS;
+            _.items_count = BATTLE_MON_CLIP_COUNT;
+            _.selected = array_index(BATTLE_MON_CLIPS, "WaitA01");
+        });
+
+        _.Button([fieldAnimationId, loopAnim](Button &_) {
+            _.label = "Play Field Animation";
+            _.onClick = [fieldAnimationId, loopAnim]() {
+                auto uiManager = Dpr::UI::UIManager::instance();
+                Logger::log("Playing Field Animation %s (%d)\n", FIELD_MON_CLIPS[fieldAnimationId->selected], fieldAnimationId->selected);
+                uiManager->fields._modelView->PlayAnimation(fieldAnimationId->selected, loopAnim->enabled);
+            };
+        });
+
+        _.Button([battleAnimationId, loopAnim](Button &_) {
+            _.label = "Play Battle Animation";
+            _.onClick = [battleAnimationId, loopAnim]() {
+                auto uiManager = Dpr::UI::UIManager::instance();
+                Logger::log("Playing Battle Animation %s (%d)\n", BATTLE_MON_CLIPS[battleAnimationId->selected], battleAnimationId->selected);
+                uiManager->fields._modelView->PlayAnimation(battleAnimationId->selected, loopAnim->enabled);
             };
         });
     });
