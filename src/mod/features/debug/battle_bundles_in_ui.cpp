@@ -7,8 +7,6 @@
 
 System::String::Object* GeneratePathPrefix()
 {
-    return System::String::Create("pokemons/battle/");
-
     if (FlagWork::GetSysFlag(FlagWork_SysFlag::SYSFLAG_999))
         return System::String::Create("pokemons/battle/");
     else
@@ -44,16 +42,16 @@ void exl_battle_bundles_in_ui_main() {
     ReplaceFullPath::InstallAtOffset(0x017c2014);
 
     // Dpr.SubContents.Utils$$GetPokemonAssetbundleName
-    ReplacePathMethod::InstallAtOffset(0x0186b360);
+    //ReplacePathMethod::InstallAtOffset(0x0186b360);
 
     // Dpr.EvScript.EvDataManager.<PreRequestAssetSetUp>d__1779$$MoveNext
-    ReplacePathPrefix::InstallAtOffset(0x019b0130);
+    //ReplacePathPrefix::InstallAtOffset(0x019b0130);
 
     // Dpr.EvScript.EvDataManager.<RequestAssetSetUp>d__1778$$MoveNext
-    ReplacePathPrefix::InstallAtOffset(0x019b0f0c);
+    //ReplacePathPrefix::InstallAtOffset(0x019b0f0c);
 
     // UgResManager$$AppendAsset
-    ReplaceFullPath::InstallAtOffset(0x01b1b27c);
+    //ReplaceFullPath::InstallAtOffset(0x01b1b27c);
 
 
     //// StringLiteral_18434 "pokemons/field/pm{0:D4}_00_00"
@@ -63,9 +61,9 @@ void exl_battle_bundles_in_ui_main() {
 
     //// StringLiteral_10105 "pokemons/field/{0}"
     // Dpr.SecretBase.PlacementData$$Destroy
-    ReplaceFullPath::InstallAtOffset(0x019c9420);
+    //ReplaceFullPath::InstallAtOffset(0x019c9420);
 
     // LightStoneResourcesManager.<DataLoad>d__31$$MoveNext
-    ReplaceFullPath::InstallAtOffset(0x01af27c8);
-    ReplaceFullPath::InstallAtOffset(0x01af27fc);
+    //ReplaceFullPath::InstallAtOffset(0x01af27c8);
+    //ReplaceFullPath::InstallAtOffset(0x01af27fc);
 }
