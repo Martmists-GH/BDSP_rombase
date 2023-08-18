@@ -10,14 +10,14 @@ HOOK_DEFINE_REPLACE(DecideFormNoFromHoldItem) {
 
         for (auto i : formHeldItems)
         {
-            if (monsno == std::get<0>(i))
+            if (monsno == i.monsno)
             {
                 affectedMon = true;
 
                 // If the item is one that changes the mon's form, change the form.
-                if (holdItemno == std::get<1>(i))
+                if (holdItemno == i.itemno)
                 {
-                    *formno = std::get<2>(i);
+                    *formno = i.formno;
                     return true;
                 }
             }
@@ -30,9 +30,9 @@ HOOK_DEFINE_REPLACE(DecideFormNoFromHoldItem) {
             *formno = 0;
             for (auto i : defaultForms)
             {
-                if (monsno == std::get<0>(i))
+                if (monsno == i.monsno)
                 {
-                    *formno = std::get<1>(i);
+                    *formno = i.formno;
                 }
             }
             return true;
@@ -50,7 +50,7 @@ HOOK_DEFINE_REPLACE(CheckUnbreakablePokeItem) {
 
         for (auto i : unbreakableItems)
         {
-            if (monsno == std::get<0>(i) && itemID == std::get<1>(i))
+            if (monsno == i.monsno && itemID == i.itemno)
             {
                 return true;
             }

@@ -19,6 +19,9 @@ void exl_balls_main();
 // Makes the battle menu scroll instead of the cursor.
 void exl_battle_revolver_main();
 
+// Adds support for custom color variations for player and NPCs.
+void exl_color_variations_main();
+
 // Adds support for new ev_script commands.
 void exl_commands_main();
 

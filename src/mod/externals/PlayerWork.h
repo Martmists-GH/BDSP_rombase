@@ -262,4 +262,8 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     static inline bool get_isPlayerInputActive() {
         return external<bool>(0x02cf1110);
     }
+
+    static inline void set_colorID(int32_t value) {
+        external<void>(0x02cef870, value);
+    }
 };
