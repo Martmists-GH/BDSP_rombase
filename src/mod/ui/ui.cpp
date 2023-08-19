@@ -325,6 +325,18 @@ static Window mainWindow = Window::single([](Window &_) {
                 PlayerWork::set_colorID(indexSelector->value);
             };
         });
+
+        _.Button([](Button &_) {
+            _.label = "Save custom Color Variation";
+            _.onClick = []() {
+                getCustomSaveData()->colorVariations.skinFace[0]  = { .fields = { 0.69803923, 0.5647059, 0.49019608, 1 } };   // Light brown skin
+                getCustomSaveData()->colorVariations.skinMouth[0] = { .fields = { 0.69803923, 0.5647059, 0.49019608, 1 } };   // Light brown skin
+                getCustomSaveData()->colorVariations.eyes[0]      = { .fields = { 0.4862745, 0.7294118, 0.40784314, 1 } };    // Green
+                getCustomSaveData()->colorVariations.eyebrows[0]  = { .fields = { 0.4862745, 0.7294118, 0.40784314, 1 } };    // Green
+                getCustomSaveData()->colorVariations.skinBody[0]  = { .fields = { 0.69803923, 0.5647059, 0.49019608, 1 } };   // Light brown skin
+                getCustomSaveData()->colorVariations.hair[0]      = { .fields = { 0.4862745, 0.7294118, 0.40784314, 1 } };    // Green
+            };
+        });
     });
 
     _.CollapsingHeader([](CollapsingHeader &_) {

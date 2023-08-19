@@ -11,6 +11,7 @@ void migrateFromVanilla(PlayerWork::Object* playerWork) {
     auto& savedata = playerWork->fields._saveData.fields;
     auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
     auto& kinomigrow = playerWork->fields._saveData.fields.kinomiGrowSaveData.fields;
+    auto& myStatus = playerWork->fields._saveData.fields.playerData.fields.mystatus.fields;
 
     // Copy over data from PlayerWork into the custom save
     zukan.get_status->copyInto(save->dex.get_status);
@@ -28,6 +29,9 @@ void migrateFromVanilla(PlayerWork::Object* playerWork) {
     savedata.saveItem->copyInto(save->items.items);
 
     kinomigrow.kinomiGrows->copyInto(save->berries.items);
+
+    // Set first player color to the one in the vanilla save
+    save->colorVariations.playerColorID[0] = myStatus.body_type;
 
     // Set amount of boxes unlocked to 40 for now
     playerWork->fields._saveData.fields.boxData.fields.trayMax = 40;

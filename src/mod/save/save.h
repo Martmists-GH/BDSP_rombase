@@ -4,6 +4,7 @@
 #include "save/savedata/badge_savedata.h"
 #include "save/savedata/berry_savedata.h"
 #include "save/savedata/box_savedata.h"
+#include "save/savedata/color_variation_savedata.h"
 #include "save/savedata/dex_savedata.h"
 #include "save/savedata/item_savedata.h"
 #include "save/savedata/string_savedata.h"
@@ -28,6 +29,7 @@ constexpr int32_t SysFlagCount = 15000;
 constexpr int32_t TrainerCount = 10000;
 constexpr int32_t SaveItemCount = 10000;
 constexpr int32_t BerryCount = 1000;
+constexpr int32_t ColorVariationCount = 1;
 
 struct CustomSaveData {
     bool initialized;
@@ -38,6 +40,7 @@ struct CustomSaveData {
     TrainerSaveData<TrainerCount> trainers;
     ItemSaveData<SaveItemCount> items;
     BerrySaveData<BerryCount> berries;
+    ColorVariationSaveData<ColorVariationCount> colorVariations;
 
     long GetByteCount() {
         long count = 0;
@@ -48,6 +51,7 @@ struct CustomSaveData {
         count += trainers.GetByteCount();
         count += items.GetByteCount();
         count += berries.GetByteCount();
+        count += colorVariations.GetByteCount();
         return count;
     }
 
@@ -62,6 +66,7 @@ struct CustomSaveData {
         index = trainers.ToBytes(buffer, index);
         index = items.ToBytes(buffer, index);
         index = berries.ToBytes(buffer, index);
+        index = colorVariations.ToBytes(buffer, index);
     }
 
     void FromBytes(char* buffer, long buffer_size, long index) {
@@ -78,6 +83,7 @@ struct CustomSaveData {
             index = trainers.FromBytes(buffer, buffer_size, index);
             index = items.FromBytes(buffer, buffer_size, index);
             index = berries.FromBytes(buffer, buffer_size, index);
+            index = colorVariations.FromBytes(buffer, buffer_size, index);
         }
     }
 };

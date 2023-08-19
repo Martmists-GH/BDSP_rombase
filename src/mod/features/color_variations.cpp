@@ -1,6 +1,8 @@
 #include "exlaunch.hpp"
 
 #include "externals/ColorVariation.h"
+#include "externals/Dpr/Battle/Logic/TRAINER_DATA.h"
+#include "save/save.h"
 #include "romdata/data/ColorSet.h"
 #include "romdata/romdata.h"
 
@@ -8,13 +10,13 @@
 
 RomData::ColorSet GetCustomColorSet()
 {
-    RomData::ColorSet set = { // TODO: Get from save
-        .skinFace =     { .fields = { 0.9490196, 0.76862746, 0.6627451, 1 } },    // White skin
-        .skinMouth =    { .fields = { 0.9490196, 0.76862746, 0.6627451, 1 } },    // White skin
-        .eyes =         { .fields = { 0.72156864, 0.79607844, 0.9019608, 1 } },   // Baby blue
-        .eyebrows =     { .fields = { 0.83921569, 0.87450982, 0.86862746, 1 } },  // ???
-        .skinBody =     { .fields = { 0.9490196, 0.76862746, 0.6627451, 1 } },    // White skin
-        .hair =         { .fields = { 0.83921569, 0.87450982, 0.86862746, 1 } },  // ???
+    RomData::ColorSet set = {
+        .skinFace =     getCustomSaveData()->colorVariations.skinFace[0],
+        .skinMouth =    getCustomSaveData()->colorVariations.skinMouth[0],
+        .eyes =         getCustomSaveData()->colorVariations.eyes[0],
+        .eyebrows =     getCustomSaveData()->colorVariations.eyebrows[0],
+        .skinBody =     getCustomSaveData()->colorVariations.skinBody[0],
+        .hair =         getCustomSaveData()->colorVariations.hair[0],
     };
 
     return set;
@@ -26,12 +28,13 @@ ColorVariation::Property::Array* GetEditedProperty00(ColorVariation::Object* var
 
     ColorVariation::Property::Array* properties = variation->fields.Property00;
 
-    if (properties->max_length > 0)
+    for (uint64_t i=0; i<properties->max_length; i++)
     {
-        ColorVariation::Property::MaskColor::Array* colors = properties->m_Items[0].fields.colors;
+        if (i == 1) Logger::log("Changing bike colors maybe? i=%d to index %d\n", i, index);
+        ColorVariation::Property::MaskColor::Array* colors = properties->m_Items[i].fields.colors;
 
         RomData::ColorSet set = {};
-        if (index == 255)
+        if (index == 13)
             set = GetCustomColorSet();
         else
             set = GetColorSet(index);
@@ -65,6 +68,48 @@ HOOK_DEFINE_REPLACE(ColorVariation_LateUpdate) {
     }
 };
 
+HOOK_DEFINE_REPLACE(GetColorID) {
+    static int32_t Callback() {
+        return getCustomSaveData()->colorVariations.playerColorID[0];
+    }
+};
+
+HOOK_DEFINE_REPLACE(SetColorID) {
+    static void Callback(int32_t value) {
+        getCustomSaveData()->colorVariations.playerColorID[0] = value;
+    }
+};
+
+HOOK_DEFINE_INLINE(SetColorID_Inline) {
+    static void Callback(exl::hook::nx64::InlineCtx* ctx) {
+        auto colorId = (int32_t)ctx->W[20];
+        getCustomSaveData()->colorVariations.playerColorID[0] = colorId;
+    }
+};
+
+HOOK_DEFINE_INLINE(SetColorID_TrainerParam_StoreCore) {
+    static void Callback(exl::hook::nx64::InlineCtx* ctx) {
+        auto trainerData = (Dpr::Battle::Logic::TRAINER_DATA::Object*)ctx->X[1];
+        trainerData->fields.colorID = getCustomSaveData()->colorVariations.playerColorID[0];
+        trainerData->fields.trainerID = 0;
+
+        ctx->X[1] = (uint64_t)trainerData;
+    }
+};
+
 void exl_color_variations_main() {
     ColorVariation_LateUpdate::InstallAtOffset(0x018ecd90);
+
+    GetColorID::InstallAtOffset(0x0203d3f0);
+    GetColorID::InstallAtOffset(0x02cef820);
+
+    SetColorID::InstallAtOffset(0x02cef870);
+    SetColorID_Inline::InstallAtOffset(0x02cf3c7c);
+
+    SetColorID_TrainerParam_StoreCore::InstallAtOffset(0x020387c4);
+
+    using namespace exl::armv8::inst;
+    using namespace exl::armv8::reg;
+    exl::patch::CodePatcher p(0x020388ac);
+    p.WriteInst(Nop());
 }
