@@ -1,7 +1,10 @@
 #include "exlaunch.hpp"
 
+#include "externals/BattleCharacterEntity.h"
 #include "externals/ColorVariation.h"
 #include "externals/Dpr/Battle/Logic/TRAINER_DATA.h"
+#include "externals/Dpr/Battle/View/TrainerSimpleParam.h"
+#include "externals/UnityEngine/MaterialPropertyBlock.h"
 #include "save/save.h"
 #include "romdata/data/ColorSet.h"
 #include "romdata/romdata.h"
@@ -30,7 +33,6 @@ ColorVariation::Property::Array* GetEditedProperty00(ColorVariation::Object* var
 
     for (uint64_t i=0; i<properties->max_length; i++)
     {
-        if (i == 1) Logger::log("Changing bike colors maybe? i=%d to index %d\n", i, index);
         ColorVariation::Property::MaskColor::Array* colors = properties->m_Items[i].fields.colors;
 
         RomData::ColorSet set = {};
@@ -61,9 +63,12 @@ HOOK_DEFINE_REPLACE(ColorVariation_LateUpdate) {
         system_load_typeinfo(0x2c09);
         ColorVariation::Property::Array* properties = GetEditedProperty00(__this, __this->fields.ColorIndex);
 
-        if (__this->fields.propertyBlock != nullptr && properties->max_length > 0)
+        if (__this->fields.propertyBlock != nullptr)
         {
-            properties->m_Items[0].Update(__this->fields.propertyBlock);
+            for (uint64_t i=0; i<properties->max_length; i++)
+            {
+                properties->m_Items[i].Update(__this->fields.propertyBlock);
+            }
         }
     }
 };
@@ -97,6 +102,19 @@ HOOK_DEFINE_INLINE(SetColorID_TrainerParam_StoreCore) {
     }
 };
 
+HOOK_DEFINE_INLINE(CardModelViewController_LoadModels) {
+    static void Callback(exl::hook::nx64::InlineCtx* ctx) {
+        auto trainerParam = (Dpr::Battle::View::TrainerSimpleParam::Object*)ctx->X[1];
+        auto isContest = (bool)ctx->W[2];
+        auto battleCharacterEntity = (BattleCharacterEntity*)ctx->X[20];
+
+        int32_t colorID = getCustomSaveData()->colorVariations.playerColorID[0];
+        trainerParam->fields.colorID = colorID;
+
+        battleCharacterEntity->Initialize(trainerParam, isContest);
+    }
+};
+
 void exl_color_variations_main() {
     ColorVariation_LateUpdate::InstallAtOffset(0x018ecd90);
 
@@ -107,6 +125,8 @@ void exl_color_variations_main() {
     SetColorID_Inline::InstallAtOffset(0x02cf3c7c);
 
     SetColorID_TrainerParam_StoreCore::InstallAtOffset(0x020387c4);
+
+    CardModelViewController_LoadModels::InstallAtOffset(0x01a315a4);
 
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
