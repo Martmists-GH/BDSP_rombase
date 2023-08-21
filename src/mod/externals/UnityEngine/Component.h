@@ -25,6 +25,7 @@ namespace UnityEngine {
     struct Transform;
     struct RectTransform;
     struct BoxCollider;
+    struct GameObject;
 
     struct Component : ILClass<Component, 0x04c57e88> {
         struct Fields : public UnityEngine::_Object::Fields {
@@ -54,12 +55,16 @@ namespace UnityEngine {
             return external<typename T::Object*>(0x01f48340, this, *method);
         }
 
-        void GetComponents(System::Type* type, System::Collections::Generic::List$$Component* results) {
+        inline void GetComponents(System::Type* type, System::Collections::Generic::List$$Component* results) {
             external<void>(0x026a8510, this, type, results);
         }
 
-        UnityEngine::Transform* get_transform() {
+        inline UnityEngine::Transform* get_transform() {
             return external<UnityEngine::Transform*>(0x026a8120, this);
+        }
+
+        inline UnityEngine::GameObject* get_gameObject() {
+            return external<UnityEngine::GameObject*>(0x026a8170, this);
         }
     };
 }

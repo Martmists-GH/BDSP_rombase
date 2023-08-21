@@ -21,10 +21,6 @@ namespace UnityEngine {
             return external<GameObject::Object*>(0x026b1ea0, name);
         }
 
-        inline GameObject::Object* get_gameObject() {
-            return external<GameObject::Object*>(0x026b1fa0, this);
-        }
-
         inline void SetActive(bool value) {
             external<void>(0x026b19c0, this, value);
         }

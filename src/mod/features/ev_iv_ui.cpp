@@ -292,37 +292,30 @@ HOOK_DEFINE_REPLACE(Dpr_UI_BoxStatusPanel_GetJudgeTextCode) {
 };
 
 HOOK_DEFINE_REPLACE(Dpr_UI_PokemonStatusPanelAbility__SelectRaderChartIndex) {
-    static void Callback (Dpr::UI::PokemonStatusPanelAbility::Object *panelRef,int32_t selectIndex,bool isInitialized) {
-
-    UnityEngine::Transform::Object *panelObjRef;
-    UnityEngine::GameObject::Object *gameObjRef;
-
-        if (((panelRef->fields)._selectRaderChartIndex == selectIndex) && (!isInitialized)) {
-            Logger::log("early return\n");
+    static void Callback (Dpr::UI::PokemonStatusPanelAbility::Object *panelRef, int32_t selectIndex, bool isInitialized) {
+        if (((panelRef->fields)._selectRaderChartIndex == selectIndex) && (!isInitialized))
+        {
             return;
         }
 
         (panelRef->fields)._selectRaderChartIndex = selectIndex;
 
-        for (int i = 0; i < ((UnityEngine::Transform::Object *)panelRef->fields._raderChartRoot)->get_childCount(); i++) {
-            panelObjRef = ((UnityEngine::Transform::Object *)panelRef->fields._raderChartRoot)->GetChild(i);
-            Logger::log("Got child: %08X\n", panelObjRef);
-            gameObjRef = ((UnityEngine::GameObject::Object *)panelObjRef)->get_gameObject();
-            Logger::log("Got game obj: %08X\n", gameObjRef);
-            gameObjRef->SetActive(true);
-            Logger::log("set active\n");
+        UnityEngine::Transform::Object* radarRootTransform = ((UnityEngine::Transform::Object *)panelRef->fields._raderChartRoot);
+        for (int i = 0; i < radarRootTransform->get_childCount(); i++)
+        {
+            auto panelObjTransform = radarRootTransform->GetChild(i);
+            auto gameObj = (UnityEngine::GameObject::Object*)((UnityEngine::Component::Object *)panelObjTransform)->get_gameObject();
+            gameObj->SetActive(selectIndex == i);
         }
 
-        for (int i = 0; i < panelRef->fields._chartItems->max_length; i++) {
-            gameObjRef = ((UnityEngine::GameObject::Object*)panelRef->fields._chartItems->m_Items[i]->fields.text)->get_gameObject();
-            Logger::log("Got game obj\n");
-            //gameObjRef->SetActive(selectIndex == 0);
-            //Logger::log("Set active\n");
+        for (int i = 0; i < panelRef->fields._chartItems->max_length; i++)
+        {
+            auto panelText = (UnityEngine::Component::Object*)panelRef->fields._chartItems->m_Items[i]->fields.text;
+            auto gameObj = (UnityEngine::GameObject::Object*)(panelText)->get_gameObject();
+            gameObj->SetActive(true);
         }
 
-        panelRef->PlayEffortEffects( (panelRef->fields)._pokemonParam);
-        Logger::log("Played effects\n");
-        return;
+        panelRef->PlayEffortEffects((panelRef->fields)._pokemonParam);
     }
 };
 
