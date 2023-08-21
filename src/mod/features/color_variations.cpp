@@ -4,6 +4,9 @@
 #include "externals/ColorVariation.h"
 #include "externals/Dpr/Battle/Logic/TRAINER_DATA.h"
 #include "externals/Dpr/Battle/View/TrainerSimpleParam.h"
+#include "externals/FieldCharacterEntity.h"
+#include "externals/UnityEngine/Component.h"
+#include "externals/UnityEngine/GameObject.h"
 #include "externals/UnityEngine/MaterialPropertyBlock.h"
 #include "save/save.h"
 #include "romdata/data/ColorSet.h"
@@ -14,12 +17,19 @@
 RomData::ColorSet GetCustomColorSet()
 {
     RomData::ColorSet set = {
-        .skinFace =     getCustomSaveData()->colorVariations.skinFace[0],
-        .skinMouth =    getCustomSaveData()->colorVariations.skinMouth[0],
-        .eyes =         getCustomSaveData()->colorVariations.eyes[0],
-        .eyebrows =     getCustomSaveData()->colorVariations.eyebrows[0],
-        .skinBody =     getCustomSaveData()->colorVariations.skinBody[0],
-        .hair =         getCustomSaveData()->colorVariations.hair[0],
+        .fSkinFace =     getCustomSaveData()->colorVariations.fSkinFace[0],
+        .fSkinMouth =    getCustomSaveData()->colorVariations.fSkinMouth[0],
+        .fEyes =         getCustomSaveData()->colorVariations.fEyes[0],
+        .fEyebrows =     getCustomSaveData()->colorVariations.fEyebrows[0],
+        .fSkinBody =     getCustomSaveData()->colorVariations.fSkinBody[0],
+        .fHair =         getCustomSaveData()->colorVariations.fHair[0],
+
+        .bSkinFace =     getCustomSaveData()->colorVariations.bSkinFace[0],
+        .bHairExtra =    getCustomSaveData()->colorVariations.bHairExtra[0],
+        .bEyeLeft =      getCustomSaveData()->colorVariations.bEyeLeft[0],
+        .bEyeRight =     getCustomSaveData()->colorVariations.bEyeRight[0],
+        .bSkinBody =     getCustomSaveData()->colorVariations.bSkinBody[0],
+        .bHair =         getCustomSaveData()->colorVariations.bHair[0],
     };
 
     return set;
@@ -28,6 +38,10 @@ RomData::ColorSet GetCustomColorSet()
 ColorVariation::Property::Array* GetEditedProperty00(ColorVariation::Object* variation, int32_t index)
 {
     system_load_typeinfo(0x2c09);
+    system_load_typeinfo(0x9c60);
+
+    auto component = variation->cast<UnityEngine::Component>();
+    auto gameObject = component->get_gameObject()->instance();
 
     ColorVariation::Property::Array* properties = variation->fields.Property00;
 
@@ -36,23 +50,42 @@ ColorVariation::Property::Array* GetEditedProperty00(ColorVariation::Object* var
         ColorVariation::Property::MaskColor::Array* colors = properties->m_Items[i].fields.colors;
 
         RomData::ColorSet set = {};
-        if (index == 13)
+        if (index == -1)
             set = GetCustomColorSet();
         else
             set = GetColorSet(index);
 
-        if (colors->max_length > (int32_t)RomData::ColorSetID::SKIN_FACE)
-            colors->m_Items[(int32_t)RomData::ColorSetID::SKIN_FACE].fields.color.fields = set.skinFace.fields;
-        if (colors->max_length > (int32_t)RomData::ColorSetID::SKIN_MOUTH)
-            colors->m_Items[(int32_t)RomData::ColorSetID::SKIN_MOUTH].fields.color.fields = set.skinMouth.fields;
-        if (colors->max_length > (int32_t)RomData::ColorSetID::EYES)
-            colors->m_Items[(int32_t)RomData::ColorSetID::EYES].fields.color.fields = set.eyes.fields;
-        if (colors->max_length > (int32_t)RomData::ColorSetID::EYEBROWS)
-            colors->m_Items[(int32_t)RomData::ColorSetID::EYEBROWS].fields.color.fields = set.eyebrows.fields;
-        if (colors->max_length > (int32_t)RomData::ColorSetID::SKIN_BODY)
-            colors->m_Items[(int32_t)RomData::ColorSetID::SKIN_BODY].fields.color.fields = set.skinBody.fields;
-        if (colors->max_length > (int32_t)RomData::ColorSetID::HAIR)
-            colors->m_Items[(int32_t)RomData::ColorSetID::HAIR].fields.color.fields = set.hair.fields;
+        if (gameObject->GetComponent(UnityEngine::Component::Method$$BattleCharacterEntity$$GetComponent) != nullptr)
+        {
+            if (colors->max_length > (int32_t)RomData::ColorSetID::B_SKIN_FACE)
+                colors->m_Items[(int32_t)RomData::ColorSetID::B_SKIN_FACE].fields.color.fields = set.bSkinFace.fields;
+            if (colors->max_length > (int32_t)RomData::ColorSetID::B_HAIR_EXTRA)
+                colors->m_Items[(int32_t)RomData::ColorSetID::B_HAIR_EXTRA].fields.color.fields = set.bHairExtra.fields;
+            if (colors->max_length > (int32_t)RomData::ColorSetID::B_EYE_LEFT)
+                colors->m_Items[(int32_t)RomData::ColorSetID::B_EYE_LEFT].fields.color.fields = set.bEyeLeft.fields;
+            if (colors->max_length > (int32_t)RomData::ColorSetID::B_EYE_RIGHT)
+                colors->m_Items[(int32_t)RomData::ColorSetID::B_EYE_RIGHT].fields.color.fields = set.bEyeRight.fields;
+            if (colors->max_length > (int32_t)RomData::ColorSetID::B_SKIN_BODY)
+                colors->m_Items[(int32_t)RomData::ColorSetID::B_SKIN_BODY].fields.color.fields = set.bSkinBody.fields;
+            if (colors->max_length > (int32_t)RomData::ColorSetID::B_HAIR)
+                colors->m_Items[(int32_t)RomData::ColorSetID::B_HAIR].fields.color.fields = set.bHair.fields;
+        }
+
+        if (gameObject->GetComponent(UnityEngine::Component::Method$$FieldCharacterEntity$$GetComponent) != nullptr)
+        {
+            if (colors->max_length > (int32_t)RomData::ColorSetID::F_SKIN_FACE)
+                colors->m_Items[(int32_t)RomData::ColorSetID::F_SKIN_FACE].fields.color.fields = set.fSkinFace.fields;
+            if (colors->max_length > (int32_t)RomData::ColorSetID::F_SKIN_MOUTH)
+                colors->m_Items[(int32_t)RomData::ColorSetID::F_SKIN_MOUTH].fields.color.fields = set.fSkinMouth.fields;
+            if (colors->max_length > (int32_t)RomData::ColorSetID::F_EYES)
+                colors->m_Items[(int32_t)RomData::ColorSetID::F_EYES].fields.color.fields = set.fEyes.fields;
+            if (colors->max_length > (int32_t)RomData::ColorSetID::F_EYEBROWS)
+                colors->m_Items[(int32_t)RomData::ColorSetID::F_EYEBROWS].fields.color.fields = set.fEyebrows.fields;
+            if (colors->max_length > (int32_t)RomData::ColorSetID::F_SKIN_BODY)
+                colors->m_Items[(int32_t)RomData::ColorSetID::F_SKIN_BODY].fields.color.fields = set.fSkinBody.fields;
+            if (colors->max_length > (int32_t)RomData::ColorSetID::F_HAIR)
+                colors->m_Items[(int32_t)RomData::ColorSetID::F_HAIR].fields.color.fields = set.fHair.fields;
+        }
     }
 
     return properties;

@@ -8,6 +8,9 @@
 #include "externals/System/_Object.h"
 
 // These are all to avoid cyclical definitions
+struct BattleCharacterEntity;
+struct FieldCharacterEntity;
+
 namespace System::Collections::Generic {
     struct List$$Component;
 }
@@ -25,6 +28,7 @@ namespace UnityEngine {
     struct Transform;
     struct RectTransform;
     struct BoxCollider;
+    struct GameObject;
 
     struct Component : ILClass<Component, 0x04c57e88> {
         struct Fields : public UnityEngine::_Object::Fields {
@@ -36,6 +40,8 @@ namespace UnityEngine {
         static inline StaticILMethod<0x04c66970, UnityEngine::UI::HorizontalLayoutGroup> Method$$HorizontalLayoutGroup$$GetComponent {};
         static inline StaticILMethod<0x04c66918, UnityEngine::RectTransform> Method$$RectTransform$$GetComponent {};
         static inline StaticILMethod<0x04c67050, UnityEngine::BoxCollider> Method$$BoxCollider$$GetComponent {};
+        static inline StaticILMethod<0x04c66d60, BattleCharacterEntity> Method$$BattleCharacterEntity$$GetComponent {};
+        static inline StaticILMethod<0x04c66fc0, FieldCharacterEntity> Method$$FieldCharacterEntity$$GetComponent {};
 
         template <typename T>
         inline T::Object* GetComponent() {
@@ -60,6 +66,10 @@ namespace UnityEngine {
 
         UnityEngine::Transform* get_transform() {
             return external<UnityEngine::Transform*>(0x026a8120, this);
+        }
+
+        UnityEngine::GameObject* get_gameObject() {
+            return external<UnityEngine::GameObject*>(0x026a8170, this);
         }
     };
 }

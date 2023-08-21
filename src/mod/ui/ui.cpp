@@ -13,6 +13,7 @@
 #include "data/balls.h"
 #include "save/save.h"
 #include "externals/FlagWork.h"
+#include "romdata/romdata.h"
 
 using namespace ui;
 
@@ -314,7 +315,7 @@ static Window mainWindow = Window::single([](Window &_) {
 
         auto *indexSelector = _.InputInt([](InputInt &_) {
             _.label = "Index";
-            _.min = 0;
+            _.min = -1;
             _.max = 255;
             _.value = 0;
         });
@@ -327,14 +328,26 @@ static Window mainWindow = Window::single([](Window &_) {
         });
 
         _.Button([](Button &_) {
-            _.label = "Save custom Color Variation";
+            _.label = "Save current Color Variation";
             _.onClick = []() {
-                getCustomSaveData()->colorVariations.skinFace[0]  = { .fields = { 0.69803923, 0.5647059, 0.49019608, 1 } };   // Light brown skin
-                getCustomSaveData()->colorVariations.skinMouth[0] = { .fields = { 0.69803923, 0.5647059, 0.49019608, 1 } };   // Light brown skin
-                getCustomSaveData()->colorVariations.eyes[0]      = { .fields = { 0.4862745, 0.7294118, 0.40784314, 1 } };    // Green
-                getCustomSaveData()->colorVariations.eyebrows[0]  = { .fields = { 0.4862745, 0.7294118, 0.40784314, 1 } };    // Green
-                getCustomSaveData()->colorVariations.skinBody[0]  = { .fields = { 0.69803923, 0.5647059, 0.49019608, 1 } };   // Light brown skin
-                getCustomSaveData()->colorVariations.hair[0]      = { .fields = { 0.4862745, 0.7294118, 0.40784314, 1 } };    // Green
+                if (getCustomSaveData()->colorVariations.playerColorID[0] != -1)
+                {
+                    RomData::ColorSet currentSet = GetColorSet(getCustomSaveData()->colorVariations.playerColorID[0]);
+
+                    getCustomSaveData()->colorVariations.fSkinFace[0]  = { .fields = currentSet.fSkinFace.fields };
+                    getCustomSaveData()->colorVariations.fSkinMouth[0] = { .fields = currentSet.fSkinMouth.fields };
+                    getCustomSaveData()->colorVariations.fEyes[0]      = { .fields = currentSet.fEyes.fields };
+                    getCustomSaveData()->colorVariations.fEyebrows[0]  = { .fields = currentSet.fEyebrows.fields };
+                    getCustomSaveData()->colorVariations.fSkinBody[0]  = { .fields = currentSet.fSkinBody.fields };
+                    getCustomSaveData()->colorVariations.fHair[0]      = { .fields = currentSet.fHair.fields };
+
+                    getCustomSaveData()->colorVariations.bSkinFace[0]  = { .fields = currentSet.bSkinFace.fields };
+                    getCustomSaveData()->colorVariations.bHairExtra[0] = { .fields = currentSet.bHairExtra.fields };
+                    getCustomSaveData()->colorVariations.bEyeLeft[0]   = { .fields = currentSet.bEyeLeft.fields };
+                    getCustomSaveData()->colorVariations.bEyeRight[0]  = { .fields = currentSet.bEyeRight.fields };
+                    getCustomSaveData()->colorVariations.bSkinBody[0]  = { .fields = currentSet.bSkinBody.fields };
+                    getCustomSaveData()->colorVariations.bHair[0]      = { .fields = currentSet.bHair.fields };
+                }
             };
         });
     });

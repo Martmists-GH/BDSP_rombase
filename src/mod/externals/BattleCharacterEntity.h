@@ -6,7 +6,7 @@
 #include "externals/ColorVariation.h"
 #include "externals/Dpr/Battle/View/TrainerSimpleParam.h"
 
-struct BattleCharacterEntity : ILClass<BattleCharacterEntity> {
+struct BattleCharacterEntity : ILClass<BattleCharacterEntity, 0x04c59f68> {
     struct Fields : BattleObjectEntity::Fields {
         void* _animationPlayer; // Dpr_Playables_BattleAnimationPlayer_o*
         ColorVariation::Object* _colorVariation;
