@@ -370,6 +370,26 @@ bool ToggleCollisionBox(Dpr::EvScript::EvDataManager::Object * manager)
     return true;
 }
 
+// Sets the player's ColorVariation id.
+// Arguments:
+//   [Work, Number] variation: The ColorVariation id to set the player to.
+bool SetPlayerColorIndex(Dpr::EvScript::EvDataManager::Object * manager)
+{
+    Logger::log("_SET_PLAYER_COLOR_INDEX\n");
+    system_load_typeinfo(0x6c1b);
+
+    EvData::Aregment::Array* args = manager->fields._evArg;
+
+    if (args->max_length >= 2)
+    {
+        int32_t index = GetWorkOrIntValue(args->m_Items[1]);
+        Logger::log("Calling set_colorID with color index: %d\n", index);
+        PlayerWork::set_colorID(index);
+    }
+
+    return true;
+}
+
 
 static bool ACTIVATED_COMMANDS[(int32_t)Dpr::EvScript::EvCmdID::NAME::CUSTOM_CMD_END];
 
@@ -402,6 +422,8 @@ HOOK_DEFINE_TRAMPOLINE(RunEvCmdCustom) {
                     return PartyBoxRelease(__this);
                 case Dpr::EvScript::EvCmdID::NAME::_TOGGLE_COLLISION_BOX:
                     return ToggleCollisionBox(__this);
+                case Dpr::EvScript::EvCmdID::NAME::_SET_PLAYER_COLOR_INDEX:
+                    return SetPlayerColorIndex(__this);
                 default:
                     break;
             }
@@ -426,4 +448,5 @@ void exl_commands_main() {
     SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_GET_BOX_POKE_SEIKAKU);
     SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_RELEASE_BOX_POKE);
     SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_TOGGLE_COLLISION_BOX);
+    SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_SET_PLAYER_COLOR_INDEX);
 }

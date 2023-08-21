@@ -55,6 +55,7 @@ struct TName* TName() {                                                         
 #define COMMON_ELEMENTS()                   \
 ELEMENT_SUPPORTS_CHILD(Button)              \
 ELEMENT_SUPPORTS_CHILD(Checkbox)            \
+ELEMENT_SUPPORTS_CHILD(ColorEdit3)          \
 ELEMENT_SUPPORTS_CHILD(Combo)               \
 ELEMENT_SUPPORTS_CHILD(ComboSimple)         \
 ELEMENT_SUPPORTS_CHILD(FunctionElement)     \

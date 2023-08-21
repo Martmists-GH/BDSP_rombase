@@ -4,6 +4,7 @@
 #include "ui/base/button.h"
 #include "ui/base/checkbox.h"
 #include "ui/base/child.h"
+#include "ui/base/color_edit.h"
 #include "ui/base/combo.h"
 #include "ui/base/combo_simple.h"
 #include "ui/base/menu_bar.h"
