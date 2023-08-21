@@ -15,6 +15,7 @@ static CustomSaveData gCustomSaveData {
     .trainers = {},
     .items = {},
     .berries = {},
+    .colorVariations = {},
 };
 
 const char* saveFileName = "SaveData:/Luminescent.bin";
@@ -449,5 +450,4 @@ void exl_save_main() {
         std::make_pair<uint32_t, Instruction>(0x02ceb9dc, Nop()),
     };
     p.WriteInst(inst);
-
 }

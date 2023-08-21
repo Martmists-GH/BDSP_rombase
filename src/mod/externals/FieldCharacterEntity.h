@@ -4,7 +4,7 @@
 
 #include "externals/FieldObjectEntity.h"
 
-struct FieldCharacterEntity : ILClass<FieldCharacterEntity> {
+struct FieldCharacterEntity : ILClass<FieldCharacterEntity, 0x04c5ece8> {
     struct Fields : FieldObjectEntity::Fields {
         // TODO
     };
