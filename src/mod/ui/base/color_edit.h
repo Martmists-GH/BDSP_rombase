@@ -9,9 +9,15 @@ namespace ui {
     ELEMENT(ColorEdit3) {
         std::string label;
         ImVec4 value;
+        float min = 0;
+        float max = 1;
 
         bool isValid() override {
-            return !label.empty();
+            return !label.empty() &&
+                (min <= value.x) && (value.x <= max) &&
+                (min <= value.y) && (value.y <= max) &&
+                (min <= value.z) && (value.z <= max) &&
+                (min <= value.w) && (value.w <= max);
         }
 
         void draw() override {
