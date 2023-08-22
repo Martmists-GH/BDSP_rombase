@@ -2,6 +2,7 @@
 
 #include "externals/il2cpp-api.h"
 
+#include "externals/Dpr/UI/UIInputController.h"
 #include "externals/Pml/PokePara/PokemonParam.h"
 #include "externals/UnityEngine/Events/UnityAction.h"
 #include "externals/UnityEngine/GameObject.h"
@@ -12,7 +13,7 @@ namespace Dpr::UI {
         struct Fields : UnityEngine::MonoBehaviour::Fields {
             Pml::PokePara::PokemonParam::Object* _pokemonParam;
             UnityEngine::GameObject::Object* _aButtonGuide;
-            void * input; //Dpr_UI_UIInputController_o*
+            Dpr::UI::UIInputController::Object* input;
             void * statusParam; //Dpr_UI_PokemonStatusWindow_Param_o*
             UnityEngine::Events::UnityAction::Object* onChangeMemberSelectArrow;
             UnityEngine::Events::UnityAction::Object* onChangeAbuttonGuide;

@@ -14,10 +14,23 @@ namespace Dpr {
 }
 
 namespace Dpr::UI {
-    struct UIManager : ILClass<UIManager> {
+    struct UIManager : ILClass<UIManager, 0x04c5cc28> {
         struct Fields : public SmartPoint::AssetAssistant::SingletonMonoBehaviour::Fields {
             UnityEngine::Transform::Object* _activeRoot;
             char todo[264];
+        };
+
+        struct StaticFields {
+            int32_t StickLLeft;
+            int32_t StickLRight;
+            int32_t StickLUp;
+            int32_t StickLDown;
+            int32_t ButtonA;
+            int32_t ButtonB;
+            int32_t ButtonX;
+            int32_t ButtonY;
+            int32_t ButtonPlusMinus;
+            // ...
         };
 
         static inline Dpr::UI::UIManager::Object* instance() {

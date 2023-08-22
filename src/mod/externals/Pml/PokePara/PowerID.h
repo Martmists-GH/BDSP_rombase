@@ -2,10 +2,8 @@
 
 #include "externals/il2cpp-api.h"
 
-
 namespace Pml::PokePara {
-    enum PowerID {
-        value__ = 0x0,
+    enum class PowerID : int32_t {
         HP = 0,
         ATK = 1,
         DEF = 2,

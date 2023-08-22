@@ -8,7 +8,7 @@
 
 namespace Dpr::UI {
     struct PokemonStatusPanelAbility : ILClass<PokemonStatusPanelAbility> {
-        struct ChartItem : ILClass <ChartItem>{
+        struct ChartItem : ILClass<ChartItem> {
             struct Fields {
                 Dpr::UI::UIText::Object* name;
                 Dpr::UI::UIText::Object* text;
@@ -54,6 +54,10 @@ namespace Dpr::UI {
 
         inline void PlayEffortEffects(Pml::PokePara::PokemonParam::Object *pokemonParam) {
             external<void>(0x01d99040, this, pokemonParam);
+        }
+
+        inline void SelectRaderChartIndex(int32_t selectIndex, bool isInitialized) {
+            external<void>(0x01d99260, this, selectIndex, isInitialized);
         }
     };
 }
