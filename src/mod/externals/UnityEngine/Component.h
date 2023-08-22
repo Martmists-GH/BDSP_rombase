@@ -8,6 +8,9 @@
 #include "externals/System/_Object.h"
 
 // These are all to avoid cyclical definitions
+struct BattleCharacterEntity;
+struct FieldCharacterEntity;
+
 namespace System::Collections::Generic {
     struct List$$Component;
 }
@@ -37,6 +40,8 @@ namespace UnityEngine {
         static inline StaticILMethod<0x04c66970, UnityEngine::UI::HorizontalLayoutGroup> Method$$HorizontalLayoutGroup$$GetComponent {};
         static inline StaticILMethod<0x04c66918, UnityEngine::RectTransform> Method$$RectTransform$$GetComponent {};
         static inline StaticILMethod<0x04c67050, UnityEngine::BoxCollider> Method$$BoxCollider$$GetComponent {};
+        static inline StaticILMethod<0x04c66d60, BattleCharacterEntity> Method$$BattleCharacterEntity$$GetComponent {};
+        static inline StaticILMethod<0x04c66fc0, FieldCharacterEntity> Method$$FieldCharacterEntity$$GetComponent {};
 
         template <typename T>
         inline T::Object* GetComponent() {

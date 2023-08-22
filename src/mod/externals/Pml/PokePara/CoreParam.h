@@ -117,8 +117,16 @@ namespace Pml::PokePara {
             return external<uint32_t>(0x02043970, this);
         }
 
-        inline uint32_t GetMaxHp(){
+        inline uint32_t GetMaxHp() {
             return external<uint32_t>(0x02043620, this);
+        }
+
+        inline void SetGetBall(uint32_t value) {
+            external<void>(0x0204b840, this, value);
+        }
+
+        inline void SetRareType(uint8_t type) {
+            external<void>(0x0204a920, this, type);
         }
     };
 }

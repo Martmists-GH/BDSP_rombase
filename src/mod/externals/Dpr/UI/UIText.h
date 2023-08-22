@@ -21,15 +21,13 @@ namespace Dpr::UI {
             int32_t _messageIndex;
         };
 
-        void SetupMessage(System::String* messageFile, System::String* messageId) {
+        inline void SetupMessage(System::String::Object* messageFile, System::String::Object* messageId) {
             external<void>(0x01dd18d0, this, messageFile, messageId);
         }
 
-        /*
-        inline void UpdateMessage(UIText::Object *__this, bool isForce, int32_t langId) {
-            external<void>(0x01dd1480, this, isForce, langId);
+        inline void SetupMessage(System::String::Object* messageFile, int32_t messageIndex) {
+            external<void>(0x01dd1940, this, messageFile, messageIndex);
         }
-        */
     };
 }
 

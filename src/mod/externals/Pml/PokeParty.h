@@ -18,5 +18,9 @@ namespace Pml {
         inline Pml::PokePara::PokemonParam::Object* GetMemberPointer(uint32_t idx) {
             return external<Pml::PokePara::PokemonParam::Object*>(0x020556f0, this, idx);
         }
+
+        inline bool AddMember(Pml::PokePara::PokemonParam::Object* pp) {
+            return external<bool>(0x02055fa0, this, pp);
+        }
     };
 }

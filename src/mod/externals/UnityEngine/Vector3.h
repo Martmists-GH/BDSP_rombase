@@ -9,5 +9,9 @@ namespace UnityEngine {
             float y;
             float z;
         };
+
+        inline void ctor(float x, float y, float z) {
+            external<void>(0x0299e850, this, x, y, z);
+        }
     };
 }

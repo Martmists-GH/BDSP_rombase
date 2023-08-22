@@ -2,22 +2,25 @@
 
 #include "externals/il2cpp-api.h"
 
+#include "externals/Dpr/UI/UIModelViewController.h"
 #include "externals/Dpr/UI/UIWazaManage.h"
 #include "externals/SmartPoint/AssetAssistant/SingletonMonoBehaviour.h"
+#include "externals/System/Action.h"
+#include "externals/System/Func.h"
 #include "externals/UIWindowID.h"
+#include "externals/UnityEngine/Events/UnityAction.h"
 #include "externals/UnityEngine/Transform.h"
 
-namespace Dpr {
-    namespace UI {
-        struct ShopBoutiqueChange;
-    }
+namespace Dpr::UI {
+    struct ShopBoutiqueChange;
 }
 
 namespace Dpr::UI {
     struct UIManager : ILClass<UIManager, 0x04c5cc28> {
-        struct Fields : public SmartPoint::AssetAssistant::SingletonMonoBehaviour::Fields {
+        struct Fields : SmartPoint::AssetAssistant::SingletonMonoBehaviour::Fields {
             UnityEngine::Transform::Object* _activeRoot;
-            char todo[264];
+            Dpr::UI::UIModelViewController::Object* _modelView;
+            char todo[256];
         };
 
         struct StaticFields {
@@ -30,7 +33,23 @@ namespace Dpr::UI {
             int32_t ButtonX;
             int32_t ButtonY;
             int32_t ButtonPlusMinus;
-            // ...
+            UnityEngine::Events::UnityAction::Object* onWazaFly;
+            UnityEngine::Events::UnityAction::Object* onDressChanged;
+            System::Func::Object* onFieldWaza;
+            System::Func::Object* onUseFieldItem;
+            System::Action::Object* onUseItemInBattle;
+            System::Action::Object* onUseHidenWaza;
+            System::Func::Object* onUseDowsing;
+            void* _comparerPokemonIcon; // Dpr_UI_UIManager_ComparerPokemonIcon_o*
+            void* _comparerAshiatoIcon; // Dpr_UI_UIManager_ComparerAshiatoIcon_o*
+            void* _comparerZukanDisplay; // Dpr_UI_UIManager_ComparerZukanDisplay_o*
+            void* _comparerPokemonVoice; // Dpr_UI_UIManager_ComparerPokemonVoice_o*
+            void* _comparerZukanCompareHeight; // Dpr_UI_UIManager_ComparerZukanCompareHeight_o*
+            void* _langParams; // Dpr_UI_UIManager_LangParam_array*
+            void* _pokemonParamMappings; // System_Collections_Generic_List_UIManager_PokemonParamMapping__o*
+            int32_t _id_GrayscaleAmount;
+            void* _comparerTownMapGuide; // Dpr_UI_UIManager_ComparerTownMapGuide_o*
+            void* _comparerPlaceName; // Dpr_UI_UIManager_ComparerPlaceName_o*
         };
 
         static inline Dpr::UI::UIManager::Object* instance() {
@@ -40,9 +59,16 @@ namespace Dpr::UI {
         static inline StaticILMethod<0x04c8ffe8, Dpr::UI::ShopBoutiqueChange> Method$$CreateUIWindow_ShopBoutiqueChange_ {};
         static inline StaticILMethod<0x04c90098, Dpr::UI::UIWazaManage> Method$$CreateUIWindow_UIWazaManage_ {};
 
+        static inline StaticILMethod<0x04c90130, Dpr::UI::UIWindow> Method$$GetCurrentUIWindow_UIWindow_ {};
+
         template <typename T>
         inline T::Object* CreateUIWindow(UIWindowID windowId, ILMethod<T>& method) {
             return external<typename T::Object*>(0x01cf9f20, this, (int32_t)windowId, *method);
+        }
+
+        template <typename T>
+        inline T::Object* GetCurrentUIWindow(ILMethod<T>& method) {
+            return external<typename T::Object*>(0x01cfa100, this, *method);
         }
     };
 }

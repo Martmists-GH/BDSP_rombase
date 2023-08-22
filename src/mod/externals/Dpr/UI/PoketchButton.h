@@ -44,5 +44,13 @@ namespace Dpr::UI {
         inline void Initialize(UnityEngine::Events::UnityAction* callback, int32_t seEventId) {
             external<void>(0x01e5e060, this, callback, seEventId);
         }
+
+        inline void SetRelease() {
+            external<void>(0x01e66280, this);
+        }
+
+        inline void SetTouch() {
+            external<void>(0x01e65f60, this);
+        }
     };
 }

@@ -1,0 +1,15 @@
+#pragma once
+
+#include "exlaunch.hpp"
+
+// Repoints the Pokémon model loader for UIs to the battle bundle instead of the field one if sysflag 999 is set.
+void exl_battle_bundles_in_ui_main();
+
+// Changes the boutique models to one of your choosing in works 4000 and 4001, if sysflag 998 is set.
+void exl_boutique_model_main();
+
+// Reroutes IL2CPP logs to the ExLaunch logger.
+void exl_il2cpp_log_main();
+
+// Reroutes Unity logs to the ExLaunch logger.
+void exl_unity_log_main();
