@@ -24,7 +24,7 @@ namespace ui {
                     _.label = "Field Model";
                     _.items = FIELD_PERSON_NAMES;
                     _.items_count = FIELD_PERSON_NAME_COUNT;
-                    _.selected = array_index(FIELD_PERSON_NAMES, "Lucas (Everyday Style)");
+                    _.selected = array_index(FIELD_PERSON_NAMES, "Lucas (Everyday)");
                 });
 
                 _.Button([fieldModel](Button &_) {
@@ -38,7 +38,7 @@ namespace ui {
                     _.label = "Battle Model";
                     _.items = BATTLE_PERSON_NAMES;
                     _.items_count = BATTLE_PERSON_NAME_COUNT;
-                    _.selected = array_index(BATTLE_PERSON_NAMES, "Lucas (Everyday Style)");
+                    _.selected = array_index(BATTLE_PERSON_NAMES, "Lucas (Everyday)");
                 });
 
                 _.Button([battleModel](Button &_) {
