@@ -86,6 +86,7 @@ static Window mainWindow = Window::single([](Window &_) {
     _.ColorVariationTool();
     _.SaveTool();
     _.AnimationTool();
+    _.ModelTool();
     _.MiscTool();
 });
 

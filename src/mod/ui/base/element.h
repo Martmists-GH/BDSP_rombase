@@ -79,6 +79,7 @@ ELEMENT_SUPPORTS_CHILD(VariablesTool)       \
 ELEMENT_SUPPORTS_CHILD(ColorVariationTool)  \
 ELEMENT_SUPPORTS_CHILD(SaveTool)            \
 ELEMENT_SUPPORTS_CHILD(AnimationTool)       \
+ELEMENT_SUPPORTS_CHILD(ModelTool)           \
 ELEMENT_SUPPORTS_CHILD(MiscTool)
 
     template<typename T>

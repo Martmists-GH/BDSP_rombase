@@ -3240,4 +3240,11 @@ enum class FlagWork_Work : int32_t {
     // Luminescent Works
     WK_INCENSE_SLOT = 495,
     SCWK_WK_SAVE_SIZE = 500,
+
+    // Debug works, can be replaced at any time
+    WORK_4000 = 4000,
+    WORK_4001 = 4001,
+    WORK_4002 = 4002,
+    WORK_4003 = 4003,
+    WORK_4004 = 4004,
 };

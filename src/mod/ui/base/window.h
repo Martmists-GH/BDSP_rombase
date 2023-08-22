@@ -24,6 +24,7 @@
 #include "ui/tools/color_variation_tool.h"
 #include "ui/tools/item_tool.h"
 #include "ui/tools/misc_tool.h"
+#include "ui/tools/model_tool.h"
 #include "ui/tools/pokemon_tool.h"
 #include "ui/tools/save_tool.h"
 #include "ui/tools/variables_tool.h"
