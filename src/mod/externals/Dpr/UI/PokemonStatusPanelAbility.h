@@ -25,6 +25,13 @@ namespace Dpr::UI {
             };
         };
 
+        struct DisplayClass17_1 : ILClass <DisplayClass17_1> {
+            struct Fields {
+                int32_t i;
+                DisplayClass17_0::Object* locals;
+            };
+        };
+
         struct Fields : Dpr::UI::PokemonStatusPanel::Fields {
             Dpr::UI::PokemonStatusPanelAbility::ChartItem::Array* _chartItems;
             Dpr::UI::UIText::Object* _tokuseiName;

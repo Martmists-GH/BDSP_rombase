@@ -34,5 +34,13 @@ namespace Dpr::UI {
             float _openPosX;
             float _closePosX;
         };
+
+        struct DisplayClass35_0 : ILClass <DisplayClass35_0> {
+            struct Fields {
+                Pml::PokePara::CoreParam * pokemonParam;
+                int32_t zukanNo;
+                uint16_t haveItem;
+            };
+        };
     };
 }
