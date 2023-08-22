@@ -2,6 +2,7 @@
 
 #include "externals/il2cpp-api.h"
 
+#include "externals/Dpr/UI/UIModelViewController.h"
 #include "externals/Dpr/UI/UIWazaManage.h"
 #include "externals/SmartPoint/AssetAssistant/SingletonMonoBehaviour.h"
 #include "externals/System/Action.h"
@@ -10,17 +11,16 @@
 #include "externals/UnityEngine/Events/UnityAction.h"
 #include "externals/UnityEngine/Transform.h"
 
-namespace Dpr {
-    namespace UI {
-        struct ShopBoutiqueChange;
-    }
+namespace Dpr::UI {
+    struct ShopBoutiqueChange;
 }
 
 namespace Dpr::UI {
     struct UIManager : ILClass<UIManager> {
-        struct Fields : public SmartPoint::AssetAssistant::SingletonMonoBehaviour::Fields {
+        struct Fields : SmartPoint::AssetAssistant::SingletonMonoBehaviour::Fields {
             UnityEngine::Transform::Object* _activeRoot;
-            char todo[264];
+            Dpr::UI::UIModelViewController::Object* _modelView;
+            char todo[256];
         };
 
         struct StaticFields {

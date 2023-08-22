@@ -96,5 +96,13 @@ namespace Pml::PokePara {
         inline bool CheckWazaMachine(uint32_t machineNo) {
             return external<bool>(0x02046b40, this, machineNo);
         }
+
+        inline void SetGetBall(uint32_t value) {
+            external<void>(0x0204b840, this, value);
+        }
+
+        inline void SetRareType(uint8_t type) {
+            external<void>(0x0204a920, this, type);
+        }
     };
 }

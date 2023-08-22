@@ -1,6 +1,7 @@
 #pragma once
 
-#include <cstdint>
+#include "externals/il2cpp-api.h"
+#include "externals/DPData/PoffinData.h"
 
 namespace DPData {
     struct PoffinSaveData : ILStruct<PoffinSaveData> {
@@ -8,5 +9,13 @@ namespace DPData {
             void* Poffins;
             int32_t CookingCount;
         };
+
+        static inline bool AddPoffin(DPData::PoffinData::Object poffin) {
+            return external<bool>(0x0229b1b0, poffin);
+        }
+
+        inline DPData::PoffinData::Object GetPoffin(int32_t index) {
+            return external<DPData::PoffinData::Object>(0x0229bb80, this, index);
+        }
     };
 }

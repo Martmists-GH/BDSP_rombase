@@ -34,6 +34,5 @@ void exl_features_main() {
     //exl_tms_main();
 
     // Debug features
-    //exl_il2cpp_log_main();
-    //exl_unity_log_main();
+    exl_debug_features_main();
 }

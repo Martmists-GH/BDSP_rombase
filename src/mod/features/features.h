@@ -25,6 +25,9 @@ void exl_color_variations_main();
 // Adds support for new ev_script commands.
 void exl_commands_main();
 
+// Activates debug features defined in debug/debug.h.
+void exl_debug_features_main();
+
 // Rewrites the methods that deal with determining a zone's encounter slots.
 // Defaults to changing slots how Luminescent does it.
 void exl_encounter_slots_main();
@@ -35,16 +38,13 @@ void exl_exp_share_main();
 // Adds functionality to the Exp. Share item.
 void exl_form_change_held_items_main();
 
-// Adds Gender Neutral Boutique
+// Makes all Boutique outfits (of both Lucas and Dawn) available at the start.
 void exl_gender_neutral_boutique_main();
 
 // Replaces every instance of Hidden Power being shown as "Normal" type with its actual type for the Pokémon.
 void exl_hidden_power_ui_main();
 
-// Reroutes IL2CPP logs to the ExLaunch logger.
-void exl_il2cpp_log_main();
-
-//Enables Everlasting Candy and Ability Patch changes
+// Applies changes to items, defined in items/items.h.
 void exl_items_changes_main();
 
 // Adds new key item functionality.
@@ -83,9 +83,6 @@ void exl_sounds_main();
 
 // Makes TMs infinite use.
 void exl_tms_main();
-
-// Reroutes Unity logs to the ExLaunch logger.
-void exl_unity_log_main();
 
 // Adds support for wild Pokémon of any form number.
 void exl_wild_forms_main();

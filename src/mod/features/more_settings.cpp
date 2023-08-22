@@ -102,7 +102,6 @@ HOOK_DEFINE_TRAMPOLINE(AddSettingsEntries) {
         auto res = Orig(__this);
 
         auto window = __this->fields.__4__this;
-        ui_inspect(window->cast<UnityEngine::Component>()->get_transform());
         if (window->fields._activeItems->fields._size > 13) {
             return res;
         }

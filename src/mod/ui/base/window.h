@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+
+#include "helpers.h"
 #include "ui/base/element.h"
 #include "ui/base/button.h"
 #include "ui/base/checkbox.h"
@@ -14,10 +16,19 @@
 #include "ui/base/spacing.h"
 #include "ui/base/text.h"
 #include "ui/base/text_unformatted.h"
-#include "ui/components/string_view.h"
-#include "ui/components/file_selector.h"
 #include "ui/components/element_inspector.h"
-#include "helpers.h"
+#include "ui/components/file_selector.h"
+#include "ui/components/string_view.h"
+#include "ui/tools/animation_tool.h"
+#include "ui/tools/arena_tool.h"
+#include "ui/tools/color_variation_tool.h"
+#include "ui/tools/item_tool.h"
+#include "ui/tools/misc_tool.h"
+#include "ui/tools/model_tool.h"
+#include "ui/tools/pokemon_tool.h"
+#include "ui/tools/save_tool.h"
+#include "ui/tools/variables_tool.h"
+#include "ui/tools/warp_tool.h"
 
 static ImVec2 gInvalidVec { -1, -1 };
 
@@ -65,6 +76,7 @@ namespace ui {
 
         ELEMENT_SUPPORTS_CHILD(CollapsingHeader);
         ELEMENT_SUPPORTS_CHILD(Child);
+        TOOL_ELEMENTS();
         COMMON_ELEMENTS();
     };
 }
