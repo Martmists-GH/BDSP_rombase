@@ -55,6 +55,8 @@ HOOK_DEFINE_REPLACE(CheckUnbreakablePokeItem) {
                 return true;
             }
         }
+
+        return false;
     }
 };
 
