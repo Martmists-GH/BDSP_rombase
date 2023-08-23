@@ -8,6 +8,7 @@
 namespace TMPro {
     struct TextMeshProUGUI : ILClass<TextMeshProUGUI, 0x04c59018> {
         struct Fields : TMPro::TMP_Text::Fields {
+            // TODO: Insert missing classes/structs so that the rest below are aligned.
             bool m_hasFontAssetChanged;
             void* m_subTextObjects; //TMPro_TMP_SubMeshUI_array*
             float m_previousLossyScaleY;

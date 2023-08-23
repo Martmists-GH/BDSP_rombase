@@ -3,7 +3,7 @@
 #include "externals/il2cpp-api.h"
 
 namespace UnityEngine {
-    struct Matrix4x4 : ILClass<Matrix4x4> {
+    struct Matrix4x4 : ILStruct<Matrix4x4> {
         struct Fields {
             float m00;
             float m10;

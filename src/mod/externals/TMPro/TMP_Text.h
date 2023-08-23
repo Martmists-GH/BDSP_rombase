@@ -1,6 +1,7 @@
 #pragma once
 
 #include "externals/il2cpp-api.h"
+#include "externals/TMPro/VertexGradient.h"
 #include "externals/UnityEngine/UI/MaskableGraphic.h"
 #include "externals/UnityEngine/Color32.h"
 
@@ -23,22 +24,22 @@ namespace TMPro {
             bool m_isMaterialDirty;
             UnityEngine::Color32::Object m_fontColor32;
             UnityEngine::Color::Object m_fontColor;
-            void* m_underlineColor; //UnityEngine_Color32_o
-            void* m_strikethroughColor; //UnityEngine_Color32_o
+            UnityEngine::Color32::Object m_underlineColor;
+            UnityEngine::Color32::Object m_strikethroughColor;
             bool m_enableVertexGradient;
             int32_t m_colorMode;
-            void* m_fontColorGradient; //TMPro_VertexGradient_o
+            TMPro::VertexGradient::Object m_fontColorGradient;
             void* m_fontColorGradientPreset; //TMPro_TMP_ColorGradient_o*
             void* m_spriteAsset; //TMPro_TMP_SpriteAsset_o*
             bool m_tintAllSprites;
             bool m_tintSprite;
-            void* m_spriteColor; //UnityEngine_Color32_o
+            UnityEngine::Color32::Object m_spriteColor;
             void* m_StyleSheet; //TMPro_TMP_StyleSheet_o*
             void* m_TextStyle; //TMPro_TMP_Style_o*
             int32_t m_TextStyleHashCode;
             bool m_overrideHtmlColors;
-            void* m_faceColor; //UnityEngine_Color32_o
-            void* m_outlineColor; //UnityEngine_Color32_o
+            UnityEngine::Color32::Object m_faceColor; //UnityEngine_Color32_o
+            UnityEngine::Color32::Object m_outlineColor; //UnityEngine_Color32_o
             float m_outlineWidth;
             float m_fontSize;
             float m_currentFontSize;
@@ -46,6 +47,8 @@ namespace TMPro {
             void* m_sizeStack; //TMPro_TMP_TextProcessingStack_float__o
             int32_t m_fontWeight;
             int32_t m_FontWeightInternal;
+
+            // TODO: Insert missing classes/structs so that the rest below are aligned.
             void* m_FontWeightStack; //TMPro_TMP_TextProcessingStack_FontWeight__o
             bool m_enableAutoSizing;
             float m_maxFontSize;
