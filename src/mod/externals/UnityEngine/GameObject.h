@@ -21,6 +21,14 @@ namespace UnityEngine {
             return external<GameObject::Object*>(0x026b1ea0, name);
         }
 
+        inline void SetActive(bool value) {
+            external<void>(0x026b19c0, this, value);
+        }
+
+        inline bool get_activeSelf() {
+            return external<bool>(0x026b1a10, this);
+        }
+
         template <typename T>
         inline T::Object* GetComponent() {
             return GetComponent(T::getClass());

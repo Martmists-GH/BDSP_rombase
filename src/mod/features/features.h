@@ -35,7 +35,10 @@ void exl_encounter_slots_main();
 // Adds functionality to the Exp. Share item.
 void exl_exp_share_main();
 
-// Adds functionality to the Exp. Share item.
+// Adds EV/IV to Summary UI with number based color gradient
+void exl_ev_iv_ui_main();
+
+// Adds new Pokémon/held item combos that trigger a form change when held.
 void exl_form_change_held_items_main();
 
 // Makes all Boutique outfits (of both Lucas and Dawn) available at the start.

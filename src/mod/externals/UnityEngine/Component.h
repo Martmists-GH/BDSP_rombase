@@ -60,15 +60,15 @@ namespace UnityEngine {
             return external<typename T::Object*>(0x01f48340, this, *method);
         }
 
-        void GetComponents(System::Type* type, System::Collections::Generic::List$$Component* results) {
+        inline void GetComponents(System::Type* type, System::Collections::Generic::List$$Component* results) {
             external<void>(0x026a8510, this, type, results);
         }
 
-        UnityEngine::Transform* get_transform() {
+        inline UnityEngine::Transform* get_transform() {
             return external<UnityEngine::Transform*>(0x026a8120, this);
         }
 
-        UnityEngine::GameObject* get_gameObject() {
+        inline UnityEngine::GameObject* get_gameObject() {
             return external<UnityEngine::GameObject*>(0x026a8170, this);
         }
     };

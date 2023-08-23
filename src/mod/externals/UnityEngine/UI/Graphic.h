@@ -14,7 +14,7 @@ namespace UnityEngine::UI {
             bool m_SkipLayoutUpdate;
             bool m_SkipMaterialUpdate;
             bool m_RaycastTarget;
-            UnityEngine::RectTransform::Object m_RectTransform;
+            UnityEngine::RectTransform::Object* m_RectTransform;
             void* m_CanvasRenderer;
             void* m_Canvas;
             bool m_VertsDirty;

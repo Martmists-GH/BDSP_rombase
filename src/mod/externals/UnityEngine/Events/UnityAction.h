@@ -23,6 +23,10 @@ namespace UnityEngine::Events {
             external<void>(0x026adeb0, this, owner, mi);
         }
 
+        inline void Invoke() {
+            external<void>(0x026a3140, this);
+        }
+
         inline void ctor() {
             external<void>(0x026adeb0, this);
         }

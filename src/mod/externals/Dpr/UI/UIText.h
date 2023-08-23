@@ -4,11 +4,12 @@
 #include "externals/UnityEngine/UI/MaskableGraphic.h"
 #include "externals/System/String.h"
 #include "externals/System/Collections/Generic/List.h"
+#include "externals/TMPro/TextMeshProUGUI.h"
 
 namespace Dpr::UI {
     struct UIText : ILClass<UIText> {
-        struct Fields {
-            char super[0x798];
+        struct Fields : TMPro::TextMeshProUGUI::Fields {
+            // TODO: The class this inherits from has misaligned fields because of missing classes/structs.
             int32_t _sizeId;
             bool _useMessage;
             System::String::Object* _messageFile;

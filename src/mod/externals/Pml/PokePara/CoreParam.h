@@ -97,6 +97,30 @@ namespace Pml::PokePara {
             return external<bool>(0x02046b40, this, machineNo);
         }
 
+        inline uint32_t GetPower(int32_t powerId) {
+            return external<uint32_t>(0x020435c0, this, powerId);
+        }
+
+        inline bool IsTrainingDone(int32_t powerId) {
+            return external<bool>(0x02044680, this, powerId);
+        }
+
+        inline uint32_t GetTalentPower(int32_t powerId) {
+            return external<uint32_t>(0x02044610, this, powerId);
+        }
+
+        inline uint32_t GetEffortPower(int32_t powerId){
+            return external<uint32_t>(0x02044c50, this, powerId);
+        }
+
+        inline uint32_t GetHp(){
+            return external<uint32_t>(0x02043970, this);
+        }
+
+        inline uint32_t GetMaxHp() {
+            return external<uint32_t>(0x02043620, this);
+        }
+
         inline void SetGetBall(uint32_t value) {
             external<void>(0x0204b840, this, value);
         }

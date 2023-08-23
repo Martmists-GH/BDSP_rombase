@@ -16,7 +16,7 @@ namespace Dpr::UI {
 }
 
 namespace Dpr::UI {
-    struct UIManager : ILClass<UIManager> {
+    struct UIManager : ILClass<UIManager, 0x04c5cc28> {
         struct Fields : SmartPoint::AssetAssistant::SingletonMonoBehaviour::Fields {
             UnityEngine::Transform::Object* _activeRoot;
             Dpr::UI::UIModelViewController::Object* _modelView;
