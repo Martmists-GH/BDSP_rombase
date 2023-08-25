@@ -2,6 +2,8 @@
 
 #include "externals/il2cpp-api.h"
 
+#include "externals/System/String.h"
+
 namespace Pml::PokePara {
     struct Accessor : ILClass<Accessor> {
         inline void SetLangID(uint8_t langId) {
@@ -22,6 +24,50 @@ namespace Pml::PokePara {
         
         inline void SetGetBall(uint8_t ball) {
             external<void>(0x024aaba0, this, ball);
+        }
+
+        inline bool HaveCalcData() {
+            return external<bool>(0x024a40f0, this);
+        }
+
+        inline uint32_t GetLevel() {
+            return external<uint32_t>(0x024a71a0, this);
+        }
+
+        inline uint8_t GetOyasex() {
+            return external<uint8_t>(0x024a7120, this);
+        }
+
+        inline uint32_t GetID() {
+            return external<uint32_t>(0x024a4f50, this);
+        }
+
+        inline bool CompareOyaName(System::String::Object* cmpName) {
+            return external<bool>(0x024a7eb0, this, cmpName);
+        }
+
+        inline uint32_t GetFriendship() {
+            return external<uint32_t>(0x024a5030, this);
+        }
+
+        inline uint8_t GetOthersFriendship() {
+            return external<uint8_t>(0x024a7960, this);
+        }
+
+        inline uint8_t GetBeautiful() {
+            return external<uint8_t>(0x024a5910, this);
+        }
+
+        inline uint32_t GetItemNo() {
+            return external<uint32_t>(0x024a4ee0, this);
+        }
+
+        inline bool IsTamago() {
+            return external<bool>(0x024a68b0, this);
+        }
+
+        inline bool IsFuseiTamago() {
+            return external<bool>(0x024a4bc0, this);
         }
     };
 }

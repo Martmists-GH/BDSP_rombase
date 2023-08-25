@@ -22,5 +22,9 @@ namespace Pml {
         inline bool AddMember(Pml::PokePara::PokemonParam::Object* pp) {
             return external<bool>(0x02055fa0, this, pp);
         }
+
+        inline bool CheckPokeExist(int32_t monsno) {
+            return external<bool>(0x02053170, this, monsno);
+        }
     };
 }

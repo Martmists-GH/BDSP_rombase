@@ -15,5 +15,13 @@ namespace Pml::PokePara {
         static inline uint32_t CorrectColorRndForRareType(uint32_t id, uint32_t rnd, uint8_t type) {
             return external<uint32_t>(0x024adce0, id, rnd, type);
         }
+
+        static inline bool IsSeikakuHigh(int32_t seikaku) {
+            return external<bool>(0x024adf10, seikaku);
+        }
+
+        static inline bool IsSeikakuLow(int32_t seikaku) {
+            return external<bool>(0x024ae000, seikaku);
+        }
     };
 }

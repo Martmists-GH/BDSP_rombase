@@ -3,6 +3,7 @@
 #include "externals/il2cpp-api.h"
 
 #include "externals/GameSettings.h"
+#include "externals/PeriodOfDay.h"
 #include "externals/ScriptableObjectFormat/PokemonData.h"
 #include "externals/SmartPoint/AssetAssistant/SingletonMonoBehaviour.h"
 #include "externals/System/String.h"
@@ -42,8 +43,8 @@ struct GameManager : ILClass<GameManager, 0x04c59b50> {
         return external<XLSXContent::MapInfo::Object*>(0x02cca5f0);
     }
 
-    static inline int32_t get_currentPeriodOfDay() {
-        return external<int32_t>(0x02cd0c60);
+    static inline PeriodOfDay get_currentPeriodOfDay() {
+        return external<PeriodOfDay>(0x02cd0c60);
     }
 
     static inline int32_t GetUrayamaMonsNo(int32_t index) {

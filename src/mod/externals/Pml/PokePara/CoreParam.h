@@ -3,6 +3,7 @@
 #include "externals/il2cpp-api.h"
 
 #include "externals/Pml/PokePara/Accessor.h"
+#include "externals/Pml/PokePara/EggCheckType.h"
 #include "externals/Pml/WazaNo.h"
 
 namespace Pml::PokePara {
@@ -29,7 +30,7 @@ namespace Pml::PokePara {
             return external<bool>(0x0204c9d0, this);
         }
 
-        inline bool IsEgg(int32_t type) {
+        inline bool IsEgg(Pml::PokePara::EggCheckType type) {
             return external<bool>(0x02049370, this, type);
         }
 
@@ -127,6 +128,34 @@ namespace Pml::PokePara {
 
         inline void SetRareType(uint8_t type) {
             external<void>(0x0204a920, this, type);
+        }
+
+        inline uint8_t CalcLevel() {
+            return external<uint8_t>(0x02043e80, this);
+        }
+
+        inline uint32_t GetAtk() {
+            return external<uint32_t>(0x020436a0, this);
+        }
+
+        inline uint32_t GetDef() {
+            return external<uint32_t>(0x02043720, this);
+        }
+
+        inline uint32_t GetPersonalRnd() {
+            return external<uint32_t>(0x0204a690, this);
+        }
+
+        inline uint8_t GetType1() {
+            return external<uint8_t>(0x0204a9f0, this);
+        }
+
+        inline uint8_t GetType2() {
+            return external<uint8_t>(0x0204aaf0, this);
+        }
+
+        inline void SetFriendship(uint32_t value) {
+            external<void>(0x02049070, this, value);
         }
     };
 }
