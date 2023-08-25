@@ -2,10 +2,22 @@
 
 #include "externals/il2cpp-api.h"
 
+#include "externals/System/Primitives.h"
 #include "externals/System/String.h"
 
 namespace Pml::PokePara {
     struct Accessor : ILClass<Accessor> {
+        struct AccessState : ILStruct<AccessState> {
+            bool isEncoded;
+            bool isFastMode;
+        };
+
+        struct Fields {
+            System::Byte_array* m_pCalcData;
+            System::Byte_array* m_pCoreData;
+            Pml::PokePara::Accessor::AccessState::Object m_accessState;
+        };
+
         inline void SetLangID(uint8_t langId) {
             external<void>(0x024a8bb0, this, langId);
         }

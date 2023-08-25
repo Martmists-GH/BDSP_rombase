@@ -17,6 +17,16 @@
 #include "externals/XLSXContent/EvolveTable.h"
 #include "logger/logger.h"
 
+struct ExtraEvoData {
+    uint32_t personalRnd;
+    uint16_t totalTurnCount;
+    uint16_t criticalCount;
+    uint16_t totalDamageReceived;
+    uint16_t deadCount;
+};
+
+static ExtraEvoData extraEvoData[6] = { {},{},{},{},{},{} };
+
 uint32_t GetFriendship(Pml::PokePara::Accessor::Object* accessor, Pml::PokePara::OwnerInfo::Object* ownerInfo)
 {
     if (ownerInfo->fields.sex == accessor->GetOyasex() &&
@@ -75,10 +85,43 @@ bool HasPokemonTypeInParty(Pml::PokeParty::Object* party, uint8_t type)
     return false;
 }
 
-bool IsGameVersion(uint16_t version) {
+bool IsGameVersion(uint16_t version)
+{
     Pml::PmlUse::getClass()->initIfNeeded();
     auto pmlUse = Pml::PmlUse::get_Instance();
     return (uint16_t)pmlUse->get_CassetVersion() == version;
+}
+
+int32_t FindExtraDataByPoke(Pml::PokePara::CoreParam::Object* poke)
+{
+    for (int32_t i=0; i<6; i++)
+    {
+        Logger::log("%d: %08X and %08X\n", i, extraEvoData[i].personalRnd, poke->GetPersonalRnd());
+        if (extraEvoData[i].personalRnd == poke->GetPersonalRnd())
+            return i;
+    }
+
+    return -1;
+}
+
+void ClearExtraEvoData()
+{
+    for (auto &i : extraEvoData)
+    {
+        i.personalRnd = 0;
+        i.totalTurnCount = 0;
+        i.criticalCount = 0;
+        i.totalDamageReceived = 0;
+        i.deadCount = 0;
+    }
+}
+
+void LogExtraData()
+{
+    for (auto &i : extraEvoData)
+    {
+        Logger::log("ExtraData: rnd %d, turn %d, crit %d, dmg %d, dead %d\n", i.personalRnd, i.totalTurnCount, i.criticalCount, i.totalDamageReceived, i.deadCount);
+    }
 }
 
 HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
@@ -87,6 +130,7 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
         system_load_typeinfo(0x4724);
 
         Logger::log("IsSatisfyEvolveConditionLevelUp\n");
+        LogExtraData();
 
         Pml::Personal::EvolveCond evolutionCondition = Pml::Personal::EvolveTableExtensions::GetEvolutionCondition(evolveData, evolveRouteIndex);
         uint16_t evolutionParam = Pml::Personal::EvolveTableExtensions::GetEvolutionParam(evolveData, evolveRouteIndex);
@@ -112,6 +156,11 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
                 return false;
             }
         }
+
+        Logger::log("Finding extra data\n");
+
+        int32_t extraDataIndex = FindExtraDataByPoke(poke);
+        Logger::log("Found %d\n", extraDataIndex);
 
         Logger::log("Checking Conditions\n");
 
@@ -249,12 +298,18 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
                 return situation->fields.isUltraSpace;
 
             case Pml::Personal::EvolveCond::CRITICAL_HIT: // Critical hits
-                Logger::log("CRITICAL_HIT %d\n", situation->fields.criticalHitCount);
-                return !poke->IsHpZero() && situation->fields.criticalHitCount >= 3;
+                Logger::log("CRITICAL_HIT\n");
+                if (extraDataIndex != -1) {
+                    Logger::log("  crits %d\n", extraEvoData[extraDataIndex].criticalCount);
+                    return extraEvoData[extraDataIndex].criticalCount >= evolutionParam;
+                }
 
-            case Pml::Personal::EvolveCond::TOTAL_DAMAGE_RECIEVED: // Total recoil damage?
+            case Pml::Personal::EvolveCond::TOTAL_DAMAGE_RECIEVED: // Total damage recieved in last battle
                 Logger::log("TOTAL_DAMAGE_RECIEVED\n");
-                // TODO
+                if (extraDataIndex != -1) {
+                    Logger::log("  damage: %d\n", extraEvoData[extraDataIndex].totalDamageReceived);
+                    return extraEvoData[extraDataIndex].totalDamageReceived >= evolutionParam;
+                }
                 return false;
 
             case Pml::Personal::EvolveCond::SEIKAKU_HIGH: // Amped nature
@@ -273,16 +328,28 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
 
 HOOK_DEFINE_INLINE(BattleProc_FinalizeCoroutine_AdjustEvolveSituation) {
     static void Callback(exl::hook::nx64::InlineCtx* ctx) {
-        auto evolveSituation = (Pml::PokePara::EvolveSituation::Object*)ctx->X[4];
-        uint32_t index = ctx->W[22];
-
+        auto party = (Pml::PokeParty::Object*)ctx->X[0];
+        uint32_t index = ctx->W[1];
+        auto poke = (Pml::PokePara::CoreParam::Object*)party->GetMemberPointer(index);
+        auto evolveSituation = (Pml::PokePara::EvolveSituation::Object*)ctx->X[20];
         auto pokeResult = Dpr::Battle::Logic::BattleProc::getClass()->static_fields->setupParam->fields.pokeResult;
 
         evolveSituation->fields.criticalHitCount = (uint8_t)pokeResult->m_Items[index]->fields.criticalCount;
+
+        extraEvoData[index].personalRnd = poke->GetPersonalRnd();
+        extraEvoData[index].totalDamageReceived = pokeResult->m_Items[index]->fields.totalDamageRecieved;
+
+        ctx->X[0] = (uint64_t)poke;
     }
 };
 
 void exl_evolution_methods_main() {
     IsSatisfyEvolveConditionLevelUp::InstallAtOffset(0x020525d0);
-    BattleProc_FinalizeCoroutine_AdjustEvolveSituation::InstallAtOffset(0x0187e5ec);
+    BattleProc_FinalizeCoroutine_AdjustEvolveSituation::InstallAtOffset(0x0187e5b8);
+
+    // Always check for evolutions, even if none are ready, and clear the extra data before checking
+    using namespace exl::armv8::inst;
+    using namespace exl::armv8::reg;
+    exl::patch::CodePatcher p(0x0187e484);
+    p.BranchLinkInst((void*)&ClearExtraEvoData);
 }
