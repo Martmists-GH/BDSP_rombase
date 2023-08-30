@@ -2,6 +2,7 @@
 
 #include "ui/base/root_element.h"
 #include "ui/base/window.h"
+#include "ui/components/data_viewer.h"
 #include "ui/components/element_inspector.h"
 #include "ui/ui.h"
 
@@ -21,6 +22,10 @@ static Window debugLogWindow = Window::single([](Window &_) {
 });
 
 static ElementInspector inspector = ElementInspector::single([](ElementInspector &_) {
+
+});
+
+static DataViewer dataViewer = DataViewer::single([](DataViewer &_) {
 
 });
 
@@ -51,6 +56,15 @@ static Window inspectorWindow = Window::single([](Window &_) {
     _.addChild(&inspector);
 });
 
+static Window dataViewerWindow = Window::single([](Window &_) {
+    _.title = "Data Viewer";
+    _.flags |= ImGuiWindowFlags_MenuBar;
+    _.initialPos = ImVec2(550, 50);
+    _.initialSize = ImVec2(150, 150);
+    _.allow_static = true;
+    _.addChild(&dataViewer);
+});
+
 static Window mainWindow = Window::single([](Window &_) {
     _.title = "BDSP Toolbox";
     _.toggleable = false;
@@ -75,6 +89,10 @@ static Window mainWindow = Window::single([](Window &_) {
                 _.label = "Inspector";
                 _.checked = &inspectorWindow.open;
             });
+            _.MenuItem([](MenuItem &_) {
+                _.label = "Data Viewer";
+                _.checked = &dataViewerWindow.open;
+            });
         });
     });
 
@@ -94,4 +112,5 @@ void setup_ui() {
     ROOT->addChild(&mainWindow);
     ROOT->addChild(&debugLogWindow);
     ROOT->addChild(&inspectorWindow);
+    ROOT->addChild(&dataViewerWindow);
 }
