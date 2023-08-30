@@ -56,6 +56,9 @@ void exl_key_items_main();
 // Adds the Level Cap functionality.
 void exl_level_cap_main();
 
+// Adds audio feedback when "bonking" into NPCs.
+void exl_npc_collision_audio_main();
+
 // Applies multiple small one-line patches.
 void exl_patches_main();
 
