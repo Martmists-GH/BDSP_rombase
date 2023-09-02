@@ -68,6 +68,7 @@ ELEMENT_SUPPORTS_CHILD(Text)                \
 ELEMENT_SUPPORTS_CHILD(TextUnformatted)     \
 ELEMENT_SUPPORTS_CHILD(FileSelector)        \
 ELEMENT_SUPPORTS_CHILD(ElementInspector)    \
+ELEMENT_SUPPORTS_CHILD(DataViewer)          \
 ELEMENT_SUPPORTS_CHILD(StringView)
 
 #define TOOL_ELEMENTS()                     \
