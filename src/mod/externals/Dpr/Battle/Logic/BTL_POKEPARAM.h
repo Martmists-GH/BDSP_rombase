@@ -70,5 +70,9 @@ namespace Dpr::Battle::Logic {
         inline uint16_t GetItem() {
             return external<uint16_t>(0x01fdfd50, this);
         }
+
+        inline Dpr::Battle::Logic::BTL_POKEPARAM::Object * GetBattlePokeParam(int32_t pos) {
+            return external<Dpr::Battle::Logic::BTL_POKEPARAM::Object *>(0x01887530, this);
+        }
     };
 }
