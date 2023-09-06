@@ -16,6 +16,10 @@ void exl_badge_check_main();
 // Adds support for new Poké Balls.
 void exl_balls_main();
 
+// Makes it possible to set a flag to prevent escape from a wild encounter.
+// Defaults to flag
+void exl_battle_escape_flag_main();
+
 // Makes the battle menu scroll instead of the cursor.
 void exl_battle_revolver_main();
 

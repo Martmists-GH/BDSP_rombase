@@ -7,6 +7,7 @@ void exl_features_main() {
     exl_area_zone_codes_main();
     exl_badge_check_main();
     exl_balls_main();
+    exl_battle_escape_flag_main();
     exl_color_variations_main();
     exl_commands_main();
     exl_encounter_slots_main();
