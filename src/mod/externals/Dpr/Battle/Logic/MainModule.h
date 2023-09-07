@@ -3,6 +3,8 @@
 #include "externals/il2cpp-api.h"
 #include "externals/System/Primitives.h"
 #include "externals/Dpr/BallDeco/CapsuleData.h"
+#include "externals/Dpr/Battle/Logic/BATTLE_SETUP_PARAM.h"
+#include "externals/Dpr/Battle/Logic/BtlRule.h"
 #include "externals/Dpr/Battle/Logic/MyStatus.h"
 #include "externals/Pml/PokeParty.h"
 #include "BTL_POKEPARAM.h"
@@ -10,7 +12,7 @@
 namespace Dpr::Battle::Logic {
     struct MainModule : ILClass<MainModule> {
         struct Fields {
-            void* m_setupParam;
+            Dpr::Battle::Logic::BATTLE_SETUP_PARAM::Object* m_setupParam;
             void* m_viewCore;
             void* m_randSys;
             uint64_t m_randomSeed;
@@ -23,7 +25,7 @@ namespace Dpr::Battle::Logic {
             Pml::PokeParty::Object* m_tmpParty;
             Dpr::Battle::Logic::MyStatus::Object* m_playerStatus;
             System::Boolean_array* m_fClientQuit;
-            int32_t m_rule;
+            BtlRule m_rule;
             uint32_t m_regularMoney;
             uint32_t m_bonusMoney;
             uint32_t m_loseMoney;
