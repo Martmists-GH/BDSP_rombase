@@ -3,21 +3,22 @@
 #include "externals/Dpr/Battle/Logic/BtlCompetitor.h"
 #include "externals/Dpr/Battle/Logic/BtlEscapeMode.h"
 #include "externals/Dpr/Battle/Logic/BtlRule.h"
-#include "externals/Dpr/Battle/Logic/EventFactor.h"
 #include "externals/Dpr/Battle/Logic/MainModule.h"
 #include "externals/Dpr/Battle/Logic/Section_UseItem_Core.h"
 #include "externals/FlagWork.h"
 
-#include "logger/logger.h"
-
 using namespace Dpr::Battle::Logic;
+
+bool GetCantEscapeFlag()
+{
+    return FlagWork::GetFlag(FlagWork_Flag::FLAG_CANT_ESCAPE);
+}
 
 bool CanRunFromBattle(BtlRule rule, BtlCompetitor competitor)
 {
     // Disallow escaping if can't escape flag is on
-    if (FlagWork::GetFlag(FlagWork_Flag::FLAG_CANT_ESCAPE))
+    if (GetCantEscapeFlag())
     {
-        Logger::log("  Can't Escape!\n");
         return false;
     }
 
@@ -41,12 +42,11 @@ bool CanRunFromBattle(BtlRule rule, BtlCompetitor competitor)
     return false;
 }
 
-bool CanUseEscapeItemInBattle(BtlRule rule, BtlCompetitor competitor)
+bool CanTriggerEscapeInBattle(BtlRule rule, BtlCompetitor competitor)
 {
     // Disallow escaping if can't escape flag is on
-    if (FlagWork::GetFlag(FlagWork_Flag::FLAG_CANT_ESCAPE))
+    if (GetCantEscapeFlag())
     {
-        Logger::log("  Can't Escape!\n");
         return false;
     }
 
@@ -73,9 +73,8 @@ bool CanUseEscapeItemInBattle(BtlRule rule, BtlCompetitor competitor)
 BtlEscapeMode GetBattleEscapeMode(BtlRule rule, BtlCompetitor competitor)
 {
     // Disallow escaping if can't escape flag is on
-    if (FlagWork::GetFlag(FlagWork_Flag::FLAG_CANT_ESCAPE))
+    if (GetCantEscapeFlag())
     {
-        Logger::log("  Can't Escape!\n");
         return BtlEscapeMode::BTL_ESCAPE_MODE_NG;
     }
 
@@ -101,39 +100,34 @@ BtlEscapeMode GetBattleEscapeMode(BtlRule rule, BtlCompetitor competitor)
 
 HOOK_DEFINE_REPLACE(MainModule_IsEscapeEnableBattle) {
     static bool Callback(MainModule::Object* __this) {
-        Logger::log("MainModule_IsEscapeEnableBattle\n");
         return CanRunFromBattle(__this->fields.m_rule, __this->fields.m_setupParam->fields.competitor);
     }
 };
 
 HOOK_DEFINE_REPLACE(MainModule_GetEscapeMode) {
     static BtlEscapeMode Callback(MainModule::Object* __this) {
-        Logger::log("MainModule_GetEscapeMode\n");
         return GetBattleEscapeMode(__this->fields.m_rule, __this->fields.m_setupParam->fields.competitor);
     }
 };
 
 HOOK_DEFINE_REPLACE(MainModule_CanUseEscapeItem) {
     static bool Callback(MainModule::Object* __this) {
-        Logger::log("MainModule_CanUseEscapeItem\n");
-        return CanUseEscapeItemInBattle(__this->fields.m_rule, __this->fields.m_setupParam->fields.competitor);
+        return CanTriggerEscapeInBattle(__this->fields.m_rule, __this->fields.m_setupParam->fields.competitor);
     }
 };
 
 HOOK_DEFINE_REPLACE(Section_UseItem_Core_canUseEscapeItem) {
     static bool Callback(Section_UseItem_Core::Object* __this) {
-        Logger::log("Section_UseItem_Core_canUseEscapeItem\n");
         auto section = (Section::Object*)__this;
-        return CanUseEscapeItemInBattle(section->GetRule(), section->GetCompetitor());
+        return CanTriggerEscapeInBattle(section->GetRule(), section->GetCompetitor());
     }
 };
 
 HOOK_DEFINE_INLINE(Section_UseItem_Core_Execute_EscapeItem) {
     static void Callback(exl::hook::nx64::InlineCtx* ctx) {
-        Logger::log("Section_UseItem_Core_Execute_EscapeItem\n");
         auto section = (Section::Object*)ctx->X[0];
 
-        bool canEscape = CanUseEscapeItemInBattle(section->GetRule(), section->GetCompetitor());
+        bool canEscape = CanTriggerEscapeInBattle(section->GetRule(), section->GetCompetitor());
 
         if (!canEscape) // Set to 2 when CAN'T escape
             ctx->X[0] = (uint64_t)2;
@@ -142,19 +136,33 @@ HOOK_DEFINE_INLINE(Section_UseItem_Core_Execute_EscapeItem) {
     }
 };
 
+HOOK_DEFINE_INLINE(Section_PushOut_Execute_EscapeCheck) {
+    static void Callback(exl::hook::nx64::InlineCtx* ctx) {
+        auto section = (Section::Object*)ctx->X[0];
 
+        bool canEscape = CanTriggerEscapeInBattle(section->GetRule(), section->GetCompetitor());
 
-HOOK_DEFINE_TRAMPOLINE(Common_CanForceEscape) {
-    static bool Callback(EventFactor::EventHandlerArgs::Object** args, void** desc) {
-        Logger::log("Common_CanForceEscape\n");
-        return Orig(args, desc);
+        if (!canEscape) // Set Rule to 0 and Competitor to 1 when CAN'T escape
+        {
+            ctx->W[25] = (uint32_t)0; // Rule
+            ctx->W[0] = (uint32_t)1; // Competitor
+        }
+        else // Set Rule to 1 and Competitor to 0 when CAN escape
+        {
+            ctx->W[25] = (uint32_t)1;
+            ctx->W[0] = (uint32_t)0;
+        }
     }
 };
 
-HOOK_DEFINE_TRAMPOLINE(Section_UseItem_Core_escape) {
-    static bool Callback(void* __this, BTL_POKEPARAM::Object* escapePoke) {
-        Logger::log("Section_UseItem_Core_escape\n");
-        return Orig(__this, escapePoke);
+HOOK_DEFINE_TRAMPOLINE(Section_Escape_escape) {
+    static bool Callback(void* __this, BTL_POKEPARAM::Object* poke) {
+        bool result = Orig(__this, poke);
+
+        if (GetCantEscapeFlag()) // Return false instead when CAN'T escape because of flag
+            return false;
+        else // Return the normal result when CAN escape
+            return result;
     }
 };
 
@@ -164,7 +172,6 @@ void exl_battle_escape_flag_main() {
     MainModule_CanUseEscapeItem::InstallAtOffset(0x02035040);
     Section_UseItem_Core_canUseEscapeItem::InstallAtOffset(0x021774d0);
     Section_UseItem_Core_Execute_EscapeItem::InstallAtOffset(0x02175c00);
-
-    Common_CanForceEscape::InstallAtOffset(0x01d0d270);
-    Section_UseItem_Core_escape::InstallAtOffset(0x02175900);
+    Section_PushOut_Execute_EscapeCheck::InstallAtOffset(0x021c2abc);
+    Section_Escape_escape::InstallAtOffset(0x021b6a50);
 }
