@@ -136,6 +136,29 @@ enum class GenesectForm : int32_t {
     DOUSE_DRIVE = 4,
 };
 
+enum class VivillonForm : int32_t {
+    MEADOW = 0,
+    POLAR = 1,
+    TUNDRA = 2,
+    CONTINENTAL = 3,
+    GARDEN = 4,
+    ELEGANT = 5,
+    ICY_SNOW = 6,
+    MODERN = 7,
+    MARINE = 8,
+    ARCHIPELAGO = 9,
+    HIGH_PLAINS = 10,
+    SANDSTORM = 11,
+    RIVER = 12,
+    MONSOON = 13,
+    SAVANNA = 14,
+    SUN = 15,
+    OCEAN = 16,
+    JUNGLE = 17,
+    FANCY = 18,
+    POKE_BALL = 19,
+};
+
 enum class SilvallyForm : int32_t {
     NORMAL = 0,
     FIGHTING = 1,

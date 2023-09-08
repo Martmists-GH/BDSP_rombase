@@ -55,5 +55,6 @@ namespace Pml::Personal {
 
         // New methods (Luminescent)
         HELD_ITEM = 48,
+        VIVILLON = 49,
     };
 }
