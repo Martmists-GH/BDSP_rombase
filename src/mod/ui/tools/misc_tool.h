@@ -1,8 +1,6 @@
 #pragma once
 
 #include "data/species.h"
-#include "externals/Dpr/EvScript/EvCmdID.h"
-#include "externals/Dpr/EvScript/EvDataManager.h"
 #include "externals/ZukanWork.h"
 #include "ui/base/collapsing_header.h"
 #include "ui/base/element.h"
@@ -45,16 +43,6 @@ namespace ui {
                             ZukanWork::SetPoke(i, 3, 0, 0, false);
                             ZukanWork::SetPoke(i, 3, 1, 0, false);
                         }
-                    };
-                });
-
-                _.Button([](Button &_) {
-                    _.label = "Poffins";
-                    _.onClick = []() {
-                        Logger::log("Trying to add Poffin\n");
-                        Dpr::EvScript::EvDataManager::Object * evDataManager = Dpr::EvScript::EvDataManager::get_Instanse();
-                        evDataManager->RunEvCmd((int32_t)Dpr::EvScript::EvCmdID::NAME::_ADD_MAROYAKA_POFFIN);
-                        Logger::log("Added Poffin\n");
                     };
                 });
             });

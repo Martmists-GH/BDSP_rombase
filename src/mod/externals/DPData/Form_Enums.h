@@ -157,6 +157,28 @@ enum class SilvallyForm : int32_t {
     FAIRY = 17,
 };
 
+enum class AlcremieCream : int32_t {
+    VANILLA_CREAM = 0,
+    RUBY_CREAM = 1,
+    MATCHA_CREAM = 2,
+    MINT_CREAM = 3,
+    LEMON_CREAM = 4,
+    SALTED_CREAM = 5,
+    RUBY_SWIRL = 6,
+    CARAMEL_SWIRL = 7,
+    RAINBOW_SWIRL = 8,
+};
+
+enum class AlcremieSweet : int32_t {
+    STRAWBERRY_SWEET = 0,
+    BERRY_SWEET = 1,
+    LOVE_SWEET = 2,
+    STAR_SWEET = 3,
+    CLOVER_SWEET = 4,
+    FLOWER_SWEET = 5,
+    RIBBON_SWEET = 6,
+};
+
 enum class ZacianForm : int32_t {
     HERO_OF_MANY_BATTLES = 0,
     CROWNED_SWORD = 1,

@@ -66,8 +66,24 @@ namespace Pml::PokePara {
             return external<uint8_t>(0x024a7960, this);
         }
 
+        inline uint8_t GetStyle() {
+            return external<uint8_t>(0x024a58a0, this);
+        }
+
         inline uint8_t GetBeautiful() {
             return external<uint8_t>(0x024a5910, this);
+        }
+
+        inline uint8_t GetCute() {
+            return external<uint8_t>(0x024a5980, this);
+        }
+
+        inline uint8_t GetClever() {
+            return external<uint8_t>(0x024a59f0, this);
+        }
+
+        inline uint8_t GetStrong() {
+            return external<uint8_t>(0x024a5a60, this);
         }
 
         inline uint32_t GetItemNo() {

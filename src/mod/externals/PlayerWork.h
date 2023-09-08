@@ -270,4 +270,8 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     static inline void set_colorID(int32_t value) {
         external<void>(0x02cef870, value);
     }
+
+    static inline DPData::PoffinSaveData::Object get_poffinSaveData() {
+        return external<DPData::PoffinSaveData::Object>(0x02cf46d0);
+    }
 };

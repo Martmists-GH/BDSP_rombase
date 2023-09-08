@@ -8,6 +8,14 @@
 
 namespace Pml::PokePara {
     struct CoreParam : ILClass<CoreParam> {
+        struct FormChangeResult : ILClass<FormChangeResult> {
+            struct Fields {
+                Pml_WazaNo_array* m_addedWaza;
+                Pml_WazaNo_array* m_removedWaza;
+                Pml_WazaNo_array* m_addFailedWaza;
+            };
+        };
+
         struct Fields {
             void* m_coreData;
             void* m_calcData;
@@ -87,7 +95,7 @@ namespace Pml::PokePara {
         }
 
         inline System::Collections::Generic::HashSet$$Pml_WazaNo::Object* CollectRemindableWaza() {
-            return external< System::Collections::Generic::HashSet$$Pml_WazaNo::Object*>(0x02047aa0, this);
+            return external<System::Collections::Generic::HashSet$$Pml_WazaNo::Object*>(0x02047aa0, this);
         }
 
         inline int32_t AddWazaIfEmptyExist(int32_t wazano) {
@@ -156,6 +164,18 @@ namespace Pml::PokePara {
 
         inline void SetFriendship(uint32_t value) {
             external<void>(0x02049070, this, value);
+        }
+
+        inline void ChangeMonsNo(int32_t newMonsno, uint16_t newFormno) {
+            external<void>(0x02045b40, this, newMonsno, newFormno);
+        }
+
+        inline void ChangeFormNo(uint16_t newFormno, FormChangeResult::Object* pResult) {
+            external<void>(0x0204a260, this, newFormno, pResult);
+        }
+
+        inline void RemoveItem() {
+            external<void>(0x02049690, this);
         }
     };
 }

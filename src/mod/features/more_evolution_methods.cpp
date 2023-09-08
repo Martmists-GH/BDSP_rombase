@@ -1,10 +1,14 @@
 #include "exlaunch.hpp"
 
+#include "data/items.h"
+#include "data/species.h"
 #include "data/types.h"
 #include "data/utils.h"
+#include "externals/DPData/Form_Enums.h"
 #include "externals/Dpr/Battle/Logic/BattleProc.h"
 #include "externals/Pml/Personal/EvolveCond.h"
 #include "externals/Pml/Personal/EvolveTableExtensions.h"
+#include "externals/Pml/Personal/PersonalSystem.h"
 #include "externals/Pml/PmlUse.h"
 #include "externals/Pml/PokePara/CalcTool.h"
 #include "externals/Pml/PokePara/CoreParam.h"
@@ -26,6 +30,7 @@ struct ExtraEvoData {
 };
 
 static ExtraEvoData extraEvoData[6] = { {},{},{},{},{},{} };
+static Pml::PokePara::EvolveSituation::Fields currentEvolutionSituation = {};
 
 uint32_t GetFriendship(Pml::PokePara::Accessor::Object* accessor, Pml::PokePara::OwnerInfo::Object* ownerInfo)
 {
@@ -92,6 +97,75 @@ bool IsGameVersion(uint16_t version)
     return (uint16_t)pmlUse->get_CassetVersion() == version;
 }
 
+bool IsHoldingSweet(Pml::PokePara::CoreParam::Object* poke)
+{
+    return poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Strawberry Sweet") ||
+        poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Love Sweet") ||
+        poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Berry Sweet") ||
+        poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Clover Sweet") ||
+        poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Flower Sweet") ||
+        poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Star Sweet") ||
+        poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Ribbon Sweet");
+}
+
+bool HasHighContestCondition(Pml::PokePara::CoreParam::Object* poke)
+{
+    return poke->fields.m_accessor->GetStyle() >= 170 ||
+        poke->fields.m_accessor->GetBeautiful() >= 170 ||
+        poke->fields.m_accessor->GetCute() >= 170 ||
+        poke->fields.m_accessor->GetClever() >= 170 ||
+        poke->fields.m_accessor->GetStrong() >= 170;
+}
+
+uint16_t GetAlcremieForm(Pml::PokePara::CoreParam::Object* poke)
+{
+    AlcremieCream cream;
+    if (poke->fields.m_accessor->GetStyle() >= 170)
+    {
+        if (currentEvolutionSituation.isMorningOrNoon) cream = AlcremieCream::RUBY_CREAM;
+        else if (currentEvolutionSituation.isNight) cream = AlcremieCream::SALTED_CREAM;
+    }
+    else if (poke->fields.m_accessor->GetBeautiful() >= 170)
+    {
+        if (currentEvolutionSituation.isMorningOrNoon) cream = AlcremieCream::RUBY_SWIRL;
+        else if (currentEvolutionSituation.isNight) cream = AlcremieCream::MINT_CREAM;
+    }
+    else if (poke->fields.m_accessor->GetCute() >= 170)
+    {
+        cream = AlcremieCream::RAINBOW_SWIRL;
+    }
+    else if (poke->fields.m_accessor->GetClever() >= 170)
+    {
+        if (currentEvolutionSituation.isMorningOrNoon) cream = AlcremieCream::VANILLA_CREAM;
+        else if (currentEvolutionSituation.isNight) cream = AlcremieCream::MATCHA_CREAM;
+    }
+    else if (poke->fields.m_accessor->GetStrong() >= 170)
+    {
+        if (currentEvolutionSituation.isMorningOrNoon) cream = AlcremieCream::CARAMEL_SWIRL;
+        else if (currentEvolutionSituation.isNight) cream = AlcremieCream::LEMON_CREAM;
+    }
+    else cream = AlcremieCream::VANILLA_CREAM;
+
+    AlcremieSweet sweet;
+    if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Strawberry Sweet"))
+        sweet = AlcremieSweet::STRAWBERRY_SWEET;
+    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Berry Sweet"))
+        sweet = AlcremieSweet::BERRY_SWEET;
+    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Love Sweet"))
+        sweet = AlcremieSweet::LOVE_SWEET;
+    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Star Sweet"))
+        sweet = AlcremieSweet::STAR_SWEET;
+    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Clover Sweet"))
+        sweet = AlcremieSweet::CLOVER_SWEET;
+    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Flower Sweet"))
+        sweet = AlcremieSweet::FLOWER_SWEET;
+    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Ribbon Sweet"))
+        sweet = AlcremieSweet::RIBBON_SWEET;
+    else sweet = AlcremieSweet::STRAWBERRY_SWEET;
+
+    return (uint16_t)cream * 7 + (uint16_t)sweet;
+}
+
 int32_t FindExtraDataByPoke(Pml::PokePara::CoreParam::Object* poke)
 {
     for (int32_t i=0; i<6; i++)
@@ -122,6 +196,23 @@ void LogExtraData()
     {
         Logger::log("ExtraData: rnd %d, turn %d, crit %d, dmg %d, dead %d\n", i.personalRnd, i.totalTurnCount, i.criticalCount, i.totalDamageReceived, i.deadCount);
     }
+}
+
+void CopyEvolveSituation(Pml::PokePara::EvolveSituation::Object* situation)
+{
+    currentEvolutionSituation.isMagneticField = situation->fields.isMagneticField;
+    currentEvolutionSituation.isIceField = situation->fields.isIceField;
+    currentEvolutionSituation.isMossField = situation->fields.isMossField;
+    currentEvolutionSituation.isSnowMountain = situation->fields.isSnowMountain;
+    currentEvolutionSituation.isUltraSpace = situation->fields.isUltraSpace;
+    currentEvolutionSituation.isMorningOrNoon = situation->fields.isMorningOrNoon;
+    currentEvolutionSituation.isNight = situation->fields.isNight;
+    currentEvolutionSituation.isEvening = situation->fields.isEvening;
+    currentEvolutionSituation.isRain = situation->fields.isRain;
+    currentEvolutionSituation.isDeviceTurnedOver = situation->fields.isDeviceTurnedOver;
+    currentEvolutionSituation.isTurnRoundOnField = situation->fields.isTurnRoundOnField;
+    currentEvolutionSituation.criticalHitCount = situation->fields.criticalHitCount;
+    currentEvolutionSituation.owner_info = situation->fields.owner_info;
 }
 
 HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
@@ -156,6 +247,9 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
                 return false;
             }
         }
+
+        Logger::log("Copying current EvolveSituation\n");
+        CopyEvolveSituation(situation);
 
         Logger::log("Finding extra data\n");
 
@@ -212,7 +306,7 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
                 Logger::log("SPECIAL_BEAUTIFUL\n");
                 return poke->fields.m_accessor->GetBeautiful() >= evolutionParam;
 
-            case Pml::Personal::EvolveCond::SOUBI_NOON: // Held Item + Day
+            case Pml::Personal::EvolveCond::SOUBI_NOON: // Held Item + Morning/Day
                 Logger::log("SOUBI_NOON\n");
                 return poke->fields.m_accessor->GetItemNo() == evolutionParam && situation->fields.isMorningOrNoon;
 
@@ -265,7 +359,7 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
                 Logger::log("WEATHER_RAIN\n");
                 return situation->fields.isRain;
 
-            case Pml::Personal::EvolveCond::NOON: // Day
+            case Pml::Personal::EvolveCond::NOON: // Morning/Day
                 Logger::log("NOON\n");
                 return situation->fields.isMorningOrNoon;
 
@@ -277,7 +371,7 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
                 Logger::log("CASSETTE_VERSION\n");
                 return IsGameVersion(evolutionParam);
 
-            case Pml::Personal::EvolveCond::CASSETTE_VERSION_NOON: // Game version + Day
+            case Pml::Personal::EvolveCond::CASSETTE_VERSION_NOON: // Game version + Morning/Day
                 Logger::log("CASSETTE_VERSION_NOON\n");
                 return IsGameVersion(evolutionParam) && situation->fields.isMorningOrNoon;
 
@@ -297,20 +391,24 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
                 Logger::log("PLACE_ULTRA_SPACE\n");
                 return situation->fields.isUltraSpace;
 
-            case Pml::Personal::EvolveCond::CRITICAL_HIT: // Critical hits
+            case Pml::Personal::EvolveCond::CRITICAL_HIT: // Critical hits dealt in last battle
                 Logger::log("CRITICAL_HIT\n");
                 if (extraDataIndex != -1) {
                     Logger::log("  crits %d\n", extraEvoData[extraDataIndex].criticalCount);
                     return extraEvoData[extraDataIndex].criticalCount >= evolutionParam;
                 }
 
-            case Pml::Personal::EvolveCond::TOTAL_DAMAGE_RECIEVED: // Total damage recieved in last battle
+            case Pml::Personal::EvolveCond::TOTAL_DAMAGE_RECIEVED: // Total damage received in last battle
                 Logger::log("TOTAL_DAMAGE_RECIEVED\n");
                 if (extraDataIndex != -1) {
                     Logger::log("  damage: %d\n", extraEvoData[extraDataIndex].totalDamageReceived);
                     return extraEvoData[extraDataIndex].totalDamageReceived >= evolutionParam;
                 }
                 return false;
+
+            case Pml::Personal::EvolveCond::AMEZAIKU: // Alcremie
+                Logger::log("AMEZAIKU\n");
+                return IsHoldingSweet(poke) && HasHighContestCondition(poke);
 
             case Pml::Personal::EvolveCond::SEIKAKU_HIGH: // Amped nature
                 Logger::log("SEIKAKU_HIGH\n");
@@ -319,6 +417,10 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
             case Pml::Personal::EvolveCond::SEIKAKU_LOW: // Low key nature
                 Logger::log("SEIKAKU_LOW\n");
                 return Pml::PokePara::CalcTool::IsSeikakuLow(poke->GetSeikaku());
+
+            case Pml::Personal::EvolveCond::HELD_ITEM: // Held Item
+                Logger::log("HELD_ITEM\n");
+                return poke->fields.m_accessor->GetItemNo() == evolutionParam;
 
             default:
                 return false;
@@ -337,15 +439,70 @@ HOOK_DEFINE_INLINE(BattleProc_FinalizeCoroutine_AdjustEvolveSituation) {
         evolveSituation->fields.criticalHitCount = (uint8_t)pokeResult->m_Items[index]->fields.criticalCount;
 
         extraEvoData[index].personalRnd = poke->GetPersonalRnd();
+        extraEvoData[index].totalTurnCount = pokeResult->m_Items[index]->fields.totalTurnCount;
+        extraEvoData[index].criticalCount = pokeResult->m_Items[index]->fields.criticalCount;
         extraEvoData[index].totalDamageReceived = pokeResult->m_Items[index]->fields.totalDamageRecieved;
+        extraEvoData[index].deadCount = pokeResult->m_Items[index]->fields.deadCount;
 
         ctx->X[0] = (uint64_t)poke;
+    }
+};
+
+HOOK_DEFINE_REPLACE(CoreParam_Evolve) {
+    static void Callback(Pml::PokePara::CoreParam::Object* __this, int32_t nextMonsno, uint32_t routeIndex) {
+        Logger::log("CoreParam_Evolve\n");
+        system_load_typeinfo(0x319b);
+
+        int32_t monsno = __this->GetMonsNo();
+        uint16_t formno = __this->GetFormNo();
+
+        Pml::Personal::PersonalSystem::getClass()->initIfNeeded();
+        Pml::Personal::PersonalSystem::LoadEvolutionTable(monsno, formno);
+
+        Pml::Personal::EvolveCond evolutionCondition = Pml::Personal::PersonalSystem::GetEvolutionCondition(routeIndex);
+        int32_t evolvedMonsno = Pml::Personal::PersonalSystem::GetEvolvedMonsNo(routeIndex);
+
+        if (nextMonsno != evolvedMonsno)
+        {
+            Logger::log("Evolved monsno mismatch!\n");
+        }
+
+        if (Pml::Personal::PersonalSystem::IsEvolvedFormNoSpecified(routeIndex))
+        {
+            formno = Pml::Personal::PersonalSystem::GetEvolvedFormNo(routeIndex);
+        }
+
+        __this->ChangeMonsNo(nextMonsno, formno);
+
+        // Extra post-evolution code to run on the Pokémon.
+        Logger::log("evolutionCondition %d\n", evolutionCondition);
+        switch (evolutionCondition)
+        {
+            // Remove item for evolutions that require holding one
+            case Pml::Personal::EvolveCond::TUUSHIN_ITEM:
+            case Pml::Personal::EvolveCond::SOUBI_NOON:
+            case Pml::Personal::EvolveCond::SOUBI_NIGHT:
+            case Pml::Personal::EvolveCond::HELD_ITEM:
+                Logger::log("Removing item!\n");
+                __this->RemoveItem();
+                break;
+
+            case Pml::Personal::EvolveCond::AMEZAIKU:
+                Logger::log("Fixing Alcremie form to %d!\n", GetAlcremieForm(__this));
+                __this->ChangeFormNo(GetAlcremieForm(__this), nullptr);
+                __this->RemoveItem();
+                break;
+
+            default:
+                break;
+        }
     }
 };
 
 void exl_evolution_methods_main() {
     IsSatisfyEvolveConditionLevelUp::InstallAtOffset(0x020525d0);
     BattleProc_FinalizeCoroutine_AdjustEvolveSituation::InstallAtOffset(0x0187e5b8);
+    CoreParam_Evolve::InstallAtOffset(0x020496a0);
 
     // Always check for evolutions, even if none are ready, and clear the extra data before checking
     using namespace exl::armv8::inst;

@@ -52,5 +52,8 @@ namespace Pml::Personal {
         AMEZAIKU = 45,
         SEIKAKU_HIGH = 46,
         SEIKAKU_LOW = 47,
+
+        // New methods (Luminescent)
+        HELD_ITEM = 48,
     };
 }
