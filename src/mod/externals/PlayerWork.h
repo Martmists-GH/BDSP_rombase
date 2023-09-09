@@ -274,4 +274,8 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     static inline DPData::PoffinSaveData::Object get_poffinSaveData() {
         return external<DPData::PoffinSaveData::Object>(0x02cf46d0);
     }
+
+    static inline int32_t get_TureWalkMemberIndex() {
+        return external<int32_t>(0x02cf5260);
+    }
 };

@@ -6,6 +6,8 @@
 #include "data/utils.h"
 #include "externals/DPData/Form_Enums.h"
 #include "externals/Dpr/Battle/Logic/BattleProc.h"
+#include "externals/Dpr/Field/Walking/FieldWalkingManager.h"
+#include "externals/PlayerWork.h"
 #include "externals/Pml/Personal/EvolveCond.h"
 #include "externals/Pml/Personal/EvolveTableExtensions.h"
 #include "externals/Pml/Personal/PersonalSystem.h"
@@ -21,7 +23,7 @@
 #include "externals/XLSXContent/EvolveTable.h"
 #include "logger/logger.h"
 
-struct ExtraEvoData {
+struct ExtraPartyEvoData {
     uint32_t personalRnd;
     uint16_t totalTurnCount;
     uint16_t criticalCount;
@@ -29,8 +31,19 @@ struct ExtraEvoData {
     uint16_t deadCount;
 };
 
-static ExtraEvoData extraEvoData[6] = { {},{},{},{},{},{} };
-static Pml::PokePara::EvolveSituation::Fields currentEvolutionSituation = {};
+struct ExtraEvoData {
+    ExtraPartyEvoData extraPartyEvoData[6];
+    uint32_t followerRnd;
+    int32_t followerStepCount;
+    Pml::PokePara::EvolveSituation::Fields currentEvolutionSituation;
+};
+
+static ExtraEvoData extraEvoData = {
+    .extraPartyEvoData = {{}, {}, {}, {}, {}, {} },
+    .followerRnd = 0,
+    .followerStepCount = 0,
+    .currentEvolutionSituation = {},
+};
 
 uint32_t GetFriendship(Pml::PokePara::Accessor::Object* accessor, Pml::PokePara::OwnerInfo::Object* ownerInfo)
 {
@@ -122,13 +135,13 @@ uint16_t GetAlcremieForm(Pml::PokePara::CoreParam::Object* poke)
     AlcremieCream cream;
     if (poke->fields.m_accessor->GetStyle() >= 170)
     {
-        if (currentEvolutionSituation.isMorningOrNoon) cream = AlcremieCream::RUBY_CREAM;
-        else if (currentEvolutionSituation.isNight) cream = AlcremieCream::SALTED_CREAM;
+        if (extraEvoData.currentEvolutionSituation.isMorningOrNoon) cream = AlcremieCream::RUBY_CREAM;
+        else if (extraEvoData.currentEvolutionSituation.isNight) cream = AlcremieCream::SALTED_CREAM;
     }
     else if (poke->fields.m_accessor->GetBeautiful() >= 170)
     {
-        if (currentEvolutionSituation.isMorningOrNoon) cream = AlcremieCream::RUBY_SWIRL;
-        else if (currentEvolutionSituation.isNight) cream = AlcremieCream::MINT_CREAM;
+        if (extraEvoData.currentEvolutionSituation.isMorningOrNoon) cream = AlcremieCream::RUBY_SWIRL;
+        else if (extraEvoData.currentEvolutionSituation.isNight) cream = AlcremieCream::MINT_CREAM;
     }
     else if (poke->fields.m_accessor->GetCute() >= 170)
     {
@@ -136,13 +149,13 @@ uint16_t GetAlcremieForm(Pml::PokePara::CoreParam::Object* poke)
     }
     else if (poke->fields.m_accessor->GetClever() >= 170)
     {
-        if (currentEvolutionSituation.isMorningOrNoon) cream = AlcremieCream::VANILLA_CREAM;
-        else if (currentEvolutionSituation.isNight) cream = AlcremieCream::MATCHA_CREAM;
+        if (extraEvoData.currentEvolutionSituation.isMorningOrNoon) cream = AlcremieCream::VANILLA_CREAM;
+        else if (extraEvoData.currentEvolutionSituation.isNight) cream = AlcremieCream::MATCHA_CREAM;
     }
     else if (poke->fields.m_accessor->GetStrong() >= 170)
     {
-        if (currentEvolutionSituation.isMorningOrNoon) cream = AlcremieCream::CARAMEL_SWIRL;
-        else if (currentEvolutionSituation.isNight) cream = AlcremieCream::LEMON_CREAM;
+        if (extraEvoData.currentEvolutionSituation.isMorningOrNoon) cream = AlcremieCream::CARAMEL_SWIRL;
+        else if (extraEvoData.currentEvolutionSituation.isNight) cream = AlcremieCream::LEMON_CREAM;
     }
     else cream = AlcremieCream::VANILLA_CREAM;
 
@@ -240,17 +253,22 @@ int32_t FindExtraDataByPoke(Pml::PokePara::CoreParam::Object* poke)
 {
     for (int32_t i=0; i<6; i++)
     {
-        Logger::log("%d: %08X and %08X\n", i, extraEvoData[i].personalRnd, poke->GetPersonalRnd());
-        if (extraEvoData[i].personalRnd == poke->GetPersonalRnd())
+        Logger::log("%d: %08X and %08X\n", i, extraEvoData.extraPartyEvoData[i].personalRnd, poke->GetPersonalRnd());
+        if (extraEvoData.extraPartyEvoData[i].personalRnd == poke->GetPersonalRnd())
             return i;
     }
 
     return -1;
 }
 
+bool IsFollower(Pml::PokePara::CoreParam::Object* poke)
+{
+    return poke->GetPersonalRnd() == extraEvoData.followerRnd;
+}
+
 void ClearExtraEvoData()
 {
-    for (auto &i : extraEvoData)
+    for (auto &i : extraEvoData.extraPartyEvoData)
     {
         i.personalRnd = 0;
         i.totalTurnCount = 0;
@@ -262,7 +280,7 @@ void ClearExtraEvoData()
 
 void LogExtraData()
 {
-    for (auto &i : extraEvoData)
+    for (auto &i : extraEvoData.extraPartyEvoData)
     {
         Logger::log("ExtraData: rnd %d, turn %d, crit %d, dmg %d, dead %d\n", i.personalRnd, i.totalTurnCount, i.criticalCount, i.totalDamageReceived, i.deadCount);
     }
@@ -270,19 +288,19 @@ void LogExtraData()
 
 void CopyEvolveSituation(Pml::PokePara::EvolveSituation::Object* situation)
 {
-    currentEvolutionSituation.isMagneticField = situation->fields.isMagneticField;
-    currentEvolutionSituation.isIceField = situation->fields.isIceField;
-    currentEvolutionSituation.isMossField = situation->fields.isMossField;
-    currentEvolutionSituation.isSnowMountain = situation->fields.isSnowMountain;
-    currentEvolutionSituation.isUltraSpace = situation->fields.isUltraSpace;
-    currentEvolutionSituation.isMorningOrNoon = situation->fields.isMorningOrNoon;
-    currentEvolutionSituation.isNight = situation->fields.isNight;
-    currentEvolutionSituation.isEvening = situation->fields.isEvening;
-    currentEvolutionSituation.isRain = situation->fields.isRain;
-    currentEvolutionSituation.isDeviceTurnedOver = situation->fields.isDeviceTurnedOver;
-    currentEvolutionSituation.isTurnRoundOnField = situation->fields.isTurnRoundOnField;
-    currentEvolutionSituation.criticalHitCount = situation->fields.criticalHitCount;
-    currentEvolutionSituation.owner_info = situation->fields.owner_info;
+    extraEvoData.currentEvolutionSituation.isMagneticField = situation->fields.isMagneticField;
+    extraEvoData.currentEvolutionSituation.isIceField = situation->fields.isIceField;
+    extraEvoData.currentEvolutionSituation.isMossField = situation->fields.isMossField;
+    extraEvoData.currentEvolutionSituation.isSnowMountain = situation->fields.isSnowMountain;
+    extraEvoData.currentEvolutionSituation.isUltraSpace = situation->fields.isUltraSpace;
+    extraEvoData.currentEvolutionSituation.isMorningOrNoon = situation->fields.isMorningOrNoon;
+    extraEvoData.currentEvolutionSituation.isNight = situation->fields.isNight;
+    extraEvoData.currentEvolutionSituation.isEvening = situation->fields.isEvening;
+    extraEvoData.currentEvolutionSituation.isRain = situation->fields.isRain;
+    extraEvoData.currentEvolutionSituation.isDeviceTurnedOver = situation->fields.isDeviceTurnedOver;
+    extraEvoData.currentEvolutionSituation.isTurnRoundOnField = situation->fields.isTurnRoundOnField;
+    extraEvoData.currentEvolutionSituation.criticalHitCount = situation->fields.criticalHitCount;
+    extraEvoData.currentEvolutionSituation.owner_info = situation->fields.owner_info;
 }
 
 HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
@@ -362,11 +380,11 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
 
             case Pml::Personal::EvolveCond::SPECIAL_RND_EVEN: // Even encryption constant
                 Logger::log("SPECIAL_RND_EVEN\n");
-                return 4 >= (poke->GetPersonalRnd() >> 0x10) % 10;
+                return (poke->GetPersonalRnd() >> 0x10) % 10 <= 4;
 
             case Pml::Personal::EvolveCond::SPECIAL_RND_ODD: // Odd encryption constant
                 Logger::log("SPECIAL_RND_ODD\n");
-                return 4 < (poke->GetPersonalRnd() >> 0x10) % 10;
+                return (poke->GetPersonalRnd() >> 0x10) % 10 > 4;
 
             case Pml::Personal::EvolveCond::SPECIAL_NUKENIN: // Shedinja (Does nothing)
                 Logger::log("SPECIAL_NUKENIN\n");
@@ -464,15 +482,15 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
             case Pml::Personal::EvolveCond::CRITICAL_HIT: // Critical hits dealt in last battle
                 Logger::log("CRITICAL_HIT\n");
                 if (extraDataIndex != -1) {
-                    Logger::log("  crits %d\n", extraEvoData[extraDataIndex].criticalCount);
-                    return extraEvoData[extraDataIndex].criticalCount >= evolutionParam;
+                    Logger::log("  crits %d\n", extraEvoData.extraPartyEvoData[extraDataIndex].criticalCount);
+                    return extraEvoData.extraPartyEvoData[extraDataIndex].criticalCount >= evolutionParam;
                 }
 
             case Pml::Personal::EvolveCond::TOTAL_DAMAGE_RECIEVED: // Total damage received in last battle
                 Logger::log("TOTAL_DAMAGE_RECIEVED\n");
                 if (extraDataIndex != -1) {
-                    Logger::log("  damage: %d\n", extraEvoData[extraDataIndex].totalDamageReceived);
-                    return extraEvoData[extraDataIndex].totalDamageReceived >= evolutionParam;
+                    Logger::log("  damage: %d\n", extraEvoData.extraPartyEvoData[extraDataIndex].totalDamageReceived);
+                    return extraEvoData.extraPartyEvoData[extraDataIndex].totalDamageReceived >= evolutionParam;
                 }
                 return false;
 
@@ -496,6 +514,18 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
                 Logger::log("VIVILLON\n");
                 return IsHoldingVivillonBerry(poke);
 
+            case Pml::Personal::EvolveCond::RND_1_OF_100: // Encryption Constant % 100 = 0
+                Logger::log("RND_1_OF_100\n");
+                return poke->GetPersonalRnd() % 100 == 0;
+
+            case Pml::Personal::EvolveCond::RND_99_OF_100: // Encryption Constant % 100 > 0
+                Logger::log("RND_99_OF_100\n");
+                return poke->GetPersonalRnd() % 100 > 0;
+
+            case Pml::Personal::EvolveCond::FOLLOWER: // Follower for high amount of steps
+                Logger::log("FOLLOWER\n");
+                return IsFollower(poke) && extraEvoData.followerStepCount >= evolutionParam;
+
             default:
                 return false;
         }
@@ -512,11 +542,11 @@ HOOK_DEFINE_INLINE(BattleProc_FinalizeCoroutine_AdjustEvolveSituation) {
 
         evolveSituation->fields.criticalHitCount = (uint8_t)pokeResult->m_Items[index]->fields.criticalCount;
 
-        extraEvoData[index].personalRnd = poke->GetPersonalRnd();
-        extraEvoData[index].totalTurnCount = pokeResult->m_Items[index]->fields.totalTurnCount;
-        extraEvoData[index].criticalCount = pokeResult->m_Items[index]->fields.criticalCount;
-        extraEvoData[index].totalDamageReceived = pokeResult->m_Items[index]->fields.totalDamageRecieved;
-        extraEvoData[index].deadCount = pokeResult->m_Items[index]->fields.deadCount;
+        extraEvoData.extraPartyEvoData[index].personalRnd = poke->GetPersonalRnd();
+        extraEvoData.extraPartyEvoData[index].totalTurnCount = pokeResult->m_Items[index]->fields.totalTurnCount;
+        extraEvoData.extraPartyEvoData[index].criticalCount = pokeResult->m_Items[index]->fields.criticalCount;
+        extraEvoData.extraPartyEvoData[index].totalDamageReceived = pokeResult->m_Items[index]->fields.totalDamageRecieved;
+        extraEvoData.extraPartyEvoData[index].deadCount = pokeResult->m_Items[index]->fields.deadCount;
 
         ctx->X[0] = (uint64_t)poke;
     }
@@ -581,10 +611,38 @@ HOOK_DEFINE_REPLACE(CoreParam_Evolve) {
     }
 };
 
+HOOK_DEFINE_TRAMPOLINE(FieldWalkingManager_UpdatePartnerPokeIndex) {
+    static void Callback(Dpr::Field::Walking::FieldWalkingManager::Object* __this) {
+        Orig(__this);
+
+        int32_t newIndex = PlayerWork::get_TureWalkMemberIndex();
+        auto newFollower = (Pml::PokePara::CoreParam::Object*)PlayerWork::get_playerParty()->GetMemberPointer(newIndex);
+        if (extraEvoData.followerRnd != newFollower->GetPersonalRnd())
+        {
+            extraEvoData.followerRnd = newFollower->GetPersonalRnd();
+            extraEvoData.followerStepCount = 0;
+
+            Logger::log("Resetting step count... Follower %d\n", extraEvoData.followerRnd);
+        }
+    }
+};
+
+HOOK_DEFINE_TRAMPOLINE(PlayReportManager_AddWalkCnt) {
+    static void Callback(int32_t walk) {
+        Orig(walk);
+        extraEvoData.followerStepCount += walk;
+
+        Logger::log("Adding %d to step count... Now %d\n", walk, extraEvoData.followerStepCount);
+    }
+};
+
 void exl_evolution_methods_main() {
     IsSatisfyEvolveConditionLevelUp::InstallAtOffset(0x020525d0);
     BattleProc_FinalizeCoroutine_AdjustEvolveSituation::InstallAtOffset(0x0187e5b8);
     CoreParam_Evolve::InstallAtOffset(0x020496a0);
+
+    FieldWalkingManager_UpdatePartnerPokeIndex::InstallAtOffset(0x01cd6310);
+    PlayReportManager_AddWalkCnt::InstallAtOffset(0x02cea1d0);
 
     // Always check for evolutions, even if none are ready, and clear the extra data before checking
     using namespace exl::armv8::inst;
