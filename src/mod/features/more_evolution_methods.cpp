@@ -616,13 +616,14 @@ HOOK_DEFINE_TRAMPOLINE(FieldWalkingManager_UpdatePartnerPokeIndex) {
         Orig(__this);
 
         int32_t newIndex = PlayerWork::get_TureWalkMemberIndex();
-        auto newFollower = (Pml::PokePara::CoreParam::Object*)PlayerWork::get_playerParty()->GetMemberPointer(newIndex);
-        if (extraEvoData.followerRnd != newFollower->GetPersonalRnd())
+        if (newIndex >= 0 && newIndex < PlayerWork::get_playerParty()->fields.m_memberCount)
         {
-            extraEvoData.followerRnd = newFollower->GetPersonalRnd();
-            extraEvoData.followerStepCount = 0;
-
-            Logger::log("Resetting step count... Follower %d\n", extraEvoData.followerRnd);
+            auto newFollower = (Pml::PokePara::CoreParam::Object*)PlayerWork::get_playerParty()->GetMemberPointer(newIndex);
+            if (extraEvoData.followerRnd != newFollower->GetPersonalRnd())
+            {
+                extraEvoData.followerRnd = newFollower->GetPersonalRnd();
+                extraEvoData.followerStepCount = 0;
+            }
         }
     }
 };
@@ -631,8 +632,6 @@ HOOK_DEFINE_TRAMPOLINE(PlayReportManager_AddWalkCnt) {
     static void Callback(int32_t walk) {
         Orig(walk);
         extraEvoData.followerStepCount += walk;
-
-        Logger::log("Adding %d to step count... Now %d\n", walk, extraEvoData.followerStepCount);
     }
 };
 
