@@ -1,12 +1,12 @@
 #include "exlaunch.hpp"
 
 #include "data/items.h"
-#include "data/species.h"
 #include "data/types.h"
 #include "data/utils.h"
 #include "externals/DPData/Form_Enums.h"
 #include "externals/Dpr/Battle/Logic/BattleProc.h"
 #include "externals/Dpr/Field/Walking/FieldWalkingManager.h"
+#include "externals/ItemWork.h"
 #include "externals/PlayerWork.h"
 #include "externals/Pml/Personal/EvolveCond.h"
 #include "externals/Pml/Personal/EvolveTableExtensions.h"
@@ -316,8 +316,6 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
         int32_t evolutionMonsNo = Pml::Personal::EvolveTableExtensions::GetEvolvedMonsNo(evolveData, evolveRouteIndex);
         uint8_t evolveEnableLevel = Pml::Personal::EvolveTableExtensions::GetEvolveEnableLevel(evolveData, evolveRouteIndex);
 
-        Logger::log("Checking Level\n");
-
         // Check level
         if (poke->fields.m_accessor->HaveCalcData())
         {
@@ -336,15 +334,8 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
             }
         }
 
-        Logger::log("Copying current EvolveSituation\n");
         CopyEvolveSituation(situation);
-
-        Logger::log("Finding extra data\n");
-
         int32_t extraDataIndex = FindExtraDataByPoke(poke);
-        Logger::log("Found %d\n", extraDataIndex);
-
-        Logger::log("Checking Conditions\n");
 
         switch (evolutionCondition)
         {
@@ -526,6 +517,14 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
                 Logger::log("FOLLOWER\n");
                 return IsFollower(poke) && extraEvoData.followerStepCount >= evolutionParam;
 
+            case Pml::Personal::EvolveCond::BAG_ITEM_1: // One of an item in the bag
+                Logger::log("BAG_ITEM_1\n");
+                return PlayerWork::GetItem(evolutionParam).fields.Count >= 1;
+
+            case Pml::Personal::EvolveCond::BAG_ITEM_999: // 999 of an item in the bag
+                Logger::log("BAG_ITEM_999\n");
+                return PlayerWork::GetItem(evolutionParam).fields.Count >= 999;
+
             default:
                 return false;
         }
@@ -564,6 +563,7 @@ HOOK_DEFINE_REPLACE(CoreParam_Evolve) {
         Pml::Personal::PersonalSystem::LoadEvolutionTable(monsno, formno);
 
         Pml::Personal::EvolveCond evolutionCondition = Pml::Personal::PersonalSystem::GetEvolutionCondition(routeIndex);
+        uint16_t evolutionParam = Pml::Personal::PersonalSystem::GetEvolutionParam(routeIndex);
         int32_t evolvedMonsno = Pml::Personal::PersonalSystem::GetEvolvedMonsNo(routeIndex);
 
         if (nextMonsno != evolvedMonsno)
@@ -579,7 +579,6 @@ HOOK_DEFINE_REPLACE(CoreParam_Evolve) {
         __this->ChangeMonsNo(nextMonsno, formno);
 
         // Extra post-evolution code to run on the Pokémon.
-        Logger::log("evolutionCondition %d\n", evolutionCondition);
         switch (evolutionCondition)
         {
             // Remove item for evolutions that require holding one
@@ -605,6 +604,16 @@ HOOK_DEFINE_REPLACE(CoreParam_Evolve) {
                 __this->RemoveItem();
                 break;
 
+            // Remove Bag Item x1
+            case Pml::Personal::EvolveCond::BAG_ITEM_1:
+                ItemWork::SubItem(evolutionParam, 1);
+                break;
+
+            // Remove Bag Item x999
+            case Pml::Personal::EvolveCond::BAG_ITEM_999:
+                ItemWork::SubItem(evolutionParam, 999);
+                break;
+
             default:
                 break;
         }
@@ -616,7 +625,7 @@ HOOK_DEFINE_TRAMPOLINE(FieldWalkingManager_UpdatePartnerPokeIndex) {
         Orig(__this);
 
         int32_t newIndex = PlayerWork::get_TureWalkMemberIndex();
-        if (newIndex >= 0 && newIndex < PlayerWork::get_playerParty()->fields.m_memberCount)
+        if (newIndex >= 0 && newIndex < (int32_t)PlayerWork::get_playerParty()->fields.m_memberCount)
         {
             auto newFollower = (Pml::PokePara::CoreParam::Object*)PlayerWork::get_playerParty()->GetMemberPointer(newIndex);
             if (extraEvoData.followerRnd != newFollower->GetPersonalRnd())

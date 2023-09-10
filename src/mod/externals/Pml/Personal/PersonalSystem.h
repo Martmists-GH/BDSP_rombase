@@ -42,5 +42,9 @@ namespace Pml::Personal {
         static inline uint16_t GetEvolvedFormNo(uint8_t route_index) {
             return external<uint16_t>(0x024a2780, route_index);
         }
+
+        static inline uint16_t GetEvolutionParam(uint8_t route_index) {
+            return external<uint16_t>(0x024a2620, route_index);
+        }
     };
 }

@@ -59,5 +59,7 @@ namespace Pml::Personal {
         RND_1_OF_100 = 50,
         RND_99_OF_100 = 51,
         FOLLOWER = 52,
+        BAG_ITEM_1 = 53,
+        BAG_ITEM_999 = 54,
     };
 }
