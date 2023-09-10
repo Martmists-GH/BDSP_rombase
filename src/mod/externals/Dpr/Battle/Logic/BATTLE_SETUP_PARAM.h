@@ -1,6 +1,11 @@
 #pragma once
 
 #include "externals/il2cpp-api.h"
+
+#include "externals/Dpr/BallDeco/CapsuleData.h"
+#include "externals/Dpr/Battle/Logic/BtlCompetitor.h"
+#include "externals/Dpr/Battle/Logic/BtlRule.h"
+#include "externals/Dpr/Battle/Logic/MyStatus.h"
 #include "externals/Dpr/Battle/Logic/PokeResult.h"
 #include "externals/Pml/PokePara/EvolveSituation.h"
 #include "externals/Pml/PokeParty.h"
@@ -9,8 +14,8 @@
 namespace Dpr::Battle::Logic {
     struct BATTLE_SETUP_PARAM : ILClass<BATTLE_SETUP_PARAM> {
         struct Fields {
-            int32_t competitor;
-            int32_t rule;
+            BtlCompetitor competitor;
+            BtlRule rule;
             void* raidBattleParam; // Dpr_Battle_Logic_RaidBattleParam_o*
             void* fieldSituation; // Dpr_Battle_Logic_BTL_FIELD_SITUATION_o*
             void* btlEffComponent; // Dpr_Battle_Logic_BattleEffectComponentData_o*
@@ -25,7 +30,7 @@ namespace Dpr::Battle::Logic {
             bool isLiveRecSendEnable;
             Pml::PokeParty::Array* party;
             void* partyDesc; // Dpr_Battle_Logic_PartyDesc_array*
-            void* playerStatus; // Dpr_Battle_Logic_MyStatus_array*
+            Dpr::Battle::Logic::MyStatus::Array* playerStatus;
             System::UInt16_array* playerRating;
             void* ballDecoDesc; // Dpr_BallDeco_CapsuleData_array_array*
             void* tr_data; // Dpr_Battle_Logic_BSP_TRAINER_DATA_array*

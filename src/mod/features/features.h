@@ -16,6 +16,10 @@ void exl_badge_check_main();
 // Adds support for new Poké Balls.
 void exl_balls_main();
 
+// Makes it possible to set a flag to prevent escape from a wild encounter.
+// Defaults to flag 2591, as Luminescent does it.
+void exl_battle_escape_flag_main();
+
 // Makes the battle menu scroll instead of the cursor.
 void exl_battle_revolver_main();
 
@@ -58,6 +62,9 @@ void exl_key_items_main();
 
 // Adds the Level Cap functionality.
 void exl_level_cap_main();
+
+// Adds audio feedback when "bonking" into NPCs.
+void exl_npc_collision_audio_main();
 
 // Applies multiple small one-line patches.
 void exl_patches_main();

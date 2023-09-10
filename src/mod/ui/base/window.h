@@ -16,6 +16,7 @@
 #include "ui/base/spacing.h"
 #include "ui/base/text.h"
 #include "ui/base/text_unformatted.h"
+#include "ui/components/data_viewer.h"
 #include "ui/components/element_inspector.h"
 #include "ui/components/file_selector.h"
 #include "ui/components/string_view.h"
