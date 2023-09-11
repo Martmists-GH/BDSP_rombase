@@ -3,10 +3,19 @@
 #include "externals/il2cpp-api.h"
 
 #include "externals/Pml/PokePara/Accessor.h"
+#include "externals/Pml/PokePara/EggCheckType.h"
 #include "externals/Pml/WazaNo.h"
 
 namespace Pml::PokePara {
     struct CoreParam : ILClass<CoreParam> {
+        struct FormChangeResult : ILClass<FormChangeResult> {
+            struct Fields {
+                Pml_WazaNo_array* m_addedWaza;
+                Pml_WazaNo_array* m_removedWaza;
+                Pml_WazaNo_array* m_addFailedWaza;
+            };
+        };
+
         struct Fields {
             void* m_coreData;
             void* m_calcData;
@@ -29,7 +38,7 @@ namespace Pml::PokePara {
             return external<bool>(0x0204c9d0, this);
         }
 
-        inline bool IsEgg(int32_t type) {
+        inline bool IsEgg(Pml::PokePara::EggCheckType type) {
             return external<bool>(0x02049370, this, type);
         }
 
@@ -86,7 +95,7 @@ namespace Pml::PokePara {
         }
 
         inline System::Collections::Generic::HashSet$$Pml_WazaNo::Object* CollectRemindableWaza() {
-            return external< System::Collections::Generic::HashSet$$Pml_WazaNo::Object*>(0x02047aa0, this);
+            return external<System::Collections::Generic::HashSet$$Pml_WazaNo::Object*>(0x02047aa0, this);
         }
 
         inline int32_t AddWazaIfEmptyExist(int32_t wazano) {
@@ -127,6 +136,46 @@ namespace Pml::PokePara {
 
         inline void SetRareType(uint8_t type) {
             external<void>(0x0204a920, this, type);
+        }
+
+        inline uint8_t CalcLevel() {
+            return external<uint8_t>(0x02043e80, this);
+        }
+
+        inline uint32_t GetAtk() {
+            return external<uint32_t>(0x020436a0, this);
+        }
+
+        inline uint32_t GetDef() {
+            return external<uint32_t>(0x02043720, this);
+        }
+
+        inline uint32_t GetPersonalRnd() {
+            return external<uint32_t>(0x0204a690, this);
+        }
+
+        inline uint8_t GetType1() {
+            return external<uint8_t>(0x0204a9f0, this);
+        }
+
+        inline uint8_t GetType2() {
+            return external<uint8_t>(0x0204aaf0, this);
+        }
+
+        inline void SetFriendship(uint32_t value) {
+            external<void>(0x02049070, this, value);
+        }
+
+        inline void ChangeMonsNo(int32_t newMonsno, uint16_t newFormno) {
+            external<void>(0x02045b40, this, newMonsno, newFormno);
+        }
+
+        inline void ChangeFormNo(uint16_t newFormno, FormChangeResult::Object* pResult) {
+            external<void>(0x0204a260, this, newFormno, pResult);
+        }
+
+        inline void RemoveItem() {
+            external<void>(0x02049690, this);
         }
     };
 }

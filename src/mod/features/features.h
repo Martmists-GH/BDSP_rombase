@@ -36,11 +36,14 @@ void exl_debug_features_main();
 // Defaults to changing slots how Luminescent does it.
 void exl_encounter_slots_main();
 
-// Adds functionality to the Exp. Share item.
-void exl_exp_share_main();
-
 // Adds EV/IV to Summary UI with number based color gradient
 void exl_ev_iv_ui_main();
+
+// Rewrites the methods that deal with checking level up evolution methods.
+void exl_evolution_methods_main();
+
+// Adds functionality to the Exp. Share item.
+void exl_exp_share_main();
 
 // Adds new Pokémon/held item combos that trigger a form change when held.
 void exl_form_change_held_items_main();

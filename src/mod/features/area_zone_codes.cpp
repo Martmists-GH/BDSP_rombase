@@ -146,8 +146,9 @@ void zone_codes_main() {
     p.WriteInst(MovRegister(X23, X0));
     p.WriteInst(Branch(0x20));
 
+    // TODO: Figure out a way to make these UG patches work properly. ILCA's compiler did some weird stuff and it's breaking...
     // UgMiniMapComponent$$Initialize
-    p.Seek(0x018d7040);
+    /*p.Seek(0x018d7040);
     p.BranchLinkInst((void*)&Convert_ZoneID);
     p.WriteInst(MovRegister(X23, X0));
     p.WriteInst(Branch(0x24));
@@ -176,7 +177,7 @@ void zone_codes_main() {
     p.Seek(0x018da550);
     p.BranchLinkInst((void*)&Convert_ZoneID);
     p.WriteInst(MovRegister(X24, X0));
-    p.WriteInst(Branch(0x28));
+    p.WriteInst(Branch(0x28));*/
 
     // ColiseumRoomManager$$SetZoneData
     p.Seek(0x018e9190);

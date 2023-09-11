@@ -1,0 +1,22 @@
+#pragma once
+
+#include "externals/il2cpp-api.h"
+#include "externals/Dpr/Battle/Logic/BTL_PARTY.h"
+#include "externals/Dpr/Battle/Logic/BTL_POKEPARAM.h"
+
+namespace Dpr::Battle::Logic {
+    struct MainModule;
+
+    struct POKECON : ILClass<POKECON> {
+        struct Fields {
+            Dpr::Battle::Logic::MainModule* m_mainModule;
+            Dpr::Battle::Logic::BTL_PARTY::Array* m_party;
+            Dpr::Battle::Logic::BTL_POKEPARAM::Array* m_activePokeParam;
+            Dpr::Battle::Logic::BTL_POKEPARAM::Array* m_storedPokeParam;
+        };
+
+        inline Dpr::Battle::Logic::BTL_PARTY::Object* GetPartyData(uint32_t clientID) {
+            return external<Dpr::Battle::Logic::BTL_PARTY::Object*>(0x02038600, this, clientID);
+        }
+    };
+}

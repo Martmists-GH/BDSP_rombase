@@ -16,7 +16,7 @@ static bool Callback(Dpr::UI::UIBag::__c__DisplayClass135_0::Object *bagObject, 
         int32_t formno = coreParam->GetFormNo();
 
         Pml::Personal::PersonalSystem::LoadPersonalData(monsno, formno);
-        int32_t pattern = Pml::Personal::PersonalSystem::GetTokuseiPattern(monsno, formno);
+        int32_t pattern = Pml::Personal::PersonalSystem::GetTokuseiPattern();
 
         switch (pattern) {
             case 0: // A1 == A2 == HA

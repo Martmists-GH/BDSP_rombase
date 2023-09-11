@@ -7,8 +7,9 @@
 
 System::String::Object* GeneratePathPrefix()
 {
-    if (FlagWork::GetSysFlag(FlagWork_SysFlag::SYSFLAG_999))
+    if (FlagWork::GetSysFlag(FlagWork_SysFlag::SYSFLAG_999)) {
         return System::String::Create("pokemons/battle/");
+    }
     else
         return System::String::Create("pokemons/field/");
 }
@@ -17,7 +18,6 @@ HOOK_DEFINE_INLINE(ReplaceFullPath) {
     static void Callback(exl::hook::nx64::InlineCtx* ctx) {
         auto monStr = (System::String::Object*)ctx->X[1];
 
-        Logger::log("Replacing Field load of: %s\n", monStr->asCString().c_str());
         ctx->X[0] = (uint64_t)System::String::Concat(GeneratePathPrefix(), monStr);
     }
 };

@@ -659,6 +659,7 @@ static constexpr const char *ZONES[] = {
     "Ramanas Park - Ho-Oh (Empty)",
     "Ramanas Park - Lugia (Empty)",
     "Ramanas Park - Mewtwo (Empty)",
+    "DEBUG",
 };
 
 static constexpr const char *ZONE_CODES[] = {
@@ -1320,6 +1321,7 @@ static constexpr const char *ZONE_CODES[] = {
         "D10R0501B",
         "D10R0502B",
         "D10R0601B",
+        "DEBUG",
 };
 
 constexpr int ZONE_COUNT = sizeof(ZONES) / sizeof(ZONES[0]);

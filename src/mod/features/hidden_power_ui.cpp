@@ -1,7 +1,7 @@
 #include "exlaunch.hpp"
 #include "externals/Dpr/Battle/Logic/BTL_POKEPARAM.h"
 #include "externals/Pml/PokePara/CoreParam.h"
-#include "externals/Pml/WazaData.h"
+#include "externals/Pml/WazaData/WazaDataSystem.h"
 #include "data/moves.h"
 #include "data/utils.h"
 

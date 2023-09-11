@@ -136,6 +136,29 @@ enum class GenesectForm : int32_t {
     DOUSE_DRIVE = 4,
 };
 
+enum class VivillonForm : int32_t {
+    MEADOW = 0,
+    POLAR = 1,
+    TUNDRA = 2,
+    CONTINENTAL = 3,
+    GARDEN = 4,
+    ELEGANT = 5,
+    ICY_SNOW = 6,
+    MODERN = 7,
+    MARINE = 8,
+    ARCHIPELAGO = 9,
+    HIGH_PLAINS = 10,
+    SANDSTORM = 11,
+    RIVER = 12,
+    MONSOON = 13,
+    SAVANNA = 14,
+    SUN = 15,
+    OCEAN = 16,
+    JUNGLE = 17,
+    FANCY = 18,
+    POKE_BALL = 19,
+};
+
 enum class SilvallyForm : int32_t {
     NORMAL = 0,
     FIGHTING = 1,
@@ -155,6 +178,28 @@ enum class SilvallyForm : int32_t {
     DRAGON = 15,
     DARK = 16,
     FAIRY = 17,
+};
+
+enum class AlcremieCream : int32_t {
+    VANILLA_CREAM = 0,
+    RUBY_CREAM = 1,
+    MATCHA_CREAM = 2,
+    MINT_CREAM = 3,
+    LEMON_CREAM = 4,
+    SALTED_CREAM = 5,
+    RUBY_SWIRL = 6,
+    CARAMEL_SWIRL = 7,
+    RAINBOW_SWIRL = 8,
+};
+
+enum class AlcremieSweet : int32_t {
+    STRAWBERRY_SWEET = 0,
+    BERRY_SWEET = 1,
+    LOVE_SWEET = 2,
+    STAR_SWEET = 3,
+    CLOVER_SWEET = 4,
+    FLOWER_SWEET = 5,
+    RIBBON_SWEET = 6,
 };
 
 enum class ZacianForm : int32_t {

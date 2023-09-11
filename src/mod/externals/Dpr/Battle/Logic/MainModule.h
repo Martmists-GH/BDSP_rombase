@@ -1,13 +1,15 @@
 #pragma once
 
 #include "externals/il2cpp-api.h"
-#include "externals/System/Primitives.h"
+
 #include "externals/Dpr/BallDeco/CapsuleData.h"
 #include "externals/Dpr/Battle/Logic/BATTLE_SETUP_PARAM.h"
+#include "externals/Dpr/Battle/Logic/BattleEnv.h"
+#include "externals/Dpr/Battle/Logic/BTL_POKEPARAM.h"
 #include "externals/Dpr/Battle/Logic/BtlRule.h"
 #include "externals/Dpr/Battle/Logic/MyStatus.h"
 #include "externals/Pml/PokeParty.h"
-#include "BTL_POKEPARAM.h"
+#include "externals/System/Primitives.h"
 
 namespace Dpr::Battle::Logic {
     struct MainModule : ILClass<MainModule> {
@@ -59,8 +61,8 @@ namespace Dpr::Battle::Logic {
             System::Boolean_array* m_moneyDblUpCause;
             void* m_zukanDataOnBattleStart;
             void* m_deadPokeIDRec;
-            void* m_battleEnvForClient;
-            void* m_battleEnvForServer;
+            Dpr::Battle::Logic::BattleEnv::Object* m_battleEnvForClient;
+            Dpr::Battle::Logic::BattleEnv::Object* m_battleEnvForServer;
             void* m_iPtrNetClient;
             bool isInitialized;
             bool isFinalized;
@@ -77,6 +79,10 @@ namespace Dpr::Battle::Logic {
 
         inline uint8_t GetPokeFriendship(Dpr::Battle::Logic::BTL_POKEPARAM* bpp) {
             return external<uint8_t>(0x0202c3d0, this, bpp);
+        }
+
+        inline Pml::PokeParty::Object* GetSrcParty(uint8_t clientID, bool fForServer) {
+            return external<Pml::PokeParty::Object*>(0x020325a0, this, clientID, fForServer);
         }
     };
 }
