@@ -19,8 +19,8 @@ namespace Pml::Personal {
             external<void>(0x024a0d50, monsno, formno);
         }
 
-        static inline int32_t GetTokuseiPattern(int32_t monsno, uint16_t formno) {
-            return external<int32_t>(0x024a15d0, monsno, formno);
+        static inline int32_t GetTokuseiPattern() {
+            return external<int32_t>(0x024a15d0);
         }
 
         static inline void LoadEvolutionTable(int32_t monsno, uint16_t formno) {
