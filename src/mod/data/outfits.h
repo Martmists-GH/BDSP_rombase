@@ -15,6 +15,7 @@ static constexpr const char *OUTFITS[] = {
     "Casual Style",
     "Leather Jacket Style",
     "Everyday Style - Bike Outfit",
+    "New Cyber Style",
 };
 
 const int OUTFIT_COUNT = sizeof(OUTFITS) / sizeof(OUTFITS[0]);

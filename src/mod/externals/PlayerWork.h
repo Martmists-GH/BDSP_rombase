@@ -270,4 +270,8 @@ struct PlayerWork : ILClass<PlayerWork, 0x04c59b58> {
     static inline void set_colorID(int32_t value) {
         external<void>(0x02cef870, value);
     }
+
+    static inline bool get_playerSex() {
+        return external<bool>(0x02ce2cd0);
+    }
 };

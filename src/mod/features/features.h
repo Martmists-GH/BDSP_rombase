@@ -63,6 +63,9 @@ void exl_level_cap_main();
 // Adds audio feedback when "bonking" into NPCs.
 void exl_npc_collision_audio_main();
 
+// Changes all UI elements that are outfit and ColorVariation dependent to the default ones.
+void exl_outfit_neutral_ui_main();
+
 // Applies multiple small one-line patches.
 void exl_patches_main();
 

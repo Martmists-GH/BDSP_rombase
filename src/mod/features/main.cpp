@@ -19,6 +19,7 @@ void exl_features_main() {
     exl_key_items_main();
     exl_level_cap_main();
     exl_npc_collision_audio_main();
+    exl_outfit_neutral_ui_main();
     exl_patches_main();
     exl_pla_context_menu_main();
     exl_poketch_main();
