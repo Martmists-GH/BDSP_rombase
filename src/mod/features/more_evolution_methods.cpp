@@ -179,76 +179,6 @@ uint16_t GetAlcremieForm(Pml::PokePara::CoreParam::Object* poke)
     return (uint16_t)cream * 7 + (uint16_t)sweet;
 }
 
-bool IsHoldingVivillonBerry(Pml::PokePara::CoreParam::Object* poke)
-{
-    return poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Kebia Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Chople Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Kasib Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Rindo Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Occa Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Chilan Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Tanga Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Passho Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Roseli Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Babiri Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Colbur Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Haban Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Yache Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Shuca Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Charti Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Wacan Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Papaya Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Coba Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Starf Berry") ||
-       poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Enigma Berry");
-}
-
-uint16_t GetVivillonForm(Pml::PokePara::CoreParam::Object* poke)
-{
-    if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Roseli Berry"))
-        return (uint16_t)VivillonForm::MEADOW;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Yache Berry"))
-        return (uint16_t)VivillonForm::POLAR;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Coba Berry"))
-        return (uint16_t)VivillonForm::TUNDRA;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Chople Berry"))
-        return (uint16_t)VivillonForm::CONTINENTAL;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Rindo Berry"))
-        return (uint16_t)VivillonForm::GARDEN;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Kasib Berry"))
-        return (uint16_t)VivillonForm::ELEGANT;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Chilan Berry"))
-        return (uint16_t)VivillonForm::ICY_SNOW;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Babiri Berry"))
-        return (uint16_t)VivillonForm::MODERN;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Passho Berry"))
-        return (uint16_t)VivillonForm::MARINE;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Kebia Berry"))
-        return (uint16_t)VivillonForm::ARCHIPELAGO;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Occa Berry"))
-        return (uint16_t)VivillonForm::HIGH_PLAINS;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Charti Berry"))
-        return (uint16_t)VivillonForm::SANDSTORM;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Shuca Berry"))
-        return (uint16_t)VivillonForm::RIVER;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Colbur Berry"))
-        return (uint16_t)VivillonForm::MONSOON;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Wacan Berry"))
-        return (uint16_t)VivillonForm::SAVANNA;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Payapa Berry"))
-        return (uint16_t)VivillonForm::SUN;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Haban Berry"))
-        return (uint16_t)VivillonForm::OCEAN;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Tanga Berry"))
-        return (uint16_t)VivillonForm::JUNGLE;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Starf Berry"))
-        return (uint16_t)VivillonForm::FANCY;
-    else if (poke->fields.m_accessor->GetItemNo() == (uint32_t)array_index(ITEMS, "Enigma Berry"))
-        return (uint16_t)VivillonForm::POKE_BALL;
-    else
-        return (uint16_t)VivillonForm::MEADOW;
-}
-
 int32_t FindExtraDataByPoke(Pml::PokePara::CoreParam::Object* poke)
 {
     for (int32_t i=0; i<6; i++)
@@ -501,9 +431,9 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
                 Logger::log("HELD_ITEM\n");
                 return poke->fields.m_accessor->GetItemNo() == evolutionParam;
 
-            case Pml::Personal::EvolveCond::VIVILLON: // Vivillon
-                Logger::log("VIVILLON\n");
-                return IsHoldingVivillonBerry(poke);
+            case Pml::Personal::EvolveCond::_49: // TBD
+                Logger::log("49\n");
+                return false;
 
             case Pml::Personal::EvolveCond::RND_1_OF_100: // Encryption Constant % 100 = 0
                 Logger::log("RND_1_OF_100\n");
@@ -594,13 +524,6 @@ HOOK_DEFINE_REPLACE(CoreParam_Evolve) {
             case Pml::Personal::EvolveCond::AMEZAIKU:
                 Logger::log("Fixing Alcremie form to %d!\n", GetAlcremieForm(__this));
                 __this->ChangeFormNo(GetAlcremieForm(__this), nullptr);
-                __this->RemoveItem();
-                break;
-
-            // Adjust Vivillon's form
-            case Pml::Personal::EvolveCond::VIVILLON:
-                Logger::log("Fixing Vivillon form to %d!\n", GetVivillonForm(__this));
-                __this->ChangeFormNo(GetVivillonForm(__this), nullptr);
                 __this->RemoveItem();
                 break;
 
