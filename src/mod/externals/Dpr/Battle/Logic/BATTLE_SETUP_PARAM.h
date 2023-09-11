@@ -6,8 +6,10 @@
 #include "externals/Dpr/Battle/Logic/BtlCompetitor.h"
 #include "externals/Dpr/Battle/Logic/BtlRule.h"
 #include "externals/Dpr/Battle/Logic/MyStatus.h"
-#include "externals/System/Primitives.h"
+#include "externals/Dpr/Battle/Logic/PokeResult.h"
+#include "externals/Pml/PokePara/EvolveSituation.h"
 #include "externals/Pml/PokeParty.h"
+#include "externals/System/Primitives.h"
 
 namespace Dpr::Battle::Logic {
     struct BATTLE_SETUP_PARAM : ILClass<BATTLE_SETUP_PARAM> {
@@ -17,7 +19,7 @@ namespace Dpr::Battle::Logic {
             void* raidBattleParam; // Dpr_Battle_Logic_RaidBattleParam_o*
             void* fieldSituation; // Dpr_Battle_Logic_BTL_FIELD_SITUATION_o*
             void* btlEffComponent; // Dpr_Battle_Logic_BattleEffectComponentData_o*
-            void* evolveSituation; // Pml_PokePara_EvolveSituation_o*
+            Pml::PokePara::EvolveSituation::Object* evolveSituation;
             uint8_t commMode;
             uint8_t multiMode;
             uint8_t commPos;
@@ -75,7 +77,7 @@ namespace Dpr::Battle::Logic {
             bool isWatchMember;
             System::Boolean_array* fightPokeIndex;
             System::Boolean_array* turnedLvUpPokeIndex;
-            void* pokeResult; // Dpr_Battle_Logic_PokeResult_array*
+            Dpr::Battle::Logic::PokeResult::Array* pokeResult;
             void* party_state; // System_Byte_array_array*
             System::UInt32_array* restHPRatio;
             void* PGL_Record; // Dpr_Battle_Logic_BATTLE_PGL_RECORD_SET_o*

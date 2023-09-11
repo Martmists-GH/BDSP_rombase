@@ -54,6 +54,12 @@ namespace ui {
                     _.items_count = DEBUG_SHINY_COUNT;
                     _.selected = array_index(DEBUG_SHINIES, "-");
                 });
+                auto *friendship = _.InputInt([](InputInt &_) {
+                    _.label = "Friendship";
+                    _.min = 0;
+                    _.max = 255;
+                    _.value = 70;
+                });
                 auto* customMoves = _.Checkbox([](Checkbox &_) {
                     _.label = "Custom moves";
                     _.enabled = false;
@@ -83,9 +89,9 @@ namespace ui {
                     _.selected = array_index(MOVES, "Comet Punch");
                 });
 
-                _.Button([species, form, level, ball, sex, shiny, customMoves, move1, move2, move3, move4](Button &_) {
+                _.Button([species, form, level, ball, sex, shiny, friendship, customMoves, move1, move2, move3, move4](Button &_) {
                     _.label = "Give Pokemon";
-                    _.onClick = [species, form, level, ball, sex, shiny, customMoves, move1, move2, move3, move4]() {
+                    _.onClick = [species, form, level, ball, sex, shiny, friendship, customMoves, move1, move2, move3, move4]() {
                         system_load_typeinfo(0x43be);
                         auto party = PlayerWork::get_playerParty();
 
@@ -102,6 +108,8 @@ namespace ui {
 
                         auto param = Pml::PokePara::PokemonParam::newInstance(initialSpec);
                         auto core = param->cast<Pml::PokePara::CoreParam>();
+
+                        core->SetFriendship(friendship->value);
 
                         if (customMoves->enabled)
                         {

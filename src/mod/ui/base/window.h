@@ -26,6 +26,7 @@
 #include "ui/tools/item_tool.h"
 #include "ui/tools/misc_tool.h"
 #include "ui/tools/model_tool.h"
+#include "ui/tools/poffin_tool.h"
 #include "ui/tools/pokemon_tool.h"
 #include "ui/tools/save_tool.h"
 #include "ui/tools/variables_tool.h"

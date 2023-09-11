@@ -99,7 +99,7 @@ void SetWorkToValue(EvData::Aregment::Object arg, int32_t value)
 bool IsNullOrEgg(Pml::PokePara::PokemonParam::Object * param)
 {
     Pml::PokePara::CoreParam::Object * coreParam = (Pml::PokePara::CoreParam::Object *)param;
-    return coreParam == nullptr || coreParam->IsNull() || coreParam->IsEgg(2);
+    return coreParam == nullptr || coreParam->IsNull() || coreParam->IsEgg(Pml::PokePara::EggCheckType::BOTH_EGG);
 }
 
 
