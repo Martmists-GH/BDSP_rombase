@@ -17,7 +17,6 @@ namespace Dpr::UI {
             inline void ctor() {
                 external<void>(0x01d45cc0, this);
             }
-
         };
 
         struct Fields : Dpr::UI::ShopItemItem::Fields {

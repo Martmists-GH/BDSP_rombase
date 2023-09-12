@@ -10,6 +10,7 @@
 #include "externals/UIWindowID.h"
 #include "externals/UnityEngine/Events/UnityAction.h"
 #include "externals/UnityEngine/Transform.h"
+#include "externals/XLSXContent/UIDatabase.h"
 
 namespace Dpr::UI {
     struct ShopBoutiqueChange;
@@ -20,7 +21,9 @@ namespace Dpr::UI {
         struct Fields : SmartPoint::AssetAssistant::SingletonMonoBehaviour::Fields {
             UnityEngine::Transform::Object* _activeRoot;
             Dpr::UI::UIModelViewController::Object* _modelView;
-            char todo[256];
+            UnityEngine::Transform::Object* _blurBgRoot;
+            XLSXContent::UIDatabase::Object* _mdUis;
+            char todo[240];
         };
 
         struct StaticFields {
@@ -73,4 +76,5 @@ namespace Dpr::UI {
     };
 }
 
+static_assert(offsetof(Dpr::UI::UIManager::Fields, _mdUis) == 0x20);
 static_assert(sizeof(Dpr::UI::UIManager::Fields) == 280);
