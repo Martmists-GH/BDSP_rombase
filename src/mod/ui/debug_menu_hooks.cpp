@@ -79,25 +79,6 @@ HOOK_DEFINE_TRAMPOLINE(FlyOverride2) {
         return Orig(__this, cell);
     }
 };
-/*
-static bool btlCamOverride = true;
-
-void setBtlCamReset(bool b) {
-    btlCamOverride = b;
-}
-
-HOOK_DEFINE_TRAMPOLINE(BattleCameraResetSkip) {
-    static void Callback(Dpr::Battle::View::Systems::BattleViewSystem::Object *__this,int32_t frame,int32_t moveType, Dpr::SequenceEditor::SequenceCameraSystem::Object *system,UnityEngine::Vector3::Object pos,UnityEngine::Vector3::Object target,float fov,float depthNear,float depthFar, MethodInfo *method) {
-        if (btlCamOverride) {
-            Logger::log("Skipping camera.\n");
-            return Orig(nullptr, frame, moveType, system, pos, target, fov, depthNear, depthFar, method);
-        } else {
-            Logger::log("Not skipping camera.\n");
-            return Orig(__this, frame, moveType, system, pos, target, fov, depthNear, depthFar, method);
-        }
-    }
-};
-*/
 
 void exl_debug_menu_main() {
     ArenaHook::InstallAtOffset(0x02c3abc0);
@@ -106,5 +87,4 @@ void exl_debug_menu_main() {
     LastAreaName::InstallAtOffset(0x01786970);
     FlyOverride::InstallAtOffset(0x0184e780);
     FlyOverride2::InstallAtOffset(0x01850250);
-    //BattleCameraResetSkip::InstallAtOffset(0x01c92008);
 }

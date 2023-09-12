@@ -15,6 +15,5 @@ void ui_inspect(UnityEngine::Transform* transform);
 void setArenaSettings(bool enabled, int id);
 void showAreaName();
 void setFlyOverride(bool enabled);
-//void setBtlCamReset(bool enabled);
 
 #define ROOT getRootElement()

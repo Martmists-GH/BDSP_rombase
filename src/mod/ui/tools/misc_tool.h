@@ -57,16 +57,6 @@ namespace ui {
                         Logger::log("Added Poffin\n");
                     };
                 });
-
-                /*
-                _.Checkbox([](Checkbox &_) {
-                    _.label = "Skip Battle Camera Reset";
-                    _.enabled = true;
-                    _.onChange = [](bool value) {
-                        setBtlCamReset(value);
-                    };
-                });
-                */
             });
 
             addChild(header);
