@@ -1,16 +1,20 @@
 #pragma once
 
 #include "externals/il2cpp-api.h"
-#include "externals/System/Primitives.h"
+
 #include "externals/Dpr/BallDeco/CapsuleData.h"
+#include "externals/Dpr/Battle/Logic/BATTLE_SETUP_PARAM.h"
+#include "externals/Dpr/Battle/Logic/BattleEnv.h"
+#include "externals/Dpr/Battle/Logic/BTL_POKEPARAM.h"
+#include "externals/Dpr/Battle/Logic/BtlRule.h"
 #include "externals/Dpr/Battle/Logic/MyStatus.h"
 #include "externals/Pml/PokeParty.h"
-#include "BTL_POKEPARAM.h"
+#include "externals/System/Primitives.h"
 
 namespace Dpr::Battle::Logic {
     struct MainModule : ILClass<MainModule> {
         struct Fields {
-            void* m_setupParam;
+            Dpr::Battle::Logic::BATTLE_SETUP_PARAM::Object* m_setupParam;
             void* m_viewCore;
             void* m_randSys;
             uint64_t m_randomSeed;
@@ -23,7 +27,7 @@ namespace Dpr::Battle::Logic {
             Pml::PokeParty::Object* m_tmpParty;
             Dpr::Battle::Logic::MyStatus::Object* m_playerStatus;
             System::Boolean_array* m_fClientQuit;
-            int32_t m_rule;
+            BtlRule m_rule;
             uint32_t m_regularMoney;
             uint32_t m_bonusMoney;
             uint32_t m_loseMoney;
@@ -57,8 +61,8 @@ namespace Dpr::Battle::Logic {
             System::Boolean_array* m_moneyDblUpCause;
             void* m_zukanDataOnBattleStart;
             void* m_deadPokeIDRec;
-            void* m_battleEnvForClient;
-            void* m_battleEnvForServer;
+            Dpr::Battle::Logic::BattleEnv::Object* m_battleEnvForClient;
+            Dpr::Battle::Logic::BattleEnv::Object* m_battleEnvForServer;
             void* m_iPtrNetClient;
             bool isInitialized;
             bool isFinalized;
@@ -75,6 +79,10 @@ namespace Dpr::Battle::Logic {
 
         inline uint8_t GetPokeFriendship(Dpr::Battle::Logic::BTL_POKEPARAM* bpp) {
             return external<uint8_t>(0x0202c3d0, this, bpp);
+        }
+
+        inline Pml::PokeParty::Object* GetSrcParty(uint8_t clientID, bool fForServer) {
+            return external<Pml::PokeParty::Object*>(0x020325a0, this, clientID, fForServer);
         }
     };
 }

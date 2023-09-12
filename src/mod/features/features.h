@@ -16,6 +16,10 @@ void exl_badge_check_main();
 // Adds support for new Poké Balls.
 void exl_balls_main();
 
+// Makes it possible to set a flag to prevent escape from a wild encounter.
+// Defaults to flag 2591, as Luminescent does it.
+void exl_battle_escape_flag_main();
+
 // Makes the battle menu scroll instead of the cursor.
 void exl_battle_revolver_main();
 
@@ -35,11 +39,14 @@ void exl_debug_features_main();
 // Defaults to changing slots how Luminescent does it.
 void exl_encounter_slots_main();
 
-// Adds functionality to the Exp. Share item.
-void exl_exp_share_main();
-
 // Adds EV/IV to Summary UI with number based color gradient
 void exl_ev_iv_ui_main();
+
+// Rewrites the methods that deal with checking level up evolution methods.
+void exl_evolution_methods_main();
+
+// Adds functionality to the Exp. Share item.
+void exl_exp_share_main();
 
 // Adds new Pokémon/held item combos that trigger a form change when held.
 void exl_form_change_held_items_main();
@@ -58,6 +65,12 @@ void exl_key_items_main();
 
 // Adds the Level Cap functionality.
 void exl_level_cap_main();
+
+// Adds audio feedback when "bonking" into NPCs.
+void exl_npc_collision_audio_main();
+
+// Changes all UI elements that are outfit and ColorVariation dependent to the default ones.
+void exl_outfit_neutral_ui_main();
 
 // Applies multiple small one-line patches.
 void exl_patches_main();

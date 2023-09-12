@@ -1,8 +1,8 @@
 #pragma once
 
 #include "externals/il2cpp-api.h"
-#include "externals/System/Primitives.h"
 #include "externals/Pml/PokePara/PokemonParam.h"
+#include "externals/System/Primitives.h"
 
 namespace Dpr::Battle::Logic {
     struct BTL_POKEPARAM : ILClass<BTL_POKEPARAM> {
@@ -71,8 +71,16 @@ namespace Dpr::Battle::Logic {
             return external<uint16_t>(0x01fdfd50, this);
         }
 
-        inline Dpr::Battle::Logic::BTL_POKEPARAM::Object * GetBattlePokeParam(int32_t pos) {
-            return external<Dpr::Battle::Logic::BTL_POKEPARAM::Object *>(0x01887530, this);
+        inline void COUNTER_Inc(int32_t cnt) {
+            external<void>(0x01fe2cd0, this, cnt);
+        }
+
+        inline uint8_t COUNTER_Get(int32_t cnt) {
+            return external<uint8_t>(0x01fe0140, this, cnt);
+        }
+
+        inline Pml::PokePara::PokemonParam::Object* GetSrcData() {
+            return external<Pml::PokePara::PokemonParam::Object*>(0x01fdd5b0, this);
         }
     };
 }

@@ -152,18 +152,20 @@ void SetTimeOfDaySlots(MonsLv::Array *slots)
 {
     XLSXContent::FieldEncountTable::Sheettable::Object * fieldEnc = GetFieldEncountersOfCurrentZoneID();
 
-    int32_t periodOfDay = GameManager::get_currentPeriodOfDay();
+    PeriodOfDay periodOfDay = GameManager::get_currentPeriodOfDay();
     switch (periodOfDay)
     {
-        case 1:
-        case 2:
+        case PeriodOfDay::Daytime:
+        case PeriodOfDay::Evening:
             if (fieldEnc->fields.day->max_length > 0) ReplaceSlot(slots, SLOT_TIME_OF_DAY_1, fieldEnc->fields.day->m_Items[0]);
             if (fieldEnc->fields.day->max_length > 1) ReplaceSlot(slots, SLOT_TIME_OF_DAY_2, fieldEnc->fields.day->m_Items[1]);
             break;
-        case 3:
-        case 4:
+        case PeriodOfDay::Night:
+        case PeriodOfDay::Midnight:
             if (fieldEnc->fields.night->max_length > 0) ReplaceSlot(slots, SLOT_TIME_OF_DAY_1, fieldEnc->fields.night->m_Items[0]);
             if (fieldEnc->fields.night->max_length > 1) ReplaceSlot(slots, SLOT_TIME_OF_DAY_2, fieldEnc->fields.night->m_Items[1]);
+            break;
+        default:
             break;
     }
 }
@@ -419,7 +421,7 @@ void CheckRepel(Dpr::Field::FieldEncount::ENC_FLD_SPA::Object *spaStruct)
         for (uint32_t i=0; i<party->fields.m_memberCount; i++)
         {
             auto currentPoke = (Pml::PokePara::CoreParam::Object *)party->GetMemberPointer(i);
-            if (!currentPoke->IsEgg(2) && !currentPoke->IsHpZero())
+            if (!currentPoke->IsEgg(Pml::PokePara::EggCheckType::BOTH_EGG) && !currentPoke->IsHpZero())
             {
                 firstLevel = currentPoke->GetLevel();
                 break;

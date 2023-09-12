@@ -5,7 +5,7 @@
 #include "externals/XLSXContent/ItemTable.h"
 
 namespace Pml {
-    struct PmlUse : ILClass<PmlUse> {
+    struct PmlUse : ILClass<PmlUse, 0x04c5b4d0> {
         struct Fields {
             bool isAutoLoad;
             void* personalTotal; // XLSXContent_PersonalTable_o*
@@ -36,6 +36,10 @@ namespace Pml {
 
         inline int32_t get_LangId() {
             return external<int32_t>(0x024a3c20, this);
+        }
+
+        inline uint8_t get_CassetVersion() {
+            return external<uint8_t>(0x024a3cb0, this);
         }
     };
 }

@@ -99,7 +99,7 @@ void SetWorkToValue(EvData::Aregment::Object arg, int32_t value)
 bool IsNullOrEgg(Pml::PokePara::PokemonParam::Object * param)
 {
     Pml::PokePara::CoreParam::Object * coreParam = (Pml::PokePara::CoreParam::Object *)param;
-    return coreParam == nullptr || coreParam->IsNull() || coreParam->IsEgg(2);
+    return coreParam == nullptr || coreParam->IsNull() || coreParam->IsEgg(Pml::PokePara::EggCheckType::BOTH_EGG);
 }
 
 
@@ -339,6 +339,7 @@ bool ToggleCollisionBox(Dpr::EvScript::EvDataManager::Object * manager)
 {
     Logger::log("_TOGGLE_COLLISION_BOX\n");
     system_load_typeinfo(0x5b6);
+    system_load_typeinfo(0x802);
     EvData::Aregment::Array* args = manager->fields._evArg;
     Dpr::EvScript::EvScriptData::Object * evData = manager->fields._evData;
 
@@ -365,6 +366,22 @@ bool ToggleCollisionBox(Dpr::EvScript::EvDataManager::Object * manager)
                 }
             }
         }
+    }
+
+    return true;
+}
+
+// Sets the given work to 69. Acts as a check for a proper installation.
+// Arguments:
+//   [Work] work: The work to set.
+bool InstallCheck(Dpr::EvScript::EvDataManager::Object * manager)
+{
+    Logger::log("_INSTALL_CHECK\n");
+    EvData::Aregment::Array* args = manager->fields._evArg;
+
+    if (args->max_length >= 2)
+    {
+        SetWorkToValue(args->m_Items[1], 69);
     }
 
     return true;
@@ -422,6 +439,8 @@ HOOK_DEFINE_TRAMPOLINE(RunEvCmdCustom) {
                     return PartyBoxRelease(__this);
                 case Dpr::EvScript::EvCmdID::NAME::_TOGGLE_COLLISION_BOX:
                     return ToggleCollisionBox(__this);
+                case Dpr::EvScript::EvCmdID::NAME::_INSTALL_CHECK:
+                    return InstallCheck(__this);
                 case Dpr::EvScript::EvCmdID::NAME::_SET_PLAYER_COLOR_INDEX:
                     return SetPlayerColorIndex(__this);
                 default:
@@ -448,5 +467,6 @@ void exl_commands_main() {
     SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_GET_BOX_POKE_SEIKAKU);
     SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_RELEASE_BOX_POKE);
     SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_TOGGLE_COLLISION_BOX);
+    SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_INSTALL_CHECK);
     SetActivatedCommand(Dpr::EvScript::EvCmdID::NAME::_SET_PLAYER_COLOR_INDEX);
 }

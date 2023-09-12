@@ -1,22 +1,25 @@
 #include "features.h"
 
-
 void exl_features_main() {
     // Activated features for Luminescent
     exl_ability_changes_main();
     exl_area_zone_codes_main();
     exl_badge_check_main();
     exl_balls_main();
+    exl_battle_escape_flag_main();
     exl_color_variations_main();
     exl_commands_main();
     exl_encounter_slots_main();
     exl_ev_iv_ui_main();
+    exl_evolution_methods_main();
     exl_form_change_held_items_main();
     exl_gender_neutral_boutique_main();
     exl_hidden_power_ui_main();
     exl_items_changes_main();
     exl_key_items_main();
     exl_level_cap_main();
+    exl_npc_collision_audio_main();
+    exl_outfit_neutral_ui_main();
     exl_patches_main();
     exl_pla_context_menu_main();
     exl_poketch_main();
