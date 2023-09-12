@@ -24,7 +24,7 @@ HOOK_DEFINE_REPLACE(Dpr_UI_ShopBoutiqueChange_SetupBoutiqueItemParams) {
                 dressId == array_index(OUTFITS, "Contest Style Feminine") ||
                 dressId == array_index(OUTFITS, "Bicycle Style Masculine") ||
                 dressId == array_index(OUTFITS, "Bicycle Style Feminine") ||
-                dressId == array_index(OUTFITS, "Cyber Style 2.0 Feminine"))
+                dressId == array_index(OUTFITS, "Cyber Style 2.0 Masculine"))
             {
                 // Don't add these outfits
                 continue;

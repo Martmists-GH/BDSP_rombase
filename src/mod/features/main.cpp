@@ -22,6 +22,7 @@ void exl_features_main() {
     exl_outfit_neutral_ui_main();
     exl_patches_main();
     exl_pla_context_menu_main();
+    exl_poke_radar_fixes_main();
     exl_poketch_main();
     exl_relearn_tms_main();
     exl_save_data_expansion();
