@@ -2,11 +2,42 @@
 
 #include "externals/il2cpp-api.h"
 
+#include "externals/Audio/AudioInstance.h"
 #include "externals/Dpr/Field/FieldEncount.h"
+#include "externals/UnityEngine/GameObject.h"
 #include "externals/UnityEngine/Vector3.h"
 
 namespace Dpr::Field {
-    struct SwayGrass : ILClass<SwayGrass> {
+    struct SwayGrass : ILClass<SwayGrass, 0x04c5ac58> {
+        struct GrassData : ILClass<GrassData> {
+            struct Fields {
+                bool enable;
+                float effectTime;
+                bool rensaMons;
+                int32_t rank;
+                int32_t random_iro;
+                int32_t random_kakure;
+                UnityEngine::Vector3::Object position;
+                int32_t attricode;
+                UnityEngine::GameObject::Object* transObject;
+            };
+        };
+
+        struct StaticFields {
+            bool is_swaygrass_flag;
+            int32_t swayZone;
+            GrassData::Array* grass_data;
+            Audio::AudioInstance::Array* _grassAudio;
+            GrassData::Object* work_data;
+            uint32_t rensa_count;
+            int32_t rensa_mons;
+            uint32_t rensa_lv;
+            bool BattleEndRensaStart;
+            UnityEngine::GameObject::Object* RootGrass;
+            bool _callSwayBGM;
+            bool _callStopSwayBGM;
+        };
+
         static inline void StopSE() {
             external<void>(0x019b4fa0);
         }

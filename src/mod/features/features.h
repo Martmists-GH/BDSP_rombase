@@ -48,7 +48,8 @@ void exl_exp_share_main();
 // Adds new Pokémon/held item combos that trigger a form change when held.
 void exl_form_change_held_items_main();
 
-// Makes all Boutique outfits (of both Lucas and Dawn) available at the start.
+// Makes all Boutique outfits (of both Lucas and Dawn) available at the start. Also removes the bike outfit in battle on cycling road.
+// Requires a re-indexed CharacterDressData file in masterdatas.
 void exl_gender_neutral_boutique_main();
 
 // Replaces every instance of Hidden Power being shown as "Normal" type with its actual type for the Pokémon.
@@ -74,6 +75,9 @@ void exl_patches_main();
 
 // Adds nicknaming and move relearning to the party menu.
 void exl_pla_context_menu_main();
+
+// Fixes Poké Radar bugs and improves chain rates.
+void exl_poke_radar_fixes_main();
 
 // Adds support for two-button Pokétch.
 // Requires an edited uiresidentwindow bundle with a second Pokétch button.
