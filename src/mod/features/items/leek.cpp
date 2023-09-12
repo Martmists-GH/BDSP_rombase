@@ -6,7 +6,7 @@
 #include "externals/Dpr/Battle/Logic/EventFactor.h"
 
 HOOK_DEFINE_REPLACE(Dpr_Battle_Logic_Handler_Item_handler_Leek) {
-    static bool Callback(Dpr::Battle::Logic::EventFactor::EventHandlerArgs::Object** args, uint8_t pokeID) {
+    static void Callback(Dpr::Battle::Logic::EventFactor::EventHandlerArgs::Object** args, uint8_t pokeID) {
         using namespace Dpr::Battle::Logic;
 
         system_load_typeinfo(0x58a2);
