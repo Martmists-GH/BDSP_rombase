@@ -2,6 +2,7 @@
 #include "externals/Pml/PokeParty.h"
 #include "logger/logger.h"
 #include "helpers/InputHelper.h"
+#include "externals/Dpr/Battle/View/Systems/BattleViewSystem.h"
 #include "externals/FieldCanvas.h"
 
 static bool enabled = false;

@@ -15,5 +15,9 @@ namespace Dpr::Battle::Logic {
             int32_t m_msgSpeed;
             void* m_battleSimulator;
         };
+
+        inline int32_t BtlPosToViewPos(uint8_t pos) {
+            return external<int32_t>(0x01888200, this, pos);
+        }
     };
 }
