@@ -1,7 +1,10 @@
 #pragma once
 
 #include "externals/il2cpp-api.h"
+
+#include "externals/Pml/Sex.h"
 #include "externals/XLSXContent/CharacterDressData.h"
+#include "externals/XLSXContent/PokemonInfo.h"
 #include "externals/XLSXContent/ShopTable.h"
 
 namespace GameData {
@@ -50,6 +53,10 @@ namespace GameData {
 
         static inline XLSXContent::CharacterDressData::SheetData::Object * GetCharacterDressData(int32_t dressId) {
             return external<XLSXContent::CharacterDressData::SheetData::Object *>(0x02ccd460, dressId);
+        }
+
+        static inline XLSXContent::PokemonInfo::SheetCatalog::Object* GetPokemonCatalog(int32_t monsNo, int32_t formNo, Pml::Sex sex, bool isRare, bool isEgg) {
+            return external<XLSXContent::PokemonInfo::SheetCatalog::Object*>(0x02cc76a0, monsNo, formNo, sex, isRare, isEgg);
         }
     };
 }

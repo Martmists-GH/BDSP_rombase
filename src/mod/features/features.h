@@ -104,6 +104,9 @@ void exl_shiny_rates_main();
 // Adds support for Sigma Platinum-style Sound encounters.
 void exl_sounds_main();
 
+// Adds support for alternate forms for the field swarm models.
+void exl_swarm_forms_main();
+
 // Makes TMs infinite use.
 void exl_tms_main();
 
