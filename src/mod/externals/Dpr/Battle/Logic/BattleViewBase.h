@@ -17,7 +17,7 @@ namespace Dpr::Battle::Logic {
         };
 
         inline int32_t BtlPosToViewPos(uint8_t pos) {
-            external<int32_t>(0x01888200, this, pos);
+            return external<int32_t>(0x01888200, this, pos);
         }
     };
 }
