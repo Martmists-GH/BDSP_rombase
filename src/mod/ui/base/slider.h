@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include <functional>
+#include "externals/UnityEngine/Vector2.h"
+#include "externals/UnityEngine/Vector3.h"
 #include "ui/base/element.h"
 
 namespace ui {
@@ -15,10 +17,45 @@ namespace ui {
             return !label.empty() && (min <= value) && (value <= max) && onChange != nullptr;
         }
 
-        void render() override {
-            if (ImGui::SliderFloat(label.c_str(), &value, min, max)) {
+        void draw() override {
+            if (ImGui::SliderFloat(label.c_str(), &value, min, max, "%.1f")) {
                 onChange(value);
             }
+        }
+    };
+
+    ELEMENT(SliderFloat2) {
+        std::string label;
+        UnityEngine::Vector2::Fields value;
+        float min = -100.0f;
+        float max = 100.0f;
+
+        bool isValid() override {
+            return !label.empty() &&
+            (min <= value.x) && (value.x <= max) &&
+            (min <= value.y) && (value.y <= max);
+        }
+
+        void draw() override {
+            ImGui::SliderFloat2(label.c_str(), (float*)&value, min, max, "%.1f");
+        }
+    };
+
+    ELEMENT(SliderFloat3) {
+        std::string label;
+        UnityEngine::Vector3::Fields value;
+        float min = -100.0f;
+        float max = 100.0f;
+
+        bool isValid() override {
+            return !label.empty() &&
+            (min <= value.x) && (value.x <= max) &&
+            (min <= value.y) && (value.y <= max) &&
+            (min <= value.z) && (value.z <= max);
+        }
+
+        void draw() override {
+            ImGui::SliderFloat3(label.c_str(), (float*)&value, min, max, "%.1f");
         }
     };
 

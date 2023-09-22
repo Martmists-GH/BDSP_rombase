@@ -28,6 +28,7 @@
 #include "ui/tools/model_tool.h"
 #include "ui/tools/poffin_tool.h"
 #include "ui/tools/pokemon_tool.h"
+#include "ui/tools/pokemoninfo_tool.h"
 #include "ui/tools/save_tool.h"
 #include "ui/tools/variables_tool.h"
 #include "ui/tools/warp_tool.h"

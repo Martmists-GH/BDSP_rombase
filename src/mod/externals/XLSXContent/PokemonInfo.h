@@ -81,5 +81,7 @@ namespace XLSXContent {
             XLSXContent::PokemonInfo::SheetCatalog::Array* Catalog;
             XLSXContent::PokemonInfo::SheetTrearuki::Array* Trearuki;
         };
+
+        static_assert(offsetof(SheetCatalog::Fields, MenuScale) == 0x40);
     };
 }
