@@ -1,10 +1,11 @@
 #pragma once
 
+#include "memory/string.h"
 #include "element.h"
 
 namespace ui {
     ELEMENT(InputInt) {
-        std::string label;
+        nn::string label;
         int value;
         int min = 0;
         int max = 100;

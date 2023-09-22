@@ -1,11 +1,11 @@
 #pragma once
 
-#include <string>
+#include "memory/string.h"
 #include "ui/base/element.h"
 
 namespace ui {
     ELEMENT(MenuItem) {
-        std::string label;
+        nn::string label;
         const char *shortcut = nullptr;
         bool enabled = true;
         bool *checked;

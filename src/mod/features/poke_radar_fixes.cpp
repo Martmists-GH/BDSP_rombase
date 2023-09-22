@@ -62,9 +62,9 @@ void exl_poke_radar_fixes_main() {
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
     exl::patch::CodePatcher p(0);
-    auto inst = std::vector {
-        std::make_pair<uint32_t, Instruction>(0x019bd0a4, Movz(W8, 100)), // Catching on ring 4 is 100%
-        std::make_pair<uint32_t, Instruction>(0x019bd098, Movz(W8, 97)),  // Defeating on ring 4 is 97%
+    auto inst = nn::vector<exl::patch::Instruction> {
+        { 0x019bd0a4, Movz(W8, 100) },    // Catching on ring 4 is 100%
+        { 0x019bd098, Movz(W8, 97) },     // Defeating on ring 4 is 97%
     };
     p.WriteInst(inst);
 };

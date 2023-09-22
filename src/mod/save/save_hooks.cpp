@@ -446,8 +446,8 @@ void exl_save_main() {
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
     exl::patch::CodePatcher p(0);
-    auto inst = std::vector {
-        std::make_pair<uint32_t, Instruction>(0x02ceb9dc, Nop()),
+    auto inst = nn::vector<exl::patch::Instruction> {
+        { 0x02ceb9dc, Nop() },
     };
     p.WriteInst(inst);
 }

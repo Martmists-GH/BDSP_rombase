@@ -1,12 +1,12 @@
-#include <utility>
-#include <vector>
-
 #include "exlaunch.hpp"
+
+#include "memory/vector.h"
+
 #include "externals/Dpr/UI/SettingWindow.h"
-#include "logger/logger.h"
 #include "externals/FlagWork.h"
-#include "externals/PlayerWork.h"
 #include "externals/UnityEngine/UI/HorizontalLayoutGroup.h"
+
+#include "logger/logger.h"
 #include "ui/ui.h"
 
 HOOK_DEFINE_TRAMPOLINE(GetSetting) {
@@ -59,7 +59,7 @@ HOOK_DEFINE_TRAMPOLINE(SettingIsEqual) {
     }
 };
 
-void AddSetting(Dpr::UI::SettingWindow::_OpOpen_d__11::Object* __this, int configId, int selectedIndex, const char* title, const char* description, std::vector<const char*> optionNames, int position) {
+void AddSetting(Dpr::UI::SettingWindow::_OpOpen_d__11::Object* __this, int configId, int selectedIndex, const char* title, const char* description, nn::vector<const char*> optionNames, int position) {
     auto window = __this->fields.__4__this;
 
     system_load_typeinfo(0x870a);
@@ -106,7 +106,7 @@ HOOK_DEFINE_TRAMPOLINE(AddSettingsEntries) {
             return res;
         }
 
-        std::vector<const char*> onOffNames = { "SS_option_007", "SS_option_008" };
+        nn::vector<const char*> onOffNames = { "SS_option_007", "SS_option_008" };
         AddSetting(__this, 14, FlagWork::GetFlag(FlagWork_Flag::FLAG_DISABLE_EXP_SHARE) ? 0 : 1, "SS_option_110", "SS_option_113", onOffNames, 1);
         AddSetting(__this, 15, FlagWork::GetFlag(FlagWork_Flag::FLAG_DISABLE_AFFECTION) ? 0 : 1, "SS_option_109", "SS_option_112", onOffNames, 2);
         AddSetting(__this, 16, FlagWork::GetFlag(FlagWork_Flag::FLAG_DISABLE_LEVEL_CAP) ? 0 : 1, "SS_option_111", "SS_option_114", onOffNames, 3);

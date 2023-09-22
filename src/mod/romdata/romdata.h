@@ -1,5 +1,6 @@
 #pragma once
 
+#include "memory/vector.h"
 #include "romdata/data/ColorSet.h"
 #include "romdata/data/FormHeldItemMon.h"
 #include "romdata/data/UnbreakablePokeItem.h"
@@ -8,13 +9,13 @@
 uint32_t GetLevelCapData(uint32_t index);
 
 // Returns the list of Pokémon affected by held item form changes.
-std::vector<RomData::FormHeldItemMon> GetFormHeldItemMons();
+nn::vector<RomData::FormHeldItemMon> GetFormHeldItemMons();
 
 // Returns the list of default forms for Pokémon affected by held item form changes.
-std::vector<RomData::FormHeldItemMon> GetFormHeldItemMonsDefault();
+nn::vector<RomData::FormHeldItemMon> GetFormHeldItemMonsDefault();
 
 // Returns the list of Pokémon and held item pairs that can't be separated.
-std::vector<RomData::UnbreakablePokeItem> GetUnbreakablePokeItems();
+nn::vector<RomData::UnbreakablePokeItem> GetUnbreakablePokeItems();
 
 // Returns the honey tree Pokémon at the given zoneID and slot.
 int32_t GetHoneyTreeMonsNo(int32_t zoneID, int32_t slot);

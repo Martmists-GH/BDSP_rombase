@@ -81,15 +81,15 @@ void exl_balls_main() {
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
     exl::patch::CodePatcher p(0);
-    auto inst = std::vector {
-            std::make_pair<uint32_t, Instruction>(0x01db6a40, Movz(W20, BALL_COUNT + 2)),
-            std::make_pair<uint32_t, Instruction>(0x01db7488, Movz(W10, array_index(BALLS, "--BALL ZERO--"))),
-            std::make_pair<uint32_t, Instruction>(0x01db6e78, Movz(W8, array_index(BALLS, "--BALL ZERO--"))),
-            std::make_pair<uint32_t, Instruction>(0x01db7244, Movz(W10, array_index(BALLS, "--BALL ZERO--"))),
-            std::make_pair<uint32_t, Instruction>(0x01db6f18, Movz(W28, array_index(BALLS, "--BALL ZERO--"))),
-            std::make_pair<uint32_t, Instruction>(0x01db6c08, Movz(W8, array_index(BALLS, "--BALL ZERO--"))),
-            std::make_pair<uint32_t, Instruction>(0x01db6c38, CmpImmediate(W9, array_index(BALLS, "--BALL ZERO--"))),
-            std::make_pair<uint32_t, Instruction>(0x01abc8dc, Movz(W8, array_index(BALLS, "--BALL ZERO--"))),
+    auto inst = nn::vector<exl::patch::Instruction> {
+        { 0x01db6a40, Movz(W20, BALL_COUNT + 2) },
+        { 0x01db7488, Movz(W10, array_index(BALLS, "--BALL ZERO--")) },
+        { 0x01db6e78, Movz(W8, array_index(BALLS, "--BALL ZERO--")) },
+        { 0x01db7244, Movz(W10, array_index(BALLS, "--BALL ZERO--")) },
+        { 0x01db6f18, Movz(W28, array_index(BALLS, "--BALL ZERO--")) },
+        { 0x01db6c08, Movz(W8, array_index(BALLS, "--BALL ZERO--")) },
+        { 0x01db6c38, CmpImmediate(W9, array_index(BALLS, "--BALL ZERO--")) },
+        { 0x01abc8dc, Movz(W8, array_index(BALLS, "--BALL ZERO--")) },
     };
     p.WriteInst(inst);
 }

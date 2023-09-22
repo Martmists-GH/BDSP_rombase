@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include "memory/string.h"
 
 #include "helpers.h"
 #include "ui/base/element.h"
@@ -37,7 +37,7 @@ static ImVec2 gInvalidVec { -1, -1 };
 
 namespace ui {
     ELEMENT(Window) {
-        std::string title;
+        nn::string title;
         bool open = false;
         bool toggleable = true;
         bool allow_static = false;

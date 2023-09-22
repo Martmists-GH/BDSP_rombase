@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <string>
+#include "memory/string.h"
 #include <functional>
 #include "externals/UnityEngine/Vector2.h"
 #include "externals/UnityEngine/Vector3.h"
@@ -9,7 +9,7 @@
 
 namespace ui {
     ELEMENT(SliderFloat) {
-        std::string label;
+        nn::string label;
         float min, max, value;
         std::function<void(float)> onChange;
 
@@ -25,7 +25,7 @@ namespace ui {
     };
 
     ELEMENT(SliderFloat2) {
-        std::string label;
+        nn::string label;
         UnityEngine::Vector2::Fields value;
         float min = -100.0f;
         float max = 100.0f;
@@ -42,7 +42,7 @@ namespace ui {
     };
 
     ELEMENT(SliderFloat3) {
-        std::string label;
+        nn::string label;
         UnityEngine::Vector3::Fields value;
         float min = -100.0f;
         float max = 100.0f;
@@ -60,7 +60,7 @@ namespace ui {
     };
 
     ELEMENT(SliderInt) {
-        std::string label;
+        nn::string label;
         int min, max, value;
         std::function<void(int)> onChange;
 

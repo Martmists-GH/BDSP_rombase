@@ -1,5 +1,7 @@
 #include "exlaunch.hpp"
 
+#include "memory/vector.h"
+
 #include "externals/BadgeWork.h"
 #include "externals/Dpr/Battle/Logic/MainModule.h"
 #include "externals/Dpr/UI/UIBadgeGet.h"
@@ -57,9 +59,9 @@ void exl_badge_check_main() {
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
     exl::patch::CodePatcher p(0);
-    auto inst = std::vector {
-        std::make_pair<uint32_t, Instruction>(0x01dbc4cc, Movz(W1, (int32_t)FlagWork_SysFlag::BADGE_ID_C05)),
-        std::make_pair<uint32_t, Instruction>(0x01dbc4f8, Movz(W1, (int32_t)FlagWork_SysFlag::BADGE_ID_C06)),
+    auto inst = nn::vector<exl::patch::Instruction> {
+        { 0x01dbc4cc, Movz(W1, (int32_t)FlagWork_SysFlag::BADGE_ID_C05) },
+        { 0x01dbc4f8, Movz(W1, (int32_t)FlagWork_SysFlag::BADGE_ID_C06) },
     };
     p.WriteInst(inst);
 }

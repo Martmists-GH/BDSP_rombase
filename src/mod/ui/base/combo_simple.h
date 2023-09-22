@@ -1,12 +1,12 @@
 #pragma once
 
-#include <string>
+#include "memory/string.h"
 #include "ui/base/element.h"
 #include "selectable.h"
 
 namespace ui {
     ELEMENT(ComboSimple) {
-        std::string label;
+        nn::string label;
         const char* const* items;
         int items_count;
         int selected = 0;

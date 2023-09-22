@@ -1,5 +1,7 @@
 #pragma once
 
+#include "memory/vector.h"
+
 #include "ui/base/element.h"
 #include "ui/base/combo.h"
 #include "ui/base/selectable.h"
@@ -14,7 +16,7 @@ namespace ui {
         nn::fs::DirectoryEntry *entries = nullptr;
         long numEntries = 0;
         char selectedFile[0x400]{};
-        std::vector<Selectable*> options;
+        nn::vector<Selectable*> options;
         Combo combo = Combo::single([](Combo &c) {
             c.label = " ";
             c.placeholder = "Select a file";

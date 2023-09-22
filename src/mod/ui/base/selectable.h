@@ -1,12 +1,12 @@
 #pragma once
 
-#include <string>
+#include "memory/string.h"
 #include <functional>
 #include "ui/base/element.h"
 
 namespace ui {
     ELEMENT(Selectable) {
-        std::string label;
+        nn::string label;
         std::function<void()> onSelected;
         ImGuiSelectableFlags flags = ImGuiSelectableFlags_None;
 

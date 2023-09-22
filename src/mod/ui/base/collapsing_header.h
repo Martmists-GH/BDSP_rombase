@@ -1,5 +1,6 @@
 #pragma once
 
+#include "memory/string.h"
 #include "ui/base/button.h"
 #include "ui/base/checkbox.h"
 #include "ui/base/child.h"
@@ -21,7 +22,7 @@
 
 namespace ui {
     ELEMENT(CollapsingHeader) {
-        std::string label;
+        nn::string label;
         ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None;
 
         bool isValid() override {

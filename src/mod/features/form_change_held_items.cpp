@@ -68,9 +68,9 @@ void exl_form_change_held_items_main(){
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
     exl::patch::CodePatcher p(0);
-    auto inst = std::vector {
-        std::make_pair<uint32_t, Instruction>(0x0204aa48, Branch(0x50)),
-        std::make_pair<uint32_t, Instruction>(0x0204ab48, Branch(0x50)),
+    auto inst = nn::vector<exl::patch::Instruction> {
+        { 0x0204aa48, Branch(0x50) },
+        { 0x0204ab48, Branch(0x50) },
     };
     p.WriteInst(inst);
 }

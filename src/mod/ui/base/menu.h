@@ -1,12 +1,12 @@
 #pragma once
 
-#include <string>
+#include "memory/string.h"
 #include "ui/base/element.h"
 #include "menu_item.h"
 
 namespace ui {
     ELEMENT(Menu) {
-        std::string label;
+        nn::string label;
         bool enabled = true;
 
         bool isValid()

@@ -1,11 +1,11 @@
 #include <cstring>
-#include <vector>
 
 #include "exlaunch.hpp"
 
+#include "memory/vector.h"
+
 #include "data/incense_slots.h"
 #include "data/utils.h"
-
 #include "externals/ContextMenuID.h"
 #include "externals/Dpr/EvScript/EvDataManager.h"
 #include "externals/Dpr/UI/ShopBoutique.h"
@@ -85,7 +85,7 @@ void UseIncenseBurner(int32_t itemId, bool fromBag, Dpr::UI::UIBag::__c__Display
         displayClass144->fields.__4__this = uiBag;
 
         // Build the menu so that you have every option except what you have currently selected.
-        auto contextMenuIDVector = std::vector<int32_t>();
+        auto contextMenuIDVector = nn::vector<int32_t>();
         int32_t incenseSlot = PlayerWork::GetInt((int32_t)FlagWork_Work::WK_INCENSE_SLOT);
         if (incenseSlot != 0)
         {

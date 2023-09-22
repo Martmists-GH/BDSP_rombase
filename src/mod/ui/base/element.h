@@ -1,16 +1,19 @@
 #pragma once
 
-#include <vector>
 #include <string>
 #include <functional>
+
 #include "imgui.h"
 #include "exlaunch.hpp"
+
+#include "memory/vector.h"
+
 #include "logger/logger.h"
 
 namespace ui {
     class Drawable {
     protected:
-        std::vector<Drawable *> mChildren;
+        nn::vector<Drawable *> mChildren;
         virtual bool beginDraw() {
             return true;
         }
@@ -91,7 +94,7 @@ ELEMENT_SUPPORTS_CHILD(MiscTool)
     template<typename T>
     class Factory : public virtual ui::Drawable {
     protected:
-        std::vector<Drawable*> mOwnedChildren;
+        nn::vector<Drawable*> mOwnedChildren;
 
         virtual bool isValid() {
             return true;

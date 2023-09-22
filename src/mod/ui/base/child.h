@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include "memory/string.h"
 #include "ui/base/element.h"
 #include "ui/base/button.h"
 #include "ui/base/checkbox.h"
@@ -20,7 +20,7 @@
 
 namespace ui {
     ELEMENT(Child) {
-        std::string id;
+        nn::string id;
         ImVec2 size = ImVec2(0, 0);
         bool border = false;
         ImGuiWindowFlags flags = 0;

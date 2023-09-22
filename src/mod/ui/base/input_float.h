@@ -1,10 +1,11 @@
 #pragma once
 
+#include "memory/string.h"
 #include "element.h"
 
 namespace ui {
     ELEMENT(InputFloat) {
-        std::string label;
+        nn::string label;
         float value;
         float min = 0.0f;
         float max = 100.0f;

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "nn_allocator.hpp"
+#include "nn_allocator.h"
 
 namespace nn {
     using string = std::basic_string<char, std::char_traits<char>, nn_allocator<char>>;

@@ -9,7 +9,7 @@ void exl_save_box_expansion_main() {
     /*using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
     exl::patch::CodePatcher p(0);
-    auto inst = std::vector {
+    auto inst = nn::vector {
         // Dpr.Box.BoxPokemonWork
         std::make_pair<uint32_t, Instruction>(0x01d2fd90, CmpImmediate(W21, BoxCount - 1)),
         std::make_pair<uint32_t, Instruction>(0x01d31058, CmpImmediate(W21, BoxCount)),

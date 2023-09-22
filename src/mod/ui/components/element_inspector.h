@@ -15,7 +15,7 @@
 
 namespace ui {
     ELEMENT(ElementInspector) {
-        // TODO: Consider an std::vector for roots?
+        // TODO: Consider an nn::vector for roots?
         UnityEngine::Transform* root;
         bool showChildren = true;
         bool showComponents = false;
