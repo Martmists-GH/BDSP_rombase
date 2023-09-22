@@ -11,7 +11,7 @@ void exl_boutique_model_main();
 // Reroutes IL2CPP logs to the ExLaunch logger.
 void exl_il2cpp_log_main();
 
-// Dynamically changes values of PokémonInfo data with the debug menu.
+// Logs PokemonInfo calls.
 void exl_pokemoninfo_hooks_main();
 
 // Reroutes Unity logs to the ExLaunch logger.

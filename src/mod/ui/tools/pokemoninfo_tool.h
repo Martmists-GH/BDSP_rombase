@@ -40,14 +40,16 @@ namespace ui {
 
                 _.Spacing();
 
-                auto* battleScale = _.InputFloat([](InputFloat &_) {
+                auto* battleScale = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Battle Scale";
                     _.value = 1.0;
+                    _.max = 10.0;
                 });
 
-                auto* contestScale = _.InputFloat([](InputFloat &_) {
+                auto* contestScale = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Contest Scale";
                     _.value = 1.0;
+                    _.max = 10.0;
                 });
 
                 auto* contestSize = _.InputInt([](InputInt &_) {
@@ -55,81 +57,100 @@ namespace ui {
                     _.value = 1;
                 });
 
-                auto* fieldScale = _.InputFloat([](InputFloat &_) {
+                auto* fieldScale = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Field Scale";
                     _.value = 1.0;
+                    _.max = 10.0;
                 });
 
-                auto* fieldChikaScale = _.InputFloat([](InputFloat &_) {
+                auto* fieldChikaScale = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Field Chika Scale";
                     _.value = 1.0;
+                    _.max = 10.0;
                 });
 
-                auto* statueScale = _.InputFloat([](InputFloat &_) {
+                auto* statueScale = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Statue Scale";
                     _.value = 1.0;
+                    _.max = 10.0;
                 });
 
-                auto* fieldWalkingScale = _.InputFloat([](InputFloat &_) {
+                auto* fieldWalkingScale = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Field Walking Scale";
                     _.value = 1.0;
+                    _.max = 10.0;
                 });
 
-                auto* fieldFureaiScale = _.InputFloat([](InputFloat &_) {
+                auto* fieldFureaiScale = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Field Fureai Scale";
                     _.value = 1.0;
+                    _.max = 10.0;
                 });
 
                 _.Spacing();
-                _.Spacing();
 
-                auto* menuScale = _.InputFloat([](InputFloat &_) {
+                auto* menuScale = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Menu Scale";
                     _.value = 1.0;
+                    _.max = 10.0;
                 });
 
                 auto* modelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Model Offset";
                     _.value = { 1.0f, 1.0f, 1.0f };
+                    _.min = -100.0f;
+                    _.max = 100.0f;
                 });
 
                 auto* modelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Model Rotation Angle";
                     _.value = { 1.0f, 1.0f, 1.0f };
+                    _.min = -360.0f;
+                    _.max = 360.0f;
                 });
 
                 _.Spacing();
 
-                auto* distributionScale = _.InputFloat([](InputFloat &_) {
+                auto* distributionScale = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Distribution Scale";
                     _.value = 1.0;
+                    _.max = 10.0;
                 });
 
                 auto* distributionModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Distribution Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
+                    _.min = -100.0f;
+                    _.max = 100.0f;
                 });
 
                 auto* distributionModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Distribution Model Rotation Angle";
                     _.value = { 0.0f, 0.0f, 0.0f };
+                    _.min = -360.0f;
+                    _.max = 360.0f;
                 });
 
                 _.Spacing();
 
-                auto* voiceScale = _.InputFloat([](InputFloat &_) {
+                auto* voiceScale = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Voice Scale";
                     _.value = 1.0;
+                    _.max = 10.0;
                 });
 
                 auto* voiceModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Voice Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
+                    _.min = -100.0f;
+                    _.max = 100.0f;
                 });
 
                 auto* voiceModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Voice Model Rotation Angle";
                     _.value = { 0.0f, 0.0f, 0.0f };
+                    _.min = -360.0f;
+                    _.max = 360.0f;
                 });
 
                 _.Spacing();
@@ -137,102 +158,121 @@ namespace ui {
                 auto* centerPointOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Center Point Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
+                    _.min = -100.0f;
+                    _.max = 100.0f;
                 });
 
                 auto* rotationLimitAngle = _.SliderFloat2([](SliderFloat2 &_) {
                     _.label = "Rotation Limit Angle";
                     _.value = { 0.0f, 0.0f };
+                    _.min = -360.0f;
+                    _.max = 360.0f;
                 });
 
                 _.Spacing();
 
-                auto* statusScale = _.InputFloat([](InputFloat &_) {
+                auto* statusScale = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Status Scale";
                     _.value = 1.0;
+                    _.max = 10.0;
                 });
 
                 auto* statusModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Status Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
+                    _.min = -100.0f;
+                    _.max = 100.0f;
                 });
 
                 auto* statusModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Status Model Rotation Angle";
                     _.value = { 0.0f, 0.0f, 0.0f };
+                    _.min = -360.0f;
+                    _.max = 360.0f;
                 });
 
                 _.Spacing();
 
-                auto* boxScale = _.InputFloat([](InputFloat &_) {
+                auto* boxScale = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Box Scale";
                     _.value = 1.0;
+                    _.max = 10.0;
                 });
 
                 auto* boxModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Box Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
+                    _.min = -100.0f;
+                    _.max = 100.0f;
                 });
 
                 auto* boxModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Box Model Rotation Angle";
                     _.value = { 0.0f, 0.0f, 0.0f };
+                    _.min = -360.0f;
+                    _.max = 360.0f;
                 });
 
                 _.Spacing();
 
-                auto* compareScale = _.InputFloat([](InputFloat &_) {
+                auto* compareScale = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Compare Scale";
                     _.value = 1.0;
+                    _.max = 10.0;
                 });
 
                 auto* compareModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Compare Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
+                    _.min = -100.0f;
+                    _.max = 100.0f;
                 });
 
                 auto* compareModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Compare Model Rotation Angle";
                     _.value = { 0.0f, 0.0f, 0.0f };
+                    _.min = -360.0f;
+                    _.max = 360.0f;
                 });
 
                 _.Spacing();
 
-                auto* brakeStart = _.InputFloat([](InputFloat &_) {
+                auto* brakeStart = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Brake Start";
                     _.value = 1.0;
                 });
 
-                auto* brakeEnd = _.InputFloat([](InputFloat &_) {
+                auto* brakeEnd = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Brake End";
                     _.value = 1.0;
                 });
 
-                auto* walkSpeed = _.InputFloat([](InputFloat &_) {
+                auto* walkSpeed = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Walk Speed";
                     _.value = 1.0;
                 });
 
-                auto* runSpeed = _.InputFloat([](InputFloat &_) {
+                auto* runSpeed = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Run Speed";
                     _.value = 1.0;
                 });
 
-                auto* walkStart = _.InputFloat([](InputFloat &_) {
+                auto* walkStart = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Walk Start";
                     _.value = 1.0;
                 });
 
-                auto* runStart = _.InputFloat([](InputFloat &_) {
+                auto* runStart = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Run Start";
                     _.value = 1.0;
                 });
 
-                auto* bodySize = _.InputFloat([](InputFloat &_) {
+                auto* bodySize = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Body Size";
                     _.value = 1.0;
                 });
 
-                auto* appearLimit = _.InputFloat([](InputFloat &_) {
+                auto* appearLimit = _.SliderFloat([](SliderFloat &_) {
                     _.label = "Appear Limit";
                     _.value = 1.0;
                 });
@@ -255,6 +295,7 @@ namespace ui {
                 auto* battleAjustHeight = _.InputInt([](InputInt &_) {
                     _.label = "Battle Ajust Height";
                     _.value = 1;
+                    _.max = 500;
                 });
 
                 _.Spacing();
