@@ -2,6 +2,7 @@
 
 #include "externals/il2cpp-api.h"
 
+#include "memory/string.h"
 #include "externals/System/Collections/Generic/List.h"
 #include "externals/System/Primitives.h"
 #include "externals/System/Text/Encoding.h"
@@ -17,7 +18,7 @@ namespace System {
             return external<String::Object*>(0x026fb3e0, nullptr, (int8_t*)value);
         }
 
-        static String::Object* Create(const std::string& value) {
+        static String::Object* Create(const nn::string& value) {
             return Create(value.c_str());
         }
 
@@ -66,14 +67,14 @@ namespace System {
             return fromUnicodeBytes(byteArray);
         }
 
-        std::string asCString() {
+        nn::string asCString() {
             System::String::Object* str = this->instance();
             System::Text::UTF8Encoding::Object* encoding = System::Text::Encoding::get_UTF8();
             uint32_t size = encoding->GetByteCount(str);
             auto arr = reinterpret_cast<System::Byte_array *>(system_array_new(System::Byte_array_TypeInfo(), size+1));
             encoding->GetBytes(str, 0, str->fields.m_stringLength, arr, 0);
             arr->m_Items[size] = 0;
-            auto res = std::string((char*)&arr->m_Items[0]);
+            auto res = nn::string((char*)&arr->m_Items[0]);
             return res;
         }
 

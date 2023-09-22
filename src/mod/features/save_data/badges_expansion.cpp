@@ -80,7 +80,7 @@ HOOK_DEFINE_INLINE(BadgeCaseObject_SetupModels_MoveNext) {
         Logger::log("total badges in BadgeCaseObject: %d\n", badges->max_length);
         for (uint64_t i=0; i<badges->max_length; i++)
         {
-            badges->m_Items[i] = System::String::Create("badge" + std::to_string(i+1));
+            badges->m_Items[i] = System::String::Create("badge" + nn::to_string(i+1));
         }
 
         ctx->X[19] = (uint64_t)badges;

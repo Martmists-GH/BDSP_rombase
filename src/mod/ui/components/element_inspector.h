@@ -1,5 +1,6 @@
 #pragma once
 
+#include "memory/string.h"
 #include "ui/base/element.h"
 #include "ui/base/combo.h"
 #include "ui/base/selectable.h"
@@ -40,7 +41,7 @@ namespace ui {
         }
 
     private:
-        void drawElement(UnityEngine::Transform* element, const std::string& prefix = "") {
+        void drawElement(UnityEngine::Transform* element, const nn::string& prefix = "") {
             auto name = element->cast<UnityEngine::_Object>()->GetName();
             auto str = prefix + name->asCString();
             auto childCount = element->get_childCount();
@@ -54,7 +55,7 @@ namespace ui {
                 if (showChildren) {
                     for (int i = 0; i < childCount; i++) {
                         auto child = element->GetChild(i);
-                        drawElement(child, std::to_string(i) + ": ");
+                        drawElement(child, nn::to_string(i) + ": ");
                     }
                 }
 

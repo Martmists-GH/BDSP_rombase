@@ -1,6 +1,7 @@
 #include "exlaunch.hpp"
 #include "externals/il2cpp-api.h"
 
+#include "memory/string.h"
 #include "externals/Audio/AudioManager.h"
 #include "externals/Dpr/Message/MessageWordSetHelper.h"
 #include "externals/Dpr/UI/BoxStatusPanel.h"
@@ -24,7 +25,7 @@ System::String::Object* GetIVLabel(Pml::PokePara::CoreParam::Object* pokemonPara
     else
     {
         int32_t messageID = 0x24e + pokemonParam->GetTalentPower((int32_t)powerId);
-        System::String::Object* convertedMessageID = System::String::Create(std::to_string(messageID));
+        System::String::Object* convertedMessageID = System::String::Create(nn::to_string(messageID));
         System::String::Object* msgLabel = System::String::Create("SS_box_");
         return System::String::Concat(msgLabel, convertedMessageID);
     }

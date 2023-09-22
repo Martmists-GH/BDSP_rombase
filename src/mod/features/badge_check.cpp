@@ -1,5 +1,6 @@
 #include "exlaunch.hpp"
 
+#include "memory/string.h"
 #include "memory/vector.h"
 
 #include "externals/BadgeWork.h"
@@ -46,7 +47,7 @@ HOOK_DEFINE_REPLACE(UIBadgeGet_GetBadgeAnimation) {
                     return System::String::Create("getbadge_4-2");
 
             default:
-                return System::String::Create("getbadge_" + std::to_string(__this->fields.badgeNo + 1));
+                return System::String::Create("getbadge_" + nn::to_string(__this->fields.badgeNo + 1));
         }
     }
 };

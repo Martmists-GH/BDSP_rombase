@@ -1,5 +1,6 @@
 #pragma once
 
+#include "memory/string.h"
 #include "ui/base/element.h"
 #include "ui/base/function_element.h"
 #include "ui/base/slider.h"
@@ -7,7 +8,7 @@
 
 namespace ui {
     ELEMENT(StringView) {
-        std::string buffer;
+        nn::string buffer;
         int maxLines = 100;
 
         StringView() {

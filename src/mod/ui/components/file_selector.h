@@ -1,6 +1,7 @@
 #pragma once
 
 #include "memory/vector.h"
+#include "memory/string.h"
 
 #include "ui/base/element.h"
 #include "ui/base/combo.h"
@@ -11,7 +12,7 @@
 
 namespace ui {
     ELEMENT(FileSelector) {
-        std::string path;
+        nn::string path;
         int ticker = -1;
         nn::fs::DirectoryEntry *entries = nullptr;
         long numEntries = 0;

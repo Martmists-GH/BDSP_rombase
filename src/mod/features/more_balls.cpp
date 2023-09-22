@@ -13,7 +13,7 @@ System::String::Object * GenerateBallModelPath(uint8_t ballId)
 {
     if (ballId < BALL_COUNT)
     {
-        std::string objectId = std::to_string(((int32_t)ballId) + 200);
+        nn::string objectId = nn::to_string(((int32_t)ballId) + 200);
         return System::String::Create("objects/ob0" + objectId + "_00");
     }
     else
