@@ -87,6 +87,7 @@ ELEMENT_SUPPORTS_CHILD(ColorVariationTool)  \
 ELEMENT_SUPPORTS_CHILD(SaveTool)            \
 ELEMENT_SUPPORTS_CHILD(AnimationTool)       \
 ELEMENT_SUPPORTS_CHILD(ModelTool)           \
+ELEMENT_SUPPORTS_CHILD(MaterialTool)        \
 ELEMENT_SUPPORTS_CHILD(PokemonInfoTool)     \
 ELEMENT_SUPPORTS_CHILD(PoffinTool)          \
 ELEMENT_SUPPORTS_CHILD(MiscTool)

@@ -24,6 +24,7 @@
 #include "ui/tools/arena_tool.h"
 #include "ui/tools/color_variation_tool.h"
 #include "ui/tools/item_tool.h"
+#include "ui/tools/material_tool.h"
 #include "ui/tools/misc_tool.h"
 #include "ui/tools/model_tool.h"
 #include "ui/tools/poffin_tool.h"
