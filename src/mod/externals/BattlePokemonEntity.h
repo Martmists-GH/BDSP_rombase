@@ -7,7 +7,6 @@
 #include "externals/Dpr/Battle/View/SimpleParam.h"
 
 struct BattlePokemonEntity : ILClass<BattlePokemonEntity> {
-
     struct RenderingParam {
         struct Fields {
             int32_t stencilRef;
@@ -43,4 +42,8 @@ struct BattlePokemonEntity : ILClass<BattlePokemonEntity> {
         void* _patcheelPattern_k__BackingField; //Dpr_PatcheelPattern_o*
         bool isZIBAKOIRU;
     };
+
+    inline void SetPatcheelPattern(uint32_t rand) {
+        external<void>(0x01d77990, this, rand);
+    }
 };
