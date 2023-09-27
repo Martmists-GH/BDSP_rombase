@@ -25,12 +25,12 @@ void SetPokeColorVariation(Pml::PokePara::CoreParam::Object* coreParam, Renderer
                 UnityEngine::Color::Object constantColor0 = material->GetColor(System::String::Create("_ConstantColor0"));
                 Logger::log("BOPokemon: Constant0 is %f,%f,%f,%f\n", constantColor0.fields.r, constantColor0.fields.g, constantColor0.fields.b, constantColor0.fields.a);
                 auto shiftedConstantColor0 = constantColor0.HueShift(20.0);
-                Logger::log("BOPokemon: After shift, Constant0 is %f,%f,%f,%f\n", shiftedConstantColor0.fields.r, shiftedConstantColor0.fields.g, shiftedConstantColor0.fields.b, shiftedConstantColor0.fields.a);
                 shiftedConstantColor0 = constantColor0;
                 shiftedConstantColor0.fields.r = 1.0;
-                shiftedConstantColor0.fields.g = 0.9f;
-                shiftedConstantColor0.fields.b = 0.9f;
+                shiftedConstantColor0.fields.g = 0.3f;
+                shiftedConstantColor0.fields.b = 0.3f;
                 shiftedConstantColor0.fields.a = 1.0f;
+                Logger::log("BOPokemon: After shift, Constant0 is %f,%f,%f,%f\n", shiftedConstantColor0.fields.r, shiftedConstantColor0.fields.g, shiftedConstantColor0.fields.b, shiftedConstantColor0.fields.a);
                 material->SetColor(System::String::Create("_ConstantColor0"), shiftedConstantColor0);
             }
 
@@ -41,8 +41,8 @@ void SetPokeColorVariation(Pml::PokePara::CoreParam::Object* coreParam, Renderer
                 auto shiftedConstantColorSd0 = constantColorSd0.HueShift(20.0);
                 shiftedConstantColorSd0 = constantColorSd0;
                 shiftedConstantColorSd0.fields.r = 1.0f;
-                shiftedConstantColorSd0.fields.g = 0.9f;
-                shiftedConstantColorSd0.fields.b = 0.9f;
+                shiftedConstantColorSd0.fields.g = 0.3f;
+                shiftedConstantColorSd0.fields.b = 0.3f;
                 shiftedConstantColorSd0.fields.a = 1.0f;
                 Logger::log("BOPokemon: After shift, ConstantSd0 is %f,%f,%f,%f\n", shiftedConstantColorSd0.fields.r, shiftedConstantColorSd0.fields.g, shiftedConstantColorSd0.fields.b, shiftedConstantColorSd0.fields.a);
                 material->SetColor(System::String::Create("_ConstantColorSd0"), shiftedConstantColorSd0);
@@ -82,7 +82,7 @@ HOOK_DEFINE_INLINE(UI_SetupPokemonModel) {
     }
 };
 
-void exl_pokemon_color_variations_main() {
+void exl_material_edit_hooks_main() {
     BOPokemon_Initialize_SetSpindaPattern::InstallAtOffset(0x01e520f4);
-    //UI_SetupPokemonModel::InstallAtOffset(0x01a10440);
+    UI_SetupPokemonModel::InstallAtOffset(0x01a10440);
 }

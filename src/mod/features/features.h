@@ -82,9 +82,6 @@ void exl_pla_context_menu_main();
 // Fixes Poké Radar bugs and improves chain rates.
 void exl_poke_radar_fixes_main();
 
-// Makes Pokémon have unique color variations based on PID.
-void exl_pokemon_color_variations_main();
-
 // Adds support for two-button Pokétch.
 // Requires an edited uiresidentwindow bundle with a second Pokétch button.
 void exl_poketch_main();
