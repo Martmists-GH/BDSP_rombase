@@ -1,5 +1,6 @@
 #pragma once
 
+#include "memory/string.h"
 #include "ui/base/button.h"
 #include "ui/base/checkbox.h"
 #include "ui/base/child.h"
@@ -7,6 +8,7 @@
 #include "ui/base/combo.h"
 #include "ui/base/combo_simple.h"
 #include "ui/base/element.h"
+#include "ui/base/input_float.h"
 #include "ui/base/input_int.h"
 #include "ui/base/menu_bar.h"
 #include "ui/base/slider.h"
@@ -20,7 +22,7 @@
 
 namespace ui {
     ELEMENT(CollapsingHeader) {
-        std::string label;
+        nn::string label;
         ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None;
 
         bool isValid() override {

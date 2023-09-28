@@ -84,9 +84,9 @@ void exl_shiny_rates_main() {
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
     exl::patch::CodePatcher p(0);
-    auto inst = std::vector {
-        std::make_pair<uint32_t, Instruction>(0x02050880, AddImmediate(W9, W8, 0)), // Remove shiny charm effect from egg-only methods
-        std::make_pair<uint32_t, Instruction>(0x02050874, Movz(W8, 6)), // Change amount of masuda rolls for eggs (6 in vanilla)
+    auto inst = nn::vector<exl::patch::Instruction> {
+        { 0x02050880, AddImmediate(W9, W8, 0) },    // Remove shiny charm effect from egg-only methods
+        { 0x02050874, Movz(W8, 6) },                // Change amount of masuda rolls for eggs (6 in vanilla)
     };
     p.WriteInst(inst);
 }

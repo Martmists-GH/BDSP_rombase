@@ -5,6 +5,7 @@
 #include "externals/System/String.h"
 #include "externals/System/Type.h"
 #include "externals/UnityEngine/_Object.h"
+#include "externals/UnityEngine/SkinnedMeshRenderer.h"
 #include "externals/UnityEngine/Transform.h"
 
 namespace UnityEngine {
@@ -12,6 +13,8 @@ namespace UnityEngine {
         struct Fields : UnityEngine::_Object::Fields {
 
         };
+
+        static inline StaticILMethod<0x04c67678, UnityEngine::SkinnedMeshRenderer> Method$$SkinnedMeshRenderer$$GetComponentsInChildren {};
 
         inline UnityEngine::Transform::Object* get_transform() {
             return external<UnityEngine::Transform::Object*>(0x026b18d0, this);
@@ -44,6 +47,23 @@ namespace UnityEngine {
         template <typename T>
         inline T::Object* GetComponent(ILMethod<T>& method) {
             return external<typename T::Object*>(0x01f48980, this, *method);
+        }
+
+        template <typename T>
+        inline T::Array* GetComponentsInChildren(bool includeInactive) {
+            return GetComponentsInChildren(T::getClass(), includeInactive);
+        }
+
+        template <typename T>
+        inline T::Array* GetComponentsInChildren(T::Class* type, bool includeInactive) {
+            System::RuntimeTypeHandle::Object handle {};
+            handle.fields.value = &type->_1.byval_arg;
+            return external<typename T::Array*>(0x026b1680, this, System::Type::GetTypeFromHandle(handle), true, true, includeInactive, false, nullptr);
+        }
+
+        template <typename T>
+        inline T::Array* GetComponentsInChildren(bool includeInactive, ILMethod<T>& method) {
+            return external<typename T::Array*>(0x02bed170, this, includeInactive, *method);
         }
     };
 }

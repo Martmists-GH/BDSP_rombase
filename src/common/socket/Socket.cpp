@@ -3,6 +3,7 @@
 #include "nifm.h"
 #include "nn/socket.h"
 #include "imgui.h"
+#include "memory/string.h"
 
 namespace {
     constexpr inline auto MaxSockets                       = 2;
@@ -100,7 +101,7 @@ const char *Socket::receiveMessage() {
     if (mState != SocketState::CONNECTED)
         return nullptr;
 
-    std::string message;
+    nn::string message;
     char buffer[PACKET_MAX_SIZE] = {};
     while (!message.ends_with('\n')) {
         if (nn::socket::Recv(mSocketFd, buffer, sizeof(buffer), 0) > 0) {

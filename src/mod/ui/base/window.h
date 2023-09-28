@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include "memory/string.h"
 
 #include "helpers.h"
 #include "ui/base/element.h"
@@ -24,10 +24,12 @@
 #include "ui/tools/arena_tool.h"
 #include "ui/tools/color_variation_tool.h"
 #include "ui/tools/item_tool.h"
+#include "ui/tools/material_tool.h"
 #include "ui/tools/misc_tool.h"
 #include "ui/tools/model_tool.h"
 #include "ui/tools/poffin_tool.h"
 #include "ui/tools/pokemon_tool.h"
+#include "ui/tools/pokemoninfo_tool.h"
 #include "ui/tools/save_tool.h"
 #include "ui/tools/variables_tool.h"
 #include "ui/tools/warp_tool.h"
@@ -36,7 +38,7 @@ static ImVec2 gInvalidVec { -1, -1 };
 
 namespace ui {
     ELEMENT(Window) {
-        std::string title;
+        nn::string title;
         bool open = false;
         bool toggleable = true;
         bool allow_static = false;

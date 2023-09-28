@@ -1,5 +1,8 @@
 #pragma once
 
+#include "memory/vector.h"
+#include "memory/string.h"
+
 #include "ui/base/element.h"
 #include "ui/base/combo.h"
 #include "ui/base/selectable.h"
@@ -9,12 +12,12 @@
 
 namespace ui {
     ELEMENT(FileSelector) {
-        std::string path;
+        nn::string path;
         int ticker = -1;
         nn::fs::DirectoryEntry *entries = nullptr;
         long numEntries = 0;
         char selectedFile[0x400]{};
-        std::vector<Selectable*> options;
+        nn::vector<Selectable*> options;
         Combo combo = Combo::single([](Combo &c) {
             c.label = " ";
             c.placeholder = "Select a file";

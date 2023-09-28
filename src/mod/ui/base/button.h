@@ -1,13 +1,13 @@
 #pragma once
 
 #include <vector>
-#include <string>
+#include "memory/string.h"
 #include <functional>
 #include "ui/base/element.h"
 
 namespace ui {
     ELEMENT(Button) {
-        std::string label;
+        nn::string label;
         std::function<void()> onClick;
 
         bool isValid()

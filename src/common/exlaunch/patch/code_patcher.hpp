@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include "memory/vector.h"
 
 #include "../armv8.hpp"
 #include "stream_patcher.hpp"
@@ -8,6 +8,11 @@
 namespace exl::patch {
 
     namespace inst = armv8::inst;
+
+    struct Instruction {
+        uint32_t address = 0;
+        exl::armv8::inst::Instruction inst;
+    };
     
     class CodePatcher : public StreamPatcher {
         private:
@@ -44,10 +49,10 @@ namespace exl::patch {
         }
 
         /* Write multiple instructions */
-        inline void WriteInst(std::vector<std::pair<uint32_t, exl::armv8::inst::Instruction>>& insts) {
+        inline void WriteInst(nn::vector<Instruction>& insts) {
             for (auto& i : insts) {
-                Seek(i.first);
-                WriteInst(i.second);
+                Seek(i.address);
+                WriteInst(i.inst);
             }
         }
     };

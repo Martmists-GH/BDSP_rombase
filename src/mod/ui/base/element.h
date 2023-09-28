@@ -1,16 +1,19 @@
 #pragma once
 
-#include <vector>
 #include <string>
 #include <functional>
+
 #include "imgui.h"
 #include "exlaunch.hpp"
+
+#include "memory/vector.h"
+
 #include "logger/logger.h"
 
 namespace ui {
     class Drawable {
     protected:
-        std::vector<Drawable *> mChildren;
+        nn::vector<Drawable *> mChildren;
         virtual bool beginDraw() {
             return true;
         }
@@ -60,8 +63,11 @@ ELEMENT_SUPPORTS_CHILD(Combo)               \
 ELEMENT_SUPPORTS_CHILD(ComboSimple)         \
 ELEMENT_SUPPORTS_CHILD(FunctionElement)     \
 ELEMENT_SUPPORTS_CHILD(InputInt)            \
+ELEMENT_SUPPORTS_CHILD(InputFloat)          \
 ELEMENT_SUPPORTS_CHILD(MenuBar)             \
 ELEMENT_SUPPORTS_CHILD(SliderFloat)         \
+ELEMENT_SUPPORTS_CHILD(SliderFloat2)        \
+ELEMENT_SUPPORTS_CHILD(SliderFloat3)        \
 ELEMENT_SUPPORTS_CHILD(SliderInt)           \
 ELEMENT_SUPPORTS_CHILD(Spacing)             \
 ELEMENT_SUPPORTS_CHILD(Text)                \
@@ -81,13 +87,15 @@ ELEMENT_SUPPORTS_CHILD(ColorVariationTool)  \
 ELEMENT_SUPPORTS_CHILD(SaveTool)            \
 ELEMENT_SUPPORTS_CHILD(AnimationTool)       \
 ELEMENT_SUPPORTS_CHILD(ModelTool)           \
+ELEMENT_SUPPORTS_CHILD(MaterialTool)        \
+ELEMENT_SUPPORTS_CHILD(PokemonInfoTool)     \
 ELEMENT_SUPPORTS_CHILD(PoffinTool)          \
 ELEMENT_SUPPORTS_CHILD(MiscTool)
 
     template<typename T>
     class Factory : public virtual ui::Drawable {
     protected:
-        std::vector<Drawable*> mOwnedChildren;
+        nn::vector<Drawable*> mOwnedChildren;
 
         virtual bool isValid() {
             return true;

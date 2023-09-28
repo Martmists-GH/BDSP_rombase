@@ -1,13 +1,13 @@
 #pragma once
 
 #include <vector>
-#include <string>
+#include "memory/string.h"
 #include <functional>
 #include "ui/base/element.h"
 
 namespace ui {
     ELEMENT(ColorEdit3) {
-        std::string label;
+        nn::string label;
         ImVec4 value;
         float min = 0;
         float max = 1;

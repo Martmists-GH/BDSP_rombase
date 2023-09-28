@@ -80,7 +80,7 @@ HOOK_DEFINE_INLINE(BadgeCaseObject_SetupModels_MoveNext) {
         Logger::log("total badges in BadgeCaseObject: %d\n", badges->max_length);
         for (uint64_t i=0; i<badges->max_length; i++)
         {
-            badges->m_Items[i] = System::String::Create("badge" + std::to_string(i+1));
+            badges->m_Items[i] = System::String::Create("badge" + nn::to_string(i+1));
         }
 
         ctx->X[19] = (uint64_t)badges;
@@ -111,7 +111,7 @@ void exl_save_badges_expansion_main() {
     /*using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
     exl::patch::CodePatcher p(0);
-    auto inst = std::vector {
+    auto inst = nn::vector {
         std::make_pair<uint32_t, Instruction>(0x01d60340, CmpImmediate(X23, BadgeCount - 1)),
         std::make_pair<uint32_t, Instruction>(0x02299640, Movz(X1, BadgeCount)),
         std::make_pair<uint32_t, Instruction>(0x01a9f2b0, Movz(X1, BadgeCount)),

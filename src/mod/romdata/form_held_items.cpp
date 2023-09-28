@@ -1,6 +1,6 @@
-#include <vector>
-
 #include "exlaunch.hpp"
+
+#include "memory/vector.h"
 
 #include "data/items.h"
 #include "data/species.h"
@@ -9,7 +9,7 @@
 #include "romdata/data/FormHeldItemMon.h"
 #include "romdata/data/UnbreakablePokeItem.h"
 
-std::vector<RomData::FormHeldItemMon> GetFormHeldItemMons()
+nn::vector<RomData::FormHeldItemMon> GetFormHeldItemMons()
 {
     return {
         { .monsno = array_index(SPECIES, "Mewtwo"), .itemno = array_index(ITEMS, "Mewtwo Armor"), .formno = (uint16_t)MewtwoForm::ARMORED_MK2 },
@@ -82,7 +82,7 @@ std::vector<RomData::FormHeldItemMon> GetFormHeldItemMons()
     };
 }
 
-std::vector<RomData::FormHeldItemMon> GetFormHeldItemMonsDefault()
+nn::vector<RomData::FormHeldItemMon> GetFormHeldItemMonsDefault()
 {
     return {
         { .monsno = array_index(SPECIES, "Mewtwo"), .itemno = 0, .formno = (uint16_t)MewtwoForm::REGULAR },
@@ -95,7 +95,7 @@ std::vector<RomData::FormHeldItemMon> GetFormHeldItemMonsDefault()
     };
 }
 
-std::vector<RomData::UnbreakablePokeItem> GetUnbreakablePokeItems()
+nn::vector<RomData::UnbreakablePokeItem> GetUnbreakablePokeItems()
 {
     return {
         { .monsno = array_index(SPECIES, "Mewtwo"), .itemno = array_index(ITEMS, "Mewtwo Armor") },

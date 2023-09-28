@@ -4,9 +4,23 @@
 
 #include "externals/System/String.h"
 #include "externals/UnityEngine/ScriptableObject.h"
+#include "externals/UnityEngine/Vector2.h"
 
 namespace XLSXContent {
     struct UIDatabase : ILClass<UIDatabase> {
+        struct SheetPokemonIcon : ILClass<SheetPokemonIcon> {
+            struct Fields {
+                int32_t UniqueID;
+                System::String::Object* AssetBundleName;
+                System::String::Object* AssetName;
+                System::String::Object* AssetBundleNameLarge;
+                System::String::Object* AssetNameLarge;
+                System::String::Object* AssetBundleNameDP;
+                System::String::Object* AssetNameDP;
+                UnityEngine::Vector2::Object HallofFameOffset;
+            };
+        };
+
         struct SheetCharacterBag : ILClass<SheetCharacterBag> {
             struct Fields {
                 int32_t Index;
@@ -25,7 +39,7 @@ namespace XLSXContent {
             void* SpriteAtlas; // XLSXContent_UIDatabase_SheetSpriteAtlas_array*
             void* SharedSprite; // XLSXContent_UIDatabase_SheetSharedSprite_array*
             void* CommonSprite; // XLSXContent_UIDatabase_SheetCommonSprite_array*
-            void* PokemonIcon; // XLSXContent_UIDatabase_SheetPokemonIcon_array*
+            SheetPokemonIcon::Array* PokemonIcon;
             void* AshiatoIcon; // XLSXContent_UIDatabase_SheetAshiatoIcon_array*
             void* PokemonVoice; // XLSXContent_UIDatabase_SheetPokemonVoice_array*
             void* MonsterBall; // XLSXContent_UIDatabase_SheetMonsterBall_array*

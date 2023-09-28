@@ -4,21 +4,21 @@
 #include "element.h"
 
 namespace ui {
-    ELEMENT(InputInt) {
+    ELEMENT(InputFloat) {
         nn::string label;
-        int value;
-        int min = 0;
-        int max = 100;
-        int step = 1;
-        int stepFast = 10;
-        std::function<void(int)> onValueChanged;
+        float value;
+        float min = 0.0f;
+        float max = 100.0f;
+        float step = 0.1f;
+        float stepFast = 1.0f;
+        std::function<void(float)> onValueChanged;
 
         bool isValid() override {
             return !label.empty();
         }
 
         void draw() override {
-            if (ImGui::InputInt(label.c_str(), &value, step, stepFast, ImGuiInputTextFlags_None)) {
+            if (ImGui::InputFloat(label.c_str(), &value, step, stepFast, "%.1f", ImGuiInputTextFlags_None)) {
                 if (value < min) {
                     value = min;
                 } else if (value > max) {

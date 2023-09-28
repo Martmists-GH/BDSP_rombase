@@ -59,6 +59,7 @@ bool InitImGui() {
         Logger::log("Creating ImGui Context.\n");
 
         ImGui::CreateContext();
+        Logger::log("Created ImGui Context.\n");
         ImGuiIO &io = ImGui::GetIO();
         (void) io;
 

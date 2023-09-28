@@ -3,11 +3,13 @@
 #include <functional>
 #include <cstdarg>
 
+#include "memory/vector.h"
+
 typedef std::function<void(const char*)> LogCallback;
 
 class Logger {
 private:
-    std::vector<LogCallback> mListeners;
+    nn::vector<LogCallback> mListeners;
 
     static Logger& instance();
 

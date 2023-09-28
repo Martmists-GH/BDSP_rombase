@@ -1,13 +1,13 @@
 #pragma once
 
-#include <string>
+#include "memory/string.h"
 #include "ui/base/element.h"
 #include "selectable.h"
 
 namespace ui {
     ELEMENT(Combo) {
-        std::string label;
-        std::string placeholder;
+        nn::string label;
+        nn::string placeholder;
         ImGuiComboFlags flags = ImGuiComboFlags_None;
 
         bool isValid()

@@ -1,13 +1,13 @@
 #pragma once
 
 #include <vector>
-#include <string>
+#include "memory/string.h"
 #include <functional>
 #include "ui/base/element.h"
 
 namespace ui {
     ELEMENT(Text) {
-        std::string content;
+        nn::string content;
 
         bool isValid() override {
             return !content.empty();

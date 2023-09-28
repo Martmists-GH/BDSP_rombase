@@ -23,4 +23,31 @@ struct BaseEntity : ILClass<BaseEntity> {
         float _sequenceTime_k__BackingField;
         BaseEntity::Object* _target_k__BackingField;
     };
+
+    struct VirtualInvokeData_get_entityType {
+        typedef System::String::Object*(*Il2CppMethodPointer)(BaseEntity::Object*, const MethodInfo*);
+        Il2CppMethodPointer methodPtr;
+        const MethodInfo* method;
+    };
+
+    struct VTable {
+        VirtualInvokeData _0_Equals;
+        VirtualInvokeData _1_Finalize;
+        VirtualInvokeData _2_GetHashCode;
+        VirtualInvokeData _3_ToString;
+        VirtualInvokeData_get_entityType _4_get_entityType;
+        VirtualInvokeData _5_GetAnimationPlayer;
+        VirtualInvokeData _6_Awake;
+        VirtualInvokeData _7_OnEnable;
+        VirtualInvokeData _8_OnDisable;
+        VirtualInvokeData _9_OnDestroy;
+        VirtualInvokeData _10_OnUpdate;
+        VirtualInvokeData _11_OnLateUpdate;
+        VirtualInvokeData _12_SwitchToNext;
+        VirtualInvokeData _13_ProcessSequence;
+    };
+
+    static_assert(sizeof(VTable) == 0xe0);
+    static_assert(offsetof(VTable, _4_get_entityType) == 0x40);
+    static_assert(offsetof(VTable, _5_GetAnimationPlayer) == 0x50);
 };

@@ -101,10 +101,12 @@ static Window mainWindow = Window::single([](Window &_) {
     _.ArenaTool();
     _.WarpTool();
     _.VariablesTool();
-    _.ColorVariationTool();
-    _.SaveTool();
+    _.MaterialTool();
+    //_.ColorVariationTool();
+    //_.SaveTool();
     _.AnimationTool();
     _.ModelTool();
+    //_.PokemonInfoTool();
     //_.PoffinTool();
     _.MiscTool();
 });
