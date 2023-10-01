@@ -3,6 +3,7 @@
 #include "memory/vector.h"
 #include "romdata/data/ColorSet.h"
 #include "romdata/data/FormHeldItemMon.h"
+#include "romdata/data/HoneyTreeEncounters.h"
 #include "romdata/data/UnbreakablePokeItem.h"
 
 // Returns the Max level based on the given level cap index.
@@ -18,10 +19,7 @@ nn::vector<RomData::FormHeldItemMon> GetFormHeldItemMonsDefault();
 nn::vector<RomData::UnbreakablePokeItem> GetUnbreakablePokeItems();
 
 // Returns the honey tree Pokémon at the given zoneID and slot.
-int32_t GetHoneyTreeMonsNo(int32_t zoneID, int32_t slot);
-
-// Returns the honey tree level at the given zoneID.
-int32_t GetHoneyTreeLevel(int32_t zoneID);
+RomData::HoneyTreeSlot GetHoneyTreeSlot(int32_t zoneID, int32_t slot);
 
 // Returns a predefined color set for color variations.
 RomData::ColorSet GetColorSet(int32_t index);

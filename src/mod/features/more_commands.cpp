@@ -134,13 +134,12 @@ bool HoneyTreeBattleSet(Dpr::EvScript::EvDataManager::Object * manager)
 
     int32_t zoneID = PlayerWork::get_zoneID();
     int32_t slot = UnityEngine::Random::Range(0, 10);
-    int32_t monsno = GetHoneyTreeMonsNo(zoneID, slot);
-    int32_t formno = 0;
-    int32_t level = GetHoneyTreeLevel(zoneID);
+    RomData::HoneyTreeSlot slotData = GetHoneyTreeSlot(zoneID, slot);
+    int32_t level = UnityEngine::Random::Range(slotData.minlv, slotData.maxlv);
 
     manager->SetBattleReturn();
     FieldManager::Object* fieldManager = FieldManager::getClass()->static_fields->_Instance_k__BackingField->instance();
-    fieldManager->EventWildBattle(monsno, level, false, false, true, 0, false, formno, false);
+    fieldManager->EventWildBattle(slotData.monsNo, level, false, false, true, 0, false, slotData.formNo, false);
 
     return true;
 }
