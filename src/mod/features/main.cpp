@@ -31,6 +31,7 @@ void exl_features_main() {
     exl_swarm_forms_main();
     exl_wild_held_items_main();
     exl_wild_forms_main();
+    exl_repel_fix_main();
 
     // Extra rombase features
     //exl_battle_revolver_main();
