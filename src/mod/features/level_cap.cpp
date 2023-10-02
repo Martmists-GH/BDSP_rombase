@@ -4,7 +4,7 @@
 
 #include "externals/PlayerWork.h"
 #include "externals/FlagWork.h"
-#include "utils/utils.h"
+#include "romdata/romdata.h"
 
 HOOK_DEFINE_REPLACE(LevelCap) {
     static uint32_t Callback(uint32_t base_exp, uint16_t getpoke_lv, uint16_t deadpoke_lv)

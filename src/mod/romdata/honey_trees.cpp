@@ -9,7 +9,7 @@
 
 #include "logger/logger.h"
 
-const char* folderPath = "rom:/Data/ExtraData/Encounters/HoneyTrees/";
+const char* honeyTreeFolderPath = "rom:/Data/ExtraData/Encounters/HoneyTrees/";
 
 void LogHoneyTreeData(const RomData::HoneyTreeZone& z)
 {
@@ -23,7 +23,7 @@ void LogHoneyTreeData(const RomData::HoneyTreeZone& z)
 
 RomData::HoneyTreeSlot GetHoneyTreeSlot(int32_t zoneID, int32_t slot)
 {
-    nn::string filePath(folderPath);
+    nn::string filePath(honeyTreeFolderPath);
     filePath.append("zone_" + nn::to_string(zoneID) + ".json");
 
     nn::json j = FsHelper::loadJsonFileFromPath(filePath.c_str());

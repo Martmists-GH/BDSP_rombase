@@ -6,7 +6,7 @@
 #include "externals/FlagWork.h"
 #include "data/utils.h"
 #include "data/items.h"
-#include "utils/utils.h"
+#include "romdata/romdata.h"
 
 uint32_t isValidRareCandy(uint32_t level, Dpr::UI::UIBag::Object *bagRef) {
 
