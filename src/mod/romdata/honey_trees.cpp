@@ -32,13 +32,11 @@ RomData::HoneyTreeSlot GetHoneyTreeSlot(int32_t zoneID, int32_t slot)
         Logger::log("Parsed Honey Tree data for %s!\n", filePath.c_str());
         RomData::HoneyTreeZone honeyTreeZone = {};
         honeyTreeZone = j.get<RomData::HoneyTreeZone>();
-        LogHoneyTreeData(honeyTreeZone);
-        Logger::log("Hello0??????\n");
+        //LogHoneyTreeData(honeyTreeZone);
 
         // Modulo the slot just to be sure
         slot = slot % 10;
 
-        Logger::log("Hello??????\n");
         return honeyTreeZone.slots[slot];
     }
     else
