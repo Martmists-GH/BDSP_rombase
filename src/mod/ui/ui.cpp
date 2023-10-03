@@ -96,7 +96,7 @@ static Window mainWindow = Window::single([](Window &_) {
         });
     });
 
-    //_.ItemTool();
+    _.ItemTool();
     _.PokemonTool();
     //_.ArenaTool();
     _.WarpTool();

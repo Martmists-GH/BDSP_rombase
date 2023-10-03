@@ -2,6 +2,8 @@
 
 #include "externals/Pml/Personal/EvolveCond.h"
 #include "externals/Pml/PokePara/PokemonParam.h"
+#include "externals/Pml/WazaNo.h"
+#include "externals/XLSXContent/EvolveTable.h"
 #include "externals/XLSXContent/PersonalTable.h"
 #include "externals/il2cpp-api.h"
 
@@ -9,6 +11,18 @@ namespace Pml::Personal {
     struct PersonalSystem : ILClass<PersonalSystem,0x04c5ad18> {
         struct Fields {
 
+        };
+
+        struct StaticFields {
+            XLSXContent::PersonalTable::Object* m_alldata;
+            void* m_allGrowData; // XLSXContent_GrowTable_o*
+            XLSXContent::EvolveTable::Object* m_allEvolveData;
+            void* m_allWazaOboeData; // XLSXContent::WazaOboeTable::Object*
+            XLSXContent::PersonalTable::SheetPersonal::Object* s_PersonalData;
+            void* s_GrowTable; // XLSXContent::GrowTable::SheetData::Object*
+            XLSXContent::EvolveTable::SheetEvolve::Object* s_EvolutionTable;
+            void* s_WazaOboeData; // XLSXContent::WazaOboeTable::SheetWazaOboe::Object*
+            Pml_WazaNo_array* OSHIE_WAZA;
         };
 
         static inline XLSXContent::PersonalTable::SheetPersonal::Object* GetPersonalData(int32_t monsno, uint16_t formno) {

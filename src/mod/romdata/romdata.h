@@ -4,6 +4,7 @@
 #include "romdata/data/ColorSet.h"
 #include "romdata/data/FormHeldItemMon.h"
 #include "romdata/data/HoneyTreeEncounters.h"
+#include "romdata/data/TMLearnset.h"
 #include "romdata/data/UnbreakablePokeItem.h"
 
 // Returns the max level based on the given level cap index.
@@ -29,3 +30,9 @@ RomData::HoneyTreeSlot GetHoneyTreeSlot(int32_t zoneID, int32_t slot);
 
 // Returns a predefined color set for color variations.
 RomData::ColorSet GetColorSet(int32_t index);
+
+// Returns the full TM learnset of the given Pokémon.
+RomData::TMLearnset GetTMLearnset(int32_t monsno, int32_t formno);
+
+// Checks if a given Pokémon can learn a given TM.
+bool CanLearnTM(int32_t monsno, int32_t formno, int32_t tm);

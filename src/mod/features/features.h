@@ -48,6 +48,9 @@ void exl_evolution_methods_main();
 // Adds functionality to the Exp. Share item.
 void exl_exp_share_main();
 
+// Redirects TM learnsets to external JSON files that contain more data.
+void exl_extended_tm_learnsets_main();
+
 // Adds new Pokémon/held item combos that trigger a form change when held.
 void exl_form_change_held_items_main();
 

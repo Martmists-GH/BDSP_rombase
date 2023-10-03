@@ -14,7 +14,7 @@ static bool doesColorSetFileExist[200];
 
 const char* colorVariationFolderPath = "rom:/Data/ExtraData/ColorVariation/";
 
-void LoadLevelCapData(int32_t index)
+void LoadColorSetData(int32_t index)
 {
     nn::string filePath(colorVariationFolderPath);
     filePath.append("set_" + nn::to_string(index) + ".json");
@@ -33,10 +33,9 @@ void LoadLevelCapData(int32_t index)
     else
     {
         Logger::log("Error when parsing Color Set data!\n");
+        isColorSetDataLoaded[index] = true;
+        doesColorSetFileExist[index] = false;
     }
-
-    isColorSetDataLoaded[index] = true;
-    doesColorSetFileExist[index] = false;
 }
 
 RomData::ColorSet GetColorSet(int32_t index)
@@ -44,10 +43,11 @@ RomData::ColorSet GetColorSet(int32_t index)
     if (index < 200)
     {
         if (!isColorSetDataLoaded[index])
-            LoadLevelCapData(index);
+            LoadColorSetData(index);
 
-        if (doesColorSetFileExist[index])
+        if (doesColorSetFileExist[index]) {
             return colorSetData[index];
+        }
     }
 
     // Default - White skin Player (DPPt colors)
