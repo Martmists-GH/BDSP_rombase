@@ -1,16 +1,9 @@
 #include "exlaunch.hpp"
 
 #include "externals/Dpr/EvScript/EvDataManager.h"
+#include "externals/FlagWork.h"
 #include "externals/ItemWork.h"
 #include "externals/PlayerWork.h"
-
-#include "logger/logger.h"
-
-const int32_t REPEL_ITEM_ID = 79;
-const int32_t SUPER_REPEL_ITEM_ID = 76;
-const int32_t MAX_REPEL_ITEM_ID = 77;
-
-const int32_t INFINITE_REPEL_FLAG = 2195;
 
 // Dpr.EvScript.EvDataManager$$
 HOOK_DEFINE_INLINE(RepelInventoryOverride){
@@ -27,23 +20,23 @@ HOOK_DEFINE_INLINE(RepelInventoryOverride){
 };
 
 HOOK_DEFINE_REPLACE(EncDataSave_CanUseSpray){
-    static bool Callback(MethodInfo *method)
+    static bool Callback()
     {
         system_load_typeinfo(0x3f33);
 
         DPData::ENC_SV_DATA::Object encData = PlayerWork::get_Enc_SV_Data();
         bool repelRemaining = encData.fields.SprayCount > 0;
-        bool infiniteRepelOn = PlayerWork::GetBool(INFINITE_REPEL_FLAG);
+        bool infiniteRepelOn = FlagWork::GetFlag(FlagWork_Flag::FLAG_INFINITE_REPEL);
         return repelRemaining || infiniteRepelOn;
 
     }
 };
 
 HOOK_DEFINE_TRAMPOLINE(IsUseSpray){
-    static bool Callback(uint16_t *itemno, MethodInfo *method)
+    static bool Callback(uint16_t *itemno)
     {
-        bool isRegularRepelInUse = Orig(itemno, method);
-        bool infiniteRepelOn = PlayerWork::GetBool(INFINITE_REPEL_FLAG);
+        bool isRegularRepelInUse = Orig(itemno);
+        bool infiniteRepelOn = FlagWork::GetFlag(FlagWork_Flag::FLAG_INFINITE_REPEL);
         return isRegularRepelInUse || infiniteRepelOn;
     }
 };
