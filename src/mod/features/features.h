@@ -113,6 +113,9 @@ void exl_tms_main();
 // Adds support for wild Pokémon of any form number.
 void exl_wild_forms_main();
 
+// Adds support for integration between the Infinite Repel and normal repels.
+void exl_repel_fix_main();
+
 // Rewrites the method that sets a wild Pokémon's held item to use consistent rates (50% / 5% / 45%).
 // Also adds "Frisk" as an ability that raises wild Pokémon's held item rate.
 void exl_wild_held_items_main();
