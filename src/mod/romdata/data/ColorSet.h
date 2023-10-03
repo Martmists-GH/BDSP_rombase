@@ -1,28 +1,36 @@
 #pragma once
 
 #include "externals/il2cpp-api.h"
-
-#include "externals/UnityEngine/Color.h"
+#include "memory/json.h"
+#include "memory/vector.h"
 
 namespace RomData
 {
+    struct Color
+    {
+        float r;
+        float g;
+        float b;
+        float a;
+    };
+    
     struct ColorSet
     {
         // Field
-        UnityEngine::Color::Object fSkinFace;
-        UnityEngine::Color::Object fSkinMouth;
-        UnityEngine::Color::Object fEyes;
-        UnityEngine::Color::Object fEyebrows;
-        UnityEngine::Color::Object fSkinBody;
-        UnityEngine::Color::Object fHair;
+        Color fieldSkinFace;
+        Color fieldSkinMouth;
+        Color fieldEyes;
+        Color fieldEyebrows;
+        Color fieldSkinBody;
+        Color fieldHair;
 
         // Battle
-        UnityEngine::Color::Object bSkinFace;
-        UnityEngine::Color::Object bHairExtra;
-        UnityEngine::Color::Object bEyeLeft;
-        UnityEngine::Color::Object bEyeRight;
-        UnityEngine::Color::Object bSkinBody;
-        UnityEngine::Color::Object bHair;
+        Color battleSkinFace;
+        Color battleHairExtra;
+        Color battleEyeLeft;
+        Color battleEyeRight;
+        Color battleSkinBody;
+        Color battleHair;
     };
 
     enum class ColorSetID : int32_t {
@@ -40,4 +48,56 @@ namespace RomData
         B_SKIN_BODY = 4,
         B_HAIR = 5,
     };
+
+    JSON_TEMPLATE
+    void to_json(GENERIC_JSON& j, const Color& c) {
+        j = nn::json {
+            {"r", c.r},
+            {"g", c.g},
+            {"b", c.b},
+            {"a", c.a},
+        };
+    }
+
+    JSON_TEMPLATE
+    void from_json(const GENERIC_JSON& j, Color& c) {
+        j.at("r").get_to(c.r);
+        j.at("g").get_to(c.g);
+        j.at("b").get_to(c.b);
+        j.at("a").get_to(c.a);
+    }
+
+    JSON_TEMPLATE
+    void to_json(GENERIC_JSON& j, const ColorSet& s) {
+        j = nn::json {
+            {"fieldSkinFace", s.fieldSkinFace},
+            {"fieldSkinMouth", s.fieldSkinMouth},
+            {"fieldEyes", s.fieldEyes},
+            {"fieldEyebrows", s.fieldEyebrows},
+            {"fieldSkinBody", s.fieldSkinBody},
+            {"fieldHair", s.fieldHair},
+            {"battleSkinFace", s.battleSkinFace},
+            {"battleHairExtra", s.battleHairExtra},
+            {"battleEyeLeft", s.battleEyeLeft},
+            {"battleEyeRight", s.battleEyeRight},
+            {"battleSkinBody", s.battleSkinBody},
+            {"battleHair", s.battleHair},
+        };
+    }
+
+    JSON_TEMPLATE
+    void from_json(const GENERIC_JSON& j, ColorSet& s) {
+        j.at("fieldSkinFace").get_to(s.fieldSkinFace);
+        j.at("fieldSkinMouth").get_to(s.fieldSkinMouth);
+        j.at("fieldEyes").get_to(s.fieldEyes);
+        j.at("fieldEyebrows").get_to(s.fieldEyebrows);
+        j.at("fieldSkinBody").get_to(s.fieldSkinBody);
+        j.at("fieldHair").get_to(s.fieldHair);
+        j.at("battleSkinFace").get_to(s.battleSkinFace);
+        j.at("battleHairExtra").get_to(s.battleHairExtra);
+        j.at("battleEyeLeft").get_to(s.battleEyeLeft);
+        j.at("battleEyeRight").get_to(s.battleEyeRight);
+        j.at("battleSkinBody").get_to(s.battleSkinBody);
+        j.at("battleHair").get_to(s.battleHair);
+    }
 }
