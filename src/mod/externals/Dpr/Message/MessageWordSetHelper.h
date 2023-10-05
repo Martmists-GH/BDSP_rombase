@@ -21,5 +21,17 @@ namespace Dpr::Message {
         static inline void SetStringWord(int32_t tagIndex,System::String::Object* str) {
             external<void>(0x01f9d590, tagIndex, str);
         }
+
+        static inline void SetMonsNameWord(int32_t tagIndex, int32_t monsNo) {
+            external<void>(0x01f99fa0, tagIndex, monsNo);
+        }
+
+        static inline void SetGlossaryWord(int32_t index, System::String::Object* msbtName, System::String::Object* labelName) {
+            external<void>(0x01f9c2c0, index, msbtName, labelName);
+        }
+
+        static inline void SetGlossaryWord(int32_t index, System::String::Object* msbtName, int32_t labelIndex) {
+            external<void>(0x01f9c410, index, msbtName, labelIndex);
+        }
     };
 }

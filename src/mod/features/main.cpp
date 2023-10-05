@@ -3,6 +3,7 @@
 void exl_features_main() {
     // Activated features for Luminescent
     exl_ability_changes_main();
+    exl_alt_starters_main();
     exl_area_zone_codes_main();
     exl_badge_check_main();
     exl_balls_main();

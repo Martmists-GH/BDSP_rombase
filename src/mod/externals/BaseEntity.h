@@ -47,6 +47,10 @@ struct BaseEntity : ILClass<BaseEntity> {
         VirtualInvokeData _13_ProcessSequence;
     };
 
+    inline UnityEngine::Transform::Object* get_transform() {
+        return external<UnityEngine::Transform::Object*>(0x01d66e50, this);
+    }
+
     static_assert(sizeof(VTable) == 0xe0);
     static_assert(offsetof(VTable, _4_get_entityType) == 0x40);
     static_assert(offsetof(VTable, _5_GetAnimationPlayer) == 0x50);

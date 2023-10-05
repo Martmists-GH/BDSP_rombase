@@ -7,6 +7,9 @@ void exl_features_main();
 // Applies some basic ability changes.
 void exl_ability_changes_main();
 
+// Allows starters to be changed via external JSON files.
+void exl_alt_starters_main();
+
 // Overrides calls to C#'s Enum.GetName on AreaID and ZoneID enums.
 void exl_area_zone_codes_main();
 

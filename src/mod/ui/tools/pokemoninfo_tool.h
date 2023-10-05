@@ -328,11 +328,11 @@ namespace ui {
                             walkStart, runStart, bodySize, appearLimit,
                             moveType, groundEffect, waitMoving, battleAjustHeight]() {
                         Pml::Sex sexResult = Pml::Sex::MALE;
-                        if (sex->selected == array_index(DEBUG_SEXES, "Male"))
+                        if (sex->selected == array_index(DEBUG_SEXES_NO_NONE, "Male"))
                             sexResult = Pml::Sex::MALE;
-                        else if (sex->selected == array_index(DEBUG_SEXES, "Female"))
+                        else if (sex->selected == array_index(DEBUG_SEXES_NO_NONE, "Female"))
                             sexResult = Pml::Sex::FEMALE;
-                        else if (sex->selected == array_index(DEBUG_SEXES, "Genderless"))
+                        else if (sex->selected == array_index(DEBUG_SEXES_NO_NONE, "Genderless"))
                             sexResult = Pml::Sex::UNKNOWN;
 
                         auto catalog = GameData::DataManager::GetPokemonCatalog(species->selected, form->value, sexResult, shiny->enabled, false);
@@ -419,11 +419,11 @@ namespace ui {
                             walkStart, runStart, bodySize, appearLimit,
                             moveType, groundEffect, waitMoving, battleAjustHeight]() {
                         Pml::Sex sexResult = Pml::Sex::MALE;
-                        if (sex->selected == array_index(DEBUG_SEXES, "Male"))
+                        if (sex->selected == array_index(DEBUG_SEXES_NO_NONE, "Male"))
                             sexResult = Pml::Sex::MALE;
-                        else if (sex->selected == array_index(DEBUG_SEXES, "Female"))
+                        else if (sex->selected == array_index(DEBUG_SEXES_NO_NONE, "Female"))
                             sexResult = Pml::Sex::FEMALE;
-                        else if (sex->selected == array_index(DEBUG_SEXES, "Genderless"))
+                        else if (sex->selected == array_index(DEBUG_SEXES_NO_NONE, "Genderless"))
                             sexResult = Pml::Sex::UNKNOWN;
 
                         auto catalog = GameData::DataManager::GetPokemonCatalog(species->selected, form->value, sexResult, shiny->enabled, false);

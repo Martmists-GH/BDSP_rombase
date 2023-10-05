@@ -1,9 +1,9 @@
 #pragma once
 
-#include "memory/vector.h"
 #include "romdata/data/ColorSet.h"
 #include "romdata/data/FormHeldItemMon.h"
 #include "romdata/data/HoneyTreeEncounters.h"
+#include "romdata/data/Starter.h"
 #include "romdata/data/TMLearnset.h"
 #include "romdata/data/UnbreakablePokeItem.h"
 
@@ -36,3 +36,6 @@ RomData::TMLearnset GetTMLearnset(int32_t monsno, int32_t formno);
 
 // Checks if a given Pokémon can learn a given TM.
 bool CanLearnTM(int32_t monsno, int32_t formno, int32_t tm);
+
+// Returns the starter data at the given index.
+RomData::Starter GetStarter(int32_t index);
