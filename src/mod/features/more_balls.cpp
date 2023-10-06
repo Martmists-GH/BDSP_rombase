@@ -90,6 +90,8 @@ void exl_balls_main() {
         { 0x01db6c08, Movz(W8, array_index(BALLS, "--BALL ZERO--")) },
         { 0x01db6c38, CmpImmediate(W9, array_index(BALLS, "--BALL ZERO--")) },
         { 0x01abc8dc, Movz(W8, array_index(BALLS, "--BALL ZERO--")) },
+        { 0x02cc01b4, CmpImmediate(W1, array_index(BALLS, "--BALL ZERO--")) },
+        { 0x02cc01c4, CmpImmediate(W1, array_index(BALLS, "--BALL ZERO--")) },
     };
     p.WriteInst(inst);
 }
