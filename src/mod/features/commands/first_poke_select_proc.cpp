@@ -4,7 +4,6 @@
 #include "externals/PlayerWork.h"
 #include "externals/Pml/PokePara/InitialSpec.h"
 #include "externals/System/Action.h"
-#include "externals/System/Collections/Generic/List.h"
 #include "externals/System/String.h"
 
 #include "features/commands/utils/utils.h"

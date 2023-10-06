@@ -7,10 +7,15 @@
 //   [Work, Number] weather: The ID of the weather to change to.
 bool SetWeather(Dpr::EvScript::EvDataManager::Object* manager);
 
-// Plays the starter selection scene.
+// Plays the starter selection scene, then adds the chosen starter to the party.
 // Arguments:
-//   None.
+//   [Work] result: The work in which to put the result of attempting to add the starter to the party.
 bool FirstPokeSelectProc(Dpr::EvScript::EvDataManager::Object* manager);
+
+// Returns the player's starter selection. Possible values are 0, 1, and 2.
+// Arguments:
+//   [Work] result: The work in which to put the result in.
+bool FirstPokeNoGet(Dpr::EvScript::EvDataManager::Object* manager);
 
 // Sets the data for the current honey tree encounter.
 // Arguments:
@@ -64,3 +69,31 @@ bool InstallCheck(Dpr::EvScript::EvDataManager::Object* manager);
 // Arguments:
 //   [Work, Number] variation: The ColorVariation id to set the player to.
 bool SetPlayerColorIndex(Dpr::EvScript::EvDataManager::Object* manager);
+
+// Returns the rival's starter selection. Possible values are 0, 1, and 2.
+// Arguments:
+//   [Work] result: The work in which to put the result in.
+bool RivalPokeNoGet(Dpr::EvScript::EvDataManager::Object* manager);
+
+// Returns the assistant's starter selection. Possible values are 0, 1, and 2.
+// Arguments:
+//   [Work] result: The work in which to put the result in.
+bool SupportPokeNoGet(Dpr::EvScript::EvDataManager::Object* manager);
+
+// Returns the player's starter's species id and form id.
+// Arguments:
+//   [Work] monsno: The work in which to put the monsno in.
+//   [Work] formno: The work in which to put the formno in.
+bool PlayerStarterMonsNoFormNo(Dpr::EvScript::EvDataManager::Object* manager);
+
+// Returns the rival's starter's species id and form id.
+// Arguments:
+//   [Work] monsno: The work in which to put the monsno in.
+//   [Work] formno: The work in which to put the formno in.
+bool RivalStarterMonsNoFormNo(Dpr::EvScript::EvDataManager::Object* manager);
+
+// Returns the assistant's starter's species id and form id.
+// Arguments:
+//   [Work] monsno: The work in which to put the monsno in.
+//   [Work] formno: The work in which to put the formno in.
+bool SupportStarterMonsNoFormNo(Dpr::EvScript::EvDataManager::Object* manager);
