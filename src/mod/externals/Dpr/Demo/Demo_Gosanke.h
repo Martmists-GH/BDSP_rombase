@@ -37,6 +37,10 @@ namespace Dpr::Demo {
             };
         };
 
+        inline void ctor() {
+            external<void>(0x01acaf50, this);
+        }
+
         static_assert(offsetof(Fields, nowCursolPosIndex) == 0xfc);
     };
 }
