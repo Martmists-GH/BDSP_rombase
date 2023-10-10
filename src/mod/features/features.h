@@ -70,6 +70,9 @@ void exl_items_changes_main();
 // Adds new key item functionality.
 void exl_key_items_main();
 
+// Allows configuring the available languages on the language select screen.
+void exl_language_select_main();
+
 // Adds the Level Cap functionality.
 void exl_level_cap_main();
 

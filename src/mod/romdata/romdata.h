@@ -1,5 +1,6 @@
 #pragma once
 
+#include "romdata/data/IntroData.h"
 #include "romdata/data/ColorSet.h"
 #include "romdata/data/FormHeldItemMon.h"
 #include "romdata/data/HoneyTreeEncounters.h"
@@ -43,3 +44,12 @@ RomData::Starter GetStarter(int32_t index);
 
 // Returns the shiny rates data.
 RomData::ShinyRates GetShinyRates();
+
+// Returns the available languages for the language select screen.
+nn::vector<int32_t> GetActivatedLanguages();
+
+// Checks if a given language is available on the language select screen.
+bool IsLanguageActivated(int32_t langID);
+
+// Returns the available Color Variation presets in the intro.
+nn::vector<int32_t> GetIntroColorVariationPresets();

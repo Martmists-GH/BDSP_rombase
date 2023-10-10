@@ -73,6 +73,10 @@ namespace Dpr::UI {
         inline T::Object* GetCurrentUIWindow(ILMethod<T>& method) {
             return external<typename T::Object*>(0x01cfa100, this, *method);
         }
+
+        static inline int32_t Repeat(int32_t value, int32_t start, int32_t end) {
+            return external<int32_t>(0x017c4990, value, start, end);
+        }
     };
 }
 

@@ -26,5 +26,9 @@ namespace Dpr::UI {
         inline bool IsPushButton(int32_t button, bool isForce) {
             return external<bool>(0x01a352a0, this, button, isForce);
         }
+
+        inline bool IsRepeatButton(int32_t button, bool isForce) {
+            return external<bool>(0x01a352c0, this, button, isForce);
+        }
     };
 }
