@@ -3,6 +3,7 @@
 #include "romdata/data/ColorSet.h"
 #include "romdata/data/FormHeldItemMon.h"
 #include "romdata/data/HoneyTreeEncounters.h"
+#include "romdata/data/ShinyRates.h"
 #include "romdata/data/Starter.h"
 #include "romdata/data/TMLearnset.h"
 #include "romdata/data/UnbreakablePokeItem.h"
@@ -39,3 +40,6 @@ bool CanLearnTM(int32_t monsno, int32_t formno, int32_t tm);
 
 // Returns the starter data at the given index.
 RomData::Starter GetStarter(int32_t index);
+
+// Returns the shiny rates data.
+RomData::ShinyRates GetShinyRates();

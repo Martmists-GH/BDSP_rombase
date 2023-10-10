@@ -30,7 +30,7 @@ RomData::Starter GetStarter(int32_t index)
         Logger::log("Error when parsing Starter data!\n");
     }
 
-    // Default - No TMs learned
+    // Default - Oddish
     return {
         .monsNo = 43,
         .formNo = 0,

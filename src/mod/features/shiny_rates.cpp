@@ -8,6 +8,7 @@
 #include "externals/Pml/Local/RandomGenerator.h"
 #include "externals/Pml/PokePara/CalcTool.h"
 #include "externals/Pml/PokePara/InitialSpec.h"
+#include "romdata/romdata.h"
 
 uint32_t ShinyRolls(Pml::PokePara::InitialSpec::Object* pFixSpec, Pml::Local::RandomGenerator::Object* rng)
 {
@@ -16,13 +17,13 @@ uint32_t ShinyRolls(Pml::PokePara::InitialSpec::Object* pFixSpec, Pml::Local::Ra
     uint32_t id = pFixSpec->fields.id;
 
     // Base rolls
-    rareTryCount += 8;
+    rareTryCount += GetShinyRates().baseRolls;
 
     // Shiny charm rolls
     Dpr::Item::ItemInfo::Object* item = ItemWork::GetItemInfo(array_index(ITEMS, "Shiny Charm"));
     if (item != nullptr && item->get_count() > 0)
     {
-        rareTryCount += 2;
+        rareTryCount += GetShinyRates().charmRolls;
     }
 
     for (uint32_t i=0; i<rareTryCount; i++)
@@ -59,6 +60,12 @@ HOOK_DEFINE_INLINE(Shiny_GetRand) {
     }
 };
 
+HOOK_DEFINE_INLINE(Shiny_Masuda) {
+    static void Callback(exl::hook::nx64::InlineCtx* ctx) {
+        ctx->W[8] = GetShinyRates().masudaRolls;
+    }
+};
+
 void exl_shiny_rates_main() {
     // != 0xffffffffffffffff
     Shiny_GetValue::InstallAtOffset(0x0205393c);
@@ -80,13 +87,14 @@ void exl_shiny_rates_main() {
     Shiny_GetValue::InstallAtOffset(0x02053a08);
     Shiny_GetRand::InstallAtOffset(0x020539a0);
 
+    Shiny_Masuda::InstallAtOffset(0x02050874);
+
     // Assembly Patches
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
     exl::patch::CodePatcher p(0);
     auto inst = nn::vector<exl::patch::Instruction> {
         { 0x02050880, AddImmediate(W9, W8, 0) },    // Remove shiny charm effect from egg-only methods
-        { 0x02050874, Movz(W8, 6) },                // Change amount of masuda rolls for eggs (6 in vanilla)
     };
     p.WriteInst(inst);
 }
