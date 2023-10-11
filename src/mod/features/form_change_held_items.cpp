@@ -49,17 +49,9 @@ HOOK_DEFINE_REPLACE(CheckUnbreakablePokeItem) {
     }
 };
 
-HOOK_DEFINE_TRAMPOLINE(SetItemTesting) {
-    static void Callback(Dpr::Battle::Logic::BTL_POKEPARAM::Object* __this, uint16_t itemno) {
-        Logger::log("CALLING SETITEM FOR ITEM %d\n", itemno);
-        Orig(__this, itemno);
-    }
-};
-
 void exl_form_change_held_items_main(){
     DecideFormNoFromHoldItem::InstallAtOffset(0x024aeb90);
     CheckUnbreakablePokeItem::InstallAtOffset(0x01d0d780);
-    SetItemTesting::InstallAtOffset(0x01fdfd60);
 
     // Remove hardcoded Arceus Type check on GetType1 and GetType2 and use the form data instead
     using namespace exl::armv8::inst;

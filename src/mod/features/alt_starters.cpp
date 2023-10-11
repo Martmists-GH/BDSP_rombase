@@ -1,5 +1,7 @@
 #include "exlaunch.hpp"
 
+#include "data/clip_names.h"
+#include "data/utils.h"
 #include "externals/BaseEntity.h"
 #include "externals/DG/Tweening/DOVirtual.h"
 #include "externals/DG/Tweening/TweenCallback.h"
@@ -226,10 +228,10 @@ void exl_alt_starters_main() {
 
     DemoBase_DrawMessage_SetMonTags::InstallAtOffset(0x01ad1548);
 
-    int32_t idleAnim1 = 0;    // Starter idle anim, Priority 1
-    int32_t idleAnim2 = 32;   // Starter idle anim, Priority 2
-    int32_t idleAnim3 = 24;   // Starter idle anim, Priority 3
-    int32_t confirmAnim = 9;  // Starter selection anim
+    int32_t idleAnim1 = array_index(FIELD_MON_CLIPS, "Idle");         // Starter idle anim, Priority 1
+    int32_t idleAnim2 = array_index(FIELD_MON_CLIPS, "Kw_Wait");      // Starter idle anim, Priority 2
+    int32_t idleAnim3 = array_index(FIELD_MON_CLIPS, "FieldWait1");   // Starter idle anim, Priority 3
+    int32_t confirmAnim = array_index(FIELD_MON_CLIPS, "Roar01");     // Starter selection anim
 
     using namespace exl::armv8::inst;
     using namespace exl::armv8::reg;
