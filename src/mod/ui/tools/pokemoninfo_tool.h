@@ -98,8 +98,8 @@ namespace ui {
                 auto* modelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Model Offset";
                     _.value = { 1.0f, 1.0f, 1.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* modelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
@@ -120,8 +120,8 @@ namespace ui {
                 auto* distributionModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Distribution Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* distributionModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
@@ -142,8 +142,8 @@ namespace ui {
                 auto* voiceModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Voice Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* voiceModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
@@ -158,8 +158,8 @@ namespace ui {
                 auto* centerPointOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Center Point Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* rotationLimitAngle = _.SliderFloat2([](SliderFloat2 &_) {
@@ -180,8 +180,8 @@ namespace ui {
                 auto* statusModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Status Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* statusModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
@@ -202,8 +202,8 @@ namespace ui {
                 auto* boxModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Box Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* boxModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
@@ -224,8 +224,8 @@ namespace ui {
                 auto* compareModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Compare Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* compareModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
