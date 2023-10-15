@@ -7,6 +7,7 @@ void exl_features_main() {
     exl_area_zone_codes_main();
     exl_badge_check_main();
     exl_balls_main();
+    exl_battle_camera_fix_main();
     exl_battle_escape_flag_main();
     exl_color_variations_main();
     exl_commands_main();
@@ -37,7 +38,6 @@ void exl_features_main() {
 
     // Extra rombase features
     //exl_battle_revolver_main();
-    //exl_battle_camera_fix_main();
     //exl_exp_share_main();
     //exl_remap_main();
     //exl_sounds_main();
