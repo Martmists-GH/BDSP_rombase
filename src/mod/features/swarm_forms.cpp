@@ -1,15 +1,11 @@
 #include "exlaunch.hpp"
 
 #include "externals/Dpr/Message/MessageManager.h"
-#include "externals/GameData/DataManager.h"
 #include "externals/MonsLv.h"
-#include "externals/Pml/Personal/PersonalSystem.h"
-#include "externals/Pml/Personal/SexVector.h"
-#include "externals/Pml/Sex.h"
 #include "externals/System/String.h"
 #include "externals/TairyouHasseiPokeManager.h"
-#include "externals/XLSXContent/PersonalTable.h"
 #include "externals/XLSXContent/PokemonInfo.h"
+#include "utils/utils.h"
 
 HOOK_DEFINE_INLINE(TairyouHasseiPokeManager_Loading) {
     static void Callback(exl::hook::nx64::InlineCtx* ctx) {
@@ -19,28 +15,7 @@ HOOK_DEFINE_INLINE(TairyouHasseiPokeManager_Loading) {
         int32_t monsNo = (monsLv->m_Items[0].fields.monsNo) & 0x0000FFFF;
         int32_t formNo = ((monsLv->m_Items[0].fields.monsNo) & 0xFFFF0000) >> 16;
 
-        XLSXContent::PersonalTable::SheetPersonal::Object* personal = Pml::Personal::PersonalSystem::GetPersonalData(monsNo, formNo);
-        uint8_t sexRate = personal->fields.sex;
-        Pml::Sex sex;
-        switch (sexRate)
-        {
-            case (uint8_t)Pml::Personal::SexVector::ONLY_FEMALE:
-                sex = Pml::Sex::FEMALE;
-                break;
-
-            case (uint8_t)Pml::Personal::SexVector::UNKNOWN:
-                sex = Pml::Sex::UNKNOWN;
-                break;
-
-            default:
-                sex = Pml::Sex::MALE;
-                break;
-        }
-
-        bool isRare = false;
-        bool isEgg = false;
-
-        XLSXContent::PokemonInfo::SheetCatalog::Object* catalog = GameData::DataManager::GetPokemonCatalog(monsNo, formNo, sex, isRare, isEgg);
+        XLSXContent::PokemonInfo::SheetCatalog::Object* catalog = GetDefaultCatalog(monsNo, formNo);
         System::String::Object* assetBundleName = catalog->fields.AssetBundleName;
 
         System::String::Object* fullPath = System::String::Concat(System::String::Create("pokemons/field/"), assetBundleName);

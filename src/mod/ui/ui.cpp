@@ -96,17 +96,17 @@ static Window mainWindow = Window::single([](Window &_) {
         });
     });
 
-    _.ItemTool();
-    _.PokemonTool();
-    _.ArenaTool();
-    _.WarpTool();
-    _.VariablesTool();
+    //_.ItemTool();
+    //_.PokemonTool();
+    //_.ArenaTool();
+    //_.WarpTool();
+    //_.VariablesTool();
     _.MaterialTool();
     //_.ColorVariationTool();
     //_.SaveTool();
     _.AnimationTool();
-    _.ModelTool();
-    //_.PokemonInfoTool();
+    //_.ModelTool();
+    _.PokemonInfoTool();
     //_.PoffinTool();
     _.MiscTool();
 });

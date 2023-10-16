@@ -1,7 +1,7 @@
 #pragma once
 
-#include "externals/PlayerWork.h"
+#include "externals/XLSXContent/PokemonInfo.h"
 
-uint32_t GetLevelCapIndex();
-uint32_t GetMaxLevel();
-uint32_t GetLevelCapIndexOfLevel(uint32_t level);
+// Returns the "default" catalog for a monsno + formno combo.
+// "Default" here is male (female if female-only, genderless if genderless), non-shiny, non-egg.
+XLSXContent::PokemonInfo::SheetCatalog::Object* GetDefaultCatalog(int32_t monsno, int32_t formno);

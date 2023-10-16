@@ -17,19 +17,79 @@
 RomData::ColorSet GetCustomColorSet()
 {
     RomData::ColorSet set = {
-        .fSkinFace =     getCustomSaveData()->colorVariations.fSkinFace[0],
-        .fSkinMouth =    getCustomSaveData()->colorVariations.fSkinMouth[0],
-        .fEyes =         getCustomSaveData()->colorVariations.fEyes[0],
-        .fEyebrows =     getCustomSaveData()->colorVariations.fEyebrows[0],
-        .fSkinBody =     getCustomSaveData()->colorVariations.fSkinBody[0],
-        .fHair =         getCustomSaveData()->colorVariations.fHair[0],
+        .fieldSkinFace = {
+            getCustomSaveData()->colorVariations.fSkinFace[0].fields.r,
+            getCustomSaveData()->colorVariations.fSkinFace[0].fields.g,
+            getCustomSaveData()->colorVariations.fSkinFace[0].fields.b,
+            getCustomSaveData()->colorVariations.fSkinFace[0].fields.a,
+        },
+        .fieldSkinMouth = {
+            getCustomSaveData()->colorVariations.fSkinMouth[0].fields.r,
+            getCustomSaveData()->colorVariations.fSkinMouth[0].fields.g,
+            getCustomSaveData()->colorVariations.fSkinMouth[0].fields.b,
+            getCustomSaveData()->colorVariations.fSkinMouth[0].fields.a,
+        },
+        .fieldEyes = {
+            getCustomSaveData()->colorVariations.fEyes[0].fields.r,
+            getCustomSaveData()->colorVariations.fEyes[0].fields.g,
+            getCustomSaveData()->colorVariations.fEyes[0].fields.b,
+            getCustomSaveData()->colorVariations.fEyes[0].fields.a,
+        },
+        .fieldEyebrows = {
+            getCustomSaveData()->colorVariations.fEyebrows[0].fields.r,
+            getCustomSaveData()->colorVariations.fEyebrows[0].fields.g,
+            getCustomSaveData()->colorVariations.fEyebrows[0].fields.b,
+            getCustomSaveData()->colorVariations.fEyebrows[0].fields.a,
+        },
+        .fieldSkinBody = {
+            getCustomSaveData()->colorVariations.fSkinBody[0].fields.r,
+            getCustomSaveData()->colorVariations.fSkinBody[0].fields.g,
+            getCustomSaveData()->colorVariations.fSkinBody[0].fields.b,
+            getCustomSaveData()->colorVariations.fSkinBody[0].fields.a,
+        },
+        .fieldHair = {
+            getCustomSaveData()->colorVariations.fHair[0].fields.r,
+            getCustomSaveData()->colorVariations.fHair[0].fields.g,
+            getCustomSaveData()->colorVariations.fHair[0].fields.b,
+            getCustomSaveData()->colorVariations.fHair[0].fields.a,
+        },
 
-        .bSkinFace =     getCustomSaveData()->colorVariations.bSkinFace[0],
-        .bHairExtra =    getCustomSaveData()->colorVariations.bHairExtra[0],
-        .bEyeLeft =      getCustomSaveData()->colorVariations.bEyeLeft[0],
-        .bEyeRight =     getCustomSaveData()->colorVariations.bEyeRight[0],
-        .bSkinBody =     getCustomSaveData()->colorVariations.bSkinBody[0],
-        .bHair =         getCustomSaveData()->colorVariations.bHair[0],
+        .battleSkinFace = {
+            getCustomSaveData()->colorVariations.bSkinFace[0].fields.r,
+            getCustomSaveData()->colorVariations.bSkinFace[0].fields.g,
+            getCustomSaveData()->colorVariations.bSkinFace[0].fields.b,
+            getCustomSaveData()->colorVariations.bSkinFace[0].fields.a,
+        },
+        .battleHairExtra = {
+            getCustomSaveData()->colorVariations.bHairExtra[0].fields.r,
+            getCustomSaveData()->colorVariations.bHairExtra[0].fields.g,
+            getCustomSaveData()->colorVariations.bHairExtra[0].fields.b,
+            getCustomSaveData()->colorVariations.bHairExtra[0].fields.a,
+        },
+        .battleEyeLeft = {
+            getCustomSaveData()->colorVariations.bEyeLeft[0].fields.r,
+            getCustomSaveData()->colorVariations.bEyeLeft[0].fields.g,
+            getCustomSaveData()->colorVariations.bEyeLeft[0].fields.b,
+            getCustomSaveData()->colorVariations.bEyeLeft[0].fields.a,
+        },
+        .battleEyeRight = {
+            getCustomSaveData()->colorVariations.bEyeRight[0].fields.r,
+            getCustomSaveData()->colorVariations.bEyeRight[0].fields.g,
+            getCustomSaveData()->colorVariations.bEyeRight[0].fields.b,
+            getCustomSaveData()->colorVariations.bEyeRight[0].fields.a,
+        },
+        .battleSkinBody = {
+            getCustomSaveData()->colorVariations.bSkinBody[0].fields.r,
+            getCustomSaveData()->colorVariations.bSkinBody[0].fields.g,
+            getCustomSaveData()->colorVariations.bSkinBody[0].fields.b,
+            getCustomSaveData()->colorVariations.bSkinBody[0].fields.a,
+        },
+        .battleHair = {
+            getCustomSaveData()->colorVariations.bHair[0].fields.r,
+            getCustomSaveData()->colorVariations.bHair[0].fields.g,
+            getCustomSaveData()->colorVariations.bHair[0].fields.b,
+            getCustomSaveData()->colorVariations.bHair[0].fields.a,
+        },
     };
 
     return set;
@@ -58,33 +118,33 @@ ColorVariation::Property::Array* GetEditedProperty00(ColorVariation::Object* var
         if (gameObject->GetComponent(UnityEngine::Component::Method$$BattleCharacterEntity$$GetComponent) != nullptr)
         {
             if (colors->max_length > (int32_t)RomData::ColorSetID::B_SKIN_FACE)
-                colors->m_Items[(int32_t)RomData::ColorSetID::B_SKIN_FACE].fields.color.fields = set.bSkinFace.fields;
+                colors->m_Items[(int32_t)RomData::ColorSetID::B_SKIN_FACE].fields.color.fields = { set.battleSkinFace.r, set.battleSkinFace.g, set.battleSkinFace.b, set.battleSkinFace.a };
             if (colors->max_length > (int32_t)RomData::ColorSetID::B_HAIR_EXTRA)
-                colors->m_Items[(int32_t)RomData::ColorSetID::B_HAIR_EXTRA].fields.color.fields = set.bHairExtra.fields;
+                colors->m_Items[(int32_t)RomData::ColorSetID::B_HAIR_EXTRA].fields.color.fields = { set.battleHairExtra.r, set.battleHairExtra.g, set.battleHairExtra.b, set.battleHairExtra.a };
             if (colors->max_length > (int32_t)RomData::ColorSetID::B_EYE_LEFT)
-                colors->m_Items[(int32_t)RomData::ColorSetID::B_EYE_LEFT].fields.color.fields = set.bEyeLeft.fields;
+                colors->m_Items[(int32_t)RomData::ColorSetID::B_EYE_LEFT].fields.color.fields = { set.battleEyeLeft.r, set.battleEyeLeft.g, set.battleEyeLeft.b, set.battleEyeLeft.a };
             if (colors->max_length > (int32_t)RomData::ColorSetID::B_EYE_RIGHT)
-                colors->m_Items[(int32_t)RomData::ColorSetID::B_EYE_RIGHT].fields.color.fields = set.bEyeRight.fields;
+                colors->m_Items[(int32_t)RomData::ColorSetID::B_EYE_RIGHT].fields.color.fields = { set.battleEyeRight.r, set.battleEyeRight.g, set.battleEyeRight.b, set.battleEyeRight.a };
             if (colors->max_length > (int32_t)RomData::ColorSetID::B_SKIN_BODY)
-                colors->m_Items[(int32_t)RomData::ColorSetID::B_SKIN_BODY].fields.color.fields = set.bSkinBody.fields;
+                colors->m_Items[(int32_t)RomData::ColorSetID::B_SKIN_BODY].fields.color.fields = { set.battleSkinBody.r, set.battleSkinBody.g, set.battleSkinBody.b, set.battleSkinBody.a };
             if (colors->max_length > (int32_t)RomData::ColorSetID::B_HAIR)
-                colors->m_Items[(int32_t)RomData::ColorSetID::B_HAIR].fields.color.fields = set.bHair.fields;
+                colors->m_Items[(int32_t)RomData::ColorSetID::B_HAIR].fields.color.fields = { set.battleHair.r, set.battleHair.g, set.battleHair.b, set.battleHair.a };
         }
 
         if (gameObject->GetComponent(UnityEngine::Component::Method$$FieldCharacterEntity$$GetComponent) != nullptr)
         {
             if (colors->max_length > (int32_t)RomData::ColorSetID::F_SKIN_FACE)
-                colors->m_Items[(int32_t)RomData::ColorSetID::F_SKIN_FACE].fields.color.fields = set.fSkinFace.fields;
+                colors->m_Items[(int32_t)RomData::ColorSetID::F_SKIN_FACE].fields.color.fields = { set.fieldSkinFace.r, set.fieldSkinFace.g, set.fieldSkinFace.b, set.fieldSkinFace.a };
             if (colors->max_length > (int32_t)RomData::ColorSetID::F_SKIN_MOUTH)
-                colors->m_Items[(int32_t)RomData::ColorSetID::F_SKIN_MOUTH].fields.color.fields = set.fSkinMouth.fields;
+                colors->m_Items[(int32_t)RomData::ColorSetID::F_SKIN_MOUTH].fields.color.fields = { set.fieldSkinMouth.r, set.fieldSkinMouth.g, set.fieldSkinMouth.b, set.fieldSkinMouth.a };
             if (colors->max_length > (int32_t)RomData::ColorSetID::F_EYES)
-                colors->m_Items[(int32_t)RomData::ColorSetID::F_EYES].fields.color.fields = set.fEyes.fields;
+                colors->m_Items[(int32_t)RomData::ColorSetID::F_EYES].fields.color.fields = { set.fieldEyes.r, set.fieldEyes.g, set.fieldEyes.b, set.fieldEyes.a };
             if (colors->max_length > (int32_t)RomData::ColorSetID::F_EYEBROWS)
-                colors->m_Items[(int32_t)RomData::ColorSetID::F_EYEBROWS].fields.color.fields = set.fEyebrows.fields;
+                colors->m_Items[(int32_t)RomData::ColorSetID::F_EYEBROWS].fields.color.fields = { set.fieldEyebrows.r, set.fieldEyebrows.g, set.fieldEyebrows.b, set.fieldEyebrows.a };
             if (colors->max_length > (int32_t)RomData::ColorSetID::F_SKIN_BODY)
-                colors->m_Items[(int32_t)RomData::ColorSetID::F_SKIN_BODY].fields.color.fields = set.fSkinBody.fields;
+                colors->m_Items[(int32_t)RomData::ColorSetID::F_SKIN_BODY].fields.color.fields = { set.fieldSkinBody.r, set.fieldSkinBody.g, set.fieldSkinBody.b, set.fieldSkinBody.a };
             if (colors->max_length > (int32_t)RomData::ColorSetID::F_HAIR)
-                colors->m_Items[(int32_t)RomData::ColorSetID::F_HAIR].fields.color.fields = set.fHair.fields;
+                colors->m_Items[(int32_t)RomData::ColorSetID::F_HAIR].fields.color.fields = { set.fieldHair.r, set.fieldHair.g, set.fieldHair.b, set.fieldHair.a };
         }
     }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "externals/il2cpp-api.h"
+#include "externals/System/Primitives.h"
 
 namespace System::Collections::Generic {
     template <typename T, typename E>
@@ -21,6 +22,30 @@ namespace System::Collections::Generic {
 
         inline void Add(E* item) {
             ILClass<T>::template external<void>(0x02a3c680, this, item, *T::Method$$Add);
+        }
+
+        inline void Clear() {
+            ILClass<T>::template external<void>(0x02a3ca20, this, *T::Method$$Clear);
+        }
+    };
+
+    struct List$$int32_t : ILClass<List$$int32_t> {
+        struct Fields {
+            System::Int32_array* _items;
+            int32_t _size;
+            int32_t _version;
+            Il2CppObject* _syncRoot;
+        };
+
+        static inline StaticILMethod<0x04c8a3a8> Method$$Add {};
+        static inline StaticILMethod<0x04c8a3b8> Method$$Clear {};
+
+        inline void Add(int32_t item) {
+            external<void>(0x02a70aa0, this, item, Method$$Add);
+        }
+
+        inline void Clear() {
+            external<void>(0x02a70e40, this, Method$$Clear);
         }
     };
 }

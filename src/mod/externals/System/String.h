@@ -93,6 +93,7 @@ namespace System {
 
 namespace System::Collections::Generic {
     struct List$$String : List<List$$String, System::String> {
-        
+        static inline StaticILMethod<0x04c8a528> Method$$Add {};
+        static inline StaticILMethod<0x04c8a538> Method$$Clear {};
     };
 }

@@ -8,7 +8,7 @@
 #include "externals/UnityEngine/Transform.h"
 
 namespace Audio {
-    struct AudioManager : ILClass<AudioManager> {
+    struct AudioManager : ILClass<AudioManager, 0x04c59b78> {
         struct Fields : SmartPoint::AssetAssistant::SingletonMonoBehaviour::Fields {
             UnityEngine::GameObject::Object * _prefab;
             System::Int32_array * _poolCounts;

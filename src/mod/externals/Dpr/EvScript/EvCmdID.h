@@ -1250,6 +1250,11 @@ namespace Dpr::EvScript {
             _TOGGLE_COLLISION_BOX = 1240,
             _INSTALL_CHECK = 1241,
             _SET_PLAYER_COLOR_INDEX = 1242,
+            _RIVAL_POKE_NO_GET = 1243,
+            _SUPPORT_POKE_NO_GET = 1244,
+            _FIRST_MONSNO_FORMNO = 1245,
+            _RIVAL_MONSNO_FORMNO = 1246,
+            _SUPPORT_MONSNO_FORMNO = 1247,
 
             CUSTOM_CMD_END = 1500,
         };

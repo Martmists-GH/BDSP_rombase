@@ -2,6 +2,7 @@
 
 #include "nn/fs.h"
 #include "nn/result.h"
+#include "memory/json.h"
 
 namespace FsHelper {
 
@@ -19,4 +20,6 @@ namespace FsHelper {
     long getFileSize(const char *path);
 
     bool isFileExist(const char *path);
+
+    nn::json loadJsonFileFromPath(const char *path);
 }

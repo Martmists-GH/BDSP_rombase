@@ -98,8 +98,8 @@ namespace ui {
                 auto* modelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Model Offset";
                     _.value = { 1.0f, 1.0f, 1.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* modelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
@@ -120,8 +120,8 @@ namespace ui {
                 auto* distributionModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Distribution Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* distributionModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
@@ -142,8 +142,8 @@ namespace ui {
                 auto* voiceModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Voice Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* voiceModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
@@ -158,8 +158,8 @@ namespace ui {
                 auto* centerPointOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Center Point Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* rotationLimitAngle = _.SliderFloat2([](SliderFloat2 &_) {
@@ -180,8 +180,8 @@ namespace ui {
                 auto* statusModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Status Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* statusModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
@@ -202,8 +202,8 @@ namespace ui {
                 auto* boxModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Box Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* boxModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
@@ -224,8 +224,8 @@ namespace ui {
                 auto* compareModelOffset = _.SliderFloat3([](SliderFloat3 &_) {
                     _.label = "Compare Model Offset";
                     _.value = { 0.0f, 0.0f, 0.0f };
-                    _.min = -100.0f;
-                    _.max = 100.0f;
+                    _.min = -10.0f;
+                    _.max = 10.0f;
                 });
 
                 auto* compareModelRotationAngle = _.SliderFloat3([](SliderFloat3 &_) {
@@ -328,11 +328,11 @@ namespace ui {
                             walkStart, runStart, bodySize, appearLimit,
                             moveType, groundEffect, waitMoving, battleAjustHeight]() {
                         Pml::Sex sexResult = Pml::Sex::MALE;
-                        if (sex->selected == array_index(DEBUG_SEXES, "Male"))
+                        if (sex->selected == array_index(DEBUG_SEXES_NO_NONE, "Male"))
                             sexResult = Pml::Sex::MALE;
-                        else if (sex->selected == array_index(DEBUG_SEXES, "Female"))
+                        else if (sex->selected == array_index(DEBUG_SEXES_NO_NONE, "Female"))
                             sexResult = Pml::Sex::FEMALE;
-                        else if (sex->selected == array_index(DEBUG_SEXES, "Genderless"))
+                        else if (sex->selected == array_index(DEBUG_SEXES_NO_NONE, "Genderless"))
                             sexResult = Pml::Sex::UNKNOWN;
 
                         auto catalog = GameData::DataManager::GetPokemonCatalog(species->selected, form->value, sexResult, shiny->enabled, false);
@@ -419,11 +419,11 @@ namespace ui {
                             walkStart, runStart, bodySize, appearLimit,
                             moveType, groundEffect, waitMoving, battleAjustHeight]() {
                         Pml::Sex sexResult = Pml::Sex::MALE;
-                        if (sex->selected == array_index(DEBUG_SEXES, "Male"))
+                        if (sex->selected == array_index(DEBUG_SEXES_NO_NONE, "Male"))
                             sexResult = Pml::Sex::MALE;
-                        else if (sex->selected == array_index(DEBUG_SEXES, "Female"))
+                        else if (sex->selected == array_index(DEBUG_SEXES_NO_NONE, "Female"))
                             sexResult = Pml::Sex::FEMALE;
-                        else if (sex->selected == array_index(DEBUG_SEXES, "Genderless"))
+                        else if (sex->selected == array_index(DEBUG_SEXES_NO_NONE, "Genderless"))
                             sexResult = Pml::Sex::UNKNOWN;
 
                         auto catalog = GameData::DataManager::GetPokemonCatalog(species->selected, form->value, sexResult, shiny->enabled, false);

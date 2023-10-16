@@ -2,6 +2,7 @@
 
 #include "externals/il2cpp.h"
 
+#include "externals/Pml/PokePara/PokemonParam.h"
 
 struct FieldPoketch : ILClass<FieldPoketch, 0x04c5e648> {
     static inline void OnPushedAppearButton() {
@@ -22,5 +23,9 @@ struct FieldPoketch : ILClass<FieldPoketch, 0x04c5e648> {
 
     static inline bool IsCloseOncePoketch() {
         return external<bool>(0x01db9e40);
+    }
+
+    static inline void AddPokemonHistory(Pml::PokePara::PokemonParam::Object* pokeParam) {
+        external<void>(0x01dba9c0, pokeParam);
     }
 };

@@ -51,6 +51,39 @@ namespace UnityEngine {
             external<void>(0x0299d270, this, valueProxy);
         }
 
+        inline UnityEngine::Vector3::Object get_localPosition() {
+            return {
+                .fields = external<UnityEngine::Vector3::Fields>(0x0299d320, this)
+            };
+        }
+
+        inline void set_localPosition(UnityEngine::Vector3::Object value) {
+            UnityEngine::Vector3::Fields valueProxy = { .x = value.fields.x, .y = value.fields.y, .z = value.fields.z };
+            external<void>(0x0299d3d0, this, valueProxy);
+        }
+
+        inline UnityEngine::Vector3::Object get_localEulerAngles() {
+            return {
+                .fields = external<UnityEngine::Vector3::Fields>(0x0299d690, this)
+            };
+        }
+
+        inline void set_localEulerAngles(UnityEngine::Vector3::Object value) {
+            UnityEngine::Vector3::Fields valueProxy = { .x = value.fields.x, .y = value.fields.y, .z = value.fields.z };
+            external<void>(0x0299d770, this, valueProxy);
+        }
+
+        inline UnityEngine::Vector3::Object get_localScale() {
+            return {
+                .fields = external<UnityEngine::Vector3::Fields>(0x0299df50, this)
+            };
+        }
+
+        inline void set_localScale(UnityEngine::Vector3::Object value) {
+            UnityEngine::Vector3::Fields valueProxy = { .x = value.fields.x, .y = value.fields.y, .z = value.fields.z };
+            external<void>(0x0299e000, this, valueProxy);
+        }
+
         // utility functions
         UnityEngine::Transform::Object* GetChild(std::initializer_list<std::int32_t> index) {
             UnityEngine::Transform* transform = this;

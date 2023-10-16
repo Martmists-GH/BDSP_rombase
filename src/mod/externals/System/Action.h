@@ -15,12 +15,12 @@ namespace System {
         static const inline long WazaNo_WazaNo_TypeInfo = 0x04c5eff0;
 
         template <typename T, typename... Args>
-        inline void ctor(T* owner, ILMethod<T, Args...>& mi) {
-            ctor(owner, *mi);
+        inline void ctor(T* target, ILMethod<T, Args...>& mi) {
+            ctor(target, *mi);
         }
 
-        inline void ctor(void* owner, MethodInfo* delegate) {
-            external<void>(0x023feb30, this, owner, delegate);
+        inline void ctor(void* target, MethodInfo* delegate) {
+            external<void>(0x023feb30, this, target, delegate);
         }
     };
 }

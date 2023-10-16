@@ -7,6 +7,9 @@ void exl_features_main();
 // Applies some basic ability changes.
 void exl_ability_changes_main();
 
+// Allows starters to be changed via external JSON files.
+void exl_alt_starters_main();
+
 // Overrides calls to C#'s Enum.GetName on AreaID and ZoneID enums.
 void exl_area_zone_codes_main();
 
@@ -48,6 +51,9 @@ void exl_evolution_methods_main();
 // Adds functionality to the Exp. Share item.
 void exl_exp_share_main();
 
+// Redirects TM learnsets to external JSON files that contain more data.
+void exl_extended_tm_learnsets_main();
+
 // Adds new Pokémon/held item combos that trigger a form change when held.
 void exl_form_change_held_items_main();
 
@@ -63,6 +69,9 @@ void exl_items_changes_main();
 
 // Adds new key item functionality.
 void exl_key_items_main();
+
+// Allows configuring the available languages on the language select screen.
+void exl_language_select_main();
 
 // Adds the Level Cap functionality.
 void exl_level_cap_main();

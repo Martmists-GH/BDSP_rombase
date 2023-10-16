@@ -1,40 +1,29 @@
 #include "exlaunch.hpp"
 
+#include "externals/Dpr/Battle/Logic/BTL_POKEPARAM.h"
+#include "logger/logger.h"
 #include "romdata/romdata.h"
 
 HOOK_DEFINE_REPLACE(DecideFormNoFromHoldItem) {
     static bool Callback(int32_t monsno, uint32_t holdItemno, uint16_t *formno) {
-        auto formHeldItems = GetFormHeldItemMons();
-        auto defaultForms = GetFormHeldItemMonsDefault();
-        bool affectedMon = false;
+        auto formHeldItems = GetFormHeldItemMon(monsno);
+        bool affectedMon = formHeldItems.itemForms.size() != 0;
 
-        for (auto i : formHeldItems)
+        for (auto i : formHeldItems.itemForms)
         {
-            if (monsno == i.monsno)
+            // If the item is one that changes the mon's form, change the form.
+            if ((int32_t)holdItemno == i.itemNo)
             {
-                affectedMon = true;
-
-                // If the item is one that changes the mon's form, change the form.
-                if (holdItemno == i.itemno)
-                {
-                    *formno = i.formno;
-                    return true;
-                }
+                *formno = i.formNo;
+                return true;
             }
         }
 
-        // This mon's form is affected by held items, but it's not holding one of them.
+        // If the list of held items for this mon has items, but it's not holding one of them.
         if (affectedMon)
         {
-            // Default to 0, then check for default form.
-            *formno = 0;
-            for (auto i : defaultForms)
-            {
-                if (monsno == i.monsno)
-                {
-                    *formno = i.formno;
-                }
-            }
+            // Set to default form.
+            *formno = formHeldItems.defaultForm;
             return true;
         }
         else
@@ -46,11 +35,11 @@ HOOK_DEFINE_REPLACE(DecideFormNoFromHoldItem) {
 
 HOOK_DEFINE_REPLACE(CheckUnbreakablePokeItem) {
     static bool Callback(uint16_t monsno, uint16_t itemID) {
-        auto unbreakableItems = GetUnbreakablePokeItems();
+        auto unbreakableItems = GetUnbreakablePokeItems(monsno);
 
-        for (auto i : unbreakableItems)
+        for (auto i : unbreakableItems.items)
         {
-            if (monsno == i.monsno && itemID == i.itemno)
+            if (itemID == i)
             {
                 return true;
             }

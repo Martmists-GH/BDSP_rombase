@@ -1,5 +1,5 @@
 # IP for logging
-set(LOGGER_IP 192.168.1.1)
+set(LOGGER_IP 127.0.0.1)
 set(LOGGER_PORT 3080)
 
 # Switch IP for FTP

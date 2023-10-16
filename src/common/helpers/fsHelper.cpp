@@ -74,6 +74,32 @@ namespace FsHelper {
         nn::Result result = nn::fs::GetEntryType(&type, path);
 
         return result.isSuccess() && type == nn::fs::DirectoryEntryType_File;
+    }
 
+    nn::json loadJsonFileFromPath(const char *path) {
+        if (FsHelper::isFileExist(path))
+        {
+            Logger::log("JSON File exists!\n");
+            long size = FsHelper::getFileSize(path);
+            FsHelper::LoadData data {
+                .path = path,
+                .alignment = 1,
+                .bufSize = size,
+            };
+            FsHelper::loadFileFromPath(data);
+
+            nn::string strBuffer((char*)data.buffer, data.bufSize);
+            nn::json j = nn::json::parse(strBuffer);
+
+            // Free buffer
+            IM_FREE(data.buffer);
+
+            return j;
+        }
+        else
+        {
+            Logger::log("JSON File does NOT exist!\n");
+            return nullptr;
+        }
     }
 }

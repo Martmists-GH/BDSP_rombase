@@ -246,9 +246,9 @@ namespace Dpr::EvScript {
             UnityEngine::Quaternion::Object _moveGridCenterEnd;
             bool _isOpenSubContentsMenu;
             bool _isWaitCheckOnlineAccount;
-            void * _custumWindow_msbt;
-            void * _custumWindow_Labels;
-            void * _custumWindow_RetIndex;
+            System::String::Object* _custumWindow_msbt;
+            System::Collections::Generic::List$$String::Object* _custumWindow_Labels;
+            System::Collections::Generic::List$$int32_t::Object* _custumWindow_RetIndex;
             void * _selectDoorObject;
             float _fadeSpeed;
             int32_t _heroReqBit;
@@ -348,6 +348,7 @@ namespace Dpr::EvScript {
 
         static inline StaticILMethod<0x04c77ce0, int32_t, int32_t> Method$$EvDataManager_EvCmdNameInPoke_OnInputCheck {};
         static inline StaticILMethod<0x04c7cf70, int32_t, int32_t> Method$$EvDataManager_EvCmdNameInPoke_OnComplete {};
+        static inline StaticILMethod<0x04c7cfd0>                   Method$$EvDataManager_CmdFirstPokeSelectProc {};
 
         inline bool RunEvCmd(int32_t index) {
             return external<bool>(0x02c5b290, this, index);
