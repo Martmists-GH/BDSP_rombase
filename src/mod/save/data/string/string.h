@@ -42,3 +42,7 @@ struct StringSaveData {
         return index + GetByteCount();
     }
 };
+
+void loadStrings(PlayerWork::Object* playerWork);
+void saveStrings(PlayerWork::Object* playerWork);
+void restoreStrings(PlayerWork::Object* playerWork);

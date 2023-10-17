@@ -1,15 +1,18 @@
 #pragma once
 
 #include "externals/PlayerWork.h"
-#include "save/savedata/badge_savedata.h"
-#include "save/savedata/berry_savedata.h"
-#include "save/savedata/box_savedata.h"
-#include "save/savedata/color_variation_savedata.h"
-#include "save/savedata/dex_savedata.h"
-#include "save/savedata/item_savedata.h"
-#include "save/savedata/string_savedata.h"
-#include "save/savedata/trainer_savedata.h"
-#include "save/savedata/variables_savedata.h"
+
+#include "save/data/badge/badge.h"
+#include "save/data/berry/berry.h"
+#include "save/data/box/box.h"
+#include "save/data/color_variation/color_variation.h"
+#include "save/data/dex/dex.h"
+#include "save/data/item/item.h"
+#include "save/data/string/string.h"
+#include "save/data/trainer/trainer.h"
+#include "save/data/variables/variables.h"
+
+#include "logger/logger.h"
 
 enum class ModVersion : int32_t {
     // Base game
@@ -22,7 +25,7 @@ enum class ModVersion : int32_t {
     Dev,
 };
 
-constexpr int32_t DexSize = 1010;
+constexpr int32_t DexSize = 1017;
 constexpr int32_t WorkCount = 5000;
 constexpr int32_t FlagCount = 15000;
 constexpr int32_t SysFlagCount = 15000;
@@ -88,7 +91,6 @@ struct CustomSaveData {
     }
 };
 
-void migrate(PlayerWork::Object* playerWork);
 CustomSaveData* getCustomSaveData();
 void exl_save_main();
 

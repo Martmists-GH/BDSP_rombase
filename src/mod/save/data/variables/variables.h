@@ -39,3 +39,7 @@ struct VariablesSaveData {
         return index + GetByteCount();
     }
 };
+
+void loadVariables(PlayerWork::Object* playerWork);
+void saveVariables(PlayerWork::Object* playerWork);
+void restoreVariables(PlayerWork::Object* playerWork);

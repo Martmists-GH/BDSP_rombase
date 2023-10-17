@@ -1,5 +1,5 @@
-#include "externals/PlayerWork.h"
 #include "romdata/romdata.h"
+#include "save/migration/save_migration.h"
 #include "save/save.h"
 
 #include "logger/logger.h"
@@ -33,7 +33,7 @@ void migrateFromVanilla(PlayerWork::Object* playerWork) {
     // Set first player color to the one in the vanilla save
     save->colorVariations.playerColorID[0] = myStatus.body_type;
 
-    // Set custom player color to the one in vanilla save
+    // Set custom player color to the default Lucas/Dawn one
     auto set = GetColorSet(0);
     save->colorVariations.fSkinFace[0] =  { .fields = { set.fieldSkinFace.r, set.fieldSkinFace.g, set.fieldSkinFace.b, set.fieldSkinFace.a } };
     save->colorVariations.fSkinMouth[0] = { .fields = { set.fieldSkinMouth.r, set.fieldSkinMouth.g, set.fieldSkinMouth.b, set.fieldSkinMouth.a } };
@@ -53,31 +53,4 @@ void migrateFromVanilla(PlayerWork::Object* playerWork) {
     playerWork->fields._saveData.fields.boxData.fields.trayMax = 40;
 
     Logger::log("Migration from Vanilla done!\n");
-}
-
-void migrate(PlayerWork::Object* playerWork) {
-    ModVersion newVersion;
-
-    switch (getCustomSaveData()->version) {
-        case ModVersion::Vanilla: {
-            migrateFromVanilla(playerWork);
-
-            newVersion = ModVersion::Release_3_0;
-            break;
-        }
-
-        case ModVersion::Release_3_0: {
-            // New save migration code goes here
-
-            newVersion = ModVersion::Dev;
-            break;
-        }
-
-        case ModVersion::Dev: {
-            // should never happen; return
-            return;
-        }
-    }
-
-    getCustomSaveData()->version = newVersion;
 }

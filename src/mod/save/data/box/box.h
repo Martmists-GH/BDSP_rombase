@@ -2,9 +2,9 @@
 
 #include "externals/Dpr/Box/SaveBoxData.h"
 #include "externals/Dpr/Box/SaveBoxTrayData.h"
+#include "externals/PlayerWork.h"
 #include "externals/System/Primitives.h"
-
-#include "logger/logger.h"
+#include "externals/System/String.h"
 
 template <int32_t size>
 struct BoxSaveData {
@@ -57,3 +57,7 @@ struct BoxSaveData {
         return index + GetByteCount();
     }
 };
+
+void loadBoxes(PlayerWork::Object* playerWork);
+void saveBoxes(PlayerWork::Object* playerWork);
+void restoreBoxes(PlayerWork::Object* playerWork);

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "externals/PlayerWork.h"
 #include "externals/System/Primitives.h"
 #include "externals/UnityEngine/Color.h"
 
@@ -96,3 +97,7 @@ struct ColorVariationSaveData {
         return index + GetByteCount();
     }
 };
+
+void loadColorVariations(PlayerWork::Object* playerWork);
+void saveColorVariations(PlayerWork::Object* playerWork);
+void restoreColorVariations(PlayerWork::Object* playerWork);

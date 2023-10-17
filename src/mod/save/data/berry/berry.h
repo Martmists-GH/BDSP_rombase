@@ -1,6 +1,7 @@
 #pragma once
 
 #include "externals/DPData/KinomiGrow.h"
+#include "externals/PlayerWork.h"
 
 template <int32_t size>
 struct BerrySaveData {
@@ -29,3 +30,7 @@ struct BerrySaveData {
         return index + GetByteCount();
     }
 };
+
+void loadBerries(PlayerWork::Object* playerWork);
+void saveBerries(PlayerWork::Object* playerWork);
+void restoreBerries(PlayerWork::Object* playerWork);

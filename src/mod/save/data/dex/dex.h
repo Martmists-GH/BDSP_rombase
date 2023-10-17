@@ -1,9 +1,8 @@
 #pragma once
 
 #include "externals/DPData/GET_STATUS.h"
+#include "externals/PlayerWork.h"
 #include "externals/System/Primitives.h"
-
-#include "logger/logger.h"
 
 template <int32_t size>
 struct DexSaveData {
@@ -52,3 +51,7 @@ struct DexSaveData {
         return index + GetByteCount();
     }
 };
+
+void loadZukan(PlayerWork::Object* playerWork);
+void saveZukan(PlayerWork::Object* playerWork);
+void restoreZukan(PlayerWork::Object* playerWork);

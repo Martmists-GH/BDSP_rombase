@@ -1,6 +1,7 @@
 #pragma once
 
 #include "externals/Dpr/Item/SaveItem.h"
+#include "externals/PlayerWork.h"
 
 template <int32_t size>
 struct ItemSaveData {
@@ -29,3 +30,7 @@ struct ItemSaveData {
         return index + GetByteCount();
     }
 };
+
+void loadItems(PlayerWork::Object* playerWork);
+void saveItems(PlayerWork::Object* playerWork);
+void restoreItems(PlayerWork::Object* playerWork);

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "externals/PlayerWork.h"
 #include "externals/System/Primitives.h"
 
 template <int32_t size>
@@ -22,3 +23,7 @@ struct BadgeSaveData {
         return index + GetByteCount();
     }
 };
+
+void loadBadges(PlayerWork::Object* playerWork);
+void saveBadges(PlayerWork::Object* playerWork);
+void restoreBadges(PlayerWork::Object* playerWork);
