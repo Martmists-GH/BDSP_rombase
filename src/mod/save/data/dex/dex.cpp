@@ -1,3 +1,4 @@
+#include "helpers/fsHelper.h"
 #include "save/save.h"
 
 static DPData::GET_STATUS_array* cache_get_status;
@@ -12,7 +13,35 @@ static System::Boolean_array* tmp_female_color_flag;
 static System::Boolean_array* tmp_male_flag;
 static System::Boolean_array* tmp_female_flag;
 
-void loadZukan(PlayerWork::Object* playerWork)
+void loadZukan(bool isBackup)
+{
+    if (!isBackup && FsHelper::isFileExist(getCustomSaveData()->dex.fileName))
+    {
+        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->dex.fileName), getCustomSaveData()->dex.GetByteCount());
+        FsHelper::LoadData data {
+            .path = getCustomSaveData()->dex.fileName,
+            .alignment = 0x1000,
+            .bufSize = size,
+        };
+        FsHelper::loadFileFromPath(data);
+        getCustomSaveData()->dex.FromBytes((char*)data.buffer, data.bufSize, 0);
+        Logger::log("Loaded Lumi_Dex!\n");
+    }
+    else if (FsHelper::isFileExist(getCustomSaveData()->dex.backupFileName))
+    {
+        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->dex.backupFileName), getCustomSaveData()->dex.GetByteCount());
+        FsHelper::LoadData data {
+                .path = getCustomSaveData()->dex.backupFileName,
+                .alignment = 0x1000,
+                .bufSize = size,
+        };
+        FsHelper::loadFileFromPath(data);
+        getCustomSaveData()->dex.FromBytes((char*)data.buffer, data.bufSize, 0);
+        Logger::log("Loaded Lumi_Dex_BK!\n");
+    }
+}
+
+void linkZukan(PlayerWork::Object* playerWork)
 {
     auto boolCls = System::Boolean_array_TypeInfo();
 
@@ -46,7 +75,7 @@ void loadZukan(PlayerWork::Object* playerWork)
     zukan.female_flag = newFemaleFlag;
 }
 
-void saveZukan(PlayerWork::Object* playerWork)
+void unlinkZukan(PlayerWork::Object* playerWork)
 {
     auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
 
@@ -72,7 +101,18 @@ void saveZukan(PlayerWork::Object* playerWork)
     zukan.female_flag = cache_female_flag;
 }
 
-void restoreZukan(PlayerWork::Object* playerWork)
+void saveZukan(bool isMain, bool isBackup)
+{
+    char buffer[getCustomSaveData()->dex.GetByteCount()];
+    getCustomSaveData()->dex.ToBytes((char*)buffer, 0);
+
+    if (isMain)
+        FsHelper::writeFileToPath(buffer, sizeof(buffer), getCustomSaveData()->dex.fileName);
+    if (isBackup)
+        FsHelper::writeFileToPath(buffer, sizeof(buffer), getCustomSaveData()->dex.backupFileName);
+}
+
+void relinkZukan(PlayerWork::Object* playerWork)
 {
     auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
 

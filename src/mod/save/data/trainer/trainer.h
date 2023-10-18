@@ -5,6 +5,9 @@
 
 template <int32_t size>
 struct TrainerSaveData {
+    const char* fileName = "SaveData:/Lumi_Trainers.bin";
+    const char* backupFileName = "SaveData:/Lumi_Trainers_BK.bin";
+
     DPData::TR_BATTLE_DATA::Object items[size];
 
     long GetByteCount() {
@@ -31,6 +34,8 @@ struct TrainerSaveData {
     }
 };
 
-void loadTrainers(PlayerWork::Object* playerWork);
-void saveTrainers(PlayerWork::Object* playerWork);
-void restoreTrainers(PlayerWork::Object* playerWork);
+void loadTrainers(bool isBackup);
+void linkTrainers(PlayerWork::Object* playerWork);
+void unlinkTrainers(PlayerWork::Object* playerWork);
+void saveTrainers(bool isMain, bool isBackup);
+void relinkTrainers(PlayerWork::Object* playerWork);

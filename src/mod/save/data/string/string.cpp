@@ -1,16 +1,27 @@
+#include "helpers/fsHelper.h"
 #include "save/save.h"
 
-void loadStrings(PlayerWork::Object* playerWork)
+void loadStrings(bool isBackup)
 {
     // TODO
 }
 
-void saveStrings(PlayerWork::Object* playerWork)
+void linkStrings(PlayerWork::Object* playerWork)
 {
     // TODO
 }
 
-void restoreStrings(PlayerWork::Object* playerWork)
+void unlinkStrings(PlayerWork::Object* playerWork)
+{
+    // TODO
+}
+
+void saveStrings(bool isMain, bool isBackup)
+{
+    // TODO
+}
+
+void relinkStrings(PlayerWork::Object* playerWork)
 {
     // TODO
 }

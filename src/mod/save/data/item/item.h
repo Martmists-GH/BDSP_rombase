@@ -5,6 +5,9 @@
 
 template <int32_t size>
 struct ItemSaveData {
+    const char* fileName = "SaveData:/Lumi_Items.bin";
+    const char* backupFileName = "SaveData:/Lumi_Items_BK.bin";
+
     Dpr::Item::SaveItem::Object items[size];
 
     long GetByteCount() {
@@ -31,6 +34,8 @@ struct ItemSaveData {
     }
 };
 
-void loadItems(PlayerWork::Object* playerWork);
-void saveItems(PlayerWork::Object* playerWork);
-void restoreItems(PlayerWork::Object* playerWork);
+void loadItems(bool isBackup);
+void linkItems(PlayerWork::Object* playerWork);
+void unlinkItems(PlayerWork::Object* playerWork);
+void saveItems(bool isMain, bool isBackup);
+void relinkItems(PlayerWork::Object* playerWork);

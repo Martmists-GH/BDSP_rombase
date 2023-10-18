@@ -6,6 +6,9 @@
 
 template <int32_t size>
 struct DexSaveData {
+    const char* fileName = "SaveData:/Lumi_Dex.bin";
+    const char* backupFileName = "SaveData:/Lumi_Dex_BK.bin";
+
     DPData::GET_STATUS get_status[size];
     System::Boolean male_color_flag[size];
     System::Boolean female_color_flag[size];
@@ -52,6 +55,8 @@ struct DexSaveData {
     }
 };
 
-void loadZukan(PlayerWork::Object* playerWork);
-void saveZukan(PlayerWork::Object* playerWork);
-void restoreZukan(PlayerWork::Object* playerWork);
+void loadZukan(bool isBackup);
+void linkZukan(PlayerWork::Object* playerWork);
+void unlinkZukan(PlayerWork::Object* playerWork);
+void saveZukan(bool isMain, bool isBackup);
+void relinkZukan(PlayerWork::Object* playerWork);

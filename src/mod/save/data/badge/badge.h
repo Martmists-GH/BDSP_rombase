@@ -5,6 +5,9 @@
 
 template <int32_t size>
 struct BadgeSaveData {
+    const char* fileName = "SaveData:/Lumi_Badges.bin";
+    const char* backupFileName = "SaveData:/Lumi_Badges_BK.bin";
+
     System::Byte items[size];
 
     long GetByteCount() {
@@ -24,6 +27,8 @@ struct BadgeSaveData {
     }
 };
 
-void loadBadges(PlayerWork::Object* playerWork);
-void saveBadges(PlayerWork::Object* playerWork);
-void restoreBadges(PlayerWork::Object* playerWork);
+void loadBadges(bool isBackup);
+void linkBadges(PlayerWork::Object* playerWork);
+void unlinkBadges(PlayerWork::Object* playerWork);
+void saveBadges(bool isMain, bool isBackup);
+void relinkBadges(PlayerWork::Object* playerWork);

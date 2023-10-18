@@ -1,10 +1,39 @@
+#include "helpers/fsHelper.h"
 #include "save/save.h"
 
 static Dpr::Item::SaveItem::Array* cache_items;
 
 static Dpr::Item::SaveItem::Array* tmp_items;
 
-void loadItems(PlayerWork::Object* playerWork)
+void loadItems(bool isBackup)
+{
+    if (!isBackup && FsHelper::isFileExist(getCustomSaveData()->items.fileName))
+    {
+        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->items.fileName), getCustomSaveData()->items.GetByteCount());
+        FsHelper::LoadData data {
+            .path = getCustomSaveData()->items.fileName,
+            .alignment = 0x1000,
+            .bufSize = size,
+        };
+        FsHelper::loadFileFromPath(data);
+        getCustomSaveData()->items.FromBytes((char*)data.buffer, data.bufSize, 0);
+        Logger::log("Loaded Lumi_Items!\n");
+    }
+    else if (FsHelper::isFileExist(getCustomSaveData()->items.backupFileName))
+    {
+        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->items.backupFileName), getCustomSaveData()->items.GetByteCount());
+        FsHelper::LoadData data {
+            .path = getCustomSaveData()->items.backupFileName,
+            .alignment = 0x1000,
+            .bufSize = size,
+        };
+        FsHelper::loadFileFromPath(data);
+        getCustomSaveData()->items.FromBytes((char*)data.buffer, data.bufSize, 0);
+        Logger::log("Loaded Lumi_Items_BK!\n");
+    }
+}
+
+void linkItems(PlayerWork::Object* playerWork)
 {
     auto saveItemCls = Dpr::Item::SaveItem_array_TypeInfo();
 
@@ -22,7 +51,7 @@ void loadItems(PlayerWork::Object* playerWork)
     savedata.saveItem = newItems;
 }
 
-void saveItems(PlayerWork::Object* playerWork)
+void unlinkItems(PlayerWork::Object* playerWork)
 {
     auto& savedata = playerWork->fields._saveData.fields;
 
@@ -36,7 +65,18 @@ void saveItems(PlayerWork::Object* playerWork)
     savedata.saveItem = cache_items;
 }
 
-void restoreItems(PlayerWork::Object* playerWork)
+void saveItems(bool isMain, bool isBackup)
+{
+    char buffer[getCustomSaveData()->items.GetByteCount()];
+    getCustomSaveData()->items.ToBytes((char*)buffer, 0);
+
+    if (isMain)
+        FsHelper::writeFileToPath(buffer, sizeof(buffer), getCustomSaveData()->items.fileName);
+    if (isBackup)
+        FsHelper::writeFileToPath(buffer, sizeof(buffer), getCustomSaveData()->items.backupFileName);
+}
+
+void relinkItems(PlayerWork::Object* playerWork)
 {
     auto& savedata = playerWork->fields._saveData.fields;
 

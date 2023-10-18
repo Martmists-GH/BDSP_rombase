@@ -8,6 +8,9 @@
 
 template <int32_t size>
 struct BoxSaveData {
+    const char* fileName = "SaveData:/Lumi_Boxes.bin";
+    const char* backupFileName = "SaveData:/Lumi_Boxes_BK.bin";
+
     Dpr::Box::SaveBoxData::_STR17::Object boxNames[size];
     System::Byte wallpapers[size];
     Dpr::Box::SaveBoxTrayData::Object pokemonParams[size];
@@ -58,6 +61,8 @@ struct BoxSaveData {
     }
 };
 
-void loadBoxes(PlayerWork::Object* playerWork);
-void saveBoxes(PlayerWork::Object* playerWork);
-void restoreBoxes(PlayerWork::Object* playerWork);
+void loadBoxes(bool isBackup);
+void linkBoxes(PlayerWork::Object* playerWork);
+void unlinkBoxes(PlayerWork::Object* playerWork);
+void saveBoxes(bool isMain, bool isBackup);
+void relinkBoxes(PlayerWork::Object* playerWork);

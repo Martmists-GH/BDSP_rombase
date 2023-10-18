@@ -33,8 +33,8 @@ void migrateFromVanilla(PlayerWork::Object* playerWork) {
     // Set first player color to the one in the vanilla save
     save->colorVariations.playerColorID[0] = myStatus.body_type;
 
-    // Set custom player color to the default Lucas/Dawn one
-    auto set = GetColorSet(0);
+    // Set custom player color to the one in the vanilla save
+    auto set = GetColorSet(myStatus.body_type);
     save->colorVariations.fSkinFace[0] =  { .fields = { set.fieldSkinFace.r, set.fieldSkinFace.g, set.fieldSkinFace.b, set.fieldSkinFace.a } };
     save->colorVariations.fSkinMouth[0] = { .fields = { set.fieldSkinMouth.r, set.fieldSkinMouth.g, set.fieldSkinMouth.b, set.fieldSkinMouth.a } };
     save->colorVariations.fEyes[0] =      { .fields = { set.fieldEyes.r, set.fieldEyes.g, set.fieldEyes.b, set.fieldEyes.a } };

@@ -1,16 +1,27 @@
+#include "helpers/fsHelper.h"
 #include "save/save.h"
 
-void loadBoxes(PlayerWork::Object* playerWork)
+void loadBoxes(bool isBackup)
 {
     // TODO
 }
 
-void saveBoxes(PlayerWork::Object* playerWork)
+void linkBoxes(PlayerWork::Object* playerWork)
 {
     // TODO
 }
 
-void restoreBoxes(PlayerWork::Object* playerWork)
+void unlinkBoxes(PlayerWork::Object* playerWork)
+{
+    // TODO
+}
+
+void saveBoxes(bool isMain, bool isBackup)
+{
+    // TODO
+}
+
+void relinkBoxes(PlayerWork::Object* playerWork)
 {
     // TODO
 }

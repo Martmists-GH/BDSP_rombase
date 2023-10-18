@@ -6,6 +6,9 @@
 
 template <int32_t size>
 struct ColorVariationSaveData {
+    const char* fileName = "SaveData:/Lumi_ColorVariations.bin";
+    const char* backupFileName = "SaveData:/Lumi_ColorVariations_BK.bin";
+
     System::Int32 playerColorID[size];
 
     UnityEngine::Color::Object fSkinFace[size];
@@ -98,6 +101,8 @@ struct ColorVariationSaveData {
     }
 };
 
-void loadColorVariations(PlayerWork::Object* playerWork);
-void saveColorVariations(PlayerWork::Object* playerWork);
-void restoreColorVariations(PlayerWork::Object* playerWork);
+void loadColorVariations(bool isBackup);
+void linkColorVariations(PlayerWork::Object* playerWork);
+void unlinkColorVariations(PlayerWork::Object* playerWork);
+void saveColorVariations(bool isMain, bool isBackup);
+void relinkColorVariations(PlayerWork::Object* playerWork);

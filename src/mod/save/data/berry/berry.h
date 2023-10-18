@@ -5,6 +5,9 @@
 
 template <int32_t size>
 struct BerrySaveData {
+    const char* fileName = "SaveData:/Lumi_Berries.bin";
+    const char* backupFileName = "SaveData:/Lumi_Berries_BK.bin";
+
     DPData::KinomiGrow::Object items[size];
 
     long GetByteCount() {
@@ -31,6 +34,8 @@ struct BerrySaveData {
     }
 };
 
-void loadBerries(PlayerWork::Object* playerWork);
-void saveBerries(PlayerWork::Object* playerWork);
-void restoreBerries(PlayerWork::Object* playerWork);
+void loadBerries(bool isBackup);
+void linkBerries(PlayerWork::Object* playerWork);
+void unlinkBerries(PlayerWork::Object* playerWork);
+void saveBerries(bool isMain, bool isBackup);
+void relinkBerries(PlayerWork::Object* playerWork);

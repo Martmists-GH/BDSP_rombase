@@ -1,10 +1,39 @@
+#include "helpers/fsHelper.h"
 #include "save/save.h"
 
 static DPData::TR_BATTLE_DATA::Array* cache_trainers;
 
 static DPData::TR_BATTLE_DATA::Array* tmp_trainers;
 
-void loadTrainers(PlayerWork::Object* playerWork)
+void loadTrainers(bool isBackup)
+{
+    if (!isBackup && FsHelper::isFileExist(getCustomSaveData()->trainers.fileName))
+    {
+        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->trainers.fileName), getCustomSaveData()->trainers.GetByteCount());
+        FsHelper::LoadData data {
+            .path = getCustomSaveData()->trainers.fileName,
+            .alignment = 0x1000,
+            .bufSize = size,
+        };
+        FsHelper::loadFileFromPath(data);
+        getCustomSaveData()->trainers.FromBytes((char*)data.buffer, data.bufSize, 0);
+        Logger::log("Loaded Lumi_Trainers!\n");
+    }
+    else if (FsHelper::isFileExist(getCustomSaveData()->trainers.backupFileName))
+    {
+        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->trainers.backupFileName), getCustomSaveData()->trainers.GetByteCount());
+        FsHelper::LoadData data {
+            .path = getCustomSaveData()->trainers.backupFileName,
+            .alignment = 0x1000,
+            .bufSize = size,
+        };
+        FsHelper::loadFileFromPath(data);
+        getCustomSaveData()->trainers.FromBytes((char*)data.buffer, data.bufSize, 0);
+        Logger::log("Loaded Lumi_Trainers_BK!\n");
+    }
+}
+
+void linkTrainers(PlayerWork::Object* playerWork)
 {
     auto trainerCls = DPData::TR_BATTLE_DATA_array_TypeInfo();
 
@@ -22,7 +51,7 @@ void loadTrainers(PlayerWork::Object* playerWork)
     savedata.tr_battleData = newTrainers;
 }
 
-void saveTrainers(PlayerWork::Object* playerWork)
+void unlinkTrainers(PlayerWork::Object* playerWork)
 {
     auto& savedata = playerWork->fields._saveData.fields;
 
@@ -36,7 +65,18 @@ void saveTrainers(PlayerWork::Object* playerWork)
     savedata.tr_battleData = cache_trainers;
 }
 
-void restoreTrainers(PlayerWork::Object* playerWork)
+void saveTrainers(bool isMain, bool isBackup)
+{
+    char buffer[getCustomSaveData()->trainers.GetByteCount()];
+    getCustomSaveData()->trainers.ToBytes((char*)buffer, 0);
+
+    if (isMain)
+        FsHelper::writeFileToPath(buffer, sizeof(buffer), getCustomSaveData()->trainers.fileName);
+    if (isBackup)
+        FsHelper::writeFileToPath(buffer, sizeof(buffer), getCustomSaveData()->trainers.backupFileName);
+}
+
+void relinkTrainers(PlayerWork::Object* playerWork)
 {
     auto& savedata = playerWork->fields._saveData.fields;
 

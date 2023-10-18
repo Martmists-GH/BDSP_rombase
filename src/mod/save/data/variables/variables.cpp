@@ -1,3 +1,4 @@
+#include "helpers/fsHelper.h"
 #include "save/save.h"
 
 static System::Int32_array* cache_works;
@@ -8,7 +9,35 @@ static System::Int32_array* tmp_works;
 static System::Boolean_array* tmp_flags;
 static System::Boolean_array* tmp_sysflags;
 
-void loadVariables(PlayerWork::Object* playerWork)
+void loadVariables(bool isBackup)
+{
+    if (!isBackup && FsHelper::isFileExist(getCustomSaveData()->variables.fileName))
+    {
+        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->variables.fileName), getCustomSaveData()->variables.GetByteCount());
+        FsHelper::LoadData data {
+            .path = getCustomSaveData()->variables.fileName,
+            .alignment = 0x1000,
+            .bufSize = size,
+        };
+        FsHelper::loadFileFromPath(data);
+        getCustomSaveData()->variables.FromBytes((char*)data.buffer, data.bufSize, 0);
+        Logger::log("Loaded Lumi_Variables!\n");
+    }
+    else if (FsHelper::isFileExist(getCustomSaveData()->variables.backupFileName))
+    {
+        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->variables.backupFileName), getCustomSaveData()->variables.GetByteCount());
+        FsHelper::LoadData data {
+            .path = getCustomSaveData()->variables.backupFileName,
+            .alignment = 0x1000,
+            .bufSize = size,
+        };
+        FsHelper::loadFileFromPath(data);
+        getCustomSaveData()->variables.FromBytes((char*)data.buffer, data.bufSize, 0);
+        Logger::log("Loaded Lumi_Variables_BK!\n");
+    }
+}
+
+void linkVariables(PlayerWork::Object* playerWork)
 {
     auto boolCls = System::Boolean_array_TypeInfo();
     auto int32Cls = System::Int32_array_TypeInfo();
@@ -35,7 +64,7 @@ void loadVariables(PlayerWork::Object* playerWork)
     savedata.systemFlags = newSysflags;
 }
 
-void saveVariables(PlayerWork::Object* playerWork)
+void unlinkVariables(PlayerWork::Object* playerWork)
 {
     auto& savedata = playerWork->fields._saveData.fields;
 
@@ -55,7 +84,18 @@ void saveVariables(PlayerWork::Object* playerWork)
     savedata.systemFlags = cache_sysflags;
 }
 
-void restoreVariables(PlayerWork::Object* playerWork)
+void saveVariables(bool isMain, bool isBackup)
+{
+    char buffer[getCustomSaveData()->variables.GetByteCount()];
+    getCustomSaveData()->variables.ToBytes((char*)buffer, 0);
+
+    if (isMain)
+        FsHelper::writeFileToPath(buffer, sizeof(buffer), getCustomSaveData()->variables.fileName);
+    if (isBackup)
+        FsHelper::writeFileToPath(buffer, sizeof(buffer), getCustomSaveData()->variables.backupFileName);
+}
+
+void relinkVariables(PlayerWork::Object* playerWork)
 {
     auto& savedata = playerWork->fields._saveData.fields;
 

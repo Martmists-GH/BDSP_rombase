@@ -1,16 +1,27 @@
+#include "helpers/fsHelper.h"
 #include "save/save.h"
 
-void loadBadges(PlayerWork::Object* playerWork)
+void loadBadges(bool isBackup)
 {
     // TODO
 }
 
-void saveBadges(PlayerWork::Object* playerWork)
+void linkBadges(PlayerWork::Object* playerWork)
 {
     // TODO
 }
 
-void restoreBadges(PlayerWork::Object* playerWork)
+void unlinkBadges(PlayerWork::Object* playerWork)
+{
+    // TODO
+}
+
+void saveBadges(bool isMain, bool isBackup)
+{
+    // TODO
+}
+
+void relinkBadges(PlayerWork::Object* playerWork)
 {
     // TODO
 }

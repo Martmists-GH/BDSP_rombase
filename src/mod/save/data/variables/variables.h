@@ -4,6 +4,9 @@
 
 template <int32_t workSize, int32_t flagSize, int32_t sysFlagSize>
 struct VariablesSaveData {
+    const char* fileName = "SaveData:/Lumi_Variables.bin";
+    const char* backupFileName = "SaveData:/Lumi_Variables_BK.bin";
+
     System::Int32 works[workSize];
     System::Boolean flags[flagSize];
     System::Boolean sysflags[sysFlagSize];
@@ -40,6 +43,8 @@ struct VariablesSaveData {
     }
 };
 
-void loadVariables(PlayerWork::Object* playerWork);
-void saveVariables(PlayerWork::Object* playerWork);
-void restoreVariables(PlayerWork::Object* playerWork);
+void loadVariables(bool isBackup);
+void linkVariables(PlayerWork::Object* playerWork);
+void unlinkVariables(PlayerWork::Object* playerWork);
+void saveVariables(bool isMain, bool isBackup);
+void relinkVariables(PlayerWork::Object* playerWork);

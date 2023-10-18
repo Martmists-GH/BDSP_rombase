@@ -1,17 +1,12 @@
 #include "exlaunch.hpp"
 
-#include "changelog.h"
 #include "externals/PlayerWork.h"
 #include "externals/System/Primitives.h"
-#include "helpers/fsHelper.h"
-#include "logger/logger.h"
-#include "nn/err.h"
 #include "save/save.h"
 #include "save/migration/save_migration.h"
 
 static CustomSaveData gCustomSaveData {
-    .initialized = false,
-    .version = ModVersion::Vanilla,
+    .main = {},
     .dex = {},
     .variables = {},
     .trainers = {},
@@ -20,94 +15,42 @@ static CustomSaveData gCustomSaveData {
     .colorVariations = {},
 };
 
-const char* saveFileName = "SaveData:/Luminescent.bin";
-const char* saveFileBackupName = "SaveData:/Luminescent_Backup.bin";
-
 CustomSaveData* getCustomSaveData() {
     return &gCustomSaveData;
-}
-
-void save_custom_data(void* buffer) {
-    Logger::log("Saving custom save data.\n");
-    gCustomSaveData.ToBytes((char*)buffer, 0);
-}
-
-void load_custom_data(FsHelper::LoadData buffer, PlayerWork::Object* playerWork) {
-    gCustomSaveData.FromBytes((char*)buffer.buffer, buffer.bufSize, 0);
-
-    ModVersion version;
-    bool changed = false;
-    while ((version = gCustomSaveData.version) < CURRENT_VERSION) {
-        Logger::log("Custom save data version mismatch! Expected %d, got %d; performing migration.\n", CURRENT_VERSION, version);
-        migrate(playerWork);
-        changed = true;
-    }
-
-    if (changed) {
-        nn::err::ApplicationErrorArg err(0, "A mod update has been detected. Press Details to view the changelog.", CHANGELOG, nn::settings::LanguageCode::Make(nn::settings::Language::Language_English));
-        nn::err::ShowApplicationError(err);
-    }
-
-    Logger::log("Custom save data loaded.\n");
-}
-
-void load_default_custom_data(PlayerWork::Object* playerWork) {
-    Logger::log("Generating save data for first launch.\n");
-
-    gCustomSaveData.version = ModVersion::Vanilla;
-
-    ModVersion version;
-    while ((version = gCustomSaveData.version) < CURRENT_VERSION) {
-        migrate(playerWork);
-    }
-
-    gCustomSaveData.initialized = true;
 }
 
 HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
     static bool Callback(PlayerWork::Object* playerWork) {
         bool success = Orig(playerWork);
 
-        bool isMain = playerWork->fields._isMainSave;
         bool isBackup = playerWork->fields._isBackupSave;
 
         if (success)
         {
-            if (isBackup && FsHelper::isFileExist(saveFileBackupName))
-            {
-                long size = std::max(FsHelper::getFileSize(saveFileBackupName), gCustomSaveData.GetByteCount());
-                FsHelper::LoadData data {
-                    .path = saveFileBackupName,
-                    .alignment = 0x1000,
-                    .bufSize = size,
-                };
-                FsHelper::loadFileFromPath(data);
-                load_custom_data(data, playerWork);
-                Logger::log("Loaded Custom Backup File!\n");
-            }
-            else if (isMain && FsHelper::isFileExist(saveFileName))
-            {
-                long size = std::max(FsHelper::getFileSize(saveFileName), gCustomSaveData.GetByteCount());
-                FsHelper::LoadData data {
-                        .path = saveFileName,
-                        .alignment = 0x1000,
-                        .bufSize = size,
-                };
-                FsHelper::loadFileFromPath(data);
-                load_custom_data(data, playerWork);
-                Logger::log("Loaded Custom Main File!\n");
-            }
-            else
-            {
-                load_default_custom_data(playerWork);
-            }
+            // Start as vanilla save
+            getCustomSaveData()->main.version = ModVersion::Vanilla;
 
-            // Put our custom data into playerWork for the game to access
-            loadZukan(playerWork);
-            loadVariables(playerWork);
-            loadTrainers(playerWork);
-            loadItems(playerWork);
-            loadBerries(playerWork);
+            // Load version data
+            loadMain(isBackup);
+
+            // Load all other data
+            loadZukan(isBackup);
+            loadVariables(isBackup);
+            loadTrainers(isBackup);
+            loadItems(isBackup);
+            loadBerries(isBackup);
+            loadColorVariations(isBackup);
+
+            // Perform migration loop
+            migrate(playerWork);
+
+            // Put our custom-length data into PlayerWork for the game to access
+            linkZukan(playerWork);
+            linkVariables(playerWork);
+            linkTrainers(playerWork);
+            linkItems(playerWork);
+            linkBerries(playerWork);
+            linkColorVariations(playerWork);
         }
 
         playerWork->fields._isBackupSave = false;
@@ -121,29 +64,37 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
         bool isMain = playerWork->fields._isMainSave;
         bool isBackup = playerWork->fields._isBackupSave;
 
-        saveZukan(playerWork);
-        saveVariables(playerWork);
-        saveTrainers(playerWork);
-        saveItems(playerWork);
-        saveBerries(playerWork);
+        // Remove the custom-length PlayerWork data with the vanilla save's
+        unlinkZukan(playerWork);
+        unlinkVariables(playerWork);
+        unlinkTrainers(playerWork);
+        unlinkItems(playerWork);
+        unlinkBerries(playerWork);
+        unlinkColorVariations(playerWork);
 
-        char buffer[gCustomSaveData.GetByteCount()];
 #ifndef DEBUG_DISABLE_SAVE  // Allow disabling the saving to test the save migration code
-        save_custom_data(buffer);
+        // Save version data to file
+        saveMain(isMain, isBackup);
+
+        // Save rest of data to files
+        saveZukan(isMain, isBackup);
+        saveVariables(isMain, isBackup);
+        saveTrainers(isMain, isBackup);
+        saveItems(isMain, isBackup);
+        saveBerries(isMain, isBackup);
+        saveColorVariations(isMain, isBackup);
 #endif
 
-        if (isMain)
-            FsHelper::writeFileToPath(buffer, sizeof(buffer), saveFileName);
-        if (isBackup)
-            FsHelper::writeFileToPath(buffer, sizeof(buffer), saveFileBackupName);
-
+        // Save base save file
         Orig(playerWork, param_2, param_3, param_4);
 
-        restoreZukan(playerWork);
-        restoreVariables(playerWork);
-        restoreTrainers(playerWork);
-        restoreItems(playerWork);
-        restoreBerries(playerWork);
+        // Re-replace the PlayerWork data with our custom-length one
+        relinkZukan(playerWork);
+        relinkVariables(playerWork);
+        relinkTrainers(playerWork);
+        relinkItems(playerWork);
+        relinkBerries(playerWork);
+        relinkColorVariations(playerWork);
     }
 };
 
