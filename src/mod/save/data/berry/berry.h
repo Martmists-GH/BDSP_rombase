@@ -26,10 +26,10 @@ struct BerrySaveData {
     long FromBytes(char* buffer, long buffer_size, long index) {
         for (int32_t i=0; i<size; i++)
         {
-            if (buffer_size < index + sizeof(DPData::KinomiGrow::Object))
+            if (buffer_size < index + (long)sizeof(DPData::KinomiGrow::Object))
                 break;
 
-            index = memcpy(&items[i], (void*)(buffer+index), sizeof(DPData::KinomiGrow::Object));
+            memcpy(&items[i], (void*)(buffer+index), sizeof(DPData::KinomiGrow::Object));
             index += sizeof(DPData::KinomiGrow::Object);
         }
 

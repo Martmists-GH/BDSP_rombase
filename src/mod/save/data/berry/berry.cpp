@@ -23,14 +23,16 @@ void loadBerries(bool isBackup)
     }
     else if (FsHelper::isFileExist(getCustomSaveData()->berries.backupFileName))
     {
-        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->berries.backupFileName), getCustomSaveData()->berries.GetByteCount());
+        long actualSize = FsHelper::getFileSize(getCustomSaveData()->berries.backupFileName);
+        long expectedSize = getCustomSaveData()->berries.GetByteCount();
+        long size = std::max(actualSize, expectedSize);
         FsHelper::LoadData data {
-                .path = getCustomSaveData()->berries.backupFileName,
-                .alignment = 0x1000,
-                .bufSize = size,
+            .path = getCustomSaveData()->berries.backupFileName,
+            .alignment = 0x1000,
+            .bufSize = size,
         };
         FsHelper::loadFileFromPath(data);
-        getCustomSaveData()->berries.FromBytes((char*)data.buffer, FsHelper::getFileSize(getCustomSaveData()->berries.backupFileName), 0);
+        getCustomSaveData()->berries.FromBytes((char*)data.buffer, actualSize, 0);
         Logger::log("Loaded Lumi_Berries_BK!\n");
     }
 }

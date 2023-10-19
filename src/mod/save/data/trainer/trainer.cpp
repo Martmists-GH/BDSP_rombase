@@ -23,14 +23,16 @@ void loadTrainers(bool isBackup)
     }
     else if (FsHelper::isFileExist(getCustomSaveData()->trainers.backupFileName))
     {
-        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->trainers.backupFileName), getCustomSaveData()->trainers.GetByteCount());
+        long actualSize = FsHelper::getFileSize(getCustomSaveData()->trainers.backupFileName);
+        long expectedSize = getCustomSaveData()->trainers.GetByteCount();
+        long size = std::max(actualSize, expectedSize);
         FsHelper::LoadData data {
             .path = getCustomSaveData()->trainers.backupFileName,
             .alignment = 0x1000,
             .bufSize = size,
         };
         FsHelper::loadFileFromPath(data);
-        getCustomSaveData()->trainers.FromBytes((char*)data.buffer, FsHelper::getFileSize(getCustomSaveData()->trainers.backupFileName), 0);
+        getCustomSaveData()->trainers.FromBytes((char*)data.buffer, actualSize, 0);
         Logger::log("Loaded Lumi_Trainers_BK!\n");
     }
 }

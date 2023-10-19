@@ -39,7 +39,7 @@ struct ColorVariationSaveData {
 
         memcpy((void*)(buffer+index), &fSkinFace, sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
-        memcpy((void*)(buffer+index), &fSkinMouth, sizeof(UnityEngine::Color::Object);
+        memcpy((void*)(buffer+index), &fSkinMouth, sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
         memcpy((void*)(buffer+index), &fEyes, sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
@@ -69,69 +69,69 @@ struct ColorVariationSaveData {
     long FromBytes(char* buffer, long buffer_size, long index) {
         Logger::log("size:%d index:%d\n", buffer_size, index);
 
-        if (buffer_size < index + sizeof(System::Int32))
+        if (buffer_size < index + (long)sizeof(System::Int32))
             return index;
         memcpy(&playerColorID, (void*)(buffer+index), sizeof(System::Int32));
         index += sizeof(System::Int32);
 
 
-        if (buffer_size < index + sizeof(UnityEngine::Color::Object))
+        if (buffer_size < index + (long)sizeof(UnityEngine::Color::Object))
             return index;
         memcpy(&fSkinFace, (void*)(buffer + index), sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
 
-        if (buffer_size < index + sizeof(UnityEngine::Color::Object))
+        if (buffer_size < index + (long)sizeof(UnityEngine::Color::Object))
             return index;
         memcpy(&fSkinMouth, (void*)(buffer + index), sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
 
-        if (buffer_size < index + sizeof(UnityEngine::Color::Object))
+        if (buffer_size < index + (long)sizeof(UnityEngine::Color::Object))
             return index;
         memcpy(&fEyes, (void*)(buffer + index), sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
 
-        if (buffer_size < index + sizeof(UnityEngine::Color::Object))
+        if (buffer_size < index + (long)sizeof(UnityEngine::Color::Object))
             return index;
         memcpy(&fEyebrows, (void*)(buffer + index), sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
 
-        if (buffer_size < index + sizeof(UnityEngine::Color::Object))
+        if (buffer_size < index + (long)sizeof(UnityEngine::Color::Object))
             return index;
         memcpy(&fSkinBody, (void*)(buffer + index), sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
 
-        if (buffer_size < index + sizeof(UnityEngine::Color::Object))
+        if (buffer_size < index + (long)sizeof(UnityEngine::Color::Object))
             return index;
         memcpy(&fHair, (void*)(buffer + index), sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
 
 
-        if (buffer_size < index + sizeof(UnityEngine::Color::Object))
+        if (buffer_size < index + (long)sizeof(UnityEngine::Color::Object))
             return index;
         memcpy(&bSkinFace, (void*)(buffer + index), sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
 
-        if (buffer_size < index + sizeof(UnityEngine::Color::Object))
+        if (buffer_size < index + (long)sizeof(UnityEngine::Color::Object))
             return index;
         memcpy(&bHairExtra, (void*)(buffer + index), sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
 
-        if (buffer_size < index + sizeof(UnityEngine::Color::Object))
+        if (buffer_size < index + (long)sizeof(UnityEngine::Color::Object))
             return index;
         memcpy(&bEyeLeft, (void*)(buffer + index), sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
 
-        if (buffer_size < index + sizeof(UnityEngine::Color::Object))
+        if (buffer_size < index + (long)sizeof(UnityEngine::Color::Object))
             return index;
         memcpy(&bEyeRight, (void*)(buffer + index), sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
 
-        if (buffer_size < index + sizeof(UnityEngine::Color::Object))
+        if (buffer_size < index + (long)sizeof(UnityEngine::Color::Object))
             return index;
         memcpy(&bSkinBody, (void*)(buffer + index), sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);
 
-        if (buffer_size < index + sizeof(UnityEngine::Color::Object))
+        if (buffer_size < index + (long)sizeof(UnityEngine::Color::Object))
             return index;
         memcpy(&bHair, (void*)(buffer + index), sizeof(UnityEngine::Color::Object));
         index += sizeof(UnityEngine::Color::Object);

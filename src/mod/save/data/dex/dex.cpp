@@ -31,14 +31,16 @@ void loadZukan(bool isBackup)
     }
     else if (FsHelper::isFileExist(getCustomSaveData()->dex.backupFileName))
     {
-        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->dex.backupFileName), getCustomSaveData()->dex.GetByteCount());
+        long actualSize = FsHelper::getFileSize(getCustomSaveData()->dex.backupFileName);
+        long expectedSize = getCustomSaveData()->dex.GetByteCount();
+        long size = std::max(actualSize, expectedSize);
         FsHelper::LoadData data {
-                .path = getCustomSaveData()->dex.backupFileName,
-                .alignment = 0x1000,
-                .bufSize = size,
+            .path = getCustomSaveData()->dex.backupFileName,
+            .alignment = 0x1000,
+            .bufSize = size,
         };
         FsHelper::loadFileFromPath(data);
-        getCustomSaveData()->dex.FromBytes((char*)data.buffer, FsHelper::getFileSize(getCustomSaveData()->dex.backupFileName), 0);
+        getCustomSaveData()->dex.FromBytes((char*)data.buffer, actualSize, 0);
         Logger::log("Loaded Lumi_Dex_BK!\n");
     }
 }

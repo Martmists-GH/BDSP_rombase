@@ -19,14 +19,16 @@ void loadMain(bool isBackup)
     }
     else if (FsHelper::isFileExist(getCustomSaveData()->main.backupFileName))
     {
-        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->main.backupFileName), getCustomSaveData()->main.GetByteCount());
+        long actualSize = FsHelper::getFileSize(getCustomSaveData()->main.backupFileName);
+        long expectedSize = getCustomSaveData()->main.GetByteCount();
+        long size = std::max(actualSize, expectedSize);
         FsHelper::LoadData data {
             .path = getCustomSaveData()->main.backupFileName,
             .alignment = 0x1000,
             .bufSize = size,
         };
         FsHelper::loadFileFromPath(data);
-        getCustomSaveData()->main.FromBytes((char*)data.buffer, FsHelper::getFileSize(getCustomSaveData()->main.backupFileName), 0);
+        getCustomSaveData()->main.FromBytes((char*)data.buffer, actualSize, 0);
         Logger::log("Loaded Lumi_Main_BK!\n");
     }
 }
