@@ -37,7 +37,7 @@ namespace ui {
                 _.Button([](Button &_) {
                     _.label = "Register all Pokémon to Dex";
                     _.onClick = []() {
-                        for (int i = 1; i <= SPECIES_COUNT; i++){
+                        for (int i = 1; i <= DexSize; i++){
                             ZukanWork::SetPoke(i, 3, 0, 0, true);
                             ZukanWork::SetPoke(i, 3, 1, 0, true);
                             ZukanWork::SetPoke(i, 3, 0, 0, false);

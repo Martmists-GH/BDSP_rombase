@@ -11,7 +11,7 @@ struct BadgeSaveData {
     System::Byte items[size];
 
     long GetByteCount() {
-        return sizeof(BadgeSaveData<size>);
+        return sizeof(System::Byte) * size;
     }
 
     long FromBytes(char* buffer, long buffer_size, long index) {

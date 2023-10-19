@@ -16,13 +16,13 @@ namespace RomData
     void to_json(GENERIC_JSON& j, const IntroData& i) {
         j = nn::json {
             {"languages", i.languages},
-            {"colorVariations", i.colorVariations},
+            {"playerColorVariation", i.colorVariations},
         };
     }
 
     JSON_TEMPLATE
     void from_json(const GENERIC_JSON& j, IntroData& i) {
         j.at("languages").get_to(i.languages);
-        j.at("colorVariations").get_to(i.colorVariations);
+        j.at("playerColorVariation").get_to(i.colorVariations);
     }
 }

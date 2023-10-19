@@ -3,6 +3,8 @@
 #include "externals/DPData/TR_BATTLE_DATA.h"
 #include "externals/PlayerWork.h"
 
+#include "logger/logger.h"
+
 template <int32_t size>
 struct TrainerSaveData {
     const char* fileName = "SaveData:/Lumi_Trainers.bin";
@@ -11,7 +13,7 @@ struct TrainerSaveData {
     DPData::TR_BATTLE_DATA::Object items[size];
 
     long GetByteCount() {
-        return sizeof(TrainerSaveData<size>);
+        return sizeof(DPData::TR_BATTLE_DATA::Object) * size;
     }
 
     long ToBytes(char* buffer, long index) {
@@ -22,6 +24,7 @@ struct TrainerSaveData {
     }
 
     long FromBytes(char* buffer, long buffer_size, long index) {
+        Logger::log("size:%d index:%d\n", buffer_size, index);
         if (buffer_size >= GetByteCount() + index)
         {
             memcpy(&items, (void*)(buffer+index), sizeof(DPData::TR_BATTLE_DATA::Object)*size);

@@ -3,6 +3,8 @@
 #include "externals/DPData/KinomiGrow.h"
 #include "externals/PlayerWork.h"
 
+#include "logger/logger.h"
+
 template <int32_t size>
 struct BerrySaveData {
     const char* fileName = "SaveData:/Lumi_Berries.bin";
@@ -11,7 +13,7 @@ struct BerrySaveData {
     DPData::KinomiGrow::Object items[size];
 
     long GetByteCount() {
-        return sizeof(BerrySaveData<size>);
+        return sizeof(DPData::KinomiGrow::Object) * size;
     }
 
     long ToBytes(char* buffer, long index) {
@@ -22,12 +24,13 @@ struct BerrySaveData {
     }
 
     long FromBytes(char* buffer, long buffer_size, long index) {
-        if (buffer_size >= GetByteCount() + index)
+        for (int32_t i=0; i<size; i++)
         {
-            memcpy(&items, (void*)(buffer+index), sizeof(DPData::KinomiGrow::Object)*size);
-            index += sizeof(DPData::KinomiGrow::Object)*size;
+            if (buffer_size < index + sizeof(DPData::KinomiGrow::Object))
+                break;
 
-            return index;
+            index = memcpy(&items[i], (void*)(buffer+index), sizeof(DPData::KinomiGrow::Object));
+            index += sizeof(DPData::KinomiGrow::Object);
         }
 
         return index + GetByteCount();

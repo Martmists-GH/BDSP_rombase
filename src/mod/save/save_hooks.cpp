@@ -12,7 +12,7 @@ static CustomSaveData gCustomSaveData {
     .trainers = {},
     .items = {},
     .berries = {},
-    .colorVariations = {},
+    .playerColorVariation = {},
 };
 
 CustomSaveData* getCustomSaveData() {

@@ -3,29 +3,31 @@
 
 void loadColorVariations(bool isBackup)
 {
-    if (!isBackup && FsHelper::isFileExist(getCustomSaveData()->colorVariations.fileName))
+    if (!isBackup && FsHelper::isFileExist(getCustomSaveData()->playerColorVariation.fileName))
     {
-        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->colorVariations.fileName), getCustomSaveData()->colorVariations.GetByteCount());
+        long actualSize = FsHelper::getFileSize(getCustomSaveData()->playerColorVariation.fileName);
+        long expectedSize = getCustomSaveData()->playerColorVariation.GetByteCount();
+        long size = std::max(actualSize, expectedSize);
         FsHelper::LoadData data {
-            .path = getCustomSaveData()->colorVariations.fileName,
+            .path = getCustomSaveData()->playerColorVariation.fileName,
             .alignment = 0x1000,
             .bufSize = size,
         };
         FsHelper::loadFileFromPath(data);
-        getCustomSaveData()->colorVariations.FromBytes((char*)data.buffer, data.bufSize, 0);
-        Logger::log("Loaded Lumi_ColorVariations!\n");
+        getCustomSaveData()->playerColorVariation.FromBytes((char*)data.buffer, actualSize, 0);
+        Logger::log("Loaded Lumi_PlayerColorVariation!\n");
     }
-    else if (FsHelper::isFileExist(getCustomSaveData()->colorVariations.backupFileName))
+    else if (FsHelper::isFileExist(getCustomSaveData()->playerColorVariation.backupFileName))
     {
-        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->colorVariations.backupFileName), getCustomSaveData()->colorVariations.GetByteCount());
+        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->playerColorVariation.backupFileName), getCustomSaveData()->playerColorVariation.GetByteCount());
         FsHelper::LoadData data {
-            .path = getCustomSaveData()->colorVariations.backupFileName,
+            .path = getCustomSaveData()->playerColorVariation.backupFileName,
             .alignment = 0x1000,
             .bufSize = size,
         };
         FsHelper::loadFileFromPath(data);
-        getCustomSaveData()->colorVariations.FromBytes((char*)data.buffer, data.bufSize, 0);
-        Logger::log("Loaded Lumi_ColorVariations_BK!\n");
+        getCustomSaveData()->playerColorVariation.FromBytes((char*)data.buffer, FsHelper::getFileSize(getCustomSaveData()->playerColorVariation.backupFileName), 0);
+        Logger::log("Loaded Lumi_PlayerColorVariation_BK!\n");
     }
 }
 
@@ -41,13 +43,13 @@ void unlinkColorVariations(PlayerWork::Object* playerWork)
 
 void saveColorVariations(bool isMain, bool isBackup)
 {
-    char buffer[getCustomSaveData()->colorVariations.GetByteCount()];
-    getCustomSaveData()->colorVariations.ToBytes((char*)buffer, 0);
+    char buffer[getCustomSaveData()->playerColorVariation.GetByteCount()];
+    getCustomSaveData()->playerColorVariation.ToBytes((char*)buffer, 0);
 
     if (isMain)
-        FsHelper::writeFileToPath(buffer, sizeof(buffer), getCustomSaveData()->colorVariations.fileName);
+        FsHelper::writeFileToPath(buffer, sizeof(buffer), getCustomSaveData()->playerColorVariation.fileName);
     if (isBackup)
-        FsHelper::writeFileToPath(buffer, sizeof(buffer), getCustomSaveData()->colorVariations.backupFileName);
+        FsHelper::writeFileToPath(buffer, sizeof(buffer), getCustomSaveData()->playerColorVariation.backupFileName);
 }
 
 void relinkColorVariations(PlayerWork::Object* playerWork)

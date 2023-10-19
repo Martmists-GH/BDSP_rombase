@@ -18,77 +18,77 @@ RomData::ColorSet GetCustomColorSet()
 {
     RomData::ColorSet set = {
         .fieldSkinFace = {
-            getCustomSaveData()->colorVariations.fSkinFace[0].fields.r,
-            getCustomSaveData()->colorVariations.fSkinFace[0].fields.g,
-            getCustomSaveData()->colorVariations.fSkinFace[0].fields.b,
-            getCustomSaveData()->colorVariations.fSkinFace[0].fields.a,
+            getCustomSaveData()->playerColorVariation.fSkinFace[0].fields.r,
+            getCustomSaveData()->playerColorVariation.fSkinFace[0].fields.g,
+            getCustomSaveData()->playerColorVariation.fSkinFace[0].fields.b,
+            getCustomSaveData()->playerColorVariation.fSkinFace[0].fields.a,
         },
         .fieldSkinMouth = {
-            getCustomSaveData()->colorVariations.fSkinMouth[0].fields.r,
-            getCustomSaveData()->colorVariations.fSkinMouth[0].fields.g,
-            getCustomSaveData()->colorVariations.fSkinMouth[0].fields.b,
-            getCustomSaveData()->colorVariations.fSkinMouth[0].fields.a,
+            getCustomSaveData()->playerColorVariation.fSkinMouth[0].fields.r,
+            getCustomSaveData()->playerColorVariation.fSkinMouth[0].fields.g,
+            getCustomSaveData()->playerColorVariation.fSkinMouth[0].fields.b,
+            getCustomSaveData()->playerColorVariation.fSkinMouth[0].fields.a,
         },
         .fieldEyes = {
-            getCustomSaveData()->colorVariations.fEyes[0].fields.r,
-            getCustomSaveData()->colorVariations.fEyes[0].fields.g,
-            getCustomSaveData()->colorVariations.fEyes[0].fields.b,
-            getCustomSaveData()->colorVariations.fEyes[0].fields.a,
+            getCustomSaveData()->playerColorVariation.fEyes[0].fields.r,
+            getCustomSaveData()->playerColorVariation.fEyes[0].fields.g,
+            getCustomSaveData()->playerColorVariation.fEyes[0].fields.b,
+            getCustomSaveData()->playerColorVariation.fEyes[0].fields.a,
         },
         .fieldEyebrows = {
-            getCustomSaveData()->colorVariations.fEyebrows[0].fields.r,
-            getCustomSaveData()->colorVariations.fEyebrows[0].fields.g,
-            getCustomSaveData()->colorVariations.fEyebrows[0].fields.b,
-            getCustomSaveData()->colorVariations.fEyebrows[0].fields.a,
+            getCustomSaveData()->playerColorVariation.fEyebrows[0].fields.r,
+            getCustomSaveData()->playerColorVariation.fEyebrows[0].fields.g,
+            getCustomSaveData()->playerColorVariation.fEyebrows[0].fields.b,
+            getCustomSaveData()->playerColorVariation.fEyebrows[0].fields.a,
         },
         .fieldSkinBody = {
-            getCustomSaveData()->colorVariations.fSkinBody[0].fields.r,
-            getCustomSaveData()->colorVariations.fSkinBody[0].fields.g,
-            getCustomSaveData()->colorVariations.fSkinBody[0].fields.b,
-            getCustomSaveData()->colorVariations.fSkinBody[0].fields.a,
+            getCustomSaveData()->playerColorVariation.fSkinBody[0].fields.r,
+            getCustomSaveData()->playerColorVariation.fSkinBody[0].fields.g,
+            getCustomSaveData()->playerColorVariation.fSkinBody[0].fields.b,
+            getCustomSaveData()->playerColorVariation.fSkinBody[0].fields.a,
         },
         .fieldHair = {
-            getCustomSaveData()->colorVariations.fHair[0].fields.r,
-            getCustomSaveData()->colorVariations.fHair[0].fields.g,
-            getCustomSaveData()->colorVariations.fHair[0].fields.b,
-            getCustomSaveData()->colorVariations.fHair[0].fields.a,
+            getCustomSaveData()->playerColorVariation.fHair[0].fields.r,
+            getCustomSaveData()->playerColorVariation.fHair[0].fields.g,
+            getCustomSaveData()->playerColorVariation.fHair[0].fields.b,
+            getCustomSaveData()->playerColorVariation.fHair[0].fields.a,
         },
 
         .battleSkinFace = {
-            getCustomSaveData()->colorVariations.bSkinFace[0].fields.r,
-            getCustomSaveData()->colorVariations.bSkinFace[0].fields.g,
-            getCustomSaveData()->colorVariations.bSkinFace[0].fields.b,
-            getCustomSaveData()->colorVariations.bSkinFace[0].fields.a,
+            getCustomSaveData()->playerColorVariation.bSkinFace[0].fields.r,
+            getCustomSaveData()->playerColorVariation.bSkinFace[0].fields.g,
+            getCustomSaveData()->playerColorVariation.bSkinFace[0].fields.b,
+            getCustomSaveData()->playerColorVariation.bSkinFace[0].fields.a,
         },
         .battleHairExtra = {
-            getCustomSaveData()->colorVariations.bHairExtra[0].fields.r,
-            getCustomSaveData()->colorVariations.bHairExtra[0].fields.g,
-            getCustomSaveData()->colorVariations.bHairExtra[0].fields.b,
-            getCustomSaveData()->colorVariations.bHairExtra[0].fields.a,
+            getCustomSaveData()->playerColorVariation.bHairExtra[0].fields.r,
+            getCustomSaveData()->playerColorVariation.bHairExtra[0].fields.g,
+            getCustomSaveData()->playerColorVariation.bHairExtra[0].fields.b,
+            getCustomSaveData()->playerColorVariation.bHairExtra[0].fields.a,
         },
         .battleEyeLeft = {
-            getCustomSaveData()->colorVariations.bEyeLeft[0].fields.r,
-            getCustomSaveData()->colorVariations.bEyeLeft[0].fields.g,
-            getCustomSaveData()->colorVariations.bEyeLeft[0].fields.b,
-            getCustomSaveData()->colorVariations.bEyeLeft[0].fields.a,
+            getCustomSaveData()->playerColorVariation.bEyeLeft[0].fields.r,
+            getCustomSaveData()->playerColorVariation.bEyeLeft[0].fields.g,
+            getCustomSaveData()->playerColorVariation.bEyeLeft[0].fields.b,
+            getCustomSaveData()->playerColorVariation.bEyeLeft[0].fields.a,
         },
         .battleEyeRight = {
-            getCustomSaveData()->colorVariations.bEyeRight[0].fields.r,
-            getCustomSaveData()->colorVariations.bEyeRight[0].fields.g,
-            getCustomSaveData()->colorVariations.bEyeRight[0].fields.b,
-            getCustomSaveData()->colorVariations.bEyeRight[0].fields.a,
+            getCustomSaveData()->playerColorVariation.bEyeRight[0].fields.r,
+            getCustomSaveData()->playerColorVariation.bEyeRight[0].fields.g,
+            getCustomSaveData()->playerColorVariation.bEyeRight[0].fields.b,
+            getCustomSaveData()->playerColorVariation.bEyeRight[0].fields.a,
         },
         .battleSkinBody = {
-            getCustomSaveData()->colorVariations.bSkinBody[0].fields.r,
-            getCustomSaveData()->colorVariations.bSkinBody[0].fields.g,
-            getCustomSaveData()->colorVariations.bSkinBody[0].fields.b,
-            getCustomSaveData()->colorVariations.bSkinBody[0].fields.a,
+            getCustomSaveData()->playerColorVariation.bSkinBody[0].fields.r,
+            getCustomSaveData()->playerColorVariation.bSkinBody[0].fields.g,
+            getCustomSaveData()->playerColorVariation.bSkinBody[0].fields.b,
+            getCustomSaveData()->playerColorVariation.bSkinBody[0].fields.a,
         },
         .battleHair = {
-            getCustomSaveData()->colorVariations.bHair[0].fields.r,
-            getCustomSaveData()->colorVariations.bHair[0].fields.g,
-            getCustomSaveData()->colorVariations.bHair[0].fields.b,
-            getCustomSaveData()->colorVariations.bHair[0].fields.a,
+            getCustomSaveData()->playerColorVariation.bHair[0].fields.r,
+            getCustomSaveData()->playerColorVariation.bHair[0].fields.g,
+            getCustomSaveData()->playerColorVariation.bHair[0].fields.b,
+            getCustomSaveData()->playerColorVariation.bHair[0].fields.a,
         },
     };
 
@@ -168,27 +168,27 @@ HOOK_DEFINE_REPLACE(ColorVariation_LateUpdate) {
 
 HOOK_DEFINE_REPLACE(GetColorID) {
     static int32_t Callback() {
-        return getCustomSaveData()->colorVariations.playerColorID[0];
+        return getCustomSaveData()->playerColorVariation.playerColorID[0];
     }
 };
 
 HOOK_DEFINE_REPLACE(SetColorID) {
     static void Callback(int32_t value) {
-        getCustomSaveData()->colorVariations.playerColorID[0] = value;
+        getCustomSaveData()->playerColorVariation.playerColorID[0] = value;
     }
 };
 
 HOOK_DEFINE_INLINE(SetColorID_Inline) {
     static void Callback(exl::hook::nx64::InlineCtx* ctx) {
         auto colorId = (int32_t)ctx->W[20];
-        getCustomSaveData()->colorVariations.playerColorID[0] = colorId;
+        getCustomSaveData()->playerColorVariation.playerColorID[0] = colorId;
     }
 };
 
 HOOK_DEFINE_INLINE(SetColorID_TrainerParam_StoreCore) {
     static void Callback(exl::hook::nx64::InlineCtx* ctx) {
         auto trainerData = (Dpr::Battle::Logic::TRAINER_DATA::Object*)ctx->X[1];
-        trainerData->fields.colorID = getCustomSaveData()->colorVariations.playerColorID[0];
+        trainerData->fields.colorID = getCustomSaveData()->playerColorVariation.playerColorID[0];
         trainerData->fields.trainerID = 0;
 
         ctx->X[1] = (uint64_t)trainerData;
@@ -201,7 +201,7 @@ HOOK_DEFINE_INLINE(CardModelViewController_LoadModels) {
         auto isContest = (bool)ctx->W[2];
         auto battleCharacterEntity = (BattleCharacterEntity*)ctx->X[20];
 
-        int32_t colorID = getCustomSaveData()->colorVariations.playerColorID[0];
+        int32_t colorID = getCustomSaveData()->playerColorVariation.playerColorID[0];
         trainerParam->fields.colorID = colorID;
 
         battleCharacterEntity->Initialize(trainerParam, isContest);

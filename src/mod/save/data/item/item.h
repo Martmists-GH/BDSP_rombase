@@ -3,6 +3,8 @@
 #include "externals/Dpr/Item/SaveItem.h"
 #include "externals/PlayerWork.h"
 
+#include "logger/logger.h"
+
 template <int32_t size>
 struct ItemSaveData {
     const char* fileName = "SaveData:/Lumi_Items.bin";
@@ -11,7 +13,7 @@ struct ItemSaveData {
     Dpr::Item::SaveItem::Object items[size];
 
     long GetByteCount() {
-        return sizeof(ItemSaveData<size>);
+        return sizeof(Dpr::Item::SaveItem::Object) * size;
     }
 
     long ToBytes(char* buffer, long index) {
@@ -22,6 +24,7 @@ struct ItemSaveData {
     }
 
     long FromBytes(char* buffer, long buffer_size, long index) {
+        Logger::log("size:%d index:%d\n", buffer_size, index);
         if (buffer_size >= GetByteCount() + index)
         {
             memcpy(&items, (void*)(buffer+index), sizeof(Dpr::Item::SaveItem::Object)*size);

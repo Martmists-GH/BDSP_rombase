@@ -13,14 +13,16 @@ void loadVariables(bool isBackup)
 {
     if (!isBackup && FsHelper::isFileExist(getCustomSaveData()->variables.fileName))
     {
-        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->variables.fileName), getCustomSaveData()->variables.GetByteCount());
+        long actualSize = FsHelper::getFileSize(getCustomSaveData()->variables.fileName);
+        long expectedSize = getCustomSaveData()->variables.GetByteCount();
+        long size = std::max(actualSize, expectedSize);
         FsHelper::LoadData data {
             .path = getCustomSaveData()->variables.fileName,
             .alignment = 0x1000,
             .bufSize = size,
         };
         FsHelper::loadFileFromPath(data);
-        getCustomSaveData()->variables.FromBytes((char*)data.buffer, data.bufSize, 0);
+        getCustomSaveData()->variables.FromBytes((char*)data.buffer, actualSize, 0);
         Logger::log("Loaded Lumi_Variables!\n");
     }
     else if (FsHelper::isFileExist(getCustomSaveData()->variables.backupFileName))
@@ -32,7 +34,7 @@ void loadVariables(bool isBackup)
             .bufSize = size,
         };
         FsHelper::loadFileFromPath(data);
-        getCustomSaveData()->variables.FromBytes((char*)data.buffer, data.bufSize, 0);
+        getCustomSaveData()->variables.FromBytes((char*)data.buffer, FsHelper::getFileSize(getCustomSaveData()->variables.backupFileName), 0);
         Logger::log("Loaded Lumi_Variables_BK!\n");
     }
 }

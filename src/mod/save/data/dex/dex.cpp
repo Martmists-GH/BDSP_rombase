@@ -17,14 +17,16 @@ void loadZukan(bool isBackup)
 {
     if (!isBackup && FsHelper::isFileExist(getCustomSaveData()->dex.fileName))
     {
-        long size = std::max(FsHelper::getFileSize(getCustomSaveData()->dex.fileName), getCustomSaveData()->dex.GetByteCount());
+        long actualSize = FsHelper::getFileSize(getCustomSaveData()->dex.fileName);
+        long expectedSize = getCustomSaveData()->dex.GetByteCount();
+        long size = std::max(actualSize, expectedSize);
         FsHelper::LoadData data {
             .path = getCustomSaveData()->dex.fileName,
             .alignment = 0x1000,
             .bufSize = size,
         };
         FsHelper::loadFileFromPath(data);
-        getCustomSaveData()->dex.FromBytes((char*)data.buffer, data.bufSize, 0);
+        getCustomSaveData()->dex.FromBytes((char*)data.buffer, actualSize, 0);
         Logger::log("Loaded Lumi_Dex!\n");
     }
     else if (FsHelper::isFileExist(getCustomSaveData()->dex.backupFileName))
@@ -36,7 +38,7 @@ void loadZukan(bool isBackup)
                 .bufSize = size,
         };
         FsHelper::loadFileFromPath(data);
-        getCustomSaveData()->dex.FromBytes((char*)data.buffer, data.bufSize, 0);
+        getCustomSaveData()->dex.FromBytes((char*)data.buffer, FsHelper::getFileSize(getCustomSaveData()->dex.backupFileName), 0);
         Logger::log("Loaded Lumi_Dex_BK!\n");
     }
 }
@@ -53,11 +55,14 @@ void linkZukan(PlayerWork::Object* playerWork)
     auto newFemaleFlag = (System::Boolean_array*)system_array_new(boolCls, DexSize);
 
     // Fill the new arrays with the custom save data
-    memcpy(newStatus->m_Items, getCustomSaveData()->dex.get_status, sizeof(getCustomSaveData()->dex.get_status));
-    memcpy(newMaleColorFlag->m_Items, getCustomSaveData()->dex.male_color_flag, sizeof(getCustomSaveData()->dex.male_color_flag));
-    memcpy(newFemaleColorFlag->m_Items, getCustomSaveData()->dex.female_color_flag, sizeof(getCustomSaveData()->dex.female_color_flag));
-    memcpy(newMaleFlag->m_Items, getCustomSaveData()->dex.male_flag, sizeof(getCustomSaveData()->dex.male_flag));
-    memcpy(newFemaleFlag->m_Items, getCustomSaveData()->dex.female_flag, sizeof(getCustomSaveData()->dex.female_flag));
+    for (uint64_t i=0; i<DexSize; i++)
+    {
+        memcpy(&newStatus->m_Items[i], &getCustomSaveData()->dex.elements[i].get_status, sizeof(DPData::GET_STATUS));
+        memcpy(&newMaleColorFlag->m_Items[i], &getCustomSaveData()->dex.elements[i].male_color_flag, sizeof(System::Boolean));
+        memcpy(&newFemaleColorFlag->m_Items[i], &getCustomSaveData()->dex.elements[i].female_color_flag, sizeof(System::Boolean));
+        memcpy(&newMaleFlag->m_Items[i], &getCustomSaveData()->dex.elements[i].male_flag, sizeof(System::Boolean));
+        memcpy(&newFemaleFlag->m_Items[i], &getCustomSaveData()->dex.elements[i].female_flag, sizeof(System::Boolean));
+    }
 
     // Cache the data that is in the vanilla save
     auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
@@ -80,11 +85,14 @@ void unlinkZukan(PlayerWork::Object* playerWork)
     auto& zukan = playerWork->fields._saveData.fields.zukanData.fields;
 
     // Copy PlayerWork data to our Custom save data
-    memcpy(getCustomSaveData()->dex.get_status, zukan.get_status->m_Items, sizeof(getCustomSaveData()->dex.get_status));
-    memcpy(getCustomSaveData()->dex.male_color_flag, zukan.male_color_flag->m_Items, sizeof(getCustomSaveData()->dex.male_color_flag));
-    memcpy(getCustomSaveData()->dex.female_color_flag, zukan.female_color_flag->m_Items, sizeof(getCustomSaveData()->dex.female_color_flag));
-    memcpy(getCustomSaveData()->dex.male_flag, zukan.male_flag->m_Items, sizeof(getCustomSaveData()->dex.male_flag));
-    memcpy(getCustomSaveData()->dex.female_flag, zukan.female_flag->m_Items, sizeof(getCustomSaveData()->dex.female_flag));
+    for (uint64_t i=0; i<DexSize; i++)
+    {
+        memcpy(&getCustomSaveData()->dex.elements[i].get_status, &zukan.get_status->m_Items[i], sizeof(DPData::GET_STATUS));
+        memcpy(&getCustomSaveData()->dex.elements[i].male_color_flag, zukan.male_color_flag->m_Items, sizeof(System::Boolean));
+        memcpy(&getCustomSaveData()->dex.elements[i].female_color_flag, zukan.female_color_flag->m_Items, sizeof(System::Boolean));
+        memcpy(&getCustomSaveData()->dex.elements[i].male_flag, zukan.male_flag->m_Items, sizeof(System::Boolean));
+        memcpy(&getCustomSaveData()->dex.elements[i].female_flag, zukan.female_flag->m_Items, sizeof(System::Boolean));
+    }
 
     // Create a temp copy of the PlayerWork data
     tmp_get_status = zukan.get_status;

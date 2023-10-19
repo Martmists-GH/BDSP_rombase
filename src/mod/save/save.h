@@ -22,7 +22,6 @@ constexpr int32_t SysFlagCount = 15000;
 constexpr int32_t TrainerCount = 10000;
 constexpr int32_t SaveItemCount = 10000;
 constexpr int32_t BerryCount = 1000;
-constexpr int32_t ColorVariationCount = 1;
 
 struct CustomSaveData {
     MainSaveData main;
@@ -32,7 +31,7 @@ struct CustomSaveData {
     TrainerSaveData<TrainerCount> trainers;
     ItemSaveData<SaveItemCount> items;
     BerrySaveData<BerryCount> berries;
-    ColorVariationSaveData<ColorVariationCount> colorVariations;
+    ColorVariationSaveData playerColorVariation;
 };
 
 CustomSaveData* getCustomSaveData();

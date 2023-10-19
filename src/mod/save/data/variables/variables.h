@@ -2,6 +2,8 @@
 
 #include "externals/System/Primitives.h"
 
+#include "logger/logger.h"
+
 template <int32_t workSize, int32_t flagSize, int32_t sysFlagSize>
 struct VariablesSaveData {
     const char* fileName = "SaveData:/Lumi_Variables.bin";
@@ -12,7 +14,11 @@ struct VariablesSaveData {
     System::Boolean sysflags[sysFlagSize];
 
     long GetByteCount() {
-        return sizeof(VariablesSaveData<workSize, flagSize, sysFlagSize>);
+        long count = 0;
+        count += sizeof(System::Int32) * workSize;
+        count += sizeof(System::Boolean) * flagSize;
+        count += sizeof(System::Boolean) * sysFlagSize;
+        return count;
     }
 
     long ToBytes(char* buffer, long index) {
@@ -27,6 +33,7 @@ struct VariablesSaveData {
     }
 
     long FromBytes(char* buffer, long buffer_size, long index) {
+        Logger::log("size:%d index:%d\n", buffer_size, index);
         if (buffer_size >= GetByteCount() + index)
         {
             memcpy(&works, (void*)(buffer+index), sizeof(System::Int32)*workSize);

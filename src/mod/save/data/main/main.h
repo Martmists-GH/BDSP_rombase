@@ -2,6 +2,8 @@
 
 #include "externals/PlayerWork.h"
 
+#include "logger/logger.h"
+
 enum class ModVersion : int32_t {
     // Base game
     Vanilla,
@@ -31,6 +33,7 @@ struct MainSaveData {
     }
 
     long FromBytes(char* buffer, long buffer_size, long index) {
+        Logger::log("size:%d index:%d\n", buffer_size, index);
         if (buffer_size >= GetByteCount() + index)
         {
             memcpy(&version, (void*)(buffer+index), sizeof(ModVersion));
