@@ -12,6 +12,21 @@ struct ItemSaveData {
 
     Dpr::Item::SaveItem::Object items[size];
 
+    void Initialize() {
+        for (int32_t i=0; i<size; i++)
+        {
+            items[i].fields = {
+                .Count = 0,
+                .VanishNew = false,
+                .FavoriteFlag = false,
+                .ShowWazaNameFlag = false,
+                .Dummy1 = 0,
+                .Dummy2 = 0,
+                .SortNumber = 0,
+            };
+        }
+    }
+
     long GetByteCount() {
         return sizeof(Dpr::Item::SaveItem::Object) * size;
     }
@@ -24,13 +39,14 @@ struct ItemSaveData {
     }
 
     long FromBytes(char* buffer, long buffer_size, long index) {
-        Logger::log("size:%d index:%d\n", buffer_size, index);
-        if (buffer_size >= GetByteCount() + index)
+        Initialize();
+        for (int32_t i=0; i<size; i++)
         {
-            memcpy(&items, (void*)(buffer+index), sizeof(Dpr::Item::SaveItem::Object)*size);
-            index += sizeof(Dpr::Item::SaveItem::Object)*size;
+            if (buffer_size < index + (long)sizeof(Dpr::Item::SaveItem::Object))
+                break;
 
-            return index;
+            memcpy(&items[i], (void*)(buffer+index), sizeof(Dpr::Item::SaveItem::Object));
+            index += sizeof(Dpr::Item::SaveItem::Object);
         }
 
         return index + GetByteCount();

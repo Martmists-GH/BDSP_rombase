@@ -12,6 +12,16 @@ struct TrainerSaveData {
 
     DPData::TR_BATTLE_DATA::Object items[size];
 
+    void Initialize() {
+        for (int32_t i=0; i<size; i++)
+        {
+            items[i].fields = {
+                .IsWin = false,
+                .IsBattleSearcher = false,
+            };
+        }
+    }
+
     long GetByteCount() {
         return sizeof(DPData::TR_BATTLE_DATA::Object) * size;
     }
@@ -24,13 +34,14 @@ struct TrainerSaveData {
     }
 
     long FromBytes(char* buffer, long buffer_size, long index) {
-        Logger::log("size:%d index:%d\n", buffer_size, index);
-        if (buffer_size >= GetByteCount() + index)
+        Initialize();
+        for (int32_t i=0; i<size; i++)
         {
-            memcpy(&items, (void*)(buffer+index), sizeof(DPData::TR_BATTLE_DATA::Object)*size);
-            index += sizeof(DPData::TR_BATTLE_DATA::Object)*size;
+            if (buffer_size < index + (long)sizeof(DPData::TR_BATTLE_DATA::Object))
+                break;
 
-            return index;
+            memcpy(&items[i], (void*)(buffer+index), sizeof(DPData::TR_BATTLE_DATA::Object));
+            index += sizeof(DPData::TR_BATTLE_DATA::Object);
         }
 
         return index + GetByteCount();

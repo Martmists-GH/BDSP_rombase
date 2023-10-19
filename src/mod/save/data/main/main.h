@@ -21,6 +21,10 @@ struct MainSaveData {
 
     ModVersion version;
 
+    void Initialize() {
+        version = ModVersion::Vanilla;
+    }
+
     long GetByteCount() {
         return sizeof(ModVersion);
     }
@@ -33,7 +37,7 @@ struct MainSaveData {
     }
 
     long FromBytes(char* buffer, long buffer_size, long index) {
-        Logger::log("size:%d index:%d\n", buffer_size, index);
+        Initialize();
         if (buffer_size >= GetByteCount() + index)
         {
             memcpy(&version, (void*)(buffer+index), sizeof(ModVersion));

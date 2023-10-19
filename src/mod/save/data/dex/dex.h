@@ -7,11 +7,19 @@
 #include "logger/logger.h"
 
 struct DexSaveDataElement {
-    DPData::GET_STATUS get_status = 0;
-    System::Boolean male_color_flag = false;
-    System::Boolean female_color_flag = false;
-    System::Boolean male_flag = false;
-    System::Boolean female_flag = false;
+    DPData::GET_STATUS get_status;
+    System::Boolean male_color_flag;
+    System::Boolean female_color_flag;
+    System::Boolean male_flag;
+    System::Boolean female_flag;
+
+    void Initialize() {
+        get_status = 0;
+        male_color_flag = false;
+        female_color_flag = false;
+        male_flag = false;
+        female_flag = false;
+    }
 
     static long GetByteCount() {
         long count = 0;
@@ -61,6 +69,13 @@ struct DexSaveData {
 
     DexSaveDataElement elements[size];
 
+    void Initialize() {
+        for (int32_t i=0; i<size; i++)
+        {
+            elements[i].Initialize();
+        }
+    }
+
     long GetByteCount() {
         return DexSaveDataElement::GetByteCount()*size;
     }
@@ -75,6 +90,7 @@ struct DexSaveData {
     }
 
     long FromBytes(char* buffer, long buffer_size, long index) {
+        Initialize();
         for (int32_t i=0; i<size; i++)
         {
             if (buffer_size < index + DexSaveDataElement::GetByteCount())

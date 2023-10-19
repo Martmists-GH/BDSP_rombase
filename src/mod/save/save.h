@@ -7,11 +7,13 @@
 #include "save/data/box/box.h"
 #include "save/data/color_variation/color_variation.h"
 #include "save/data/dex/dex.h"
+#include "save/data/flag/flag.h"
 #include "save/data/main/main.h"
 #include "save/data/item/item.h"
 #include "save/data/string/string.h"
+#include "save/data/sysflag/sysflag.h"
 #include "save/data/trainer/trainer.h"
-#include "save/data/variables/variables.h"
+#include "save/data/work/work.h"
 
 #include "logger/logger.h"
 
@@ -25,9 +27,11 @@ constexpr int32_t BerryCount = 1000;
 
 struct CustomSaveData {
     MainSaveData main;
-    // ONLY MAKE MODIFICATIONS TO THE SIZE ARGUMENTS, OTHERWISE YOU WILL BREAK SAVE COMPATIBILITY
+    // ONLY MAKE MODIFICATIONS TO THE SIZE/COUNT ARGUMENTS, OTHERWISE YOU WILL BREAK SAVE COMPATIBILITY
     DexSaveData<DexSize> dex;
-    VariablesSaveData<WorkCount, FlagCount, SysFlagCount> variables;
+    WorkSaveData<WorkCount> works;
+    FlagSaveData<FlagCount> flags;
+    SysFlagSaveData<SysFlagCount> sysflags;
     TrainerSaveData<TrainerCount> trainers;
     ItemSaveData<SaveItemCount> items;
     BerrySaveData<BerryCount> berries;

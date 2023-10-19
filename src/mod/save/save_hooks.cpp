@@ -8,7 +8,9 @@
 static CustomSaveData gCustomSaveData {
     .main = {},
     .dex = {},
-    .variables = {},
+    .works = {},
+    .flags = {},
+    .sysflags = {},
     .trainers = {},
     .items = {},
     .berries = {},
@@ -35,7 +37,9 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
 
             // Load all other data
             loadZukan(isBackup);
-            loadVariables(isBackup);
+            loadWorks(isBackup);
+            loadFlags(isBackup);
+            loadSysFlags(isBackup);
             loadTrainers(isBackup);
             loadItems(isBackup);
             loadBerries(isBackup);
@@ -46,7 +50,9 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Load) {
 
             // Put our custom-length data into PlayerWork for the game to access
             linkZukan(playerWork);
-            linkVariables(playerWork);
+            linkWorks(playerWork);
+            linkFlags(playerWork);
+            linkSysFlags(playerWork);
             linkTrainers(playerWork);
             linkItems(playerWork);
             linkBerries(playerWork);
@@ -66,7 +72,9 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
 
         // Remove the custom-length PlayerWork data with the vanilla save's
         unlinkZukan(playerWork);
-        unlinkVariables(playerWork);
+        unlinkWorks(playerWork);
+        unlinkFlags(playerWork);
+        unlinkSysFlags(playerWork);
         unlinkTrainers(playerWork);
         unlinkItems(playerWork);
         unlinkBerries(playerWork);
@@ -78,7 +86,9 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
 
         // Save rest of data to files
         saveZukan(isMain, isBackup);
-        saveVariables(isMain, isBackup);
+        saveWorks(isMain, isBackup);
+        saveFlags(isMain, isBackup);
+        saveSysFlags(isMain, isBackup);
         saveTrainers(isMain, isBackup);
         saveItems(isMain, isBackup);
         saveBerries(isMain, isBackup);
@@ -90,7 +100,9 @@ HOOK_DEFINE_TRAMPOLINE(PatchExistingSaveData__Save) {
 
         // Re-replace the PlayerWork data with our custom-length one
         relinkZukan(playerWork);
-        relinkVariables(playerWork);
+        relinkWorks(playerWork);
+        relinkFlags(playerWork);
+        relinkSysFlags(playerWork);
         relinkTrainers(playerWork);
         relinkItems(playerWork);
         relinkBerries(playerWork);

@@ -25,9 +25,9 @@ void migrateFromVanilla(PlayerWork::Object* playerWork) {
         save->dex.elements[i].female_flag = zukan.female_flag->m_Items[i];
     }
 
-    savedata.intValues->copyInto(save->variables.works);
-    savedata.boolValues->copyInto(save->variables.flags);
-    savedata.systemFlags->copyInto(save->variables.sysflags);
+    savedata.intValues->copyInto(save->works.items);
+    savedata.boolValues->copyInto(save->flags.items);
+    savedata.systemFlags->copyInto(save->sysflags.items);
 
     savedata.tr_battleData->copyInto(save->trainers.items);
 
@@ -35,24 +35,24 @@ void migrateFromVanilla(PlayerWork::Object* playerWork) {
 
     kinomigrow.kinomiGrows->copyInto(save->berries.items);
 
-    // Set first player color to the one in the vanilla save
+    // Set player color to the one in the vanilla save
     save->playerColorVariation.playerColorID = myStatus.body_type;
 
-    // Set custom player color to the one in the vanilla save
+    // Set custom player color set to the one in the vanilla save
     auto set = GetColorSet(myStatus.body_type);
-    save->playerColorVariation.fSkinFace =  { .fields = {set.fieldSkinFace.r, set.fieldSkinFace.g, set.fieldSkinFace.b, set.fieldSkinFace.a } };
-    save->playerColorVariation.fSkinMouth = { .fields = {set.fieldSkinMouth.r, set.fieldSkinMouth.g, set.fieldSkinMouth.b, set.fieldSkinMouth.a } };
-    save->playerColorVariation.fEyes =      { .fields = {set.fieldEyes.r, set.fieldEyes.g, set.fieldEyes.b, set.fieldEyes.a } };
-    save->playerColorVariation.fEyebrows =  { .fields = {set.fieldEyebrows.r, set.fieldEyebrows.g, set.fieldEyebrows.b, set.fieldEyebrows.a } };
-    save->playerColorVariation.fSkinBody =  { .fields = {set.fieldSkinBody.r, set.fieldSkinBody.g, set.fieldSkinBody.b, set.fieldSkinBody.a } };
-    save->playerColorVariation.fHair =      { .fields = {set.fieldHair.r, set.fieldHair.g, set.fieldHair.b, set.fieldHair.a } };
+    save->playerColorVariation.fSkinFace =  { .fields = { set.fieldSkinFace.r, set.fieldSkinFace.g, set.fieldSkinFace.b, set.fieldSkinFace.a } };
+    save->playerColorVariation.fSkinMouth = { .fields = { set.fieldSkinMouth.r, set.fieldSkinMouth.g, set.fieldSkinMouth.b, set.fieldSkinMouth.a } };
+    save->playerColorVariation.fEyes =      { .fields = { set.fieldEyes.r, set.fieldEyes.g, set.fieldEyes.b, set.fieldEyes.a } };
+    save->playerColorVariation.fEyebrows =  { .fields = { set.fieldEyebrows.r, set.fieldEyebrows.g, set.fieldEyebrows.b, set.fieldEyebrows.a } };
+    save->playerColorVariation.fSkinBody =  { .fields = { set.fieldSkinBody.r, set.fieldSkinBody.g, set.fieldSkinBody.b, set.fieldSkinBody.a } };
+    save->playerColorVariation.fHair =      { .fields = { set.fieldHair.r, set.fieldHair.g, set.fieldHair.b, set.fieldHair.a } };
 
-    save->playerColorVariation.bSkinFace =  { .fields = {set.battleSkinFace.r, set.battleSkinFace.g, set.battleSkinFace.b, set.battleSkinFace.a } };
-    save->playerColorVariation.bHairExtra = { .fields = {set.battleHairExtra.r, set.battleHairExtra.g, set.battleHairExtra.b, set.battleHairExtra.a } };
-    save->playerColorVariation.bEyeLeft =   { .fields = {set.battleEyeLeft.r, set.battleEyeLeft.g, set.battleEyeLeft.b, set.battleEyeLeft.a } };
-    save->playerColorVariation.bEyeRight =  { .fields = {set.battleEyeRight.r, set.battleEyeRight.g, set.battleEyeRight.b, set.battleEyeRight.a } };
-    save->playerColorVariation.bSkinBody =  { .fields = {set.battleSkinBody.r, set.battleSkinBody.g, set.battleSkinBody.b, set.battleSkinBody.a } };
-    save->playerColorVariation.bHair =      { .fields = {set.battleHair.r, set.battleHair.g, set.battleHair.b, set.battleHair.a } };
+    save->playerColorVariation.bSkinFace =  { .fields = { set.battleSkinFace.r, set.battleSkinFace.g, set.battleSkinFace.b, set.battleSkinFace.a } };
+    save->playerColorVariation.bHairExtra = { .fields = { set.battleHairExtra.r, set.battleHairExtra.g, set.battleHairExtra.b, set.battleHairExtra.a } };
+    save->playerColorVariation.bEyeLeft =   { .fields = { set.battleEyeLeft.r, set.battleEyeLeft.g, set.battleEyeLeft.b, set.battleEyeLeft.a } };
+    save->playerColorVariation.bEyeRight =  { .fields = { set.battleEyeRight.r, set.battleEyeRight.g, set.battleEyeRight.b, set.battleEyeRight.a } };
+    save->playerColorVariation.bSkinBody =  { .fields = { set.battleSkinBody.r, set.battleSkinBody.g, set.battleSkinBody.b, set.battleSkinBody.a } };
+    save->playerColorVariation.bHair =      { .fields = { set.battleHair.r, set.battleHair.g, set.battleHair.b, set.battleHair.a } };
 
     // Set amount of boxes unlocked to 40
     playerWork->fields._saveData.fields.boxData.fields.trayMax = 40;

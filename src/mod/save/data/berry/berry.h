@@ -12,6 +12,21 @@ struct BerrySaveData {
 
     DPData::KinomiGrow::Object items[size];
 
+    void Initialize() {
+        for (int32_t i=0; i<size; i++)
+        {
+            items[i].fields = {
+                .tagNo = 0,
+                .harvestCount = 0,
+                .minutes = 0,
+                ._wet = 0,
+                ._selfPlant = 0,
+                ._padding0 = 0,
+                ._padding1 = 0,
+            };
+        }
+    }
+
     long GetByteCount() {
         return sizeof(DPData::KinomiGrow::Object) * size;
     }
@@ -24,6 +39,7 @@ struct BerrySaveData {
     }
 
     long FromBytes(char* buffer, long buffer_size, long index) {
+        Initialize();
         for (int32_t i=0; i<size; i++)
         {
             if (buffer_size < index + (long)sizeof(DPData::KinomiGrow::Object))
