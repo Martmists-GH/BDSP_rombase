@@ -12,6 +12,7 @@ struct DexSaveDataElement {
     System::Boolean female_color_flag;
     System::Boolean male_flag;
     System::Boolean female_flag;
+    System::Int32 language_flags;
 
     void Initialize() {
         get_status = 0;
@@ -19,12 +20,14 @@ struct DexSaveDataElement {
         female_color_flag = false;
         male_flag = false;
         female_flag = false;
+        language_flags = 0;
     }
 
     static long GetByteCount() {
         long count = 0;
         count += sizeof(DPData::GET_STATUS);
         count += sizeof(System::Boolean) * 4;
+        count += sizeof(System::Int32);
         return count;
     }
 
@@ -39,6 +42,8 @@ struct DexSaveDataElement {
         index += sizeof(System::Boolean);
         memcpy((void*)(buffer+index), &female_flag, sizeof(System::Boolean));
         index += sizeof(System::Boolean);
+        memcpy((void*)(buffer+index), &language_flags, sizeof(System::Int32));
+        index += sizeof(System::Int32);
 
         return index;
     }
@@ -56,6 +61,8 @@ struct DexSaveDataElement {
             index += sizeof(System::Boolean);
             female_flag = *(System::Boolean*)(buffer+index);
             index += sizeof(System::Boolean);
+            language_flags = *(System::Int32*)(buffer+index);
+            index += sizeof(System::Int32);
         }
 
         return index;

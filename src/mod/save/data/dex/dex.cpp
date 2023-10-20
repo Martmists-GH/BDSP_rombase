@@ -6,12 +6,14 @@ static System::Boolean_array* cache_male_color_flag;
 static System::Boolean_array* cache_female_color_flag;
 static System::Boolean_array* cache_male_flag;
 static System::Boolean_array* cache_female_flag;
+static System::Int32_array* cache_language_flags;
 
 static DPData::GET_STATUS_array* tmp_get_status;
 static System::Boolean_array* tmp_male_color_flag;
 static System::Boolean_array* tmp_female_color_flag;
 static System::Boolean_array* tmp_male_flag;
 static System::Boolean_array* tmp_female_flag;
+static System::Int32_array* tmp_language_flags;
 
 void loadZukan(bool isBackup)
 {
@@ -55,6 +57,7 @@ void linkZukan(PlayerWork::Object* playerWork)
     auto newFemaleColorFlag = (System::Boolean_array*)system_array_new(boolCls, DexSize);
     auto newMaleFlag = (System::Boolean_array*)system_array_new(boolCls, DexSize);
     auto newFemaleFlag = (System::Boolean_array*)system_array_new(boolCls, DexSize);
+    auto newLanguageFlags = (System::Int32_array*)system_array_new(System::Int32_array_TypeInfo(), DexSize);
 
     // Fill the new arrays with the custom save data
     for (uint64_t i=0; i<DexSize; i++)
@@ -64,6 +67,7 @@ void linkZukan(PlayerWork::Object* playerWork)
         memcpy(&newFemaleColorFlag->m_Items[i], &getCustomSaveData()->dex.elements[i].female_color_flag, sizeof(System::Boolean));
         memcpy(&newMaleFlag->m_Items[i], &getCustomSaveData()->dex.elements[i].male_flag, sizeof(System::Boolean));
         memcpy(&newFemaleFlag->m_Items[i], &getCustomSaveData()->dex.elements[i].female_flag, sizeof(System::Boolean));
+        memcpy(&newLanguageFlags->m_Items[i], &getCustomSaveData()->dex.elements[i].language_flags, sizeof(System::Int32));
     }
 
     // Cache the data that is in the vanilla save
@@ -73,6 +77,7 @@ void linkZukan(PlayerWork::Object* playerWork)
     cache_female_color_flag = zukan.female_color_flag;
     cache_male_flag = zukan.male_flag;
     cache_female_flag = zukan.female_flag;
+    cache_language_flags = zukan.TextVersionUp;
 
     // Set the data in PlayerWork to our custom save data
     zukan.get_status = newStatus;
@@ -80,6 +85,7 @@ void linkZukan(PlayerWork::Object* playerWork)
     zukan.female_color_flag = newFemaleColorFlag;
     zukan.male_flag = newMaleFlag;
     zukan.female_flag = newFemaleFlag;
+    zukan.TextVersionUp = newLanguageFlags;
 }
 
 void unlinkZukan(PlayerWork::Object* playerWork)
@@ -94,6 +100,7 @@ void unlinkZukan(PlayerWork::Object* playerWork)
         memcpy(&getCustomSaveData()->dex.elements[i].female_color_flag, zukan.female_color_flag->m_Items, sizeof(System::Boolean));
         memcpy(&getCustomSaveData()->dex.elements[i].male_flag, zukan.male_flag->m_Items, sizeof(System::Boolean));
         memcpy(&getCustomSaveData()->dex.elements[i].female_flag, zukan.female_flag->m_Items, sizeof(System::Boolean));
+        memcpy(&getCustomSaveData()->dex.elements[i].language_flags, zukan.TextVersionUp->m_Items, sizeof(System::Int32));
     }
 
     // Create a temp copy of the PlayerWork data
@@ -102,6 +109,7 @@ void unlinkZukan(PlayerWork::Object* playerWork)
     tmp_female_color_flag = zukan.female_color_flag;
     tmp_male_flag = zukan.male_flag;
     tmp_female_flag = zukan.female_flag;
+    tmp_language_flags = zukan.TextVersionUp;
 
     // Set PlayerWork to our cached data
     zukan.get_status = cache_get_status;
@@ -109,6 +117,7 @@ void unlinkZukan(PlayerWork::Object* playerWork)
     zukan.female_color_flag = cache_female_color_flag;
     zukan.male_flag = cache_male_flag;
     zukan.female_flag = cache_female_flag;
+    zukan.TextVersionUp = cache_language_flags;
 }
 
 void saveZukan(bool isMain, bool isBackup)
@@ -132,4 +141,5 @@ void relinkZukan(PlayerWork::Object* playerWork)
     zukan.female_color_flag = tmp_female_color_flag;
     zukan.male_flag = tmp_male_flag;
     zukan.female_flag = tmp_female_flag;
+    zukan.TextVersionUp = tmp_language_flags;
 }

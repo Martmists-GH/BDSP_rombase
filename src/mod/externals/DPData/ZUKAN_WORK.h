@@ -41,7 +41,7 @@ namespace DPData {
             void* SheimiColor;
             void* AruseusuTurn;
             void* AruseusuColor;
-            void* TextVersionUp;
+            System::Int32_array* TextVersionUp;
             bool zukan_get;
             bool zenkoku_flag;
         };

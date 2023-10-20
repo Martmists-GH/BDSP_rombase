@@ -23,16 +23,14 @@ void migrateFromVanilla(PlayerWork::Object* playerWork) {
         save->dex.elements[i].female_color_flag = zukan.female_color_flag->m_Items[i];
         save->dex.elements[i].male_flag = zukan.male_flag->m_Items[i];
         save->dex.elements[i].female_flag = zukan.female_flag->m_Items[i];
+        save->dex.elements[i].female_flag = zukan.female_flag->m_Items[i];
     }
 
     savedata.intValues->copyInto(save->works.items);
     savedata.boolValues->copyInto(save->flags.items);
     savedata.systemFlags->copyInto(save->sysflags.items);
-
     savedata.tr_battleData->copyInto(save->trainers.items);
-
     savedata.saveItem->copyInto(save->items.items);
-
     kinomigrow.kinomiGrows->copyInto(save->berries.items);
 
     // Set player color to the one in the vanilla save

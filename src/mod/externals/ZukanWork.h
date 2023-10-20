@@ -16,4 +16,8 @@ struct ZukanWork : ILClass<ZukanWork> {
     static inline void SetPoke(Pml::PokePara::PokemonParam::Object* mons, int32_t get) {
         return external<void>(0x017dc560, mons, get);
     }
+
+    static inline void AddLangFlag(uint32_t monsno,int32_t msglang) {
+        return external<void>(0x017dc870, monsno, msglang);
+    }
 };

@@ -31,6 +31,7 @@ void exl_save_dex_expansion_main() {
     exl::patch::CodePatcher p(0);
     auto inst = nn::vector<exl::patch::Instruction> {
         { 0x017dbd3c, CmpImmediate(W19, DexSize - 1) },
+        { 0x017dc8b4, CmpImmediate(W20, DexSize - 1) },
         { 0x017dc9d0, CmpImmediate(W19, DexSize - 1) },
         { 0x017dca90, CmpImmediate(W19, DexSize - 1) },
         { 0x017dcb50, CmpImmediate(W19, DexSize - 1) },
@@ -38,6 +39,7 @@ void exl_save_dex_expansion_main() {
         { 0x017dcd34, CmpImmediate(W20, DexSize - 1) },
         { 0x017dcf78, CmpImmediate(W19, DexSize - 1) },
         { 0x017dd030, CmpImmediate(W20, DexSize - 1) },
+        { 0x017dd4b4, CmpImmediate(W20, DexSize - 1) },
         { 0x017ddee0, Movz(W1, DexSize) },
         { 0x018d372c, CmpImmediate(W0, 0) },
         { 0x0199ca48, CmpImmediate(W9, DexSize + 1) },
