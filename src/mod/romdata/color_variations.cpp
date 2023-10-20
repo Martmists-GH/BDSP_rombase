@@ -18,12 +18,10 @@ void LoadColorSetData(int32_t index)
 {
     nn::string filePath(colorVariationFolderPath);
     filePath.append("set_" + nn::to_string(index) + ".json");
-    Logger::log("Looking for Set %d\n", index);
 
     nn::json j = FsHelper::loadJsonFileFromPath(filePath.c_str());
     if (j != nullptr && !j.is_discarded())
     {
-        Logger::log("Parsed Color Set data for %s!\n", filePath.c_str());
         RomData::ColorSet colorSet = {};
         colorSet = j.get<RomData::ColorSet>();
         colorSetData[index] = colorSet;

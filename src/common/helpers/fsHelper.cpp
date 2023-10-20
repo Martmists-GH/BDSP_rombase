@@ -44,7 +44,6 @@ namespace FsHelper {
         long size = 0;
         nn::fs::GetFileSize(&size, handle);
         long alignedSize = ALIGN_UP(std::max(size, loadData.bufSize), loadData.alignment);
-        Logger::log("File Size: %ld, Aligned Size: %ld\n", size, alignedSize);
         loadData.buffer = IM_ALLOC(alignedSize);
         loadData.bufSize = alignedSize;
 
@@ -79,7 +78,6 @@ namespace FsHelper {
     nn::json loadJsonFileFromPath(const char *path) {
         if (FsHelper::isFileExist(path))
         {
-            Logger::log("JSON File exists!\n");
             long size = FsHelper::getFileSize(path);
             FsHelper::LoadData data {
                 .path = path,
@@ -98,7 +96,6 @@ namespace FsHelper {
         }
         else
         {
-            Logger::log("JSON File does NOT exist!\n");
             return nullptr;
         }
     }

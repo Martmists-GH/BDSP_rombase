@@ -17,12 +17,10 @@ void LoadShinyRates()
 {
     nn::string filePath(shinyRatesFolderPath);
     filePath.append("shiny_rates.json");
-    Logger::log("Checking Shiny Rates for %s!\n", filePath.c_str());
 
     nn::json j = FsHelper::loadJsonFileFromPath(filePath.c_str());
     if (j != nullptr && !j.is_discarded())
     {
-        Logger::log("Parsed Shiny Rates for %s!\n", filePath.c_str());
         shinyRatesData = j.get<RomData::ShinyRates>();
         isShinyRatesDataLoaded = true;
     }

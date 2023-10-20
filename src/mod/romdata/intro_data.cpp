@@ -14,12 +14,10 @@ nn::vector<int32_t> GetActivatedLanguages()
 {
     nn::string filePath(introFolderPath);
     filePath.append("intro.json");
-    Logger::log("Checking Intro Data for %s!\n", filePath.c_str());
 
     nn::json j = FsHelper::loadJsonFileFromPath(filePath.c_str());
     if (j != nullptr && !j.is_discarded())
     {
-        Logger::log("Parsed Intro Data for %s!\n", filePath.c_str());
         RomData::IntroData introData = {};
         introData = j.get<RomData::IntroData>();
 
@@ -50,12 +48,10 @@ nn::vector<int32_t> GetIntroColorVariationPresets()
 {
     nn::string filePath(introFolderPath);
     filePath.append("intro.json");
-    Logger::log("Checking Intro Data for %s!\n", filePath.c_str());
 
     nn::json j = FsHelper::loadJsonFileFromPath(filePath.c_str());
     if (j != nullptr && !j.is_discarded())
     {
-        Logger::log("Parsed Intro Data for %s!\n", filePath.c_str());
         RomData::IntroData introData = {};
         introData = j.get<RomData::IntroData>();
 

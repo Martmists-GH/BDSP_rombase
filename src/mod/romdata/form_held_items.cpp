@@ -41,7 +41,6 @@ RomData::FormHeldItemMon GetFormHeldItemMon(int32_t monsNo)
     nn::json j = FsHelper::loadJsonFileFromPath(filePath.c_str());
     if (j != nullptr && !j.is_discarded())
     {
-        Logger::log("Parsed Form Held Item data for %s!\n", filePath.c_str());
         RomData::FormHeldItemMon formHeldItemMon = {};
         formHeldItemMon = j.get<RomData::FormHeldItemMon>();
         LogFormHeldItemMonData(formHeldItemMon);
@@ -68,7 +67,6 @@ RomData::UnbreakablePokeItem GetUnbreakablePokeItems(int32_t monsNo)
     nn::json j = FsHelper::loadJsonFileFromPath(filePath.c_str());
     if (j != nullptr && !j.is_discarded())
     {
-        Logger::log("Parsed Form Held Item data for %s!\n", filePath.c_str());
         RomData::UnbreakablePokeItem unbreakablePokeItem = {};
         unbreakablePokeItem = j.get<RomData::UnbreakablePokeItem>();
         LogUnbreakablePokeItem(unbreakablePokeItem);
