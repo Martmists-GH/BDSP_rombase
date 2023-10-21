@@ -51,12 +51,12 @@ namespace ui {
                 _.Button([fSkinFacePicker, fSkinMouthPicker, fEyesPicker, fEyebrowsPicker, fSkinBodyPicker, fHairPicker](Button &_) {
                     _.label = "Load custom field variation from save";
                     _.onClick = [fSkinFacePicker, fSkinMouthPicker, fEyesPicker, fEyebrowsPicker, fSkinBodyPicker, fHairPicker]() {
-                        auto fSkinFace  = getCustomSaveData()->colorVariations.fSkinFace[0];
-                        auto fSkinMouth = getCustomSaveData()->colorVariations.fSkinMouth[0];
-                        auto fEyes      = getCustomSaveData()->colorVariations.fEyes[0];
-                        auto fEyebrows  = getCustomSaveData()->colorVariations.fEyebrows[0];
-                        auto fSkinBody  = getCustomSaveData()->colorVariations.fSkinBody[0];
-                        auto fHair      = getCustomSaveData()->colorVariations.fHair[0];
+                        auto fSkinFace  = getCustomSaveData()->playerColorVariation.fSkinFace;
+                        auto fSkinMouth = getCustomSaveData()->playerColorVariation.fSkinMouth;
+                        auto fEyes      = getCustomSaveData()->playerColorVariation.fEyes;
+                        auto fEyebrows  = getCustomSaveData()->playerColorVariation.fEyebrows;
+                        auto fSkinBody  = getCustomSaveData()->playerColorVariation.fSkinBody;
+                        auto fHair      = getCustomSaveData()->playerColorVariation.fHair;
 
                         fSkinFacePicker->value =  { fSkinFace.fields.r, fSkinFace.fields.g, fSkinFace.fields.b, 1 };
                         fSkinMouthPicker->value = { fSkinMouth.fields.r, fSkinMouth.fields.g, fSkinMouth.fields.b, 1 };
@@ -77,12 +77,12 @@ namespace ui {
                         ImVec4 fSkinBody  = fSkinBodyPicker->value;
                         ImVec4 fHair      = fHairPicker->value;
 
-                        getCustomSaveData()->colorVariations.fSkinFace[0]  = { .fields = { fSkinFace.x, fSkinFace.y, fSkinFace.z, 1 } };
-                        getCustomSaveData()->colorVariations.fSkinMouth[0] = { .fields = { fSkinMouth.x, fSkinMouth.y, fSkinMouth.z, 1 } };
-                        getCustomSaveData()->colorVariations.fEyes[0]      = { .fields = { fEyes.x, fEyes.y, fEyes.z, 1 } };
-                        getCustomSaveData()->colorVariations.fEyebrows[0]  = { .fields = { fEyebrows.x, fEyebrows.y, fEyebrows.z, 1 } };
-                        getCustomSaveData()->colorVariations.fSkinBody[0]  = { .fields = { fSkinBody.x, fSkinBody.y, fSkinBody.z, 1 } };
-                        getCustomSaveData()->colorVariations.fHair[0]      = { .fields = { fHair.x, fHair.y, fHair.z, 1 } };
+                        getCustomSaveData()->playerColorVariation.fSkinFace  = { .fields = {fSkinFace.x, fSkinFace.y, fSkinFace.z, 1 } };
+                        getCustomSaveData()->playerColorVariation.fSkinMouth = { .fields = {fSkinMouth.x, fSkinMouth.y, fSkinMouth.z, 1 } };
+                        getCustomSaveData()->playerColorVariation.fEyes      = { .fields = {fEyes.x, fEyes.y, fEyes.z, 1 } };
+                        getCustomSaveData()->playerColorVariation.fEyebrows  = { .fields = {fEyebrows.x, fEyebrows.y, fEyebrows.z, 1 } };
+                        getCustomSaveData()->playerColorVariation.fSkinBody  = { .fields = {fSkinBody.x, fSkinBody.y, fSkinBody.z, 1 } };
+                        getCustomSaveData()->playerColorVariation.fHair      = { .fields = {fHair.x, fHair.y, fHair.z, 1 } };
                     };
                 });
 
@@ -113,12 +113,12 @@ namespace ui {
                 _.Button([bSkinFacePicker, bHairExtraPicker, bEyeLeftPicker, bEyeRightPicker, bSkinBodyPicker, bHairPicker](Button &_) {
                     _.label = "Load custom battle variation from save";
                     _.onClick = [bSkinFacePicker, bHairExtraPicker, bEyeLeftPicker, bEyeRightPicker, bSkinBodyPicker, bHairPicker]() {
-                        auto bSkinFace  = getCustomSaveData()->colorVariations.bSkinFace[0];
-                        auto bHairExtra = getCustomSaveData()->colorVariations.bHairExtra[0];
-                        auto bEyeLeft   = getCustomSaveData()->colorVariations.bEyeLeft[0];
-                        auto bEyeRight  = getCustomSaveData()->colorVariations.bEyeRight[0];
-                        auto bSkinBody  = getCustomSaveData()->colorVariations.bSkinBody[0];
-                        auto bHair      = getCustomSaveData()->colorVariations.bHair[0];
+                        auto bSkinFace  = getCustomSaveData()->playerColorVariation.bSkinFace;
+                        auto bHairExtra = getCustomSaveData()->playerColorVariation.bHairExtra;
+                        auto bEyeLeft   = getCustomSaveData()->playerColorVariation.bEyeLeft;
+                        auto bEyeRight  = getCustomSaveData()->playerColorVariation.bEyeRight;
+                        auto bSkinBody  = getCustomSaveData()->playerColorVariation.bSkinBody;
+                        auto bHair      = getCustomSaveData()->playerColorVariation.bHair;
 
                         bSkinFacePicker->value =  { bSkinFace.fields.r, bSkinFace.fields.g, bSkinFace.fields.b, 1 };
                         bHairExtraPicker->value = { bHairExtra.fields.r, bHairExtra.fields.g, bHairExtra.fields.b, 1 };
@@ -139,12 +139,12 @@ namespace ui {
                         ImVec4 bSkinBody  = bSkinBodyPicker->value;
                         ImVec4 bHair      = bHairPicker->value;
 
-                        getCustomSaveData()->colorVariations.bSkinFace[0]  = { .fields = { bSkinFace.x, bSkinFace.y, bSkinFace.z, 1 } };
-                        getCustomSaveData()->colorVariations.bHairExtra[0] = { .fields = { bHairExtra.x, bHairExtra.y, bHairExtra.z, 1 } };
-                        getCustomSaveData()->colorVariations.bEyeLeft[0]   = { .fields = { bEyeLeft.x, bEyeLeft.y, bEyeLeft.z, 1 } };
-                        getCustomSaveData()->colorVariations.bEyeRight[0]  = { .fields = { bEyeRight.x, bEyeRight.y, bEyeRight.z, 1 } };
-                        getCustomSaveData()->colorVariations.bSkinBody[0]  = { .fields = { bSkinBody.x, bSkinBody.y, bSkinBody.z, 1 } };
-                        getCustomSaveData()->colorVariations.bHair[0]      = { .fields = { bHair.x, bHair.y, bHair.z, 1 } };
+                        getCustomSaveData()->playerColorVariation.bSkinFace  = { .fields = {bSkinFace.x, bSkinFace.y, bSkinFace.z, 1 } };
+                        getCustomSaveData()->playerColorVariation.bHairExtra = { .fields = {bHairExtra.x, bHairExtra.y, bHairExtra.z, 1 } };
+                        getCustomSaveData()->playerColorVariation.bEyeLeft   = { .fields = {bEyeLeft.x, bEyeLeft.y, bEyeLeft.z, 1 } };
+                        getCustomSaveData()->playerColorVariation.bEyeRight  = { .fields = {bEyeRight.x, bEyeRight.y, bEyeRight.z, 1 } };
+                        getCustomSaveData()->playerColorVariation.bSkinBody  = { .fields = {bSkinBody.x, bSkinBody.y, bSkinBody.z, 1 } };
+                        getCustomSaveData()->playerColorVariation.bHair      = { .fields = {bHair.x, bHair.y, bHair.z, 1 } };
                     };
                 });
             });

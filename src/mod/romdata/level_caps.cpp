@@ -22,7 +22,6 @@ void LoadLevelCapData()
     nn::json j = FsHelper::loadJsonFileFromPath(levelCapFilePath.c_str());
     if (j != nullptr && !j.is_discarded())
     {
-        Logger::log("Parsed %s!\n", levelCapFilePath.c_str());
         RomData::LevelCaps levelCaps = {};
         levelCaps = j.get<RomData::LevelCaps>();
         levelCapData.caps = levelCaps;
@@ -38,7 +37,6 @@ void LoadLevelCapData()
     j = FsHelper::loadJsonFileFromPath(worksFilePath.c_str());
     if (j != nullptr && !j.is_discarded())
     {
-        Logger::log("Parsed %s!\n", worksFilePath.c_str());
         RomData::LevelCapWorks works = {};
         works = j.get<RomData::LevelCapWorks>();
         levelCapData.works = works;
@@ -54,7 +52,6 @@ void LoadLevelCapData()
     j = FsHelper::loadJsonFileFromPath(flagsFilePath.c_str());
     if (j != nullptr && !j.is_discarded())
     {
-        Logger::log("Parsed %s!\n", flagsFilePath.c_str());
         RomData::LevelCapFlags flags = {};
         flags = j.get<RomData::LevelCapFlags>();
         levelCapData.flags = flags;
@@ -70,7 +67,6 @@ void LoadLevelCapData()
     j = FsHelper::loadJsonFileFromPath(sysFlagsFilePath.c_str());
     if (j != nullptr && !j.is_discarded())
     {
-        Logger::log("Parsed %s!\n", sysFlagsFilePath.c_str());
         RomData::LevelCapSysFlags sysFlags = {};
         sysFlags = j.get<RomData::LevelCapSysFlags>();
         levelCapData.sysFlags = sysFlags;

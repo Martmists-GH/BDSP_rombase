@@ -130,20 +130,20 @@ enum class ArceusForm : int32_t {
 
 enum class GenesectForm : int32_t {
     REGULAR = 0,
-    SHOCK_DRIVE = 1,
-    BURN_DRIVE = 2,
-    CHILL_DRIVE = 3,
-    DOUSE_DRIVE = 4,
+    DOUSE_DRIVE = 1,
+    SHOCK_DRIVE = 2,
+    BURN_DRIVE = 3,
+    CHILL_DRIVE = 4,
 };
 
 enum class VivillonForm : int32_t {
-    MEADOW = 0,
+    ICY_SNOW = 0,
     POLAR = 1,
     TUNDRA = 2,
     CONTINENTAL = 3,
     GARDEN = 4,
     ELEGANT = 5,
-    ICY_SNOW = 6,
+    MEADOW = 6,
     MODERN = 7,
     MARINE = 8,
     ARCHIPELAGO = 9,

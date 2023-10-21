@@ -55,6 +55,12 @@ public:
             }
         }
 
+        inline void fillWith(T::Object value) {
+            for (uint64_t i = 0; i < max_length; i++) {
+                m_Items[i] = value;
+            }
+        }
+
         struct iterator {
             using iterator_category = std::forward_iterator_tag;
             using difference_type = ptrdiff_t;
@@ -140,6 +146,12 @@ public:
             }
         }
 
+        inline void fillWith(T::Object value) {
+            for (uint64_t i = 0; i < max_length; i++) {
+                *m_Items[i] = value;
+            }
+        }
+
         struct iterator {
             using iterator_category = std::forward_iterator_tag;
             using difference_type = ptrdiff_t;
@@ -210,6 +222,11 @@ struct name##_array {                                       \
     inline void copyInto(name* dst) {                       \
         for (uint64_t i = 0; i < max_length; i++) {         \
             dst[i] = m_Items[i];                            \
+        }                                                   \
+    }                                                       \
+    inline void fillWith(name value) {                      \
+        for (uint64_t i = 0; i < max_length; i++) {         \
+            m_Items[i] = value;                             \
         }                                                   \
     }                                                       \
 };

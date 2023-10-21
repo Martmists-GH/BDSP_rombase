@@ -14,12 +14,10 @@ RomData::TMLearnset GetTMLearnset(int32_t monsno, int32_t formno)
 {
     nn::string filePath(tmLearnsetFolderPath);
     filePath.append("monsno_" + nn::to_string(monsno) + "_formno_" + nn::to_string(formno) + ".json");
-    Logger::log("Checking TM Learnset for %s!\n", filePath.c_str());
 
     nn::json j = FsHelper::loadJsonFileFromPath(filePath.c_str());
     if (j != nullptr && !j.is_discarded())
     {
-        Logger::log("Parsed TM Learnset for %s!\n", filePath.c_str());
         RomData::TMLearnset tmLearnset = {};
         tmLearnset = j.get<RomData::TMLearnset>();
 

@@ -29,7 +29,6 @@ RomData::HoneyTreeSlot GetHoneyTreeSlot(int32_t zoneID, int32_t slot)
     nn::json j = FsHelper::loadJsonFileFromPath(filePath.c_str());
     if (j != nullptr && !j.is_discarded())
     {
-        Logger::log("Parsed Honey Tree data for %s!\n", filePath.c_str());
         RomData::HoneyTreeZone honeyTreeZone = {};
         honeyTreeZone = j.get<RomData::HoneyTreeZone>();
         //LogHoneyTreeData(honeyTreeZone);

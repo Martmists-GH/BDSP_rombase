@@ -4,6 +4,9 @@
 
 template <int32_t size>
 struct StringSaveData {
+    const char* fileName = "SaveData:/Lumi_Strings.bin";
+    const char* backupFileName = "SaveData:/Lumi_Strings_BK.bin";
+
     Dpr::Box::SaveBoxData::_STR17::Object items[size];
 
     long GetByteCount() {
@@ -42,3 +45,9 @@ struct StringSaveData {
         return index + GetByteCount();
     }
 };
+
+void loadStrings(bool isBackup);
+void linkStrings(PlayerWork::Object* playerWork);
+void unlinkStrings(PlayerWork::Object* playerWork);
+void saveStrings(bool isMain, bool isBackup);
+void relinkStrings(PlayerWork::Object* playerWork);

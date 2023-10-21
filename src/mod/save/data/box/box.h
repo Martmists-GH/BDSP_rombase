@@ -2,12 +2,15 @@
 
 #include "externals/Dpr/Box/SaveBoxData.h"
 #include "externals/Dpr/Box/SaveBoxTrayData.h"
+#include "externals/PlayerWork.h"
 #include "externals/System/Primitives.h"
-
-#include "logger/logger.h"
+#include "externals/System/String.h"
 
 template <int32_t size>
 struct BoxSaveData {
+    const char* fileName = "SaveData:/Lumi_Boxes.bin";
+    const char* backupFileName = "SaveData:/Lumi_Boxes_BK.bin";
+
     Dpr::Box::SaveBoxData::_STR17::Object boxNames[size];
     System::Byte wallpapers[size];
     Dpr::Box::SaveBoxTrayData::Object pokemonParams[size];
@@ -57,3 +60,9 @@ struct BoxSaveData {
         return index + GetByteCount();
     }
 };
+
+void loadBoxes(bool isBackup);
+void linkBoxes(PlayerWork::Object* playerWork);
+void unlinkBoxes(PlayerWork::Object* playerWork);
+void saveBoxes(bool isMain, bool isBackup);
+void relinkBoxes(PlayerWork::Object* playerWork);
