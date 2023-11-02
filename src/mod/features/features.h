@@ -101,6 +101,9 @@ void exl_relearn_tms_main();
 // Remaps the controls.
 void exl_remap_main();
 
+// Adds support for integration between the Infinite Repel and normal repels.
+void exl_repel_fix_main();
+
 // Applies patches to support the expansion of many things in the save data.
 void exl_save_data_expansion();
 
@@ -119,11 +122,11 @@ void exl_swarm_forms_main();
 // Makes TMs infinite use.
 void exl_tms_main();
 
+// Allows alternate forms of Pokémon roaming in the Underground.
+void exl_ug_forms_main();
+
 // Adds support for wild Pokémon of any form number.
 void exl_wild_forms_main();
-
-// Adds support for integration between the Infinite Repel and normal repels.
-void exl_repel_fix_main();
 
 // Rewrites the method that sets a wild Pokémon's held item to use consistent rates (50% / 5% / 45%).
 // Also adds "Frisk" as an ability that raises wild Pokémon's held item rate.
