@@ -44,7 +44,7 @@ namespace FsHelper {
         long size = 0;
         nn::fs::GetFileSize(&size, handle);
         long alignedSize = ALIGN_UP(std::max(size, loadData.bufSize), loadData.alignment);
-        loadData.buffer = IM_ALLOC(alignedSize);
+        loadData.buffer = nn_malloc(alignedSize);
         loadData.bufSize = alignedSize;
 
         EXL_ASSERT(loadData.buffer, "Failed to Allocate Buffer! File Size: %ld", size);
@@ -90,7 +90,7 @@ namespace FsHelper {
             nn::json j = nn::json::parse(strBuffer);
 
             // Free buffer
-            IM_FREE(data.buffer);
+            nn_free(data.buffer);
 
             return j;
         }

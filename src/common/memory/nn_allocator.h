@@ -3,9 +3,13 @@
 #include <limits>
 
 namespace ImGui {
-    void* MemAlloc(size_t size);
+    void* MemAlloc(std::size_t size);
     void MemFree(void* ptr);
 }
+
+void loadAllocators();
+void* nn_malloc(std::size_t size);
+void nn_free(void *ptr);
 
 template<class T>
 struct nn_allocator
