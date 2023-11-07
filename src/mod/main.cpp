@@ -60,9 +60,6 @@ extern "C" void exl_main(void* x0, void* x1) {
 
     MainInitHook::InstallAtSymbol("nnMain");
 
-    // Get allocators
-    loadAllocators();
-
 #if DEBUG_BUILD
     exl_imgui_main();
     exl_debug_menu_main();

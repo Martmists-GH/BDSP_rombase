@@ -5,6 +5,11 @@
 #include "imgui.h"
 
 namespace FsHelper {
+    LoadData::~LoadData() {
+        if(buffer != nullptr)
+            nn_free(buffer);
+    }
+
     nn::Result writeFileToPath(void *buf, size_t size, const char *path) {
         nn::fs::FileHandle handle{};
 
@@ -88,9 +93,6 @@ namespace FsHelper {
 
             nn::string strBuffer((char*)data.buffer, data.bufSize);
             nn::json j = nn::json::parse(strBuffer);
-
-            // Free buffer
-            nn_free(data.buffer);
 
             return j;
         }

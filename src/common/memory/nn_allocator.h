@@ -2,11 +2,6 @@
 
 #include <limits>
 
-namespace ImGui {
-    void* MemAlloc(std::size_t size);
-    void MemFree(void* ptr);
-}
-
 void loadAllocators();
 void* nn_malloc(std::size_t size);
 void nn_free(void *ptr);
@@ -43,7 +38,7 @@ struct nn_allocator
             //throw std::bad_array_new_length();
         }
 
-        if (auto p = static_cast<T*>(ImGui::MemAlloc(n * sizeof(T))))
+        if (auto p = static_cast<T*>(nn_malloc(n * sizeof(T))))
         {
             report(p, n);
             return p;
@@ -56,7 +51,7 @@ struct nn_allocator
     void deallocate(T* p, std::size_t n) noexcept
     {
         report(p, n, 0);
-        ImGui::MemFree(p);
+        nn_free(p);
     }
 
     [[nodiscard]] inline size_type max_size() const {
