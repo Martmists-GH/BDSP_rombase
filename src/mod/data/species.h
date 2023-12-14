@@ -1012,6 +1012,21 @@ static constexpr const char* SPECIES[] = {
     "Miraidon",
     "Walking Wake",
     "Iron Leaves",
+    "Dipplin",
+    "Poltchageist",
+    "Sinistcha",
+    "Okidogi",
+    "Munkidori",
+    "Fezandipiti",
+    "Ogerpon",
+    "Archaludon",
+    "Hydrapple",
+    "Gouging Fire",
+    "Raging Bolt",
+    "Iron Boulder",
+    "Iron Crown",
+    "Terapagos",
+    "Pecharunt",
 };
 
 constexpr int SPECIES_COUNT = sizeof(SPECIES) / sizeof(SPECIES[0]);
