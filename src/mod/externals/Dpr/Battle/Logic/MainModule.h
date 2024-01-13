@@ -9,6 +9,7 @@
 #include "externals/Dpr/Battle/Logic/BtlRule.h"
 #include "externals/Dpr/Battle/Logic/MyStatus.h"
 #include "externals/Pml/PokeParty.h"
+#include "externals/System/Collections/IEnumerator.h"
 #include "externals/System/Primitives.h"
 
 namespace Dpr::Battle::Logic {
@@ -83,6 +84,10 @@ namespace Dpr::Battle::Logic {
 
         inline Pml::PokeParty::Object* GetSrcParty(uint8_t clientID, bool fForServer) {
             return external<Pml::PokeParty::Object*>(0x020325a0, this, clientID, fForServer);
+        }
+
+        inline System::Collections::IEnumerator::Object* LeavenOnErrorCoroutine() {
+            return external<System::Collections::IEnumerator::Object*>(0x0202e6b0, this);
         }
     };
 }

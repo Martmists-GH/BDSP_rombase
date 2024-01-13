@@ -122,6 +122,9 @@ void exl_swarm_forms_main();
 // Makes TMs infinite use.
 void exl_tms_main();
 
+// Assigns a work value to be used as a total turn counter for the last battle. By default, this is work value 449.
+void exl_turn_counter_main();
+
 // Allows alternate forms of Pokémon roaming in the Underground.
 void exl_ug_forms_main();
 
