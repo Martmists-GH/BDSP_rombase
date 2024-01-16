@@ -45,6 +45,7 @@ static constexpr const char* DEBUG_FEATURES[] = {
     "IL2CPP Logging",
     "PokemonInfo Logging",
     "Unity Logging",
+    "Feature Logging",
 };
 
 constexpr int DEBUG_FEATURE_COUNT = sizeof(DEBUG_FEATURES) / sizeof(DEBUG_FEATURES[0]);

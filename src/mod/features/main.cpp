@@ -129,6 +129,7 @@ void exl_features_main() {
     //SetActivatedDebugFeature(array_index(DEBUG_FEATURES, "IL2CPP Logging"));
     SetActivatedDebugFeature(array_index(DEBUG_FEATURES, "PokemonInfo Logging"));
     //SetActivatedDebugFeature(array_index(DEBUG_FEATURES, "Unity Logging"));
+    SetActivatedDebugFeature(array_index(DEBUG_FEATURES, "Feature Logging"));
 
     SetActivatedItemFeature(array_index(ITEM_FEATURES, "Ability Patch"));
     SetActivatedItemFeature(array_index(ITEM_FEATURES, "Everlasting Candies"));
