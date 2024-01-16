@@ -4,6 +4,22 @@
 void exl_features_main();
 
 
+// Activates debug features defined in debug/debug.h.
+void exl_debug_features_main();
+
+// Applies changes to items, defined in items/items.h.
+void exl_items_changes_main();
+
+// Adds new key item functionality.
+void exl_key_items_main();
+
+// Applies patches to support the expansion of many things in the save data.
+void exl_save_data_expansion_main();
+
+// Applies multiple small one-line patches.
+void exl_patches_main();
+
+
 // Applies some basic ability changes.
 void exl_ability_changes_main();
 
@@ -35,9 +51,6 @@ void exl_color_variations_main();
 // Adds support for new ev_script commands.
 void exl_commands_main();
 
-// Activates debug features defined in debug/debug.h.
-void exl_debug_features_main();
-
 // Rewrites the methods that deal with determining a zone's encounter slots.
 // Defaults to changing slots how Luminescent does it.
 void exl_encounter_slots_main();
@@ -61,12 +74,6 @@ void exl_gender_neutral_boutique_main();
 // Replaces every instance of Hidden Power being shown as "Normal" type with its actual type for the Pokémon.
 void exl_hidden_power_ui_main();
 
-// Applies changes to items, defined in items/items.h.
-void exl_items_changes_main();
-
-// Adds new key item functionality.
-void exl_key_items_main();
-
 // Allows configuring the available languages on the language select screen.
 void exl_language_select_main();
 
@@ -78,9 +85,6 @@ void exl_npc_collision_audio_main();
 
 // Changes all UI elements that are outfit and ColorVariation dependent to the default ones.
 void exl_outfit_neutral_ui_main();
-
-// Applies multiple small one-line patches.
-void exl_patches_main();
 
 // Adds nicknaming and move relearning to the party menu.
 void exl_pla_context_menu_main();
@@ -97,9 +101,6 @@ void exl_relearn_tms_main();
 
 // Remaps the controls.
 void exl_remap_main();
-
-// Applies patches to support the expansion of many things in the save data.
-void exl_save_data_expansion();
 
 // Adds support for new settings.
 void exl_settings_main();

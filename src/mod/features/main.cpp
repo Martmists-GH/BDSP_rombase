@@ -78,6 +78,7 @@ void CallFeatureHooks()
     exl_debug_features_main();
     exl_items_changes_main();
     exl_key_items_main();
+    exl_save_data_expansion_main();
     exl_patches_main();
 }
 
@@ -87,6 +88,7 @@ void exl_features_main() {
     DisableDebugFeatures();
     DisableItemFeatures();
     DisableKeyItemFeatures();
+    DisableSaveFeatures();
     DisableSmallPatchFeatures();
 
     // Select which new features are activated
@@ -137,6 +139,8 @@ void exl_features_main() {
     SetActivatedKeyItemFeature(array_index(KEY_ITEM_FEATURES, "Clothing Trunk"));
     SetActivatedKeyItemFeature(array_index(KEY_ITEM_FEATURES, "Incense Burner"));
     SetActivatedKeyItemFeature(array_index(KEY_ITEM_FEATURES, "Infinite Repel"));
+
+    SetActivatedSaveFeature(array_index(SAVE_FEATURES, "Dex Expansion"));
 
     SetActivatedSmallPatchFeature(array_index(SMALL_PATCH_FEATURES, "Affection Toggle"));
     SetActivatedSmallPatchFeature(array_index(SMALL_PATCH_FEATURES, "Global Exp. Share Toggle"));

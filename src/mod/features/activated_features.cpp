@@ -6,6 +6,7 @@ static bool ACTIVATED_FEATURES[FEATURE_COUNT];
 static bool ACTIVATED_DEBUG_FEATURES[DEBUG_FEATURE_COUNT];
 static bool ACTIVATED_ITEM_FEATURES[ITEM_FEATURE_COUNT];
 static bool ACTIVATED_KEY_ITEM_FEATURES[KEY_ITEM_FEATURE_COUNT];
+static bool ACTIVATED_SAVE_FEATURES[SAVE_FEATURE_COUNT];
 static bool ACTIVATED_SMALL_PATCH_FEATURES[SMALL_PATCH_FEATURE_COUNT];
 
 void DisableFeatures()
@@ -29,6 +30,12 @@ void DisableItemFeatures()
 void DisableKeyItemFeatures()
 {
     for (bool & i : ACTIVATED_KEY_ITEM_FEATURES)
+        i = false;
+}
+
+void DisableSaveFeatures()
+{
+    for (bool & i : ACTIVATED_SAVE_FEATURES)
         i = false;
 }
 
@@ -58,6 +65,11 @@ void SetActivatedKeyItemFeature(int feature)
     ACTIVATED_KEY_ITEM_FEATURES[feature] = true;
 }
 
+void SetActivatedSaveFeature(int feature)
+{
+    ACTIVATED_SAVE_FEATURES[feature] = true;
+}
+
 void SetActivatedSmallPatchFeature(int feature)
 {
     ACTIVATED_SMALL_PATCH_FEATURES[feature] = true;
@@ -81,6 +93,11 @@ bool IsActivatedItemFeature(int feature)
 bool IsActivatedKeyItemFeature(int feature)
 {
     return ACTIVATED_KEY_ITEM_FEATURES[feature];
+}
+
+bool IsActivatedSaveFeature(int feature)
+{
+    return ACTIVATED_SAVE_FEATURES[feature];
 }
 
 bool IsActivatedSmallPatchFeature(int feature)

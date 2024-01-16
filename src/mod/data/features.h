@@ -76,3 +76,11 @@ static constexpr const char* SMALL_PATCH_FEATURES[] = {
 };
 
 constexpr int SMALL_PATCH_FEATURE_COUNT = sizeof(SMALL_PATCH_FEATURES) / sizeof(SMALL_PATCH_FEATURES[0]);
+
+static constexpr const char* SAVE_FEATURES[] = {
+    "Badge Expansion",
+    "Box Expansion",
+    "Dex Expansion",
+};
+
+constexpr int SAVE_FEATURE_COUNT = sizeof(SAVE_FEATURES) / sizeof(SAVE_FEATURES[0]);

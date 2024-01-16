@@ -12,6 +12,9 @@ void DisableItemFeatures();
 // Disables all key items.
 void DisableKeyItemFeatures();
 
+// Disables all save data features.
+void DisableSaveFeatures();
+
 // Disables all small patches.
 void DisableSmallPatchFeatures();
 
@@ -28,6 +31,9 @@ void SetActivatedItemFeature(int feature);
 // Activate a given key item.
 void SetActivatedKeyItemFeature(int feature);
 
+// Activate a given save data feature.
+void SetActivatedSaveFeature(int feature);
+
 // Activate a given small patch.
 void SetActivatedSmallPatchFeature(int feature);
 
@@ -43,6 +49,9 @@ bool IsActivatedItemFeature(int feature);
 
 // Check if a given key item is enabled.
 bool IsActivatedKeyItemFeature(int feature);
+
+// Check if a given save data feature is enabled.
+bool IsActivatedSaveFeature(int feature);
 
 // Check if a given small patch is enabled.
 bool IsActivatedSmallPatchFeature(int feature);
