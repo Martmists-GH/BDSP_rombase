@@ -16,4 +16,8 @@ struct ItemWork : ILClass<ItemWork> {
     static inline Dpr::Item::ItemInfo::Object* GetItemInfo(int32_t itemno) {
         return external<Dpr::Item::ItemInfo::Object*>(0x01aea5b0, itemno);
     }
+
+    static inline bool IsWazaMachine(int32_t itemno) {
+        return external<bool>(0x01aeb380, itemno);
+    }
 };

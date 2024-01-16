@@ -26,7 +26,7 @@ void exl_battle_escape_flag_main();
 // Makes the battle menu scroll instead of the cursor.
 void exl_battle_revolver_main();
 
-// Forces battle camera transition direct from Wait camera to Attack camera
+// Removes the automatic switch to the default battle camera on certain actions.
 void exl_battle_camera_fix_main();
 
 // Adds support for custom color variations for player and NPCs.
@@ -42,14 +42,11 @@ void exl_debug_features_main();
 // Defaults to changing slots how Luminescent does it.
 void exl_encounter_slots_main();
 
-// Adds EV/IV to Summary UI with number based color gradient
+// Adds EV/IV to Summary UI with number based color gradient.
 void exl_ev_iv_ui_main();
 
-// Rewrites the methods that deal with checking level up evolution methods.
+// Rewrites the methods that deal with checking level up evolution methods and adds new ones.
 void exl_evolution_methods_main();
-
-// Adds functionality to the Exp. Share item.
-void exl_exp_share_main();
 
 // Redirects TM learnsets to external JSON files that contain more data.
 void exl_extended_tm_learnsets_main();
@@ -101,9 +98,6 @@ void exl_relearn_tms_main();
 // Remaps the controls.
 void exl_remap_main();
 
-// Adds support for integration between the Infinite Repel and normal repels.
-void exl_repel_fix_main();
-
 // Applies patches to support the expansion of many things in the save data.
 void exl_save_data_expansion();
 
@@ -118,9 +112,6 @@ void exl_sounds_main();
 
 // Adds support for alternate forms for the field swarm models.
 void exl_swarm_forms_main();
-
-// Makes TMs infinite use.
-void exl_tms_main();
 
 // Assigns a work value to be used as a total turn counter for the last battle. By default, this is work value 449.
 void exl_turn_counter_main();
