@@ -35,14 +35,18 @@ struct ExtraEvoData {
     ExtraPartyEvoData extraPartyEvoData[6];
     uint32_t followerRnd;
     int32_t followerStepCount;
+    int32_t prevMonsNo;
+    int32_t prevFormNo;
     Pml::PokePara::EvolveSituation::Fields currentEvolutionSituation;
 };
 
 static ExtraEvoData extraEvoData = {
-        .extraPartyEvoData = {{}, {}, {}, {}, {}, {} },
-        .followerRnd = 0,
-        .followerStepCount = 0,
-        .currentEvolutionSituation = {},
+    .extraPartyEvoData = {{}, {}, {}, {}, {}, {} },
+    .followerRnd = 0,
+    .followerStepCount = 0,
+    .prevMonsNo = 0,
+    .prevFormNo = 0,
+    .currentEvolutionSituation = {},
 };
 
 uint32_t GetFriendship(Pml::PokePara::Accessor::Object* accessor, Pml::PokePara::OwnerInfo::Object* ownerInfo)
@@ -431,9 +435,9 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
                 Logger::log("HELD_ITEM\n");
                 return poke->fields.m_accessor->GetItemNo() == evolutionParam;
 
-            case Pml::Personal::EvolveCond::_49: // TBD
-                Logger::log("49\n");
-                return false;
+            case Pml::Personal::EvolveCond::IN_PARTY_OR_PREV_EVO: // Pokémon in party OR Just evolved
+                Logger::log("IN_PARTY_OR_PREV_EVO\n");
+                return party->CheckPokeExist(evolutionParam) || extraEvoData.prevMonsNo == evolutionParam;
 
             case Pml::Personal::EvolveCond::RND_1_OF_100: // Encryption Constant % 100 = 0
                 Logger::log("RND_1_OF_100\n");
@@ -564,6 +568,10 @@ HOOK_DEFINE_REPLACE(CoreParam_Evolve) {
             default:
                 break;
         }
+
+        // Keep track of previous evolution
+        extraEvoData.prevMonsNo = monsno;
+        extraEvoData.prevFormNo = formno;
     }
 };
 

@@ -55,7 +55,7 @@ namespace Pml::Personal {
 
         // New methods (Luminescent)
         HELD_ITEM = 48,
-        _49 = 49,
+        IN_PARTY_OR_PREV_EVO = 49,
         RND_1_OF_100 = 50,
         RND_99_OF_100 = 51,
         FOLLOWER = 52,
