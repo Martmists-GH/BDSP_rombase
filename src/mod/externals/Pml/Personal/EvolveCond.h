@@ -63,5 +63,7 @@ namespace Pml::Personal {
         BAG_ITEM_999 = 54,
         RND_1_OF_100_MOVE = 55,
         RND_99_OF_100_MOVE = 56,
+        TOTAL_DAMAGE_RECIEVED_MALE = 57,
+        TOTAL_DAMAGE_RECIEVED_FEMALE = 58,
     };
 }

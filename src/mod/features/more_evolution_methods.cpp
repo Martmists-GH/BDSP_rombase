@@ -463,6 +463,22 @@ HOOK_DEFINE_REPLACE(IsSatisfyEvolveConditionLevelUp) {
                 Logger::log("RND_99_OF_100_MOVE\n");
                 return poke->GetPersonalRnd() % 100 > 0 && HasMove(poke, evolutionParam);
 
+            case Pml::Personal::EvolveCond::TOTAL_DAMAGE_RECIEVED_MALE: // Total damage received in last battle + Male
+                Logger::log("TOTAL_DAMAGE_RECIEVED_MALE\n");
+                if (extraDataIndex != -1) {
+                    Logger::log("  damage: %d\n", extraEvoData.extraPartyEvoData[extraDataIndex].totalDamageReceived);
+                    return extraEvoData.extraPartyEvoData[extraDataIndex].totalDamageReceived >= evolutionParam && poke->GetSex() == (uint8_t)Pml::Sex::MALE;
+                }
+                return false;
+
+            case Pml::Personal::EvolveCond::TOTAL_DAMAGE_RECIEVED_FEMALE: // Total damage received in last battle + Female
+                Logger::log("TOTAL_DAMAGE_RECIEVED_FEMALE\n");
+                if (extraDataIndex != -1) {
+                    Logger::log("  damage: %d\n", extraEvoData.extraPartyEvoData[extraDataIndex].totalDamageReceived);
+                    return extraEvoData.extraPartyEvoData[extraDataIndex].totalDamageReceived >= evolutionParam && poke->GetSex() == (uint8_t)Pml::Sex::FEMALE;
+                }
+                return false;
+
             default:
                 return false;
         }
