@@ -21,7 +21,7 @@ static constexpr const char* FEATURES[] = {
     "Language Select",
     "Level Cap",
     "NPC Collision Audio",
-    "Outfit Neutral UI",
+    "Uniform UI",
     "Party Context Menu",
     "Poké Radar Fixes",
     "Two-Button Pokétch",

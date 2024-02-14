@@ -83,8 +83,10 @@ void exl_level_cap_main();
 // Adds audio feedback when "bonking" into NPCs.
 void exl_npc_collision_audio_main();
 
+// Uniformizes certain UI elements:
 // Changes all UI elements that are outfit and ColorVariation dependent to the default ones.
-void exl_outfit_neutral_ui_main();
+// Repoints Large and DP/Pixel Pokémon sprites to the base ones.
+void exl_uniform_ui_main();
 
 // Adds nicknaming and move relearning to the party menu.
 void exl_pla_context_menu_main();
