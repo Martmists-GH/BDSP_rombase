@@ -35,6 +35,7 @@ static constexpr const char* FEATURES[] = {
     "Underground Forms",
     "Wild Forms",
     "Wild Held Item Rates",
+    "Contest NPC Forms",
 };
 
 constexpr int FEATURE_COUNT = sizeof(FEATURES) / sizeof(FEATURES[0]);
